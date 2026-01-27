@@ -1,0 +1,269 @@
+---
+title: "Exercise Notebook"
+subtitle: "Basics of Data Science Workshop"
+date: "`r Sys.Date()`"
+author: "Your Name Here"
+format: 
+  html:
+    theme: flatly
+    number-sections: true
+    code-fold: show
+    highlight-style: zenburn
+    toc: true
+    df-print: paged
+    toc-location: left
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#35D48D"
+    title-block-banner-color: "White"
+editor: visual
+---
+
+In this notebook, you are going to do a preliminary analysis on the Swiss population, that will then allow you to answer the following questions:
+
+> "How has the population in Swiss cantons changed in the past 10 years?"
+>
+> "Are swiss residents living in big or small households?".
+
+To best answer these questions, we have downloaded data made available by [FSO](https://www.bfs.admin.ch/bfs/en/home/statistics/population.html) and have reshaped them for you to work with during this workshop.
+
+You can find the data in the `/data` folder.
+
+The following exercises have been designed to allow you to apply what you learn in the workshop to a real-world dataset.
+
+## Exercise 1
+
+::: callout-important
+This Exercise comes after the first topic: **Data Import**
+:::
+
+### Attach the Packages
+
+Attach the Packages that you have seen so far.
+
+::: callout-tip
+Take a look at the format of the data first, so you can decide which Packages you need to attach them.
+:::
+
+```{r}
+
+```
+
+### Import the data
+
+Now load all datasets:
+
+-   `communes_population.csv`
+-   `communes_ids.xlsx`
+-   `district_ids.csv`
+
+::: callout-note
+Assign the contents to the tables `communes_population`, `communes_ids`, `distict_ids`, respectively.
+:::
+
+```{r}
+## load the communes_population
+
+
+## load the communes ids
+ 
+
+## load the district ids
+
+```
+
+## Exercise 2
+
+::: callout-important
+This Exercise comes after **Section 1 (Subsections 1.1-1.7)** of the second topic: **Data Wrangling**
+:::
+
+### Explore the data
+
+Now take a look at the imported data and make sure all the numeric and non-numeric columns have been imported correctly.
+
+To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the `Environment` tab.
+
+```{r}
+
+```
+
+### How many inhabitants were living in a 4 people household in the commune of "1123 Altishofen" in 2013? Use code to find out.
+
+```{r}
+
+
+```
+
+### In how many communes has the population decreased in 1 Person households between 2012 and 2021?
+
+::: callout-tip
+1- Keep only the "1 Person" household sizes
+
+2- Calculate the difference between the population registered in 2021 and 2012
+
+3- Keep only the rows for which the calculated difference is lower than 0
+
+4- Optional: keep only the relevant rows
+
+5- Optional: arrange by the difference you calculated
+:::
+
+```{r}
+
+```
+
+## Exercise 3
+
+::: callout-important
+This Exercise comes after **Section 1** **(Subsections 1.8 - 1.9)** of the second topic: **Data Wrangling**
+:::
+
+### Which is the canton with the highest number of districts?
+
+::: callout-tip
+Use `group_by()` and `summarise()`. Group the data by canton, then compute the number of districts. Print only the canton that has the most districts.
+:::
+
+```{r}
+
+```
+
+## Exercise 4
+
+::: callout-important
+This Exercise comes after **Section 2** of the second topic: **Data Wrangling**
+:::
+
+### Calculate the total population in 2021 by district.
+
+::: callout-note
+Find a way to join together the `communes_ids` and `communes_population` data sets first. Then use `group_by()` and `summarise()` to compute the population of each district in 2021 (sum the population of all communes in each district)
+:::
+
+```{r}
+
+```
+
+## Exercise 5
+
+::: callout-important
+This Exercise comes after **Section 3** of the second topic: **Data Wrangling**
+:::
+
+::: callout-warning
+Here you will use the `{tidyr}` library. Remember to load it!
+:::
+
+### Transform the `communes_population` to long format
+
+::: callout-tip
+Create a `communes_long` by transforming the `communes_population` to longer format (use `pivot_longer()`).
+:::
+
+```{r}
+# communes_long <- 
+  
+```
+
+### Summarise the data by canton and by year
+
+Create a new tibble called `canton_long`, which is the summarised version of `communes_long`.
+
+1- You can see that you are missing the "canton" information in the `communes_long`, find a way to join `district_ids` and `communes_ids` to `communes_long`.
+
+```{r}
+#communes_long <- communes_long %>% 
+#  left_join() %>% 
+#  left_join()
+```
+
+2- Now create the tibble `canton_population` by grouping by `canton` and `year`, and summarising the data by canton. (The population of a canton is the sum of the population of each commune comprised in it).
+
+```{r}
+#canton_population <- communes_long  %>% 
+#   ... %>% 
+#.  ... %>% 
+```
+
+## Exercise 6
+
+::: callout-important
+This Exercise comes after the last topic: **Data Visualisation**
+:::
+
+::: callout-warning
+Here you will use the `{ggplot2}` and the `{stringr}` library. Remember to attach it!
+:::
+
+Clean the `year` column by removing the `x` in the `canton_long` tibble that you have created before.
+
+-   You can use `str_remove()` function to remove the "x".
+
+-   The resulting variable will be of type "character": change it to numeric.
+
+See the example below:
+
+```{r eval = FALSE}
+
+library(stringr)
+
+my_data <- my_data %>% 
+  mutate(var_cleaned = str_remove(var_to_clean, "x")) %>% 
+  mutate(var_cleaned = as.numeric(var_cleaned))
+
+```
+
+```{r}
+library(stringr)
+# use canton_population
+
+
+
+```
+
+### Show the evolution of the population by canton.
+
+To do so, draw a line per canton by mapping the `color` to the canton.
+
+::: callout-tip
+Map the `year` to the `x` and the `population` to the `y` axes. And use `geom_line()`
+:::
+
+```{r}
+# use canton population
+
+```
+
+### Compare the population between 2012 and 2021 for the different cantons.
+
+Create a horizontal bar blot, mapping the `fill` to the year so you have two separate bars, one for each year. In order to avoid stacking the bars on top of each other (the default in `{ggplot2}`), you can add the argument `position = "dodge"` to the `geom_col()`.
+
+```{r}
+# use canton population
+# filter the data first
+# make sure the year is a character vector
+
+```
+
+### Create a plot per canton
+
+```{r}
+# apply facet_wrap() to your previous code
+```
+
+### Optional: Use a different theme
+
+Apply a different theme to the previous plots.
+
+::: callout-tip
+If you write `theme_` in the console, all the preset themes will appear in a drop-down menu. A good choice is usually `theme_minimal()` for a more minimal look.
+:::
+
+### Optional: Export the plots
+
+Set the `height` and the `width` so that the plot is readable.
+
+```{r}
+
+```

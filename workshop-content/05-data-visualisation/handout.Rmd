@@ -1,0 +1,527 @@
+---
+title: "Data Visualisation in `R`"
+output: 
+  html_document:
+    number_sections: true
+    highlight: zenburn
+    code_folding: show
+    df_print: paged
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+```{r include=FALSE}
+# Set options for all chunks:
+
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE
+)
+
+```
+
+We will now discover another step in the data pipeline, the visualisation part. 
+Data visualisation is an important part of the data exploration loop, but it is also very important as a tool to communicate results in a clear and meaningful way. 
+Today, we will see the basics of data visualisation in R, using the `wta_grand_slam_data.csv`.
+
+![](illustrations/fig-data-viz.png)
+
+We start by importing the libraries that we need to load and manipulate the data, and that you are already familiar with.
+
+```{r setup, include=FALSE}
+library(readr)
+library(dplyr)
+```
+
+
+# Importing the data
+
+```{r}
+# reading in the data
+
+wta <- read_csv("https://raw.githubusercontent.com/gruggeri/tennis_wta/master/wta_grand_slam_data.csv")
+
+```
+
+Today we will focus only on the finals, so we use `filter()` to select only the rows corresponding to the final rounds.
+
+```{r}
+finals <- wta %>% 
+  filter(round == "F")
+
+head(finals)
+```
+
+# `{ggplot2}` syntax
+
+`{ggplot2}` is **the package** for data visualisation in R. While other libraries are also available in R, `{ggplot2}` provides an extremely versatile but consistent framework for creating charts in R, based on the *grammar of graphics* theoretical base.
+
+Let's load the package first so that we can then use the functions that are available there:
+
+```{r}
+# load the library first to access the functions
+library(ggplot2) 
+```
+
+
+Based on the `{ggplot2}` framework, graphics are made of:
+
+- data
+- mappings
+- geometries
+- themes
+
+Let's take a look at the syntax to clarify the concepts. First, we create a base plot made of data and mappings, to which we will then add a geometry later (the geometry being anything you draw on the chart area: points, lines etc.).
+
+
+
+
+In this case, *we want to explore if there is a trend in the age of the different tournament winners in time*. 
+Let's construct the base of our plot.
+
+To do so, inside the `ggplot()` function, we define the `data` using `data = finals`, which is what we want to plot.
+We also map the `x` axis to `year` and the `y` axis to `winner age`.
+
+
+```{r}
+# create a base plot
+
+ggplot(data = finals, # the data
+       mapping = aes(x = year, # mapping the x-axis to year
+                     y = winner_age) # mapping the y-axis to winner age
+       ) 
+```
+
+Which geometry would we want to add here?
+
+Let's start by adding **points**, to represent our data. We want one point for every observation.
+To add the points we define the geometry as `geom_point()`, which we need to add after a `+` sign to our base chart.
+
+> Beware, in `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = year,
+                     y = winner_age)) +
+  geom_point() # our geometry of choice: points
+```
+
+Not very informative, isn't it? It looks like there is no trend in the age of the wta winners in time.
+What if we checked if we could see a trend by dividing the data by `surface`? 
+
+> In this case, we would need to add a dimension to the data, for instance, the colour dimension. We will then color each point based on the surface of the tournament final. Remember that we have various variables in the dataset, one of which is `surface`.
+
+How would we do it in the `{ggplot2}` syntax?
+In this case, we would **map** the colour **aesthetic** to the `surface` variable.
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = year,
+                     y = winner_age,
+                     color = surface)) + #mapping the colour aesthetic to the surface variable
+  geom_point()
+
+```
+
+> Any difference? Not really.
+
+We can probably conclude that there is not really a trend overall but a series of trends. These are due to the same player winning over many years and at the same time getting older.
+Let's test it and map the colour aesthetic to the `winner_name`. 
+
+```{r fig.width=10, fig.height= 5}
+ggplot(data = finals,
+       mapping = aes(x = year,
+                     y = winner_age,
+                     color = winner_name)) + #mapping the colour aesthetic
+  geom_point() #+
+  #theme(legend.position = "none") if the plot does not show in renku
+```
+
+> In general, mapping a third dimension (e.g., color or dot size) to a third variable can help us discover trends in our data.
+
+
+Look at the option of the chunk we have used here. We have defined a dimension of the chart in the options (`fig.width=5, fig.height= 3`) because we want to enlarge the plot since the legend will also take up a lot of space. 
+
+
+From the previous chart, it is also interesting to see that before 1977, tournaments were played only on *grass* or *clay*, and *hard* surfaces arrived only after that year.
+
+We can now ask another question and try to respond using a different plot:
+*Is there a difference in the distribution of the tournament winner's age across the different surfaces?*
+
+What type of plot would allow us to explore this visually?
+A good choice here would be to use *boxplots* that provide good summaries of distributions.
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = surface, # we change the mapping of the x axis
+                     y = winner_age)) 
+```
+
+
+We now have a base plot. How do we add the geometry `boxplot`? Very consistently,
+this geometry is called `geom_boxplot()`.
+
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = surface,
+                     y = winner_age)) +
+  geom_boxplot() # adding the geometry to create the boxplot
+
+```
+
+> It is important to note that the summary statistics that are needed to plot the boxplots (i.e. median, upper and lower quartile) are computed from the "raw" data when drawing the plot.
+
+Warning: Plotting the data this way can give us a nice hint on whether there are differences in the different categories. Although, more is needed to fully answer this question because we should do a statistical test, and also, the variables are not entirely independent. However, this plot can already give us an idea if we are looking in the right direction. A proper test to see if the average age is higher of winners of wta tournaments on grass surfaces should be done. 
+
+# Adding more `geoms_*`
+
+When we think about `{ggplot2}` graphics, we need to reason in layers, just as if we were drawing elements of the plots, layers by layers.
+So far, we have drawn the base plot, with the axis and plot area, and then we have added the geometry (point and boxplot) on top of it.
+
+What if we wanted to give more information than just the boxplots to the charts? Are there differences in how many observations we have by category? Do we have extreme values that we might want to take a look at?
+
+Let's add *points* on top of the boxplot.
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = surface,
+                     y = winner_age)) +
+  geom_boxplot() +
+  geom_point() # added a new geometry representation for the same mappings
+```
+
+
+> Now we have a little visualisation challenge: **overplotting**!
+
+How can we solve this? There are different ways to avoid overplotting. In this case, we will add a small amount of random variation to the location of each point. This is a very 
+useful geom to handle overplotting caused by discreteness in small datasets.
+
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = surface,
+                     y = winner_age)) +
+  geom_boxplot() +
+  geom_jitter() # added a jitter on top
+```
+
+
+## Exercise 01 -- see exercise 
+
+
+We can also adjust a bit the jitter, by defining the amount of spread. The default is 40% of the resolution of the data, so that the jitter will occupy 80% of the implied bins (40% in both positive and negative direction).
+
+
+```{r}
+
+ggplot(data = finals,
+       mapping = aes(x = surface,
+                     y = winner_age)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2) # spreading the points a little less
+```
+
+# Who won most wta games? 
+
+Let's ask a different question: *How would you show in a chart who won the most games in total*?
+
+Let's start by creating the summary dataset.
+
+```{r}
+total_wins <- finals %>% 
+  group_by(winner_name) %>% 
+  summarise(total_wins = n()) %>% 
+  arrange(-total_wins) %>% 
+  ungroup()
+```
+
+```{r}
+head(total_wins)
+```
+
+
+## Exercise 02 -- see exercise file
+
+
+# Customising the plot
+
+Let's now customise this plot to make it clearer and nicer to see. 
+
+First of all, let's order the bars. In `R`, to order the bars, we need to order the variable `winner_name` based on the desired order.
+To do so, we use factors, a categorical data structure that allows ordering. 
+
+The library we use for factors is called `{forcats}`. All its functions have a consistent name, starting with the same prefix: `fct_*()`.
+
+```{r}
+library(forcats)
+
+total_wins <- total_wins %>% 
+  # we reorder the winner_name by total wins
+  mutate(winner_name = fct_reorder(winner_name, total_wins)) 
+```
+
+```{r}
+head(total_wins) #see that now winner_name is stored as a factor
+```
+
+Now we can rerun the same code for the plot, which will have ordered bars.
+
+```{r}
+ggplot(data = total_wins, 
+       mapping = aes(x = total_wins,
+                     y = winner_name)) +
+  geom_col()
+```
+
+The plot is already much more readable, but how can we improve it?
+
+For instance, we can decide that, if our focus is the top winners, not to show all the winners but keep only the first 20.
+To do so, we can use `head()` and feed it directly to the `ggplot()`. In this way we are not modifying the original tibble.
+
+
+```{r}
+total_wins %>% 
+  head(n=20) %>% 
+  ggplot(mapping = aes(x = total_wins,
+                       y = winner_name)) +
+  geom_col()
+```
+
+It is time to add a title and fix the axis names. We will add a `labs()` layer to our plot to do so.
+
+```{r}
+total_wins %>% 
+  head(n=20) %>% 
+  ggplot(mapping = aes(x = total_wins,
+                       y = winner_name)) +
+  geom_col() +
+  #adding labels
+  labs(title = "Serena Williams won 23 WTA tournaments",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+       x = "Number of WTA Tournaments Won",
+       y = "",
+       caption = "source: https://github.com/JeffSackmann")
+```
+
+The result is already improved; now we can give a different theme to the plot.
+
+`{ggplot2}` has multiple ready-to-use themes.
+
+You can see [here](https://ggplot2.tidyverse.org/reference/ggtheme.html) a list of them.
+Some of them are: 
+
+- `theme_minimal()`: a good starting point to then further customise the plot manually
+- `theme_dark()`: if you prefer to go darker
+- `theme_bw()`
+- `theme_classic()`
+
+> You can see them all if you type `theme_` in your console.
+
+```{r}
+total_wins %>% 
+  head(n=20) %>% 
+  ggplot(mapping = aes(x = total_wins,
+                       y = winner_name)) +
+  geom_col() +
+  labs(title = "Serena Williams won 23 WTA tournaments",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+       x = "Number of WTA Tournaments Won",
+       y = "",
+       caption = "source: https://github.com/JeffSackmann") +
+  # adding a theme
+  theme_minimal()
+```
+
+## Exercise 03 -- see exercise file
+
+> Check the explanation below, but first try to do the exercise!!
+
+In the first one, we are mapping the colour to a variable called "blue"; therefore, it does not understand that blue is actually a colour we want to set. 
+For instance, the first option would work if we wanted to map the colour to the variable `total_wins`.
+
+```{r}
+total_wins %>% 
+  head(n=20) %>% 
+  ggplot(mapping = aes(x = total_wins,
+                       y = winner_name,
+                       fill = total_wins)) +
+  geom_col() +
+  labs(title = "Serena Williams won 23 WTA tournaments",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+       x = "Number of WTA Tournaments Won",
+       y = "",
+       caption = "source: https://github.com/JeffSackmann") +
+  theme_minimal()
+```
+
+In this case, it will create a continuous colour scale that is applied to the colour of the bars.
+
+From this little exercise, it is essential to understand that mapping the colour to a certain aesthetic will create a **colour scale**. If you want to set a colour to all your bars (a `color` or a `fill`), you need to do it outside the `aes()` and inside the `geom_*` function.
+
+
+For instance, as in the following:
+
+```{r}
+total_wins %>% 
+  head(n=20) %>% 
+  ggplot(mapping = aes(x = total_wins,
+                       y = winner_name)) + 
+  geom_col(fill = "lightblue") + # setting a colour for all the bars
+  labs(title = "Serena Williams won 23 WTA tournaments",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+       x = "Number of WTA Tournaments Won",
+       y = "",
+       caption = "source: https://github.com/JeffSackmann") +
+  theme_minimal()
+```
+
+
+
+
+# Who won most wta games by surface
+
+
+But, *did Serena Williams win more than Steffi Graf on all surfaces?*
+
+How can we see this visually?
+
+First, we need to create the dataset to count the total of tournaments won by player and by surface.
+We need to reorder the data first so that the bars are ordered again.
+
+Comment out line 465 out and see the plot result. ***TO BE CHECKED***
+The `fct_infreq()` orders factors by frequency of the chosen variable `winner_name`. Then we use `fct_rev()` to reverse the factor so that it will be ordered in descending order.
+
+```{r}
+total_wins_surface <- finals %>% 
+  mutate(winner_name = fct_rev(fct_infreq(winner_name))) %>% #reordering the data
+  group_by(winner_name, surface) %>% 
+  summarise(total_wins = n()) %>% 
+  arrange(surface, -total_wins) %>% 
+  ungroup()
+```
+
+
+Again we have the issue that there are too many names. We can use the previous data to keep only the top 20 winners and extract a vector of names.
+
+
+```{r}
+top20 <- total_wins %>% 
+  head(n=20) %>% 
+  pull(winner_name)
+
+top20
+```
+
+```{r}
+total_wins_surface %>%
+  filter(winner_name %in% top20) %>% 
+  ggplot(mapping = aes(x = total_wins, 
+                         y = winner_name,
+                         fill = surface)) +
+  geom_col() +
+  labs(
+    title = "Serena Williams won 23 WTA tournaments",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+    x = "Number of WTA Tournaments Won",
+    y = "",
+    caption = "source: https://github.com/JeffSackmann"
+  ) +
+  theme_minimal()
+```
+It is already evident here how Steffi Graff won more than Serena Williams on clay, but for the other bars, it is very difficult to compare. 
+
+# Creating multiple mini-plots
+
+We can use a different strategy to compare the players across different surfaces best: create a mini-plot for each surface. This will also allow us to add the number on top of the bars without overcrowding the plot.
+
+To do so, we can add a `facet_wrap()` layer. 
+
+> The mini plots in *`R`* are called *"facets"*.
+
+The syntax is slightly different, we need to wrap the variable name that we want to use to divide into facets into the function `vars()`.
+
+
+```{r}
+total_wins_surface %>%
+  filter(winner_name %in% top20) %>% 
+  ggplot(mapping = aes(x = total_wins, 
+                         y = winner_name,
+                         fill = surface)) +
+  geom_col() +
+  labs(
+    title = "Serena Williams won 23 WTA tournaments",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+    x = "Number of WTA Tournaments Won",
+    y = "",
+    caption = "source: https://github.com/JeffSackmann"
+  ) +
+  theme_minimal() +
+  facet_wrap(vars(surface)) # using surface as a faceting variable
+```
+
+We can now hide the legend since it's redundant by customising our theme a bit more.
+
+> Also, the colours here are a bit redundant, but we keep them just for personal taste; feel free to remove them.
+
+```{r}
+total_wins_surface %>%
+  filter(winner_name %in% top20) %>% 
+  ggplot(mapping = aes(x = total_wins, 
+                         y = winner_name,
+                         fill = surface)) +
+  geom_col() +
+  labs(
+    title = "Serena Williams won 23 WTA tournaments",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
+    x = "Number of WTA Tournaments Won",
+    y = "",
+    caption = "source: https://github.com/JeffSackmann"
+  ) +
+  theme_minimal() +
+  facet_wrap(vars(surface)) +
+  theme(legend.position = "none") #removing the legend
+```
+
+# Exporting your plots
+
+Once you are happy with your plots, it is time to export it.
+The easiest way is by using `ggsave()`, which, by default, saves the last plot 
+that you displayed. So basically, you just need to provide the file name you want as argument.
+
+
+```{r}
+ggsave("atp_wins_by_surface.png")
+```
+
+
+By default, here, it saved a 7x7 image. If we want to customise the appearance, we can use
+the `width` and `height` arguments.
+
+
+```{r}
+ggsave("atp_wins_by_surface.png", width = 7, height = 5)
+```
+
+
+
+# More resources
+
+- [`{ggplot2}` book](https://ggplot2-book.org)
+- [`{ggplot2}` cheatsheet](https://ggplot2.tidyverse.org)
+- [`{ggplot2}` extensions](https://exts.ggplot2.tidyverse.org)
+- [R for data science](https://r4ds.had.co.nz)
+- [R for data science exercise solutions](https://jrnold.github.io/r4ds-exercise-solutions/)
+
+
+
+
+

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>A brief introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="EPFL Extension School - Basics of Data Science Workshop" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://dfloresag.github.io/exts_xaringan/css/exts.css" type="text/css" />
+    <link rel="stylesheet" href="https://dfloresag.github.io/exts_xaringan/css/exts-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# A brief introduction to Data Science
+]
+.subtitle[
+## With examples in R and the <code>{tidyverse}</code>
+]
+.author[
+### EPFL Extension School - Basics of Data Science Workshop
+]
+
+---
+
+
+
+
+
+
+class: subsection, center, middle, animated, slideInRight
+
+# &lt;svg viewBox="0 0 544 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M527.79 288H290.5l158.03 158.03c6.04 6.04 15.98 6.53 22.19.68 38.7-36.46 65.32-85.61 73.13-140.86 1.34-9.46-6.51-17.85-16.06-17.85zm-15.83-64.8C503.72 103.74 408.26 8.28 288.8.04 279.68-.59 272 7.1 272 16.24V240h223.77c9.14 0 16.82-7.68 16.19-16.8zM224 288V50.71c0-9.55-8.39-17.4-17.84-16.06C86.99 51.49-4.1 155.6.14 280.37 4.5 408.51 114.83 513.59 243.03 511.98c50.4-.63 96.97-16.87 135.26-44.03 7.9-5.6 8.42-17.23 1.57-24.08L224 288z"&gt;&lt;/path&gt;&lt;/svg&gt; What is Data Science?
+
+---
+class: subsubsection, center, middle, animated, fadeIn
+
+## In Theory 
+
+--
+
+### Using an **intersection** of **practices** and **skills**
+### to answer a research **question** that involves **data**
+
+---
+class: animated, fadeIn
+background-image: url(img/fig-data-science.png)
+background-size: cover
+
+
+---
+class: subsubsection, center, middle, animated, fadeIn
+
+## In Practice
+
+--
+
+## **mastering** the **Data pipeline**
+
+
+---
+class: animated, fadeIn
+
+# The Data pipeline
+
+.pull-left[
+.content-box-oil[
+
+### &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M16 288c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h112v-64zm489-183L407.1 7c-4.5-4.5-10.6-7-17-7H384v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-153 31V0H152c-13.3 0-24 10.7-24 24v264h128v-65.2c0-14.3 17.3-21.4 27.4-11.3L379 308c6.6 6.7 6.6 17.4 0 24l-95.7 96.4c-10.1 10.1-27.4 3-27.4-11.3V352H128v136c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H376c-13.2 0-24-10.8-24-24z"&gt;&lt;/path&gt;&lt;/svg&gt; **Import**
+
+.content-box-white[
+####  _Load_ data into our analysis tool 
+]
+]
+
+.content-box-oil[
+
+### &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256.47 216.77l86.73 109.18s-16.6 102.36-76.57 150.12C206.66 523.85 0 510.19 0 510.19s3.8-23.14 11-55.43l94.62-112.17c3.97-4.7-.87-11.62-6.65-9.5l-60.4 22.09c14.44-41.66 32.72-80.04 54.6-97.47 59.97-47.76 163.3-40.94 163.3-40.94zM636.53 31.03l-19.86-25c-5.49-6.9-15.52-8.05-22.41-2.56l-232.48 177.8-34.14-42.97c-5.09-6.41-15.14-5.21-18.59 2.21l-25.33 54.55 86.73 109.18 58.8-12.45c8-1.69 11.42-11.2 6.34-17.6l-34.09-42.92 232.48-177.8c6.89-5.48 8.04-15.53 2.55-22.44z"&gt;&lt;/path&gt;&lt;/svg&gt; **Tidy**
+
+.content-box-white[
+
+####  _Clean_ and _Transform_ the data 
+]
+]
+]
+
+
+--
+
+.pull-right[
+.content-box-oil[
+
+### &lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M574.1 280.37L528.75 98.66c-5.91-23.7-21.59-44.05-43-55.81-21.44-11.73-46.97-14.11-70.19-6.33l-15.25 5.08c-8.39 2.79-12.92 11.86-10.12 20.24l5.06 15.18c2.79 8.38 11.85 12.91 20.23 10.12l13.18-4.39c10.87-3.62 23-3.57 33.16 1.73 10.29 5.37 17.57 14.56 20.37 25.82l38.46 153.82c-22.19-6.81-49.79-12.46-81.2-12.46-34.77 0-73.98 7.02-114.85 26.74h-73.18c-40.87-19.74-80.08-26.75-114.86-26.75-31.42 0-59.02 5.65-81.21 12.46l38.46-153.83c2.79-11.25 10.09-20.45 20.38-25.81 10.16-5.3 22.28-5.35 33.15-1.73l13.17 4.39c8.38 2.79 17.44-1.74 20.23-10.12l5.06-15.18c2.8-8.38-1.73-17.45-10.12-20.24l-15.25-5.08c-23.22-7.78-48.75-5.41-70.19 6.33-21.41 11.77-37.09 32.11-43 55.8L1.9 280.37A64.218 64.218 0 0 0 0 295.86v70.25C0 429.01 51.58 480 115.2 480h37.12c60.28 0 110.37-45.94 114.88-105.37l2.93-38.63h35.75l2.93 38.63C313.31 434.06 363.4 480 423.68 480h37.12c63.62 0 115.2-50.99 115.2-113.88v-70.25c0-5.23-.64-10.43-1.9-15.5zm-370.72 89.42c-1.97 25.91-24.4 46.21-51.06 46.21H115.2C86.97 416 64 393.62 64 366.11v-37.54c18.12-6.49 43.42-12.92 72.58-12.92 23.86 0 47.26 4.33 69.93 12.92l-3.13 41.22zM512 366.12c0 27.51-22.97 49.88-51.2 49.88h-37.12c-26.67 0-49.1-20.3-51.06-46.21l-3.13-41.22c22.67-8.59 46.08-12.92 69.95-12.92 29.12 0 54.43 6.44 72.55 12.93v37.54z"&gt;&lt;/path&gt;&lt;/svg&gt; **Understand**
+
+
+.content-box-white[
+
+####  Via _Visualisations_, _Models_ 
+
+]
+]
+
+.content-box-oil[
+
+### &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; **Communicate**
+
+.content-box-white[
+
+####  _Report_ your insights
+]
+]
+]
+
+---
+
+
+class: animated, fadeIn
+background-image: url(img/fig-data-pipeline-empty.png)
+background-size: cover
+
+---
+class: subsection, center, middle, animated, fadeIn
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; What is R?
+
+---
+class: animated, fadeIn
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; A brief overview
+
+.center[
+  .content-box-marine[
+  **R** is an open source **programming language** designed for **statistical computing**
+  ]
+]
+
+.center[
+  .content-box-marine[
+  **R** is **highly extensible through `{packages}`** that can be **developed by anyone**. 
+  ]
+]
+.center[
+  .content-box-marine[
+  **Packages** are **collections of functions** that expand the functionality of R.
+  ]
+]
+--
+- **R**: your **workbench**. 
+
+- **Data**: the **materials** you're working with (metal, or wood)
+
+- **Functions**: the **tools** you use to transform the materials (saw, hammers, pliers)
+
+- **Packages**: the **toolboxes** that contain a bunch of useful tools.
+
+
+---
+class: animated, fadeIn
+background-image: url(https://tidyverse.tidyverse.org/articles/tidyverse-logo.png)
+background-size: 150px
+background-position: 90% 90%
+
+# `{tidyverse}`: Another flavour of &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt;.
+
+.center[
+  .content-box-marine[
+   Base **R** is **powerful** but a bit **hard to learn**
+  ]
+]
+  
+- One of the main problems: **many different ways to organise data**. 
+  
+???
+
+- functions have same names, they don't communicate well with each other
+- the output of one does not become easily the input of another (especially if they come from different packages)
+- `lists` are the preferred data source
+- "Freedom comes at a price" lists are powerful but can lead to those inconsistencies
+
+--
+
+.center[
+  .content-box-marine[
+   Enter the **`{tidyverse}`**, "an _opinionated_ collection of packages"
+  ]
+]
+
+- The Data is **organised in single, consistent way**: **"tidy" data**. 
+
+???
+
+- "opinionated" they are directive, i.e. they come with a set of rules and guidelines
+
+
+---
+class: animated, fadeIn
+background-image: url(https://www.openscapes.org/img/blog/tidydata/tidydata_1.jpg)
+background-size: 80%
+
+.footnote[
+.tiny[
+Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+]
+
+]
+
+
+---
+class: animated, fadeIn
+background-image: url(https://www.openscapes.org/img/blog/tidydata/tidydata_2.jpg)
+background-size: 80%
+
+.footnote[
+.tiny[
+Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+]
+
+]
+---
+class: subsection, center, middle, animated, slideInRight
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; Why R and `{tidyverse}`?
+
+---
+class: subsection, center, middle, animated, fadeIn
+
+
+## With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt;!
+
+---
+class: animated, fadeIn
+background-image: url(img/fig-data-pipeline-packages-today.png)
+background-size: cover
+
+---
+class: subsection, center, middle, animated, slideInRight
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; Prework Refresh
+
+---
+class: subsection, center, middle, animated, slideInRight
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"&gt;&lt;/path&gt;&lt;/svg&gt; Saving today's work with `git`
+
+---
+class: animated, fadeIn
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"&gt;&lt;/path&gt;&lt;/svg&gt; Saving today's work with `git`
+
+To **save today's work from Renku**, we'll use `Gitlab` and some `git` commands.
+
+.center[
+  .content-box-marine[
+  `git` is a system that **tracks the changes** you make to your **scripts**. It's **log** of **modifications** 
+  ]
+]
+
+--
+Go into the `Terminal` Tab of the RStudio IDE (next to `Console` tab)
+
+To take a "snapshot" of your work type:  
+
+- `git add .` + &lt;kbd&gt;Enter&lt;/kbd&gt; to **add all the recent changes** to your files to the tracking system. 
+  
+--
+
+- `git commit -m "your commit message" --no-verify` + &lt;kbd&gt;Enter&lt;/kbd&gt; to **register** the changes. 
+  
+  - `"your commit message"` is the "title" of your changes, e.g. `"Solution to Exercise 1"`
+  
+--
+
+- `git push` + &lt;kbd&gt;Enter&lt;/kbd&gt; 
+  - to **send** the changes to `GitLab`
+
+And from `GitLab`, we can download your modifications at the end of the day!
+---
+class: subsection, center, middle, animated, fadeIn
+
+# &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; Beyond the Prework
+
+---
+class: animated, fadeIn
+
+## &lt;svg role="img" viewBox="0 0 24 24" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;title&gt;&lt;/title&gt;  &lt;path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"&gt;&lt;/path&gt;&lt;/svg&gt; Let's go beyond the Prework
+
+### 🗄️ Datasets
+
+### 🧰 Using packages
+
+### ⁉️ Asking for Help!
+
+### ▶️️ The Pipe operator
+
+---
+class: animated, fadeIn
+# 🗄 Datasets in variables 
+
+To work with data in R, **assign the dataset** to a **variable**
+
+
+``` r
+rolling_stones_data &lt;- read_csv("data/rolling_stones.csv")
+```
+
+
+```
+## # A tibble: 1 × 6
+##   song_name   album_name   release_year song_duration song_popularity live 
+##   &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt; &lt;lgl&gt;
+## 1 Sad Sad Sad Steel Wheels         1989           215              23 FALSE
+```
+
+--
+
+You can **use more than one dataset** in your session, by **storing them in different variables**
+
+
+``` r
+# reading a dataset: rolling_stones
+rolling_stones_data &lt;- read_csv("data/rolling_stones.csv")
+
+# reading another dataset: sales
+sales_data &lt;- read_tsv("data/sales_data.tsv", skip = 3)
+```
+
+???
+
+Here, talk about data types: 
+
+- `slice_head()` gives you the first row of a dataset
+- you see here the `chr`, `numeric` etc.? : It means that every column has a *type*
+
+---
+class: animated, fadeIn
+# 🗄 Data Formats
+
+.center[
+  .content-box-marine[
+   In this workshop, we will focus on **data that comes in tables**, like **MS Excel**.
+  ]
+]
+
+--
+
+But, in R you can work with **many different data structures**, such as:
+
+- **structured** databases, like an **SQL** database
+
+- **unstructured** databases, such as **json** and **xml** files
+
+- **raw text** and **html code**
+
+- even **STATA, SAS and SPSS data**!
+
+--
+
+.center[
+  .content-box-marine[
+We are not limited by a particular data format when using **R**
+]]
+
+---
+class: animated, fadeIn
+background-image: url(https://www.tidyverse.org/blog/2020/06/dplyr-1-0-0/dplyr.png)
+background-size: 200px
+background-position: 90% 90%
+
+# 🧰 Packages
+
+.center[
+  .content-box-marine[
+   We said that **R** is highly extensible through *packages*.
+  ]
+]
+
+- In a project we only use the tools we need.  
+
+- Thus, we **only attach** the packages **we need**.  
+
+(After all, nobody likes a messy workbench!)
+
+???
+
+- Mention Excel, photoshop, browser *plugins*
+- "There's a package for that"
+
+---
+class: animated, fadeIn
+# 🧰 Installing and Attaching R Packages
+
+To **use** the functions in a package, we need to do **two things**:
+.pull-left[
+
+.content-box-oil[
+.center[
+
+#### 1. **Install** the package
+
+.content-box-white[
+
+##### We only have to do this **once**. 
+  
+#####  ⚠️ **Do not include this** in your **source code!**
+ 
+```r
+# install the package dplyr
+install.packages("dplyr")
+```
+]
+]
+]
+
+]
+
+
+--
+.pull-right[
+.content-box-oil[
+.center[
+
+#### 2. **Attach** the package  
+
+.content-box-white[
+
+##### This you need to do in **each session**. 
+  
+##### ⚠️ **Include this** in your **source code!**
+ 
+  ```r
+  # attach the package dplyr
+  library(dplyr)
+  ```
+
+]
+]
+]
+]
+
+
+---
+class: animated, fadeIn
+# 🧰 Example: using `dplyr::slice_head()` 
+
+
+- The function `slice_head()` allows us to view **the first line(s)** of a dataset.
+
+- This function  `slice_head()` is part of the Package `{dplyr}`.
+
+- Let's use it on the `cars` dataset.
+
+--
+
+
+``` r
+# attaching the package
+library(dplyr)
+
+# using the function slice_head() on the dataset cars
+slice_head(cars)
+```
+
+```
+##   speed dist
+## 1     4    2
+```
+
+**Success!!**
+
+---
+class: animated, fadeIn
+# ⁉ Asking for help
+
+.pull-left[
+If you want to know what a function does, all you need to do is type:
+
+1. a question mark `?`
+
+2. the name of the function you want to know more about
+
+For instance:
+
+```r
+?slice_head()
+```
+]
+
+.pull-right[
+&lt;img src = img/help.png /&gt;
+]
+
+---
+class: animated, fadeIn
+# ▶️ The _Pipe_ operator of the `{tidyverse}`
+
+.center[
+  .content-box-marine[
+   Allows us to **write code _sequentially_** which makes it **easy to read and write** complex calls. 
+  ]
+]
+
+--
+
+**Example:** Plotting  the density of the variable `speed` in the `cars` datset
+
+```r
+# nested
+plot(density(cars$speed))
+
+# with the pipe
+cars %&gt;% pull(speed) %&gt;% density() %&gt;% plot()
+```
+--
+
+- Which can be "read" as 
+
+  - "_take the dataset `cars`..._ "
+  
+--
+  
+  - "_... **then** `pull()` the variable `speed`..._"
+  
+--
+  
+  - "_... **then** compute the `density()`..._"
+  
+--
+  
+  - "_...**then** build a `plot()`._"
+
+---
+class: animated, fadeIn
+# ▶️ The _Pipe_ operator of the `{tidyverse}`
+
+
+.center[
+  .content-box-marine[
+   The _pipe_ ` %&gt;% ` **"feeds" the left-hand side** as the **first argument** of the next function.
+  ]
+]
+
+ Use the shortcut: **Shift** + **Crtl** + **M**
+
+---
+class: subsection, center, middle, animated, fadeIn
+
+
+# Questions?
+
+
+---
+class: subsection, center, middle, animated, fadeIn
+
+# On to the next topics!
+--
+
+###  Working with **R Notebooks**
+
+### **Importing** Data
+
+### Data **Wrangling**
+
+### Data **Visualisation**
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

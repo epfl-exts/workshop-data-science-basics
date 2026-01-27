@@ -1,0 +1,261 @@
+---
+title: "Exploring Population Data in Switzerland"
+format: html
+editor: visual
+---
+
+## Exercise 1
+
+### Import the libraries
+
+Import the libraries that you have seen so far. Tip: take a look at the format of the data first, so you can decide which libraries you need to import them.
+
+```{r}
+library(readr) # to import text files
+library(readxl) # to import excel files
+library(dplyr) # to wrangle the data
+library(visdat) # to visualise the data structure
+library(tidyr)
+library(stringr)
+library(ggplot2)
+```
+
+### Load the data
+
+Now load all datasets:
+
+-   `communes_population.csv`
+-   `communes_ids.xlsx`
+-   `district_ids.csv`
+
+Tip: call the tibbles `communes_population`, `communes_ids`, `distict_ids`, respectively.
+
+```{r}
+## load the communes_population
+communes_population <- read_csv("communes_population.csv")
+
+## load the communes ids
+communes_ids <- read_excel("communes_ids.xlsx", 
+    sheet = "communes_ids", skip = 2)
+
+## load the district ids
+district_ids <- read_csv("district_ids.csv")
+```
+
+## Exercise 2
+
+### Explore the data
+
+Now take a look at the imported data and make sure all the numeric and non numeric columns have been imported correctly. To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the Environment tab.
+
+```{r}
+slice_head(communes_population)
+```
+
+```{r}
+visdat::vis_dat(communes_population)
+```
+
+```{r}
+glimpse(communes_population)
+```
+
+### How many communes are included in the dataset?
+
+Tip: you can count the rows of the `communes_ids` dataset.
+
+```{r}
+communes_ids %>% 
+  nrow()
+```
+
+### How many inhabitant were living in a 4 people household in the commune of "1123 Altishofen" , in 2013? Use code to find out.
+
+```{r}
+communes_population %>% 
+  filter(commune == "1123 Altishofen", household_size == "4 Personen") %>% 
+  select(x2013) # maybe call the columns are "year"
+```
+
+### In how many communes has the population increased in 1 Person households, between 2012 and 2021?
+
+Tip: keep only the "1 Person" household sizes, calculate the difference between 2021 and 2012 and then keep only the rows for which the difference is higher than 0. If you then count the rows, you will have the answer.
+
+```{r}
+communes_population %>% 
+  filter(household_size == "1 Person") %>% 
+  mutate(difference = x2021-x2012)  %>% 
+  filter(difference > 0) %>% 
+  nrow()
+```
+
+### In which communes was the highest increase in population between 2012 and 2021 in 1 Person household registered?
+
+Show only the top 10 and show only the relevant columns (`commune`, `x2012`, `x2021` and the computed difference).
+
+```{r}
+communes_population %>% 
+  filter(household_size == "1 Person") %>% 
+  mutate(difference = x2021-x2012)  %>% 
+  filter(difference > 0) %>% 
+  arrange(desc(difference)) %>% 
+  select(commune, x2012, x2021, difference) %>% 
+  slice_head(n = 10)
+  
+```
+
+## Exercise 3
+
+### Which is the canton with the highest number of districts?
+
+Tip: Tip: Use `group_by()` and `summarise()`. Group the data by canton then compute the number of district. Print only the canton that has the most districts.
+
+```{r}
+district_ids %>% 
+  group_by(canton) %>% 
+  summarise(number_of_districts = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(number_of_districts)) %>% 
+  slice_head(n=1)
+```
+
+### Calculate the average number of communes, per district.
+
+Start by calculating the number of communes per each district, then calculate the mean. Tip: Use `group_by()` and `summarise()`. Calculate first the number of communes, by district and then compute the mean over all districts.
+
+```{r}
+communes_ids %>% 
+  group_by(district) %>% 
+  summarise(number_of_communes = n()) %>% 
+  ungroup() %>% 
+  summarise(average_n_communes = mean(number_of_communes))
+```
+
+## Are all Swiss cantons listed in the `district_ids` dataset?
+
+Tip: Use `distinct()` to extract only the unique values of a variable. e.g. `mydata %>% distinct(var)`
+
+```{r}
+district_ids %>% 
+  distinct(canton) %>% 
+  nrow()
+```
+
+## Exercise 4
+
+### Calculate the total population in 2021, by district.
+
+Tip: Find a way to join together the `communes_ids` and `communes_population` datasets first.
+
+```{r}
+communes_population %>% 
+  left_join(communes_ids, by = "commune") %>% 
+  group_by(district) %>% 
+  summarise(population = sum(`x2021`))
+  
+
+```
+
+## Exercise 5
+
+Here you will use the `{tidyr}` library. Remember to load it!
+
+### Summarise the data by district and by year
+
+Tip: transform the `communes_population` to longer format first, then join it with `communes_ids`. Apply then the needed transformations to get the data summarised by district and by year. Save the new computed data to a tibble to a new tibble called `distict_long`. You will use this dataset later, so it is better to store it.
+
+```{r}
+communes_long <- communes_population %>% 
+  pivot_longer(cols = x2012:x2021, 
+               names_to = "year", 
+               values_to = "population") %>% 
+  left_join(communes_ids, "commune")
+  
+
+district_long <- communes_long %>% 
+  group_by(district, year) %>% 
+  summarise(population = sum(population))
+```
+
+### Summarise the data by canton and by year
+
+Create a new tibble called `canton_long`, which is is the summarised version of `communes_long`.
+
+Tip: join `communes_long` with `district_ids` and then summarise the data by canton and year.
+
+```{r}
+communes_long <- communes_long %>% 
+  left_join(district_ids, "district")
+
+canton_long <- communes_long %>% 
+  group_by(canton, year) %>% 
+  summarise(population = sum(population))
+```
+
+## Exercise 6
+
+Here you will use the `ggplot2` library. Remember to load it!
+
+### Clean the `year` column by removing the `x` in the `canton_long` tibble that you have created before. You can use `str_remove()` function to remove the "x". The resulting
+
+variable will be of type "character": change it to numeric.
+
+See example below:
+
+```{r eval = FALSE}
+my_data <- my_data %>% 
+  mutate(var_cleaned = str_remove(var_to_clean, "x")) %>% 
+  mutate(var_cleaned = as.numeric(var_cleaned))
+```
+
+```{r}
+canton_long <- canton_long %>% 
+  mutate(year = as.numeric(str_remove(year, "x")) )
+```
+
+### Show the evolution of the population by canton.
+
+To do so, draw a line per canton by mapping the `color` to the canton.
+
+Tip: map the `year` to the `x` and the `population` to the `y`. Use `geom_line()`.
+
+```{r}
+canton_long %>% 
+  ggplot(aes(x = year, y = population, color = canton)) +
+  geom_line() 
+```
+
+### Compare the population between 2012 and 2021, for the different cantons.
+
+Create a horizontal bar blot, mapping the `fill` to the year so to have two separated bars, one for each year. In order to avoid stacking the bars on top of each other (the default in `{ggplot2}`), use can add the argument `position = "dodge"` to the `geom_col()`.
+
+```{r}
+canton_long %>% 
+  filter(year %in% c(2012, 2021)) %>% 
+  mutate(year = as.character(year)) %>% 
+  ggplot(aes(y = canton, x = population, fill = year)) +
+  geom_col(position = "dodge")
+```
+
+### Create a plot per canton
+
+```{r}
+canton_long %>% 
+  filter(year %in% c(2012, 2021)) %>% 
+  mutate(year = as.character(year)) %>% 
+  ggplot(aes(y = population, x= year, fill = year)) +
+  geom_col(position = "dodge") +
+  facet_wrap(vars(canton), scales = "free_y")
+```
+
+### Use a different theme
+
+Apply a different theme to the previous plots. Tip: If you write `theme_` in the console, all the preset themes will appear in a drop down menu. A good choice is usually `theme_minimal()` for a more minimal look.
+
+### Export the plots
+
+Set the `height` and the `width` so that the plot is readable.
+
+```{r eval = FALSE}
+ggsave("bar_plot_population_by_canton.pdf", height = 4, width = 5 )
+```

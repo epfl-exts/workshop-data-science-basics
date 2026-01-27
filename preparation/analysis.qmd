@@ -1,0 +1,55 @@
+---
+title: "death rate in Switzerland"
+format: html
+---
+
+
+[Source](https://www.bfs.admin.ch/bfs/en/home/statistics/population/births-deaths.html)
+
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+library(tidyverse)
+library(janitor)
+library(tsibble)
+library(lubridate)
+```
+
+## Deaths per week by 5-year age group, sex and canton, 2000-2021 
+
+```{r}
+data_canton <- read_csv2("data/ts-q-01.04.02.01.30-D.csv") %>% 
+  clean_names()
+labels_time_period <- 
+```
+
+
+```{r}
+# takes long, perhaps easier to check perhaps a 
+data_canton <- 
+  data_canton %>% 
+  mutate(time_period = yearweek(time_period)) 
+```
+```{r}
+data_1 %>% 
+  mutate(year = year(time_period)) %>% 
+  filter(geo =="CH",sex == "T",  year >2015) %>% 
+  ggplot(aes(time_period, obs_value, group = age, color = age))+ 
+  geom_line()
+```
+
+##  Deaths per week by 5-year age group, sex and major region, 2000-2021 
+
+```{r}
+data_2 <- read_csv2("data/ts-q-01.04.02.01.31-D.csv")
+```
+
+```{r}
+data_1 %>% summary()
+data_2 %>% summary()
+```
+
+

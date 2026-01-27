@@ -1,0 +1,52 @@
+---
+title: "Data wrangling in R - Exercise 01"
+subtitle: "Solution"
+output: 
+  html_document:
+    number_sections: true
+    highlight: zenburn
+    code_folding: show
+    df_print: paged
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(message =FALSE)
+```
+
+
+Let's use our newly-acquired knoweledge to gain a bit of insight onto the carreer of Serena Williams. 
+
+First, let's attach the package we need: 
+
+```{r}
+library(dplyr)
+library(readr)
+```
+
+Second, let's import and wrangle the data: execute the following chunk:
+
+```{r}
+wta_data <-
+  "https://raw.githubusercontent.com/gruggeri/tennis_wta/master/wta_grand_slam_data.csv" %>% 
+  read_csv(col_types = cols(.default = "c"))
+```
+
+- Now, let's use a `{dplyr}` verb to pick the columns  variables `year`, `match_num`, `winner_name`,`loser_name`, `tourney_name`,`round`. Inspect some of the values in these columns. Can you find an interpretation? 
+
+- What type is the columns `year` and `match_num`? Use a `{dplyr}` verb to transform them into `numeric`. 
+
+- Use a `{dplyr}` verb to subset the dataset to the matches played (won or lost) by Serena. 
+
+- Use one of the `{dplyr}` verbs to sort these matches chronologically! Think of the column(s) that you'll use.
+
+- Subset the data again to find the number of times Serena got to the final round of the tournament!
+
+```{r}
+wta_data %>% 
+  select(year, match_num, winner_name,loser_name, tourney_name,round) %>% 
+  mutate(year = as.numeric(year), 
+         match_num = as.numeric(match_num)) %>% 
+  filter(winner_name == "Serena Williams" | loser_name == "Serena Williams") %>% 
+  arrange(year, tourney_name, match_num) %>% 
+  filter(round=="F")
+```

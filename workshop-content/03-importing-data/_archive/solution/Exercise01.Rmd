@@ -1,0 +1,48 @@
+---
+title: "Data import in R - Exercise 01"
+output: 
+  html_document:
+    number_sections: true
+    highlight: zenburn
+    code_folding: show
+---
+
+In this exercise, we will read a small delimited file with famous `mtcars` data. We're first adding a chunk to attach the required packages: 
+
+```{r}
+library(readr)
+```
+
+To successfully read the data into R, we will take a step by step approach by answering several questions: 
+
+1. Open the file `mtcars.txt`. Can you guess the delimiter of the file? Which function can be used to read such a delimited file? 
+
+**Response** : comma (,) and `read_csv()`
+
+2. Does the data start from the first line or is there any meta-data? Which argument can we use to start reading from further lines? 
+
+**Response**: yes, there's metadata in the first 3 lines. the argument is `skip=3`
+
+3. Read the file and tell what is the value of `mpg` of the second row.
+
+```{r}
+mtcars_data <- read_csv(file = "data/mtcars.txt", skip = 3)
+mtcars_data
+```
+
+as we can see, the value is `21`
+
+```{r}
+# More information on the Data Wrangling Unit
+library(dplyr)
+
+mtcars_data %>% filter(row_number() == 2) %>% pull(mpg)
+```
+
+
+**Response**: 21.0
+
+
+
+
+

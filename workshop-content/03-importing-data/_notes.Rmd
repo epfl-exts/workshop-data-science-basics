@@ -1,0 +1,30 @@
+---
+title: "Presentation Notes"
+subtitle: "Data Wrangling"
+output: 
+  html_document:
+    number_sections: true
+    highlight: zenburn
+    code_folding: show
+    df_print: paged
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# At the beginning
+
+- Warn attendants not to knit, as it takes too much time over Renku.
+- We will execute the code as I present it. 
+
+# At the end 
+
+- Mention the bonus material!
+
+
+
