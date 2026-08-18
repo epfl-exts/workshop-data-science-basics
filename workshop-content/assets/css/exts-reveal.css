@@ -1,0 +1,269 @@
+@charset "UTF-8";
+/*-- scss:defaults --*/
+/*-- scss:rules --*/
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Global adjustments   */
+/* ~~~~~~~~~~~~~~~~~~~~ */
+.reveal .slide blockquote {
+  border-left: 5px solid #687a7c;
+  padding-left: 1em;
+}
+
+/* Emphasis in EXTS red. */
+.reveal strong {
+  color: #cf0000;
+  font-weight: bold;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Content boxes        */
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Ported from the xaringan deck's .content-box-* classes so that
+   material converted from remark keeps its visual grammar. Use as
+   fenced divs:  ::: {.content-box-marine} ... :::                   */
+.reveal .content-box-oil,
+.reveal .content-box-marine,
+.reveal .content-box-white {
+  display: block;
+  padding: 0.5em 0.8em;
+  margin: 0.4em 0;
+  border-radius: 6px;
+}
+
+.reveal .content-box-oil {
+  background-color: #425556;
+  color: #ffffff;
+}
+
+.reveal .content-box-marine {
+  background-color: #00a79f;
+  color: #ffffff;
+}
+
+.reveal .content-box-white {
+  background-color: #ffffff;
+  color: #425556;
+}
+
+/* Headings inherit the box's foreground rather than the theme's. */
+.reveal .content-box-oil h1,
+.reveal .content-box-oil h2,
+.reveal .content-box-oil h3,
+.reveal .content-box-oil h4,
+.reveal .content-box-marine h1,
+.reveal .content-box-marine h2,
+.reveal .content-box-marine h3,
+.reveal .content-box-marine h4 {
+  color: #ffffff;
+}
+
+.reveal .content-box-white h1,
+.reveal .content-box-white h2,
+.reveal .content-box-white h3,
+.reveal .content-box-white h4 {
+  color: #425556;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   Emphasis on the coloured surfaces.
+
+   Our two surfaces are NOT equally dark, and that decides everything
+   here. Relative luminance: oil 0.083, marine 0.301, white 1.000.
+   Contrast ratios for bold slide text (the bar is 3.0 — revealjs text
+   is "large text" under WCAG):
+
+                        on oil    on marine
+     #cf0000 red         1.37 x     1.92 x
+     #b741ba purple      1.68 x     1.57 x     <- what this used to be
+     #e2b3e3 tint        4.42 v     1.68 x
+     #ffffff white       7.88 v     2.99 ~
+
+   Oil is genuinely dark, so a light tint of the brand purple reads
+   well on it. Marine is a MID-TONE: its luminance sits in the middle
+   of the range, so no hue can clear the bar — tinting purple toward
+   white actually gets worse before it gets better (1.57 -> 1.04 ->
+   1.95) as the tint passes through marine's own luminance. On marine
+   the only options are near-white or near-black, so emphasis there is
+   carried by WEIGHT, not colour.
+
+   (White on marine is 2.99 against a 3.0 bar — a hair under. Marine is
+   kept at #00a79f so ported decks look unchanged; revisit at the
+   re-brand.)                                                        */
+/* Oil is dark enough for a tinted accent. */
+.reveal .content-box-oil strong,
+.reveal section.subsection strong {
+  color: #e2b3e3;
+}
+
+/* Marine is not. Bold here is white, like the body text, and reads as
+   emphasis through its weight alone. */
+.reveal .content-box-marine strong,
+.reveal section.subsubsection strong {
+  color: #ffffff;
+}
+
+/* ...but a white box nested inside a dark one is a light surface
+   again, so bold text there goes back to red.
+
+   Specificity, not source order, decides this. Against the box rules
+   above (0,2,1) the nested selectors win on their own. Against the
+   DIVIDER rules above (0,2,2 — `section.subsection` carries an extra
+   element) a bare `.reveal .content-box-white strong` at (0,2,1) would
+   LOSE, so the divider cases are spelled out explicitly at (0,3,2).
+   Without them, bold in a white box on a divider slide inherits the
+   divider's own emphasis colour — light purple or white — instead of
+   red, and the white case is invisible. */
+.reveal .content-box-oil .content-box-white strong,
+.reveal .content-box-marine .content-box-white strong,
+.reveal section.subsection .content-box-white strong,
+.reveal section.subsubsection .content-box-white strong,
+.reveal .content-box-white strong {
+  color: #cf0000;
+}
+
+/* Inline code on a dark box: the default code colour is a mid purple
+   that disappears against oil/marine, so lighten it. */
+.reveal .content-box-oil :not(pre) > code,
+.reveal .content-box-marine :not(pre) > code,
+.reveal section.subsection :not(pre) > code,
+.reveal section.subsubsection :not(pre) > code {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  padding: 0 0.2em;
+  border-radius: 3px;
+}
+
+/* ...and back to the default on a white box nested inside. The divider
+   selectors are spelled out for the same specificity reason as the
+   `strong` rules above — without them white-on-white inline code on a
+   divider slide is completely invisible. */
+.reveal section.subsection .content-box-white :not(pre) > code,
+.reveal section.subsubsection .content-box-white :not(pre) > code,
+.reveal .content-box-white :not(pre) > code {
+  color: #cc0000;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Code inside a box should not overflow it. */
+.reveal .content-box-oil pre,
+.reveal .content-box-marine pre,
+.reveal .content-box-white pre {
+  font-size: 0.5em;
+  margin: 0.3em 0 0 0;
+}
+
+/* Links need the same surface-by-surface treatment as bold, and for
+   the same reason. Left alone they fall back to revealjs's default
+   blue, which is 1.78:1 on oil and 1.48:1 on marine — unreadable on
+   both. Content boxes had no link rule at all before, so links inside
+   them were hitting exactly that.
+
+                        on oil    on marine
+     #2a76dd reveal      1.78 x     1.48 x
+     #7fe3b6 green       5.09 v     1.93 x
+     #ffffff white       7.88 v     2.99 ~                          */
+/* Oil: the light green clears the bar comfortably. */
+.reveal .content-box-oil a,
+.reveal section.subsection a {
+  color: #7fe3b6;
+}
+
+/* Marine: no hue works, so links go white and are marked by an
+   underline instead. Colour alone must never be the only signal that
+   something is a link, so this is the more accessible form anyway. */
+.reveal .content-box-marine a,
+.reveal section.subsubsection a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ...and a white box nested in either is a light surface again, so its
+   links go back to behaving like links on an ordinary slide. This has
+   to restate a colour rather than just clearing the underline: inside
+   a marine box the rule above would otherwise leave them white on
+   white. revealjs's own link blue is used because it is what an
+   unstyled link on a light slide looks like, and it clears the bar
+   there (4.44:1). Note it is NOT the brand marine — #00a79f on white
+   is only 2.99:1. Spelled out for the dividers for the same
+   specificity reason as the `strong` rules above. */
+.reveal .content-box-oil .content-box-white a,
+.reveal .content-box-marine .content-box-white a,
+.reveal section.subsection .content-box-white a,
+.reveal section.subsubsection .content-box-white a,
+.reveal .content-box-white a {
+  color: #2a76dd;
+  text-decoration: none;
+}
+
+/* Text inside a content box.
+   Use these INSTEAD of ### / #### headings: Pandoc wraps every heading
+   in its own <section>, and revealjs then treats that as a slide and
+   hides all but the first — so a box built from headings silently loses
+   its siblings. Write  [Title]{.box-title}  instead.               */
+.reveal .box-title {
+  display: block;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.3em;
+}
+
+.reveal .box-body {
+  display: block;
+  font-size: 1em;
+  line-height: 1.3;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Section dividers     */
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Apply to a slide:  ## Title {.subsection}                          */
+.reveal section.subsection,
+.reveal section.subsubsection {
+  color: #ffffff;
+  text-shadow: 0 0 20px #333333;
+}
+
+.reveal section.subsection h1,
+.reveal section.subsection h2,
+.reveal section.subsection h3,
+.reveal section.subsubsection h1,
+.reveal section.subsubsection h2,
+.reveal section.subsubsection h3 {
+  color: #ffffff;
+  line-height: 1.1em;
+}
+
+/* revealjs paints the slide background on a sibling element, so the
+   colour has to go there rather than on the section itself. */
+.reveal .backgrounds .slide-background.subsection .slide-background-content {
+  background-color: #425556;
+}
+
+.reveal .backgrounds .slide-background.subsubsection .slide-background-content {
+  background-color: #00a79f;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* Utilities            */
+/* ~~~~~~~~~~~~~~~~~~~~ */
+/* .tiny was used by the xaringan decks but never actually defined in
+   the stylesheet they loaded. Defined here so ported slides work. */
+.reveal .tiny,
+.reveal .tiny p,
+.reveal .tiny li {
+  font-size: 0.6em;
+}
+
+.reveal .small {
+  font-size: 0.8em;
+}
+
+.reveal aside.aside-footnotes,
+.reveal .footnote {
+  font-size: 0.6em;
+  color: #687a7c;
+}
+
+/*# sourceMappingURL=exts-reveal.css.map */

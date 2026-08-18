@@ -20,7 +20,7 @@ format:
     transition: slide
     background-transition: fade
     footer: "Basics of Data Science Workshop"
-    css: exts_theme.css
+    css: https://epfl-exts.github.io/exts-quarto-assets/themes/exts-reveal.css
 ---
 
 ```{r setup, include=FALSE}
