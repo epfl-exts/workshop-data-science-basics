@@ -8,7 +8,7 @@ format:
     theme: flatly
     number-sections: true
     code-fold: show
-    highlight-style: zenburn
+    highlight-style: github
     toc: true
     df-print: paged
     toc-location: left
@@ -53,9 +53,9 @@ Take a look at the format of the data first, so you can decide which Packages yo
 
 Now load all datasets:
 
--   `communes_population.csv`
--   `communes_ids.xlsx`
--   `district_ids.csv`
+- `communes_population.csv`
+- `communes_ids.xlsx`
+- `district_ids.csv`
 
 ::: callout-note
 Assign the contents to the tables `communes_population`, `communes_ids`, `distict_ids`, respectively.
@@ -198,9 +198,9 @@ Here you will use the `{ggplot2}` and the `{stringr}` library. Remember to attac
 
 Clean the `year` column by removing the `x` in the `canton_long` tibble that you have created before.
 
--   You can use `str_remove()` function to remove the "x".
+- You can use `str_remove()` function to remove the "x".
 
--   The resulting variable will be of type "character": change it to numeric.
+- The resulting variable will be of type "character": change it to numeric.
 
 See the example below:
 

@@ -11,7 +11,24 @@ format:
     slide-number: true
     df-print: paged
     embed-resources: true
-    css: https://epfl-exts.github.io/exts-quarto-assets/themes/exts-reveal.css
+    output-file: "presentation"
+    css: ../assets/css/exts-reveal.css
+  html:
+    theme: simplex
+    number-sections: true
+    number-depth: 1
+    code-fold: show
+    highlight-style: github
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    output-file: "handout"
+    css: ../assets/css/styles-html.css
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -39,7 +56,7 @@ library(tidyverse)
 
 ## {.center}
 
-![](img/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="80%"}
+![](images/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="80%"}
 
 ## In Practice {.subsubsection background-color="#00A79F"}
 
@@ -93,7 +110,7 @@ library(tidyverse)
 
 ## {.center}
 
-![](img/fig-data-pipeline-empty.png){fig-alt="The data pipeline as a flow: import, then tidy, then a loop of transform, visualise and model, then communicate." fig-align="center" width="90%"}
+![](images/fig-data-pipeline-empty.png){fig-alt="The data pipeline as a flow: import, then tidy, then a loop of transform, visualise and model, then communicate." fig-align="center" width="90%"}
 
 # What is R? {.subsection background-color="#425556"}
 
@@ -119,7 +136,7 @@ library(tidyverse)
 
 -   **Packages**: the **toolboxes** that contain a bunch of useful tools.
 
-## `{tidyverse}`: Another flavour of R. {background-image="img/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
+## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
 Base **R** is **powerful** but a bit **hard to learn**
@@ -148,7 +165,7 @@ Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
 
 ## {.center}
 
-![](img/tidydata_1.jpg){fig-alt="A tidy data frame drawn as a friendly table: every column is a variable, every row is an observation, every cell is a single value." fig-align="center" width="80%"}
+![](images/tidydata_1.jpg){fig-alt="A tidy data frame drawn as a friendly table: every column is a variable, every row is an observation, every cell is a single value." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
@@ -158,7 +175,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 ## {.center}
 
-![](img/tidydata_2.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+![](images/tidydata_2.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
@@ -172,7 +189,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 ## {.center}
 
-![](img/fig-data-pipeline-packages-today.png){fig-alt="The data pipeline again, with the tidyverse package used at each step: readr to import, tidyr and dplyr to tidy and transform, ggplot2 to visualise, and R Markdown to communicate." fig-align="center" width="90%"}
+![](images/fig-data-pipeline-packages-today.png){fig-alt="The data pipeline again, with the tidyverse package used at each step: readr to import, tidyr and dplyr to tidy and transform, ggplot2 to visualise, and R Markdown to communicate." fig-align="center" width="90%"}
 
 # Prework Refresh {.subsection background-color="#425556"}
 
@@ -295,7 +312,7 @@ But, in R you can work with **many different data structures**, such as:
 We are not limited by a particular data format when using **R**
 :::
 
-## 🧰 Packages {background-image="img/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
+## 🧰 Packages {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
 We said that **R** is highly extensible through *packages*.
@@ -394,7 +411,7 @@ For instance:
 :::
 
 ::: {.column width="50%"}
-![](img/help.png){fig-alt="The RStudio Help pane showing the documentation page for a function, with its description, usage and arguments." fig-align="center"}
+![](images/help.png){fig-alt="The RStudio Help pane showing the documentation page for a function, with its description, usage and arguments." fig-align="center"}
 :::
 ::::
 

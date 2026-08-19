@@ -4,7 +4,7 @@
 
 # 1 Arithmetic operations
 
-5+5
+5 + 5
 30 / 6
 
 # 2 Variables
@@ -25,7 +25,7 @@ a_collection_of_values
 
 my_single_value + 5
 
-a_collection_of_values*my_single_value
+a_collection_of_values * my_single_value
 
 # -----
 # 3. Datasets and data formats
@@ -65,6 +65,3 @@ a_collection_of_values*my_single_value
 # 6. The Pipe operator
 #
 #
-
-
-

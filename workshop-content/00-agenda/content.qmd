@@ -13,21 +13,21 @@ format:
     embed-resources: true
     output-file: "presentation"
     css: ../assets/css/exts-reveal.css
-  # html:
-  #   theme: simplex
-  #   number-sections: true
-  #   code-fold: show
-  #   highlight-style: zenburn
-  #   toc: true
-  #   df-print: paged
-  #   toc-location: right
-  #   toc-float:
-  #     smooth-scroll: true
-  #   title-block-banner: "#413D3A"
-  #   title-block-banner-color: "White"
-  #   embed-resources: true
-  #   output-file: "handout"
-  #   css: ../assets/css/styles-html.css
+  html:
+    theme: simplex
+    number-sections: true
+    code-fold: show
+    highlight-style: zenburn
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    output-file: "handout"
+    css: ../assets/css/styles-html.css
 ---
 
 ```{r echo=FALSE}
