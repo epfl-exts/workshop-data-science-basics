@@ -422,7 +422,6 @@ women_jobs
 ::: {.callout-important collapse="true"}
 ## Almost there!
 
-::: panel-tabset
 We are one step closer, but the **column names contain values**.
 
 The last step is to set a familiar argument, `col_names=FALSE`
@@ -437,7 +436,6 @@ women_jobs <- read_xlsx(
 
 women_jobs
 ```
-:::
 :::
 :::
 
