@@ -213,35 +213,50 @@ Before today you started a **Renku** session and met the **RStudio IDE**.
 Today we build on all four. If any of them feels shaky, say so now.
 :::
 
-# 💾 Saving today's work with `git` {.subsection background-color="#425556"}
+# 💾 Saving today's work {.subsection background-color="#425556"}
 
-## 💾 Saving today's work with `git`
-
-To **save today's work from Renku**, we'll use `Gitlab` and some `git` commands.
+## 💾 Saving today's work: one file
 
 ::: {.content-box-marine}
-`git` is a system that **tracks the changes** you make to your **scripts**. It's a **log** of **modifications**.
+Your Renku session is **temporary**: before it ends, **download** the files you want to keep to your computer.
 :::
 
-. . .
+Most of your work is in **one file**: the exercise notebook.
 
-Go into the `Terminal` Tab of the RStudio IDE (next to `Console` tab)
+-   In the **Files** pane, go to `workshop-content/_exercises/`.
 
-To take a "snapshot" of your work type:
+-   **Tick the box** next to `exercise-notebook.qmd`.
 
--   `git add .` + <kbd>Enter</kbd> to **add all the recent changes** to your files to the tracking system.
-
-. . .
-
--   `git commit -m "your commit message" --no-verify` + <kbd>Enter</kbd> to **register** the changes.
-    -   `"your commit message"` is the "title" of your changes, e.g. `"Solution to Exercise 1"`
+-   Click on **More** ⚙️ → **Export...** → **Download**.
 
 . . .
 
--   `git push` + <kbd>Enter</kbd>
-    -   to **send** the changes to `GitLab`
+::: callout-tip
+Tick **one file at a time**. Exporting a whole folder fails on Renku: RStudio needs to zip it first, and the session can't.
+:::
 
-And from `GitLab`, we can download your modifications at the end of the day!
+## 💾 Saving today's work: everything at once
+
+To download **all your notebooks and scripts** at once, first pack them into a single archive. Type in the **Console**:
+
+```{r}
+#| eval: false
+tar("my-work.tar.gz",
+    files = list.files("workshop-content",
+                       pattern = "[.](qmd|Rmd|R)$",
+                       recursive = TRUE, full.names = TRUE),
+    compression = "gzip", tar = "internal")
+```
+
+. . .
+
+-   Then download `my-work.tar.gz` as on the previous slide.
+
+-   On your computer, **double-click** it to unpack it (macOS and Windows 11; on Windows 10, use [7-Zip](https://www.7-zip.org)).
+
+::: aside
+The archive contains only your `.qmd`, `.Rmd` and `.R` files: what you wrote. Rendered pages and their support files can be recreated by rendering again.
+:::
 
 # Beyond the Prework {.subsection background-color="#425556"}
 
