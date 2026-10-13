@@ -521,19 +521,34 @@ This ties neatly with `summarise()` creating **summary statistics for the groups
 
 ```{r}
 wta_data %>%
-  group_by(winner_name)%>% 
-  summarise(number_of_wins = n()) %>% 
-  ungroup()
+  group_by(winner_name) %>% 
+  summarise(number_of_wins = n(), .groups = "drop")
 ```
+
+::: callout-note
+## What does `.groups = "drop"` do?
+
+It tells `summarise()` to return a table **without any grouping**, exactly as if we had added `ungroup()` at the end. Get into the habit: a grouping that you forgot about is a common source of surprises in later computations.
+:::
+
+::: {.callout-tip collapse="true"}
+## A shortcut for counting: `count()`
+
+Counting the rows within groups is so common that `{dplyr}` has a shortcut for it. `count()` groups, counts and ungroups in one step:
+
+```{r}
+wta_data %>%
+  count(winner_name, name = "number_of_wins")
+```
+:::
 
 -   We can group via more than one column.
     -   Let's use this function to see **how many matches** were won by **each player** in **each tournament**. For this, we need to `group_by(winner_name, tourney_name)`:
 
 ```{r}
 wta_data %>%
-  group_by(winner_name, tourney_name)%>% 
-  summarise(number_of_wins = n()) %>% 
-  ungroup()
+  group_by(winner_name, tourney_name) %>% 
+  summarise(number_of_wins = n(), .groups = "drop")
 ```
 
 ### Exercise Time! {.unnumbered}
@@ -678,11 +693,12 @@ A call to `left_join()` has the particularity that, other than joining the commo
 That said, one can **specify a subset of columns to join** with the `by` argument.
 
 -   Let's try joining our three datasets using the common column `id` as the **joining** **key**. It works!
+-   Recent versions of `{dplyr}` also accept `by = join_by(id)`, which you may meet in other people's code.
 
 ```{r}
 data_1 %>% 
   bind_rows(data_2) %>% 
-  left_join(data_3, by = c("id"))
+  left_join(data_3, by = "id")
 ```
 
 Let's see what happens when there's a non-common element.
@@ -698,7 +714,7 @@ When applying `left_join()`, we obtain:
 
 ```{r}
 data_1 %>% 
-  left_join(data_4, by = c("id"))
+  left_join(data_4, by = "id")
 ```
 
 # Pivoting Data
@@ -793,7 +809,7 @@ data_5_long
 ```{r}
 data_5_long %>% 
   group_by(prototype) %>% 
-  summarise(average_performance = mean(performance))
+  summarise(average_performance = mean(performance), .groups = "drop")
 ```
 
 ## Pivoting into wide-form with `pivot_wider()`

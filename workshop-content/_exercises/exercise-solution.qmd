@@ -127,7 +127,7 @@ communes_ids %>%
 ```{r}
 communes_population %>% 
   filter(commune == "1123 Altishofen", household_size == "4 Personen") %>% 
-  select(x2013) # maybe call the columns are "year"
+  select(x2013)
 ```
 
 ### In how many communes has the population decreased in 1 Person households between 2012 and 2021?
@@ -177,8 +177,7 @@ Use `group_by()` and `summarise()`. Group the data by canton then compute the nu
 ```{r}
 district_ids %>% 
   group_by(canton) %>% 
-  summarise(number_of_districts = n()) %>% 
-  ungroup() %>% 
+  summarise(number_of_districts = n(), .groups = "drop") %>% 
   arrange(desc(number_of_districts)) %>% 
   slice_head(n=1) #optional
 ```
@@ -199,8 +198,7 @@ Find a way to join together the `communes_ids` and `communes_population` data se
 communes_population %>% 
   left_join(communes_ids, by = "commune") %>% 
   group_by(district) %>% 
-  summarise(population = sum(`x2021`))
-  
+  summarise(population = sum(x2021), .groups = "drop")
 
 ```
 
@@ -224,9 +222,24 @@ Create a `communes_long` by transforming the `communes_population` to longer for
 communes_long <- communes_population %>% 
   pivot_longer(cols = x2012:x2021, 
                names_to = "year", 
-               values_to = "population") 
-  
+               values_to = "population")
 ```
+
+::: {.callout-tip collapse="true"}
+## Going further: clean the years while pivoting
+
+`pivot_longer()` can also remove the `x` prefix and convert the years to numbers in the same step, which would make the cleaning in Exercise 6 unnecessary:
+
+```{r}
+#| eval: false
+communes_population %>% 
+  pivot_longer(cols = x2012:x2021, 
+               names_to = "year", 
+               values_to = "population",
+               names_prefix = "x",
+               names_transform = list(year = as.integer))
+```
+:::
 
 ### Summarise the data by canton and by year
 

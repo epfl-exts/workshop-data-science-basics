@@ -81,12 +81,13 @@ example_data <-
   tibble(x = runif(100, 0, 10) %>% round(digits = 2)) %>% 
   mutate(group = c(rep("A", 30), rep("B", 40), rep("C", 30))) %>% 
   mutate(
-    y = 4*x + rnorm(sd = 4,  100) %>% round(digits  = 2),
+    y = round(4 * x + rnorm(100, sd = 4), digits = 2),
     y = case_when(
       group == "B" ~ y + 12,
-      group == "C" ~ y - 5*x +12, 
-      TRUE  ~ y
-  )) %>% 
+      group == "C" ~ y - 5 * x + 12,
+      .default = y
+    )
+  ) %>% 
   rename(`Variable 1` = x, `Variable 2` = y, Group = group) %>% 
   relocate(Group, `Variable 1`, `Variable 2`)
 ```
@@ -445,9 +446,8 @@ Let's use our **Data Wrangling** skills!
 ```{r}
 total_wins <- finals %>% 
   group_by(winner_name) %>% 
-  summarise(total_wins = n()) %>% 
-  arrange(desc(total_wins)) %>% 
-  ungroup()
+  summarise(total_wins = n(), .groups = "drop") %>% 
+  arrange(desc(total_wins))
 ```
 
 -   Our dataset looks like this:
@@ -599,7 +599,7 @@ Let's give color to our bars.
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name,
                        fill = "lightblue")) +
@@ -632,7 +632,7 @@ total_wins %>%
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name,
                        fill = total_wins)) +
@@ -652,7 +652,7 @@ total_wins %>%
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name)) + 
   geom_col(fill = "lightblue") + # setting a colour for all the bars
@@ -692,9 +692,8 @@ How can we see this visually?
 total_wins_surface <- finals %>% 
   mutate(winner_name = fct_rev(fct_infreq(winner_name))) %>% #reordering the winner names
   group_by(winner_name, surface) %>% 
-  summarise(total_wins = n()) %>% 
-  arrange(surface, -total_wins) %>% 
-  ungroup()
+  summarise(total_wins = n(), .groups = "drop") %>% 
+  arrange(surface, desc(total_wins))
 ```
 :::
 
