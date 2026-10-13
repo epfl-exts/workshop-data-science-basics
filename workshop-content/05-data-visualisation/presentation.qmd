@@ -22,7 +22,10 @@ css: https://epfl-exts.github.io/exts-quarto-assets/themes/styles-html.css
 # Set options for all chunks:
 knitr::opts_chunk$set(
 	message = FALSE,
-	warning = FALSE
+	warning = FALSE,
+	fig.align = 'center',
+	fig.width = 16/2,
+	fig.height = 9/2
 )
 library(tidyverse)
 library(knitr)
@@ -34,7 +37,7 @@ We will now discover another step in the data pipeline, the visualisation part.
 
 -   But it is also very important as a **tool to communicate results** in a clear and meaningful way.
 
-![](illustrations/fig-data-viz.png)
+![](illustrations/fig-data-viz.png){fig-alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The visualise step is highlighted: data visualisation helps to understand and communicate your insights."}
 
 There are many approaches to creating a data plot.
 
@@ -81,12 +84,13 @@ example_data <-
   tibble(x = runif(100, 0, 10) %>% round(digits = 2)) %>% 
   mutate(group = c(rep("A", 30), rep("B", 40), rep("C", 30))) %>% 
   mutate(
-    y = 4*x + rnorm(sd = 4,  100) %>% round(digits  = 2),
+    y = round(4 * x + rnorm(100, sd = 4), digits = 2),
     y = case_when(
       group == "B" ~ y + 12,
-      group == "C" ~ y - 5*x +12, 
-      TRUE  ~ y
-  )) %>% 
+      group == "C" ~ y - 5 * x + 12,
+      .default = y
+    )
+  ) %>% 
   rename(`Variable 1` = x, `Variable 2` = y, Group = group) %>% 
   relocate(Group, `Variable 1`, `Variable 2`)
 ```
@@ -167,7 +171,7 @@ The package that implements the Grammar of graphics approach to Data Visualisati
 It's even in the name! the 'gg' stands for... **g**rammar of **g**raphics.
 :::
 
-We will make illustrations with the data on the finals of the `wta`, stored in `wta_grand_slam_data.csv`.
+We will make illustrations with the data on women's Grand Slam singles matches from 1968 to 2021, stored in `wta_grand_slam_data.csv`.
 
 ```{r}
 #| code-fold: true
@@ -175,7 +179,7 @@ library(readr)
 library(dplyr)
 
 wta <- 
-  "https://raw.githubusercontent.com/gruggeri/tennis_wta/master/wta_grand_slam_data.csv" %>% 
+  "../data/wta_grand_slam_data.csv" %>% 
   read_csv() 
 
 finals <- wta %>% 
@@ -286,7 +290,8 @@ ggplot(data = finals,
        mapping = aes(x = year,
                      y = winner_age,
                      color = winner_name)) + #mapping winner name to color
-  geom_point() 
+  geom_point() +
+  theme(legend.position = "none") # 54 players: too many for a readable legend
 ```
 
 > Voilà!\
@@ -300,9 +305,9 @@ Often, mapping a third variable to an aesthetic such as color can help us discov
 ::: {.callout-tip collapse="true"}
 ## Look at the chunk option!
 
-We have defined a dimension of the chart in the options (`fig.width=5, fig.height= 3`) because we want to **enlarge the plot**
+We have defined a dimension of the chart in the options (`fig.width=10, fig.height= 5`) because we want to **enlarge the plot**
 
-(the legend will also take up a lot of space, after all!)
+We have also **hidden the legend**: with 54 different players, nobody could match 54 colours to their names. Here, we only need to see that points of the same colour line up.
 :::
 
 ::: {.callout-note collapse="true"}
@@ -434,9 +439,9 @@ In general, every layer is a function, hence it has arguments!
 
 Let's ask a different question:
 
-> *Who won the most tournaments*?
+> *Who won the most Grand Slam titles*?
 
--   Let's start by creating the dataset where we count the tournaments won by each player.
+-   Let's start by creating the dataset where we count the finals won by each player.
 
 ::: callout-note
 Let's use our **Data Wrangling** skills!
@@ -445,9 +450,8 @@ Let's use our **Data Wrangling** skills!
 ```{r}
 total_wins <- finals %>% 
   group_by(winner_name) %>% 
-  summarise(total_wins = n()) %>% 
-  arrange(desc(total_wins)) %>% 
-  ungroup()
+  summarise(total_wins = n(), .groups = "drop") %>% 
+  arrange(desc(total_wins))
 ```
 
 -   Our dataset looks like this:
@@ -552,9 +556,9 @@ total_wins %>%
                        y = winner_name)) +
   geom_col() +
   #adding labels
-  labs(title = "Serena Williams won 23 WTA tournaments",
-       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-       x = "Number of WTA Tournaments Won",
+  labs(title = "Serena Williams won 23 Grand Slam titles",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+       x = "Number of Grand Slam titles",
        y = "",
        caption = "source: https://github.com/JeffSackmann")
 ```
@@ -582,9 +586,9 @@ total_wins %>%
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name)) +
   geom_col() +
-  labs(title = "Serena Williams won 23 WTA tournaments",
-       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-       x = "Number of WTA Tournaments Won",
+  labs(title = "Serena Williams won 23 Grand Slam titles",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+       x = "Number of Grand Slam titles",
        y = "",
        caption = "source: https://github.com/JeffSackmann") +
   # adding a theme
@@ -599,14 +603,14 @@ Let's give color to our bars.
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name,
                        fill = "lightblue")) +
   geom_col() +
-  labs(title = "Serena Williams won 23 WTA tournaments",
-       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-       x = "Number of WTA Tournaments Won",
+  labs(title = "Serena Williams won 23 Grand Slam titles",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+       x = "Number of Grand Slam titles",
        y = "",
        caption = "source: https://github.com/JeffSackmann") +
   theme_minimal()
@@ -632,14 +636,14 @@ total_wins %>%
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name,
                        fill = total_wins)) +
   geom_col() +
-  labs(title = "Serena Williams won 23 WTA tournaments",
-       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-       x = "Number of WTA Tournaments Won",
+  labs(title = "Serena Williams won 23 Grand Slam titles",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+       x = "Number of Grand Slam titles",
        y = "",
        caption = "source: https://github.com/JeffSackmann") +
   theme_minimal()
@@ -652,13 +656,13 @@ total_wins %>%
 
 ```{r}
 total_wins %>% 
-  head(n=20) %>% 
+  slice_max(order_by = total_wins, n = 20) %>% 
   ggplot(mapping = aes(x = total_wins,
                        y = winner_name)) + 
   geom_col(fill = "lightblue") + # setting a colour for all the bars
-  labs(title = "Serena Williams won 23 WTA tournaments",
-       subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-       x = "Number of WTA Tournaments Won",
+  labs(title = "Serena Williams won 23 Grand Slam titles",
+       subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+       x = "Number of Grand Slam titles",
        y = "",
        caption = "source: https://github.com/JeffSackmann") +
   theme_minimal()
@@ -673,7 +677,7 @@ We can ask ourselves:
 
 How can we see this visually?
 
--   First, we need to create the dataset **count the total of tournaments won by player** and **by surface**...
+-   First, we need to create the dataset **count the total of finals won by player** and **by surface**...
 
 -   ... and then try to map the `surface` to `fill`...
 
@@ -692,9 +696,8 @@ How can we see this visually?
 total_wins_surface <- finals %>% 
   mutate(winner_name = fct_rev(fct_infreq(winner_name))) %>% #reordering the winner names
   group_by(winner_name, surface) %>% 
-  summarise(total_wins = n()) %>% 
-  arrange(surface, -total_wins) %>% 
-  ungroup()
+  summarise(total_wins = n(), .groups = "drop") %>% 
+  arrange(surface, desc(total_wins))
 ```
 :::
 
@@ -722,9 +725,9 @@ total_wins_surface %>%
                          fill = surface)) +
   geom_col() +
   labs(
-    title = "Serena Williams won 23 WTA tournaments",
-    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-    x = "Number of WTA Tournaments Won",
+    title = "Serena Williams won 23 Grand Slam titles",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+    x = "Number of Grand Slam titles",
     y = "",
     caption = "source: https://github.com/JeffSackmann"
   ) +
@@ -733,7 +736,7 @@ total_wins_surface %>%
 
 > We can see that :
 >
-> -   Steffi Graff won more than Serena Williams on clay
+> -   Steffi Graf won more than Serena Williams on clay
 >
 > -   and Serena won more on hard surfaces
 >
@@ -768,9 +771,9 @@ total_wins_surface %>%
                          fill = surface)) +
   geom_col() +
   labs(
-    title = "Serena Williams won 23 WTA tournaments",
-    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-    x = "Number of WTA Tournaments Won",
+    title = "Serena Williams won 23 Grand Slam titles",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+    x = "Number of Grand Slam titles",
     y = "",
     caption = "source: https://github.com/JeffSackmann"
   ) +
@@ -793,9 +796,9 @@ total_wins_surface %>%
                          fill = surface)) +
   geom_col() +
   labs(
-    title = "Serena Williams won 23 WTA tournaments",
-    subtitle =  "Followed by the legendary Steffi Graf with 22 WTA wins",
-    x = "Number of WTA Tournaments Won",
+    title = "Serena Williams won 23 Grand Slam titles",
+    subtitle =  "Followed by the legendary Steffi Graf with 22 titles",
+    x = "Number of Grand Slam titles",
     y = "",
     caption = "source: https://github.com/JeffSackmann"
   ) +
@@ -811,13 +814,15 @@ Once you are happy with your plots, it is time to export them.
 -   The easiest way is by using `ggsave()`, which, by default, saves the last plot that you displayed. So basically, you just need to provide the file name you want as argument.
 
 ```{r}
-ggsave("atp_wins_by_surface.png")
+#| eval: false
+ggsave("wta_wins_by_surface.png")
 ```
 
--   By default, here, it saved a 7x7 image. If we want to customise the appearance, we can use the `width` and `height` arguments.
+-   By default, the image takes the size of the current plotting window (in RStudio, the *Plots* pane), so it changes from one computer to another. To control the size, use the `width` and `height` arguments, in inches by default.
 
 ```{r}
-ggsave("atp_wins_by_surface.png", width = 7, height = 5)
+#| eval: false
+ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 ```
 
 # More resources

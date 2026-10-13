@@ -37,7 +37,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 In terms of the data science pipeline, the whole data science project starts with **getting the data into our software**.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The import step is highlighted: data import is the first step of the pipeline."}
 knitr::include_graphics("illustrations/fig-data-import.png")
 ```
 
@@ -73,7 +73,7 @@ The characters give **names** for the two most wide-spread file types:
 
 -   TSV (**T**ab-**S**eparated **V**alues):
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="The same small table (name, gender, weight, height, bmi) saved in two text formats: team.csv, where the values are separated by commas, and team.tsv, where they are separated by tabs."}
 knitr::include_graphics("illustrations/1-delim.png")
 ```
 
@@ -135,7 +135,7 @@ Rmarkdown works with **relative** paths, which makes writing file paths easier.
 
 Here's a breakdown of the main arguments other than the path.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="A call to read_csv() with the arguments file, col_names, na and skip, each linked by an arrow to what it controls in a CSV file: the file name, the header row with the column names, the 'null' values to treat as missing, and the three lines of notes above the data to skip."}
 knitr::include_graphics("illustrations/1-read_csv.png")
 ```
 
@@ -359,7 +359,7 @@ At the end of this section, you should be able to get any data that you need fro
 
 But first, let's scroll over the useful arguments:
 
-```{r, echo = FALSE}
+```{r, echo=FALSE, fig.alt="A call to read_excel() with the arguments file, sheet, range and col_names, each linked by an arrow to what it controls in an Excel workbook: the file name, the second sheet, the cell range C3:G23 that holds the table, and its header row."}
 knitr::include_graphics("illustrations/2-excel.png")
 ```
 
@@ -462,7 +462,7 @@ tribble(
   kable()
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.alt="The {haven} package imports files from statistical software into R: read_sas() and read_xpt() for SAS, read_dta() for Stata, read_sav() and read_por() for SPSS."}
 knitr::include_graphics("illustrations/3-other.png")
 ```
 
