@@ -453,7 +453,7 @@ wta_data %>%
 ::: callout-important
 ## Time to work!
 
-Go to the exercise subfolder. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 2](../_exercises/exercise-notebook.html#exercise-2)**. See you there!
 :::
 
 ## Producing summary statistics with `summarise()`
@@ -544,7 +544,7 @@ wta_data %>%
 ::: callout-important
 ## Time to work!
 
-Go to the exercise subfolder. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 3](../_exercises/exercise-notebook.html#exercise-3)**. See you there!
 :::
 
 # Merging Data
@@ -858,5 +858,5 @@ data_6_long %>%
 ::: callout-important
 ## Time to work!
 
-Go to the exercise subfolder. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 4](../_exercises/exercise-notebook.html#exercise-4) and [Exercise 5](../_exercises/exercise-notebook.html#exercise-5)**. See you there!
 :::

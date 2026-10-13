@@ -833,5 +833,5 @@ ggsave("atp_wins_by_surface.png", width = 7, height = 5)
 ::: {.callout-important icon="false"}
 ## Time to work!
 
-Go to the exercise subfolder. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 6](../_exercises/exercise-notebook.html#exercise-6)**. See you there!
 :::
