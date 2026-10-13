@@ -55,7 +55,7 @@ To get insight during the analysis stage, one needs to be able to **Transform** 
 
 -   Both of these tasks involve the **manipulation of data,** a task often called as **Data Wrangling.**
 
-![](illustrations/fig-data-wrangling.png)
+![](illustrations/fig-data-wrangling.png){fig-alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The tidy and transform steps are highlighted: data wrangling means preparing the data for further analysis."}
 
 \
 Some basic Data Wrangling tasks are:
@@ -82,7 +82,7 @@ The package `{dplyr}` offers a series of functions or *verbs* that help us **wra
 
 This representation is even in the logo!
 
-```{r ,echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.align='center', out.width = "30%"}
+```{r ,echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.alt="The hexagonal logo of the {dplyr} package, a pair of pliers.", fig.align='center', out.width = "30%"}
   knitr::include_graphics(
     path = "illustrations/hex-dplyr.png"
     )
@@ -269,7 +269,7 @@ We can **pick one column by its name**
 
 -   such as the column `year`
 
-```{r, eval = FALSE,  out.width ="80%"}
+```{r, eval = FALSE}
 wta_data %>% 
   select(year)
 ```
@@ -278,7 +278,7 @@ To select more than one column, pass their names in our call to `select()`.
 
 -   Say, we want to select information related to the **winners** and the **tourneys**
 
-```{r, eval = FALSE,  out.width ="80%"}
+```{r, eval = FALSE}
 wta_data %>% 
   select(year,tourney_id, tourney_name, winner_id, winner_name)
 ```
@@ -326,7 +326,7 @@ We **change column types** by **rewriting the columns** within a call to `mutate
 
 -   Again, to make things clearer, we use `vis_dat()`. Notice that `type` of the column `year` has switched from `character` to `numeric`, and column `tourney_date` has changed to `Date`.
 
-```{r,  out.width ="80%"}
+```{r}
 library(lubridate)
 
 wta_data <- 
@@ -370,7 +370,7 @@ These logical conditions apply to the values contained in a column and will **pi
 
 -   We can use `filter()` to subset the rows that fulfill the condition `winner_name == 'Serena Williams'` as in:
 
-```{r,  out.width ="80%"}
+```{r}
 wta_data %>% 
   select(year, starts_with("winner"), starts_with("tourney")) %>% 
   filter(winner_name == "Serena Williams")
@@ -488,7 +488,7 @@ The function `summarise()` creates a new dataset that **contains summaries of th
 
 -   Once subsetted with `filter()`, we can **count the number of matches** with the counting function `n()`, which **computes the number of rows** as in:
 
-```{r,  out.width ="80%"}
+```{r}
 wta_data %>%
   filter(
     winner_name == "Serena Williams", 
@@ -705,7 +705,7 @@ In R and with `{dplyr}` we will use the `left_join()` verb.
 -   They share the first column and some elements within it.
 -   When joined, the non-shared elements of `y` are attached to `x` preserving the position of their shared elements
 
-![](illustrations/left-join.gif)
+![](illustrations/left-join.gif){fig-alt="Animation of left_join(x, y). x has ids 1, 2 and 3, y has ids 1, 2 and 4. The rows of y with ids 1 and 2 attach to the matching rows of x; id 3 keeps an NA for y, and id 4, which is not in x, is dropped."}
 
 **Source:** [Garrick Aden-Buie's](https://twitter.com/grrrck) Tidy Animated Verbs
 
@@ -753,13 +753,13 @@ When distributed in tables, data can come in two ways:
 -   **wide** format, where some columns are named after values of a categorical *variable*.
     -   They are mostly used to display tables in your reports.
 
-```{r ,echo = FALSE, fig.cap='Wide-format, vs. Long-format data', fig.align='center', out.width = "80%"}
+```{r ,echo = FALSE, fig.cap='Wide-format, vs. Long-format data', fig.alt="The same data in two shapes. Wide: one row per id (1 and 2) and one column each for x, y and z. Long: three columns, id, key and val, with one row per combination of id and key, so six rows.", fig.align='center', out.width = "80%"}
   knitr::include_graphics("illustrations/original-dfs-tidy.png")
 ```
 
 In R and with`{tidyr}`: to pivot a table, we use two functions: `pivot_longer()` and `pivot_wider()`.
 
-```{r ,echo = FALSE, fig.cap='The brooms of `{tidyr}` will help us tidy our data!', fig.align='center', out.width = "30%"}
+```{r ,echo = FALSE, fig.cap='The brooms of `{tidyr}` will help us tidy our data!', fig.alt="The hexagonal logo of the {tidyr} package, two brooms.", fig.align='center', out.width = "30%"}
   knitr::include_graphics(
     path = "illustrations/hex-tidyr.png"
     )
@@ -767,7 +767,7 @@ In R and with`{tidyr}`: to pivot a table, we use two functions: `pivot_longer()`
 
 In the animation below, we can overview how pivoting works.
 
-![](illustrations/tidyr-longer-wider.gif)
+![](illustrations/tidyr-longer-wider.gif){fig-alt="Animation of a table with ids 1 and 2 and columns x, y and z turning into a long table with columns id, key and val by pivot_longer(), and back into the wide table by pivot_wider()."}
 
 Source: [Garrick Aden-Buie's]() Tidy Animated Verbs modified by [Mara Averick](https://twitter.com/dataandme)
 

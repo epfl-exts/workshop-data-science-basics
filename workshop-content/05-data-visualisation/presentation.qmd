@@ -22,7 +22,10 @@ css: https://epfl-exts.github.io/exts-quarto-assets/themes/styles-html.css
 # Set options for all chunks:
 knitr::opts_chunk$set(
 	message = FALSE,
-	warning = FALSE
+	warning = FALSE,
+	fig.align = 'center',
+	fig.width = 16/2,
+	fig.height = 9/2
 )
 library(tidyverse)
 library(knitr)
@@ -34,7 +37,7 @@ We will now discover another step in the data pipeline, the visualisation part.
 
 -   But it is also very important as a **tool to communicate results** in a clear and meaningful way.
 
-![](illustrations/fig-data-viz.png)
+![](illustrations/fig-data-viz.png){fig-alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The visualise step is highlighted: data visualisation helps to understand and communicate your insights."}
 
 There are many approaches to creating a data plot.
 
@@ -287,7 +290,8 @@ ggplot(data = finals,
        mapping = aes(x = year,
                      y = winner_age,
                      color = winner_name)) + #mapping winner name to color
-  geom_point() 
+  geom_point() +
+  theme(legend.position = "none") # 54 players: too many for a readable legend
 ```
 
 > Voilà!\
@@ -303,7 +307,7 @@ Often, mapping a third variable to an aesthetic such as color can help us discov
 
 We have defined a dimension of the chart in the options (`fig.width=10, fig.height= 5`) because we want to **enlarge the plot**
 
-(the legend will also take up a lot of space, after all!)
+We have also **hidden the legend**: with 54 different players, nobody could match 54 colours to their names. Here, we only need to see that points of the same colour line up.
 :::
 
 ::: {.callout-note collapse="true"}

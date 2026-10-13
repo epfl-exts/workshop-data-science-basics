@@ -311,6 +311,20 @@ canton_population %>%
   geom_line() 
 ```
 
+::: {.callout-tip collapse="true"}
+## Going further: 26 colours are hard to tell apart
+
+With 26 cantons, matching each line to its colour in the legend is difficult. One small plot per canton (see `facet_wrap()` below) is easier to read. With `scales = "free_y"`, each canton gets its own y axis, so small cantons don't look flat:
+
+```{r}
+#| fig-height: 8
+canton_population %>% 
+  ggplot(aes(x = year, y = population)) +
+  geom_line() +
+  facet_wrap(vars(canton), scales = "free_y")
+```
+:::
+
 ### Compare the population between 2012 and 2021 for the different cantons.
 
 Create a horizontal bar blot, mapping the `fill` to the year so you have two separate bars, one for each year. In order to avoid stacking the bars on top of each other (the default in `{ggplot2}`), you can add the argument `position = "dodge"` to the `geom_col()`.
