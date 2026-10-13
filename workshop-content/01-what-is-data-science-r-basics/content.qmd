@@ -453,7 +453,25 @@ Which can be "read" as
 The *pipe* `%>%` **"feeds" the left-hand side** as the **first argument** of the next function.
 :::
 
-Use the shortcut: <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>M</kbd>
+Use the shortcut: <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>M</kbd> (<kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>M</kbd> on a Mac)
+
+## ▶️ `%>%` or `|>`?
+
+Since version 4.1, R also has a **native pipe** `|>`, built into the language.
+
+``` r
+cars %>% pull(speed) %>% density() %>% plot() # the {tidyverse} pipe
+cars |> pull(speed) |> density() |> plot()    # the native pipe
+```
+
+-   For everyday use, they **do the same thing**, and you will meet both in code online.
+-   In this workshop, we use `%>%`.
+
+::: callout-tip
+## Which pipe does the shortcut insert?
+
+In RStudio, go to *Tools* → *Global Options* → *Code* and look for *Use native pipe operator, \|\> (requires R 4.1+)*. Unticked, the shortcut inserts `%>%`; ticked, it inserts `|>`. The workshop project is set to `%>%`.
+:::
 
 # Questions? {.subsection background-color="#425556"}
 
