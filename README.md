@@ -11,7 +11,6 @@ The content of the workshop is in the following folders:
 - 05-data-visualization
 - 06-case-study
 
-
 In each of these folders, apart from the `/01-what-is-data-science-r` one, you will can find an `.Rmd` file with the content of the session together with an `/exercise` folder that includes the exercises that we are going to do during the workshop. 
 
 
