@@ -84,10 +84,7 @@ This representation is even in the logo!
 
 ```{r ,echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.align='center', out.width = "30%"}
   knitr::include_graphics(
-    path = str_glue("https://d33wubrfki0l68.cloudfront.net/\\
-                    621a9c8c5d7b47c4b6d72e8f01f28d14310e8370\\
-                    /193fc/css/images/hex/\\
-                    dplyr.png")
+    path = "illustrations/hex-dplyr.png"
     )
 ```
 
@@ -158,7 +155,7 @@ Notice that:
 library(readr)
 
 wta_data <-
-  "https://raw.githubusercontent.com/gruggeri/tennis_wta/master/wta_grand_slam_data.csv" %>% 
+  "../data/wta_grand_slam_data.csv" %>% 
   read_csv(
     col_types = cols(.default = "c")
     ) 
@@ -666,7 +663,7 @@ In R and with `{dplyr}` we will use the `left_join()` verb.
 -   They share the first column and some elements within it.
 -   When joined, the non-shared elements of `y` are attached to `x` preserving the position of their shared elements
 
-![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join.gif)
+![](illustrations/left-join.gif)
 
 **Source:** [Garrick Aden-Buie's](https://twitter.com/grrrck) Tidy Animated Verbs
 
@@ -714,23 +711,20 @@ When distributed in tables, data can come in two ways:
     -   They are mostly used to display tables in your reports.
 
 ```{r ,echo = FALSE, fig.cap='Wide-format, vs. Long-format data', fig.align='center', out.width = "80%"}
-  knitr::include_graphics("https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/static/png/original-dfs-tidy.png")
+  knitr::include_graphics("illustrations/original-dfs-tidy.png")
 ```
 
 In R and with`{tidyr}`: to pivot a table, we use two functions: `pivot_longer()` and `pivot_wider()`.
 
 ```{r ,echo = FALSE, fig.cap='The brooms of `{tidyr}` will help us tidy our data!', fig.align='center', out.width = "30%"}
   knitr::include_graphics(
-    path = str_glue("https://d33wubrfki0l68.cloudfront.net/\\
-                    476fa4025501dcec05be08248b32d390dd2337d5/\\
-                    574c6/css/images/hex/\\
-                    tidyr.png")
+    path = "illustrations/hex-tidyr.png"
     )
 ```
 
 In the animation below, we can overview how pivoting works.
 
-![](https://fromthebottomoftheheap.net/assets/img/posts/tidyr-longer-wider.gif)
+![](illustrations/tidyr-longer-wider.gif)
 
 Source: [Garrick Aden-Buie's]() Tidy Animated Verbs modified by [Mara Averick](https://twitter.com/dataandme)
 

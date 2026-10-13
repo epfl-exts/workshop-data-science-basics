@@ -175,7 +175,7 @@ library(readr)
 library(dplyr)
 
 wta <- 
-  "https://raw.githubusercontent.com/gruggeri/tennis_wta/master/wta_grand_slam_data.csv" %>% 
+  "../data/wta_grand_slam_data.csv" %>% 
   read_csv() 
 
 finals <- wta %>% 
