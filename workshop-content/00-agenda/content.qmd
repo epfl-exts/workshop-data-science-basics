@@ -64,19 +64,20 @@ library(knitr)
 ## Thursday
 
 ```{r}
-agenda_am <- tribble(
+agenda_thursday <- tribble(
   ~Time, ~Topic,
-  "08:30 - 09:00", "Renku set-up & Prework",
-  "09:00 - 09:15", "Welcome",
-  "09:15 - 10:00", "Introduction to R and R Markdown",
-  "10:00 - 10:45", "Importing data with R + Exercises",
+  "08:30 - 08:50", "Renku set-up & Prework",
+  "08:50 - 09:00", "Welcome",
+  "09:00 - 09:35", "Introduction to R",
+  "09:35 - 10:00", "Working with R Markdown",
+  "10:00 - 10:45", "Importing data with R + Exercise 1",
   "10:45 - 11:00", "Break",
-  "11:00 - 11:15", "Exercises Walkthrough",
-  "11:15 - 12:15", "Data wrangling (Part 1) + Exercises", 
-  "12:15 - 12:30", "Exercises Walkthrough"
+  "11:00 - 11:15", "Exercise 1: Walkthrough",
+  "11:15 - 12:15", "Data wrangling (Part 1) + Exercises 2-3",
+  "12:15 - 12:30", "Exercises 2-3: Walkthrough"
 )
 
-agenda_am %>% 
+agenda_thursday %>% 
   kable()
 
 ```
@@ -84,23 +85,23 @@ agenda_am %>%
 ## Friday 
 
 ```{r}
-agenda_pm <- tribble(
+agenda_friday <- tribble(
   ~Time, ~Topic,
   "08:30 - 08:45", "Recap",
-  "08:45 - 10:00", "Data wrangling (Part 2) + Exercises",
-  "10:00 - 10:15", "Exercises Walkthrough",
+  "08:45 - 10:00", "Data wrangling (Part 2) + Exercises 4-5",
+  "10:00 - 10:15", "Exercises 4-5: Walkthrough",
   "10:15 - 10:30", "Break",
-  "10:30 - 11:45", "Data visualisation + Exercises",
+  "10:30 - 11:45", "Data visualisation + Exercise 6",
   "11:45 - 12:00", "Exercise 6: Walkthrough",
   "12:00 - 12:15", "Wrap-up",
   "12:15 - 12:30", "Q&A Session"
 )
 
-agenda_pm %>% 
+agenda_friday %>% 
   kable()
 
 ```
 
 ## Duration
 
-7 - 7.5 hours
+Two mornings, 08:30 - 12:30: 8 hours, including two 15-minute breaks
