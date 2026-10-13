@@ -1395,7 +1395,7 @@
       "Package": "stringi",
       "Version": "1.8.7",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "Requirements": [
         "R",
         "stats",
