@@ -146,7 +146,7 @@ For the illustrations, we will rely on the WTA dataset that you can import with 
 ::: callout-note
 Notice that:
 
-1.  The `path` is a URL
+1.  The `path` points to the shared `data` folder of the workshop, one level up (`../data/`)
 
 2.  The `path` is *fed* to `read_csv()` using the pipe operator (`%>%`)
 :::
@@ -232,6 +232,33 @@ wta_data %>%
     warn_large_data = FALSE
     )  
 ```
+
+## Cleaning column names
+
+The WTA column names are easy to work with. Files prepared by people are often less friendly: spaces, capital letters, units in brackets...
+
+-   Let's import a small example, `team_bad_names.csv`:
+
+```{r}
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+
+-   To use a name like `First Name` in our code, we would have to wrap it in backticks every time: `` team$`First Name` ``
+
+The function `clean_names()` from the package `{janitor}` **rewrites all the column names** in lower-case `snake_case`:
+
+```{r}
+library(janitor)
+team %>% 
+  clean_names()
+```
+
+::: callout-tip
+## Why bother?
+
+Clean names are **quicker to type** and **work without backticks**, and RStudio can **autocomplete** them. Call `clean_names()` once, right after importing, and the rest of your code stays simple.
+:::
 :::
 
 ## Picking columns with `select()`
