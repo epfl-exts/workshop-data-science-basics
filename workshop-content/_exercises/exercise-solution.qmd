@@ -19,15 +19,19 @@ format:
 editor: visual
 ---
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
 In this notebook, you are going to do a preliminary analysis on the Swiss population, that will then allow you to answer the following questions:
 
 > "How has the population in Swiss cantons changed in the past 10 years?"
 >
 > "Are swiss residents living in big or small households?".
 
-In order to best answer these questions, we have downloaded data made available by [FSO](https://www.bfs.admin.ch/bfs/en/home/statistics/population.html) and we have reshaped them for you to work with, during this workshop.
+To best answer these questions, we have downloaded data made available by [FSO](https://www.bfs.admin.ch/bfs/en/home/statistics/population.html) and have reshaped them for you to work with during this workshop.
 
-You can find the data in the `/data` folder.
+You can find the data in the `data` folder of `workshop-content`. From this notebook, its path is `../data/`.
 
 The following exercises have been designed to allow you to apply what you learn in the workshop to a real-world dataset.
 
@@ -66,30 +70,32 @@ Now load all datasets:
 -   `district_ids.csv`
 
 ::: callout-tip
-Assign the contents to the tables `communes_population`, `communes_ids`, `distict_ids`, respectively.
+Assign the contents to the tables `communes_population`, `communes_ids`, `district_ids`, respectively.
 :::
 
 ```{r}
 ## load the communes_population
-communes_population <- read_csv("data/communes_population.csv")
+communes_population <- read_csv("../data/communes_population.csv")
 
 ## load the communes ids
-communes_ids <- read_excel("data/communes_ids.xlsx", 
+communes_ids <- read_excel("../data/communes_ids.xlsx", 
     sheet = "communes_ids", skip = 2)
 
 ## load the district ids
-district_ids <- read_csv("data/district_ids.csv")
+district_ids <- read_csv("../data/district_ids.csv")
 ```
 
 ## Exercise 2
 
 ::: callout-important
-This Exercise comes after **Section 1 (Subsections 1.1-1.7)** of the second topic: **Data Wrangling**
+This Exercise comes after **Section 1 (Subsections 1.1-1.5)** of the second topic: **Data Wrangling**
 :::
 
 ### Explore the data
 
-Now take a look at the imported data and make sure all the numeric and non numeric columns have been imported correctly. To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the Environment tab.
+Now take a look at the imported data and make sure all the numeric and non-numeric columns have been imported correctly.
+
+To do so, you can use different functions: `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the `Environment` tab.
 
 ```{r}
 library(dplyr)
@@ -116,7 +122,7 @@ communes_ids %>%
   nrow()
 ```
 
-### How many inhabitant were living in a 4 people household in the commune of "1123 Altishofen" , in 2013? Use code to find out.
+### How many inhabitants were living in a 4 people household in the commune of "1123 Altishofen" in 2013? Use code to find out.
 
 ```{r}
 communes_population %>% 
@@ -124,35 +130,42 @@ communes_population %>%
   select(x2013) # maybe call the columns are "year"
 ```
 
-### In how many communes has the population decreased in 1 Person households, between 2012 and 2021?
+### In how many communes has the population decreased in 1 Person households between 2012 and 2021?
 
 ::: callout-tip
-1- Keep only the "1 Person" household sizes,\
-\
-2- calculate the difference between the population registered in 2021 and 2012\
-\
-3- keep only the rows for which the calculated difference is lower than 0.\
-\
-4- Count the rows, you will have the answer.\
-\
-5- Optional: keep only the relevant rows\
-\
+1- Keep only the "1 Person" household sizes
+
+2- Calculate the difference between the population registered in 2021 and 2012
+
+3- Keep only the rows for which the calculated difference is lower than 0
+
+4- Count the rows: this is your answer
+
+5- Optional: keep only the relevant columns
+
 6- Optional: arrange by the difference you calculated
 :::
 
 ```{r}
-communes_population %>% 
+communes_decreased <- communes_population %>% 
   filter(household_size == "1 Person") %>% 
-  mutate(difference = x2021-x2012)  %>% 
+  mutate(difference = x2021 - x2012) %>% 
   filter(difference < 0) %>% 
   select(commune, difference, x2012, x2021) %>% 
   arrange(difference)
+
+communes_decreased
+
+communes_decreased %>% 
+  nrow()
 ```
+
+The population living in 1 Person households has decreased in `r nrow(communes_decreased)` communes.
 
 ## Exercise 3
 
 ::: callout-important
-This Exercise comes after **Section 1** **(Subsections 1.8 - 1.9)** of the second topic: **Data Wrangling**
+This Exercise comes after **Section 1 (Subsections 1.7-1.9)** of the second topic: **Data Wrangling**
 :::
 
 ### Which is the canton with the highest number of districts?
@@ -176,10 +189,10 @@ district_ids %>%
 This Exercise comes after **Section 2** of the second topic: **Data Wrangling**
 :::
 
-### Calculate the total population in 2021, by district.
+### Calculate the total population in 2021 by district.
 
 ::: callout-tip
-Find a way to join together the `communes_ids` and `communes_population` data sets first. Then use `group_by()` and `summarise()` to compute the population of each district, in 2021 (sum the population of all communes in each district)
+Find a way to join together the `communes_ids` and `communes_population` data sets first. Then use `group_by()` and `summarise()` to compute the population of each district in 2021 (sum the population of all communes in each district)
 :::
 
 ```{r}
@@ -217,24 +230,24 @@ communes_long <- communes_population %>%
 
 ### Summarise the data by canton and by year
 
-Create a new tibble called `canton_long`, which is is the summarised version of `communes_long`.
+Create a new tibble called `canton_population`, which is the summarised version of `communes_long`.
 
 1- You can see that you are missing the "canton" information in the `communes_long`, find a way to join `district_ids` and `communes_ids` to `communes_long`.
 
 ```{r}
-canton_long <- communes_long %>% 
-  left_join(communes_ids, "commune") %>% 
-  left_join(district_ids, "district")
+communes_long <- communes_long %>% 
+  left_join(communes_ids, by = "commune") %>% 
+  left_join(district_ids, by = "district")
 
-canton_long
+communes_long
 ```
 
 2- Now create the tibble `canton_population` by grouping by `canton` and `year`, and summarising the data by canton. (The population of a canton is the sum of the population of each commune comprised in it).
 
 ```{r}
-canton_population <- canton_long %>% 
+canton_population <- communes_long %>% 
   group_by(canton, year) %>% 
-  summarise(population = sum(population))
+  summarise(population = sum(population), .groups = "drop")
 
 canton_population
 ```
@@ -246,12 +259,16 @@ This Exercise comes after the last topic: **Data Visualisation**
 :::
 
 ::: callout-warning
-Here you will use the `{ggplot2}` library. Remember to attach it!
+Here you will use the `{ggplot2}` and the `{stringr}` libraries. Remember to attach them!
 :::
 
-Clean the `year` column by removing the `x` in the `canton_long` tibble that you have created before. You can use `str_remove()` function to remove the "x". The resulting variable will be of type "character": change it to numeric.
+Clean the `year` column by removing the `x` in the `canton_population` tibble that you have created before.
 
-See example below:
+- You can use `str_remove()` function to remove the "x".
+
+- The resulting variable will be of type "character": change it to numeric.
+
+See the example below:
 
 ```{r eval = FALSE}
 
@@ -281,9 +298,9 @@ canton_population %>%
   geom_line() 
 ```
 
-### Compare the population between 2012 and 2021, for the different cantons.
+### Compare the population between 2012 and 2021 for the different cantons.
 
-Create a horizontal bar blot, mapping the `fill` to the year so to have two separated bars, one for each year. In order to avoid stacking the bars on top of each other (the default in `{ggplot2}`), use can add the argument `position = "dodge"` to the `geom_col()`.
+Create a horizontal bar blot, mapping the `fill` to the year so you have two separate bars, one for each year. In order to avoid stacking the bars on top of each other (the default in `{ggplot2}`), you can add the argument `position = "dodge"` to the `geom_col()`.
 
 ```{r}
 # subsetting the data, so we have only years 2012 and 2021
@@ -307,7 +324,7 @@ canton_population %>%
   facet_wrap(vars(canton), scales = "free_y")
 ```
 
-### Use a different theme
+### Optional: Use a different theme
 
 Apply a different theme to the previous plots.
 
@@ -315,7 +332,7 @@ Apply a different theme to the previous plots.
 If you write `theme_` in the console, all the preset themes will appear in a drop down menu. A good choice is usually `theme_minimal()` for a more minimal look.
 :::
 
-### Export the plots
+### Optional: Export the plots
 
 Set the `height` and the `width` so that the plot is readable.
 

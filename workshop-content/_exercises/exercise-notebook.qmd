@@ -27,7 +27,7 @@ In this notebook, you are going to do a preliminary analysis on the Swiss popula
 
 To best answer these questions, we have downloaded data made available by [FSO](https://www.bfs.admin.ch/bfs/en/home/statistics/population.html) and have reshaped them for you to work with during this workshop.
 
-You can find the data in the `/data` folder.
+You can find the data in the `data` folder of `workshop-content`. From this notebook, its path is `../data/`.
 
 The following exercises have been designed to allow you to apply what you learn in the workshop to a real-world dataset.
 
@@ -58,7 +58,7 @@ Now load all datasets:
 - `district_ids.csv`
 
 ::: callout-note
-Assign the contents to the tables `communes_population`, `communes_ids`, `distict_ids`, respectively.
+Assign the contents to the tables `communes_population`, `communes_ids`, `district_ids`, respectively.
 :::
 
 ```{r}
@@ -75,14 +75,24 @@ Assign the contents to the tables `communes_population`, `communes_ids`, `distic
 ## Exercise 2
 
 ::: callout-important
-This Exercise comes after **Section 1 (Subsections 1.1-1.7)** of the second topic: **Data Wrangling**
+This Exercise comes after **Section 1 (Subsections 1.1-1.5)** of the second topic: **Data Wrangling**
 :::
 
 ### Explore the data
 
 Now take a look at the imported data and make sure all the numeric and non-numeric columns have been imported correctly.
 
-To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the `Environment` tab.
+To do so, you can use different functions: `slice_head()`, `glimpse()`, `vis_dat()`. You can also click on the blue arrow in the `Environment` tab.
+
+```{r}
+
+```
+
+### How many communes are included in the dataset?
+
+::: callout-tip
+You can count the rows of the `communes_ids` dataset.
+:::
 
 ```{r}
 
@@ -104,9 +114,11 @@ To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`,
 
 3- Keep only the rows for which the calculated difference is lower than 0
 
-4- Optional: keep only the relevant rows
+4- Count the rows: this is your answer
 
-5- Optional: arrange by the difference you calculated
+5- Optional: keep only the relevant columns
+
+6- Optional: arrange by the difference you calculated
 :::
 
 ```{r}
@@ -116,7 +128,7 @@ To do so, you can use different functions: `str()`, `slice_head()`, `glimpse()`,
 ## Exercise 3
 
 ::: callout-important
-This Exercise comes after **Section 1** **(Subsections 1.8 - 1.9)** of the second topic: **Data Wrangling**
+This Exercise comes after **Section 1 (Subsections 1.7-1.9)** of the second topic: **Data Wrangling**
 :::
 
 ### Which is the canton with the highest number of districts?
@@ -168,7 +180,7 @@ Create a `communes_long` by transforming the `communes_population` to longer for
 
 ### Summarise the data by canton and by year
 
-Create a new tibble called `canton_long`, which is the summarised version of `communes_long`.
+Create a new tibble called `canton_population`, which is the summarised version of `communes_long`.
 
 1- You can see that you are missing the "canton" information in the `communes_long`, find a way to join `district_ids` and `communes_ids` to `communes_long`.
 
@@ -181,9 +193,9 @@ Create a new tibble called `canton_long`, which is the summarised version of `co
 2- Now create the tibble `canton_population` by grouping by `canton` and `year`, and summarising the data by canton. (The population of a canton is the sum of the population of each commune comprised in it).
 
 ```{r}
-#canton_population <- communes_long  %>% 
+#canton_population <- communes_long %>% 
 #   ... %>% 
-#.  ... %>% 
+#   ...
 ```
 
 ## Exercise 6
@@ -193,10 +205,10 @@ This Exercise comes after the last topic: **Data Visualisation**
 :::
 
 ::: callout-warning
-Here you will use the `{ggplot2}` and the `{stringr}` library. Remember to attach it!
+Here you will use the `{ggplot2}` and the `{stringr}` libraries. Remember to attach them!
 :::
 
-Clean the `year` column by removing the `x` in the `canton_long` tibble that you have created before.
+Clean the `year` column by removing the `x` in the `canton_population` tibble that you have created before.
 
 - You can use `str_remove()` function to remove the "x".
 

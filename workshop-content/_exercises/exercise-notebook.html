@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Your Name Here">
-<meta name="dcterms.date" content="2026-08-19">
+<meta name="dcterms.date" content="2026-10-13">
 
 <title>Exercise Notebook</title>
 <style>
@@ -123,7 +123,7 @@ background: #35D48D;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 19, 2026</p>
+        <p class="date">October 13, 2026</p>
       </div>
     </div>
     
@@ -145,8 +145,9 @@ background: #35D48D;
   <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">2</span> Exercise 2</a>
   <ul class="collapse">
   <li><a href="#explore-the-data" id="toc-explore-the-data" class="nav-link" data-scroll-target="#explore-the-data"><span class="header-section-number">2.1</span> Explore the data</a></li>
-  <li><a href="#how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." id="toc-how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." class="nav-link" data-scroll-target="#how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out."><span class="header-section-number">2.2</span> How many inhabitants were living in a 4 people household in the commune of “1123 Altishofen” in 2013? Use code to find out.</a></li>
-  <li><a href="#in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" id="toc-in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" class="nav-link" data-scroll-target="#in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021"><span class="header-section-number">2.3</span> In how many communes has the population decreased in 1 Person households between 2012 and 2021?</a></li>
+  <li><a href="#how-many-communes-are-included-in-the-dataset" id="toc-how-many-communes-are-included-in-the-dataset" class="nav-link" data-scroll-target="#how-many-communes-are-included-in-the-dataset"><span class="header-section-number">2.2</span> How many communes are included in the dataset?</a></li>
+  <li><a href="#how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." id="toc-how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." class="nav-link" data-scroll-target="#how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out."><span class="header-section-number">2.3</span> How many inhabitants were living in a 4 people household in the commune of “1123 Altishofen” in 2013? Use code to find out.</a></li>
+  <li><a href="#in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" id="toc-in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" class="nav-link" data-scroll-target="#in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021"><span class="header-section-number">2.4</span> In how many communes has the population decreased in 1 Person households between 2012 and 2021?</a></li>
   </ul></li>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3</span> Exercise 3</a>
   <ul class="collapse">
@@ -186,7 +187,7 @@ background: #35D48D;
 <p>“Are swiss residents living in big or small households?”.</p>
 </blockquote>
 <p>To best answer these questions, we have downloaded data made available by <a href="https://www.bfs.admin.ch/bfs/en/home/statistics/population.html">FSO</a> and have reshaped them for you to work with during this workshop.</p>
-<p>You can find the data in the <code>/data</code> folder.</p>
+<p>You can find the data in the <code>data</code> folder of <code>workshop-content</code>. From this notebook, its path is <code>../data/</code>.</p>
 <p>The following exercises have been designed to allow you to apply what you learn in the workshop to a real-world dataset.</p>
 <section id="exercise-1" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">1</span> Exercise 1</h2>
@@ -238,7 +239,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Assign the contents to the tables <code>communes_population</code>, <code>communes_ids</code>, <code>distict_ids</code>, respectively.</p>
+<p>Assign the contents to the tables <code>communes_population</code>, <code>communes_ids</code>, <code>district_ids</code>, respectively.</p>
 </div>
 </div>
 <div class="cell">
@@ -267,19 +268,35 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This Exercise comes after <strong>Section 1 (Subsections 1.1-1.7)</strong> of the second topic: <strong>Data Wrangling</strong></p>
+<p>This Exercise comes after <strong>Section 1 (Subsections 1.1-1.5)</strong> of the second topic: <strong>Data Wrangling</strong></p>
 </div>
 </div>
 <section id="explore-the-data" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="explore-the-data"><span class="header-section-number">2.1</span> Explore the data</h3>
 <p>Now take a look at the imported data and make sure all the numeric and non-numeric columns have been imported correctly.</p>
-<p>To do so, you can use different functions: <code>str()</code>, <code>slice_head()</code>, <code>glimpse()</code>, <code>vis_dat()</code>. You can also click on the blue arrow in the <code>Environment</code> tab.</p>
+<p>To do so, you can use different functions: <code>slice_head()</code>, <code>glimpse()</code>, <code>vis_dat()</code>. You can also click on the blue arrow in the <code>Environment</code> tab.</p>
 </section>
-<section id="how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out."><span class="header-section-number">2.2</span> How many inhabitants were living in a 4 people household in the commune of “1123 Altishofen” in 2013? Use code to find out.</h3>
+<section id="how-many-communes-are-included-in-the-dataset" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="how-many-communes-are-included-in-the-dataset"><span class="header-section-number">2.2</span> How many communes are included in the dataset?</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can count the rows of the <code>communes_ids</code> dataset.</p>
+</div>
+</div>
 </section>
-<section id="in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021"><span class="header-section-number">2.3</span> In how many communes has the population decreased in 1 Person households between 2012 and 2021?</h3>
+<section id="how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out." class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="how-many-inhabitants-were-living-in-a-4-people-household-in-the-commune-of-1123-altishofen-in-2013-use-code-to-find-out."><span class="header-section-number">2.3</span> How many inhabitants were living in a 4 people household in the commune of “1123 Altishofen” in 2013? Use code to find out.</h3>
+</section>
+<section id="in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="in-how-many-communes-has-the-population-decreased-in-1-person-households-between-2012-and-2021"><span class="header-section-number">2.4</span> In how many communes has the population decreased in 1 Person households between 2012 and 2021?</h3>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -293,8 +310,9 @@ Tip
 <p>1- Keep only the “1 Person” household sizes</p>
 <p>2- Calculate the difference between the population registered in 2021 and 2012</p>
 <p>3- Keep only the rows for which the calculated difference is lower than 0</p>
-<p>4- Optional: keep only the relevant rows</p>
-<p>5- Optional: arrange by the difference you calculated</p>
+<p>4- Count the rows: this is your answer</p>
+<p>5- Optional: keep only the relevant columns</p>
+<p>6- Optional: arrange by the difference you calculated</p>
 </div>
 </div>
 </section>
@@ -311,7 +329,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This Exercise comes after <strong>Section 1</strong> <strong>(Subsections 1.8 - 1.9)</strong> of the second topic: <strong>Data Wrangling</strong></p>
+<p>This Exercise comes after <strong>Section 1 (Subsections 1.7-1.9)</strong> of the second topic: <strong>Data Wrangling</strong></p>
 </div>
 </div>
 <section id="which-is-the-canton-with-the-highest-number-of-districts" class="level3" data-number="3.1">
@@ -415,7 +433,7 @@ Tip
 </section>
 <section id="summarise-the-data-by-canton-and-by-year" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="summarise-the-data-by-canton-and-by-year"><span class="header-section-number">5.2</span> Summarise the data by canton and by year</h3>
-<p>Create a new tibble called <code>canton_long</code>, which is the summarised version of <code>communes_long</code>.</p>
+<p>Create a new tibble called <code>canton_population</code>, which is the summarised version of <code>communes_long</code>.</p>
 <p>1- You can see that you are missing the “canton” information in the <code>communes_long</code>, find a way to join <code>district_ids</code> and <code>communes_ids</code> to <code>communes_long</code>.</p>
 <div class="cell">
 <details open="" class="code-fold">
@@ -429,9 +447,9 @@ Tip
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#canton_population &lt;- communes_long  %&gt;% </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#canton_population &lt;- communes_long %&gt;% </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ... %&gt;% </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#.  ... %&gt;% </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -461,10 +479,10 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Here you will use the <code>{ggplot2}</code> and the <code>{stringr}</code> library. Remember to attach it!</p>
+<p>Here you will use the <code>{ggplot2}</code> and the <code>{stringr}</code> libraries. Remember to attach them!</p>
 </div>
 </div>
-<p>Clean the <code>year</code> column by removing the <code>x</code> in the <code>canton_long</code> tibble that you have created before.</p>
+<p>Clean the <code>year</code> column by removing the <code>x</code> in the <code>canton_population</code> tibble that you have created before.</p>
 <ul>
 <li><p>You can use <code>str_remove()</code> function to remove the “x”.</p></li>
 <li><p>The resulting variable will be of type “character”: change it to numeric.</p></li>
