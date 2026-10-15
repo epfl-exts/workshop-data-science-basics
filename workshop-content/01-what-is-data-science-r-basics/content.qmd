@@ -5,7 +5,7 @@ author: "**EPFL Extension School**"
 format: 
   revealjs:
     slide-level: 2
-    transition: slide
+    transition: fade
     background-transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
@@ -45,6 +45,36 @@ library(tidyverse)
 ```
 
 # 📊 What is Data Science? {.subsection background-color="#425556"}
+
+
+## {background-image="images/chrome-capture-2026-10-15.png" background-position="cover"}
+
+## A **_Practical_** definition {background-image="images/chrome-capture-2026-10-15.png" background-position="cover" background-opacity="0.3"}
+
+
+
+>  [...] data science centers on **collecting, preparing, modeling, and analyzing data** to build predictive capabilities and solve complex problems.
+
+
+. . .
+
+
+> [...] data science “focuses on **transforming raw data** into **practical understanding** that informs decisions."
+
+
+. . .
+
+
+> To achieve this, data scientists leverage a **combination of technical tools and methodologies** [...]
+
+
+::: aside
+::: {.tiny}
+Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
+:::
+:::
+
+
 
 ## In Theory {.subsubsection background-color="#00A79F"}
 
@@ -116,33 +146,56 @@ library(tidyverse)
 
 ## A brief overview
 
+:::{.fragment}
 ::: {.content-box-marine}
 **R** is an open source **programming language** designed for **statistical computing**
 :::
+:::
 
+:::{.fragment}
 ::: {.content-box-marine}
 **R** is **highly extensible through `{packages}`** that can be **developed by anyone**.
 :::
+:::
 
+:::{.fragment}
 ::: {.content-box-marine}
 **Packages** are **collections of functions** that expand the functionality of R.
 :::
+:::
 
-## **R** as your **workbench**.
+## **R** as your **workbench** {background-image="images/elmer-canas-1UimDTf69ho-unsplash.jpg"background-position="cover" background-opacity="0.3"}
 
--   **Data**: the **materials** you're working with (metal, or wood)
+:::{.fragment}
+::: {.content-box-oil}
+**Data**: the **materials** you're working with (metal, or wood)
+:::
+:::
 
--   **Functions**: the **tools** you use to transform the materials (saw, hammers, pliers)
+. . . 
 
--   **Packages**: the **toolboxes** that contain a bunch of useful tools.
+:::{.fragment}
+::: {.content-box-oil}
+**Functions**: the **tools** you use to transform the materials (saw, hammers, pliers)
+:::
+:::
+
+. . .
+
+:::{.fragment}
+::: {.content-box-oil}
+**Packages**: the **toolboxes** that contain a bunch of useful tools.
+:::
+:::
 
 ## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
-::: {.content-box-marine}
-Base **R** is **powerful** but a bit **hard to learn**
-:::
 
--   One of the main problems: **many different ways to organise data**.
+Base **R** is **powerful** but a bit **hard to learn**
+
+::: {.content-box-marine}
+One of the main problems: **many different ways to organise data**.
+:::
 
 ::: {.notes}
 -   functions have same names, they don't communicate well with each other
@@ -151,13 +204,24 @@ Base **R** is **powerful** but a bit **hard to learn**
 -   "Freedom comes at a price" lists are powerful but can lead to those inconsistencies
 :::
 
-. . .
+## {.center}
 
-::: {.content-box-marine}
-Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
+![](images/tidydata_2.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
 :::
 
--   The Data is **organised in single, consistent way**: **"tidy" data**.
+## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
+
+
+Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
+
+::: {.content-box-marine}
+The Data is **organised in single, consistent way**: **"tidy" data**.
+:::
 
 ::: {.notes}
 -   "opinionated" they are directive, i.e. they come with a set of rules and guidelines
@@ -173,19 +237,20 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 :::
 :::
 
+# Why R and `{tidyverse}`? {.subsection background-color="#425556"}
+
+# With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection background-color="#425556"}
+
+
 ## {.center}
 
-![](images/tidydata_2.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+![](images/tidydata_5.jpg){fig-alt="A tidy data frame drawn as a friendly table: every column is a variable, every row is an observation, every cell is a single value." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
 Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
 :::
 :::
-
-# Why R and `{tidyverse}`? {.subsection background-color="#425556"}
-
-# With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection background-color="#425556"}
 
 ## {.center}
 

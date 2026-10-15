@@ -6,7 +6,7 @@ format:
     theme: simplex
     number-sections: true
     code-fold: show
-    highlight-style: zenburn
+    highlight-style: github
     toc: true
     df-print: paged
     toc-location: right
