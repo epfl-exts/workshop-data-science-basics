@@ -2,15 +2,17 @@
 title: "Working with R Notebooks"
 subtitle: "R Markdown and Quarto"
 author: "**EPFL Extension School**"
-format:
+format: 
   revealjs:
     slide-level: 2
-    transition: slide
+    transition: fade
     background-transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
-    df-print: paged
+    df-print: kable
     embed-resources: true
+    width: 1440 
+    height: 810
     output-file: "presentation"
     css: ../assets/css/exts-reveal.css
   html:
@@ -50,13 +52,17 @@ A markup language allows you to format a document with **commands** instead of m
 
 For instance, you can:
 
+::: {.incremental}
 -   Enclose a word between two sets of \*\*two asterisks\*\* to obtain **bold text**.
 
 -   Enclose a word between \_underscores\_ to produce *italic text*.
 
 -   Create headers and subheaders at various levels with `#`, `##` and `###`.
 
--   Define a quote block by placing `>` in front of the quote.
+> -   Define a quote block by placing `>` in front of the quote.
+:::
+
+
 
 ## Markdown can be rendered in various formats
 
@@ -76,6 +82,7 @@ R Markdown combines **text written with Markdown** and **code written with R**.
 
 This is useful in two ways:
 
+::: {.fragment}
 -   **As a tool for analysis**:
 
     -   R Markdown **replaces scripts** when carrying out analyses.
@@ -83,16 +90,20 @@ This is useful in two ways:
     -   You can **execute the R code** contained in the R Markdown document to analyse your data.
 
     -   Since it allows for text, it can be used to **document your data analysis**.
+:::
 
+::: {.fragment}
 -   **As a reporting tool**:
 
     -   It can produce reports in various formats, including `.pdf`, `.docx` and `html`.
 
     -   Rendering in `html` allows for some degree of **interactivity**.
+:::
 
 # Quarto {.subsection background-color="#425556"}
 
 ## Quarto is the **next-generation version of R Markdown** {.smaller}
+
 
 -   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
 
@@ -193,9 +204,9 @@ cars
 
 ## Execute a code chunk {.smaller}
 
--   To execute a chunk, use the *play* button ▶️ on its right-hand side,
+-  Use the *play* button ▶️ on its right-hand side,
 
--   or the shortcut <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> (<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> on a Mac).
+-  Or the shortcut <kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> (<kbd>Cmd</kbd>
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -216,7 +227,7 @@ plot(cars)
 
 Once you're done with your analysis, click on the `Knit` / `Render` button at the top of the source editor to produce a document.
 
-::: {.callout-important icon="false"}
+
 ## Exercise
 
 Time to get your fingers dirty!
@@ -234,4 +245,4 @@ In your newly created R Markdown / Quarto document:
     -   Execute the chunk with the **play button** or the shortcut.
 
 -   Save the file in a convenient location, then *Knit* / *Render* it.
-:::
+

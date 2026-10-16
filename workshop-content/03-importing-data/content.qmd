@@ -73,6 +73,13 @@ How to get **tabular data** into R:
 . . .
 
 and the **arguments** that work around the usual caveats.
+
+::: callout-note
+## Disclaimer
+
+Some data used in this unit is simulated.
+:::
+
 :::
 
 ::: {.content-visible unless-format="revealjs"}
@@ -93,14 +100,19 @@ Ask participants whether they work (or will have to work) with Excel or SAS file
 
 ## A table in a text file
 
-::: callout-note
-**Disclaimer:** some data used in this section are simulated.
-:::
-
 ::: {.content-visible when-format="revealjs"}
+
+Data entries are stored as a **table** in a **text file**.
+
 -   One row of the table per line
--   Columns separated by a **delimiter**: comma `,`, semicolon `;` or tab
--   **CSV**: **C**omma-**S**eparated **V**alues · **TSV**: **T**ab-**S**eparated **V**alues
+-   Columns separated by a **delimiter** 
+
+| separator | format  | extension |
+|-----------|---------|-----------|
+| comma `,` | **C**omma-**S**eparated **V**alues  | `.csv` |
+| comma `,` | **C**omma-**S**eparated **V**alues  | `.csv` |
+| semicolon `;` | **T**ab-**S**eparated **V**alues | `.tsv` |     
+
 :::
 
 ::: {.content-visible unless-format="revealjs"}
@@ -109,6 +121,8 @@ In delimited files, the data entries are stored as a **table** in a **text file*
 The delimiters give their **names** to the two most widespread file types: CSV (**C**omma-**S**eparated **V**alues) and TSV (**T**ab-**S**eparated **V**alues).
 :::
 
+## {.center}
+
 ```{r, echo=FALSE, out.width="70%", fig.alt="The same small table (name, gender, weight, height, bmi) saved in two text formats: team.csv, where the values are separated by commas, and team.tsv, where they are separated by tabs."}
 knitr::include_graphics("images/1-delim.png")
 ```
@@ -116,15 +130,12 @@ knitr::include_graphics("images/1-delim.png")
 ## CSV is the most common format for sharing data
 
 ::: {.content-visible when-format="revealjs"}
+
+::: {.incremental}
 -   Small- and mid-sized data, up to several GB
-
-. . .
-
 -   **Software-agnostic**: any tool can open it
-
-. . .
-
 -   Especially important when you **work in a team**!
+:::
 :::
 
 ::: {.content-visible unless-format="revealjs"}
@@ -192,7 +203,11 @@ Quarto and R Markdown documents work with **relative** paths, which makes writin
 -   So the path to `team.csv` can be written **relative to the position of the document**, i.e. `"data/team.csv"`, as opposed to an absolute path such as `"/Users/jack/Documents/my/unique/folders/data/team.csv"`.
 -   This is extremely beneficial, especially if you're **working with a collaborator!** The same code runs on their computer, whatever their folder structure.
 
-**Warning!** Paths start from the document's folder only in Quarto / R Markdown documents. In R scripts and in the console, they start from the *working directory* instead.
+:::{.callout-warning}
+
+Paths start from the document's folder **only in Quarto / R Markdown documents**. In R scripts and in the console, they start from the *working directory* instead.
+:::
+
 :::
 
 ## Useful arguments of `read_csv()`

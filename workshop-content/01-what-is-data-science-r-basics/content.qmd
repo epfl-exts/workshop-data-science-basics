@@ -9,8 +9,10 @@ format:
     background-transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
-    df-print: paged
+    df-print: kable
     embed-resources: true
+    width: 1440 
+    height: 810
     output-file: "presentation"
     css: ../assets/css/exts-reveal.css
   html:
@@ -47,54 +49,71 @@ library(tidyverse)
 # 📊 What is Data Science? {.subsection background-color="#425556"}
 
 
-## {background-image="images/chrome-capture-2026-10-15.png" background-position="cover"}
+## A **_Practical_** definition {background-image="images/chrome-capture-2026-10-15.png" background-size="300px" background-position="90% 10%" background-opacity="0.5"} 
 
-## A **_Practical_** definition {background-image="images/chrome-capture-2026-10-15.png" background-position="cover" background-opacity="0.3"}
+::: {.content-visible unless-format="revealjs"}
 
+This is the first question you may have in mind when approaching the topic of Data Science. We think that a first answer to this question comes from a practical standpoint, i.e. from what Data Science _does_.  To cite a [post by Ally Heinrich on the Harvard Business School blog](https://online.hbs.edu/blog/post/data-analytics-vs-data-science) (emphasis ours): 
 
+![](images/chrome-capture-2026-10-15.png){fig-alt="A screenshot of the HBS blog post title" fig-align="center" width="90%"}
+
+> Data science centers on **collecting, preparing, modeling, and analyzing data** to build predictive capabilities and solve complex problems.
+> 
+> As [HBS Professor Karim] Lakhani notes in Data Science and AI for Decision Making, data science “focuses on **transforming raw data** into **practical understanding** that **informs decisions**."
+>
+> To achieve this, data scientists leverage a combination of technical tools and methodologies [...] 
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+A _practical_ definition[^1]: what Data Science **_does_**:
+
+. . . 
 
 >  [...] data science centers on **collecting, preparing, modeling, and analyzing data** to build predictive capabilities and solve complex problems.
 
-
 . . .
-
 
 > [...] data science “focuses on **transforming raw data** into **practical understanding** that informs decisions."
 
-
 . . .
-
 
 > To achieve this, data scientists leverage a **combination of technical tools and methodologies** [...]
 
 
-::: aside
-::: {.tiny}
-Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
-:::
+[^1]: Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
+
 :::
 
 
+## In Theory
 
-## In Theory {.subsubsection background-color="#00A79F"}
+::: {.content-visible unless-format="revealjs"}
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+Using an **intersection** of **practices** and **skills** to answer a research **question** that involves **data**
 
 . . .
 
-### Using an **intersection** of **practices** and **skills**
-
-### to answer a research **question** that involves **data**
-
-## {.center}
+:::
 
 ![](images/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="80%"}
 
-## In Practice {.subsubsection background-color="#00A79F"}
+## In Practice 
+
+::: {.content-visible unless-format="revealjs"}
+
+:::
+
+::: {.content-visible when-format="revealjs"}
+
+**Mastering** the **Data pipeline**
 
 . . .
-
-### **mastering** the **Data pipeline**
-
-## The Data pipeline {.smaller}
 
 :::::: {.columns}
 ::::: {.column width="50%"}
@@ -138,7 +157,9 @@ Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science
 :::::
 ::::::
 
-## {.center}
+:::
+
+## The Data Pipeline 
 
 ![](images/fig-data-pipeline-empty.png){fig-alt="The data pipeline as a flow: import, then tidy, then a loop of transform, visualise and model, then communicate." fig-align="center" width="90%"}
 
@@ -147,19 +168,19 @@ Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science
 ## A brief overview
 
 :::{.fragment}
-::: {.content-box-marine}
+::: {.content-box-oil}
 **R** is an open source **programming language** designed for **statistical computing**
 :::
 :::
 
 :::{.fragment}
-::: {.content-box-marine}
+::: {.content-box-oil}
 **R** is **highly extensible through `{packages}`** that can be **developed by anyone**.
 :::
 :::
 
 :::{.fragment}
-::: {.content-box-marine}
+::: {.content-box-oil}
 **Packages** are **collections of functions** that expand the functionality of R.
 :::
 :::
@@ -198,21 +219,24 @@ One of the main problems: **many different ways to organise data**.
 :::
 
 ::: {.notes}
--   functions have same names, they don't communicate well with each other
--   the output of one does not become easily the input of another (especially if they come from different packages)
--   `lists` are the preferred data source
--   "Freedom comes at a price" lists are powerful but can lead to those inconsistencies
+- functions have same names, they don't communicate well with each other
+- the output of one does not become easily the input of another (especially if they come from different packages)
+- `lists` are the preferred data source
+- "Freedom comes at a price" lists are powerful but can lead to those inconsistencies
 :::
 
 ## {.center}
 
-![](images/tidydata_2.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+![](images/tidydata_2-1-mod.png){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
 Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
 :::
 :::
+
+
+
 
 ## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
@@ -237,6 +261,18 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 :::
 :::
 
+
+## {.center}
+
+![](images/tidydata_2-2-mod.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
+:::
+:::
+
+
 # Why R and `{tidyverse}`? {.subsection background-color="#425556"}
 
 # With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection background-color="#425556"}
@@ -244,7 +280,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 ## {.center}
 
-![](images/tidydata_5.jpg){fig-alt="A tidy data frame drawn as a friendly table: every column is a variable, every row is an observation, every cell is a single value." fig-align="center" width="80%"}
+![](images/tidydata_5.jpg){fig-alt="A cartoon of the data pipeline. How every step produces tidy data that is consumed by the next stage until a final shareable result." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
@@ -264,64 +300,38 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 Before today you started a **Renku** session and met the **RStudio IDE**.
 :::
 
+
+## {.center}
+
+![](images/rstudio_ide.png){fig-alt="The Rstudio interface highlighting the source editor and the console" fig-align="center" width="90%"}
+
+::: {.notes}
+
 -   The **Console** — where R evaluates what you type, one line at a time.
 
 -   The **Source editor** — where you *save* the code you want to keep.
 
--   **Variables**, assigned with `<-`, to store results and reuse them.
 
--   **Comments**, written after a `#`, which R does not evaluate.
 
-. . .
-
-::: {.content-box-marine}
 Today we build on all four. If any of them feels shaky, say so now.
 :::
 
-# 💾 Saving today's work {.subsection background-color="#425556"}
 
-## 💾 Saving today's work: one file
+## What you already set up
 
-::: {.content-box-marine}
-Your Renku session is **temporary**: before it ends, **download** the files you want to keep to your computer.
-:::
-
-Most of your work is in **one file**: the exercise notebook.
-
--   In the **Files** pane, go to `workshop-content/_exercises/`.
-
--   **Tick the box** next to `exercise-notebook.qmd`.
-
--   Click on **More** ⚙️ → **Export...** → **Download**.
-
-. . .
-
-::: callout-tip
-Tick **one file at a time**. Exporting a whole folder fails on Renku: RStudio needs to zip it first, and the session can't.
-:::
-
-## 💾 Saving today's work: everything at once
-
-To download **all your notebooks and scripts** at once, first pack them into a single archive. Type in the **Console**:
-
-```{r}
-#| eval: false
-tar("my-work.tar.gz",
-    files = list.files("workshop-content",
-                       pattern = "[.](qmd|Rmd|R)$",
-                       recursive = TRUE, full.names = TRUE),
-    compression = "gzip", tar = "internal")
+- **Variables**, assigned with `<-` e.g. 
+```r
+x <- 5
 ```
 
-. . .
+- **Comments**, written after a `#`, which R does not evaluate.
 
--   Then download `my-work.tar.gz` as on the previous slide.
+```r
+> # Code that does not evaluate
+> print("Code that does evaluate")
+[1] "Code that does evaluate"
+```
 
--   On your computer, **double-click** it to unpack it (macOS and Windows 11; on Windows 10, use [7-Zip](https://www.7-zip.org)).
-
-::: aside
-The archive contains only your `.qmd`, `.Rmd` and `.R` files: what you wrote. Rendered pages and their support files can be recreated by rendering again.
-:::
 
 # Beyond the Prework {.subsection background-color="#425556"}
 
@@ -515,17 +525,10 @@ cars %>% pull(speed) %>% density() %>% plot()
 
 . . .
 
-Which can be "read" as
+Which can be "read" as:
 
-::: {.incremental}
--   "*take the dataset `cars`...*"
+> "*take the dataset `cars` **then** `pull()` the variable `speed` **then** compute the `density()`**then** build a `plot()`.*"
 
--   "*... **then** `pull()` the variable `speed`...*"
-
--   "*... **then** compute the `density()`...*"
-
--   "*...**then** build a `plot()`.*"
-:::
 
 ## ▶️ The *Pipe* operator of the `{tidyverse}`
 
@@ -566,3 +569,53 @@ In RStudio, go to *Tools* → *Global Options* → *Code* and look for *Use nati
 ### Data **Wrangling**
 
 ### Data **Visualisation**
+
+
+# 💾 Extra info: Saving today's work {.subsection background-color="#425556"}
+
+## 💾 Saving one file
+
+::: {.content-box-marine}
+Your Renku session is **temporary**: before it ends, **download** the files you want to keep to your computer.
+:::
+
+Most of your work is in **one file**: the exercise notebook.
+
+-   In the **Files** pane, go to `workshop-content/_exercises/`.
+
+-   **Tick the box** next to `exercise-notebook.qmd`.
+
+-   Click on **More** ⚙️ → **Export...** → **Download**.
+
+. . .
+
+::: callout-tip
+Tick **one file at a time**. Exporting a whole folder fails on Renku. 
+:::
+
+## 💾 Saving all scripts at once
+
+- To download **all your notebooks and scripts** (`.qmd`, `.Rmd` and `.R`) at once, first pack them into a single archive. 
+
+. . .
+
+- Type in the **Console**:
+
+```{r}
+#| eval: false
+tar("my-work.tar.gz",
+    files = list.files("workshop-content",
+                       pattern = "[.](qmd|Rmd|R)$",
+                       recursive = TRUE, full.names = TRUE),
+    compression = "gzip", tar = "internal")
+```
+
+- Then download `my-work.tar.gz` as on the previous slide.
+
+- On your computer, **double-click** it to unpack it (macOS and Windows 11).
+
+. . . 
+
+::: callout-important
+Rendered pages and their support files can be recreated by rendering again.
+:::
