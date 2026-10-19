@@ -3537,6 +3537,7 @@ background-origin: content-box;
   <li><a href="#delimited-files" id="toc-delimited-files" class="nav-link" data-scroll-target="#delimited-files"><span class="header-section-number">2</span> 📄 Delimited files</a>
   <ul class="collapse">
   <li><a href="#a-table-in-a-text-file" id="toc-a-table-in-a-text-file" class="nav-link" data-scroll-target="#a-table-in-a-text-file">A table in a text file</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#csv-is-the-most-common-format-for-sharing-data" id="toc-csv-is-the-most-common-format-for-sharing-data" class="nav-link" data-scroll-target="#csv-is-the-most-common-format-for-sharing-data">CSV is the most common format for sharing data</a></li>
   <li><a href="#read_csv-reads-a-csv-file-into-r" id="toc-read_csv-reads-a-csv-file-into-r" class="nav-link" data-scroll-target="#read_csv-reads-a-csv-file-into-r"><code>read_csv()</code> reads a CSV file into R</a></li>
   <li><a href="#example-reading-team.csv" id="toc-example-reading-team.csv" class="nav-link" data-scroll-target="#example-reading-team.csv">Example: reading <code>team.csv</code></a></li>
@@ -3564,7 +3565,7 @@ background-origin: content-box;
   <li><a href="#exercise-time" id="toc-exercise-time" class="nav-link" data-scroll-target="#exercise-time">Exercise Time!</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="presentation.html"><i class="bi bi-easel"></i>Slides</a></li></ul></div></nav>
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -3572,8 +3573,8 @@ background-origin: content-box;
 
 
 
-<section id="getting-the-data-in" class="level1 subsection" data-background-color="#425556" data-number="1">
-<h1 class="subsection" data-background-color="#425556" data-number="1"><span class="header-section-number">1</span> 📥 Getting the data in</h1>
+<section id="getting-the-data-in" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 📥 Getting the data in</h1>
 <section id="import-the-first-step-of-the-pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="import-the-first-step-of-the-pipeline">Import: the first step of the pipeline</h2>
 <div class="cell" data-layout-align="center">
@@ -3597,25 +3598,15 @@ background-origin: content-box;
 </ul>
 </section>
 </section>
-<section id="delimited-files" class="level1 subsection" data-background-color="#425556" data-number="2">
-<h1 class="subsection" data-background-color="#425556" data-number="2"><span class="header-section-number">2</span> 📄 Delimited files</h1>
+<section id="delimited-files" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 📄 Delimited files</h1>
 <section id="a-table-in-a-text-file" class="level2">
 <h2 class="anchored" data-anchor-id="a-table-in-a-text-file">A table in a text file</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Disclaimer:</strong> some data used in this section are simulated.</p>
-</div>
-</div>
 <p>In delimited files, the data entries are stored as a <strong>table</strong> in a <strong>text file</strong>. Columns are separated by a specific <strong>delimiter character</strong>, e.g. a comma (<code>,</code>), a semicolon (<code>;</code>) or a tabulation character (tab for short).</p>
 <p>The delimiters give their <strong>names</strong> to the two most widespread file types: CSV (<strong>C</strong>omma-<strong>S</strong>eparated <strong>V</strong>alues) and TSV (<strong>T</strong>ab-<strong>S</strong>eparated <strong>V</strong>alues).</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -3628,7 +3619,7 @@ Note
 </section>
 <section id="csv-is-the-most-common-format-for-sharing-data" class="level2">
 <h2 class="anchored" data-anchor-id="csv-is-the-most-common-format-for-sharing-data">CSV is the most common format for sharing data</h2>
-<p>CSV files are the <strong>most common file format for sharing small- and mid-sized data</strong> (up to several GB). Their main advantage is that they are <strong>software-agnostic</strong>: any program can read them. This is especially important if you work in a team!</p>
+<p>CSV files are the <strong>most common file format for sharing small- and mid-sized data</strong> (up to several GB). Their main advantage is that they are <strong>software-agnostic</strong>: any program can read them. This is especially important if you work in a team.</p>
 </section>
 <section id="read_csv-reads-a-csv-file-into-r" class="level2">
 <h2 class="anchored" data-anchor-id="read_csv-reads-a-csv-file-into-r"><code>read_csv()</code> reads a CSV file into R</h2>
@@ -3674,7 +3665,19 @@ Note
 <li>So the path to <code>team.csv</code> can be written <strong>relative to the position of the document</strong>, i.e. <code>&quot;data/team.csv&quot;</code>, as opposed to an absolute path such as <code>&quot;/Users/jack/Documents/my/unique/folders/data/team.csv&quot;</code>.</li>
 <li>This is extremely beneficial, especially if you’re <strong>working with a collaborator!</strong> The same code runs on their computer, whatever their folder structure.</li>
 </ul>
-<p><strong>Warning!</strong> Paths start from the document’s folder only in Quarto / R Markdown documents. In R scripts and in the console, they start from the <em>working directory</em> instead.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Paths start from the document’s folder <strong>only in Quarto / R Markdown documents</strong>. In R scripts and in the console, they start from the <em>working directory</em> instead.</p>
+</div>
+</div>
 </section>
 <section id="useful-arguments-of-read_csv" class="level2">
 <h2 class="anchored" data-anchor-id="useful-arguments-of-read_csv">Useful arguments of <code>read_csv()</code></h2>
@@ -3701,21 +3704,21 @@ Tip
 </div>
 </div>
 </section>
-<section id="col_names-false-the-first-row-is-data" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="col_names-false-the-first-row-is-data"><code>col_names = FALSE</code>: the first row is data</h2>
+<section id="col_names-false-the-first-row-is-data" class="level2">
+<h2 class="anchored" data-anchor-id="col_names-false-the-first-row-is-data"><code>col_names = FALSE</code>: the first row is data</h2>
 <p>By default, <code>read_csv()</code> considers <strong>the first row</strong> as the <strong>column names</strong>. However, sometimes the file’s <strong>first row is data</strong>. The argument <code>col_names</code> defines <strong>how to treat the first row</strong>: if it does not contain the column names, we set <code>col_names = FALSE</code>, and R generates the column names <code>X1</code>, <code>X2</code>, etc.</p>
 <p>The file <code>team_wo_header.csv</code> does not have a header:</p>
 <div class="columns">
-<div class="column" style="width:40%;">
-<div class="cell" data-layout-align="center">
+<div class="column" style="width:25%;">
+<div class="cell" data-layout-align="center" data-filename="data/team_wo_header.csv">
 <div class="cell-output cell-output-stdout">
-<pre><code>Hilma,Female,67,190,18.56
-Olga,Female,71,179,22.16
-Freddy,Male,66,169,23.11
-Louise,Female,78,153,33.32</code></pre>
+<pre><code>NA Hilma,Female,67,190,18.56
+NA Olga,Female,71,179,22.16
+NA Freddy,Male,66,169,23.11
+NA Louise,Female,78,153,33.32</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:65%;">
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
@@ -3737,8 +3740,8 @@ Louise,Female,78,153,33.32</code></pre>
 </div>
 </div>
 </section>
-<section id="na-null-declare-the-missing-values" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="na-null-declare-the-missing-values"><code>na = &quot;null&quot;</code>: declare the missing values</h2>
+<section id="na-null-declare-the-missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="na-null-declare-the-missing-values"><code>na = &quot;null&quot;</code>: declare the missing values</h2>
 <p>In R, <strong>missing values are denoted as <code>NA</code></strong>. However, other programs have other ways of declaring a missing value, e.g. <code>null</code>. When imported with <code>read_csv()</code>, these are read as the <strong>character string <code>&quot;null&quot;</code></strong>, and every column that contains one is imported as characters, even if it holds numbers.</p>
 <p>Take a look at the <code>team_missing.csv</code> dataset:</p>
 <div class="cell" data-layout-align="center">
@@ -3784,8 +3787,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 <p>Setting <code>na = &quot;null&quot;</code> is a lifesaver in this case: the numeric columns are numbers again.</p>
 </section>
-<section id="skip-3-jump-over-the-metadata" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="skip-3-jump-over-the-metadata"><code>skip = 3</code>: jump over the metadata</h2>
+<section id="skip-3-jump-over-the-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="skip-3-jump-over-the-metadata"><code>skip = 3</code>: jump over the metadata</h2>
 <p>CSV files are text files, so they are sometimes stored as <code>.txt</code>. Some text files have a <strong>description of the data in their first lines</strong>, sometimes called “metadata”. When importing the data into a tibble, <strong>these lines must be skipped</strong>, which can be done with the argument <code>skip</code>.</p>
 <p>The file <code>team_meta.txt</code> starts with three lines of metadata:</p>
 <div class="columns">
@@ -3819,8 +3822,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </div>
 </section>
-<section id="locale-special-characters" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="locale-special-characters"><code>locale</code>: special characters</h2>
+<section id="locale-special-characters" class="level2">
+<h2 class="anchored" data-anchor-id="locale-special-characters"><code>locale</code>: special characters</h2>
 <p>The argument <code>locale</code> helps you avoid encoding issues. It is especially useful when a CSV file is in a <strong>language with special characters</strong> (e.g. French, German, etc.). Setting <code>locale = locale(encoding = &quot;latin1&quot;)</code> reads the file with the <code>latin1</code> encoding, so the special characters are imported correctly.</p>
 <p>Compare the output of the following code chunks:</p>
 <div class="columns">
@@ -3905,8 +3908,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </section>
 </section>
-<section id="excel-files" class="level1 subsection" data-background-color="#425556" data-number="3">
-<h1 class="subsection" data-background-color="#425556" data-number="3"><span class="header-section-number">3</span> 📗 Excel files</h1>
+<section id="excel-files" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 📗 Excel files</h1>
 <section id="readxl-reads-excel-workbooks" class="level2">
 <h2 class="anchored" data-anchor-id="readxl-reads-excel-workbooks"><code>{readxl}</code> reads Excel workbooks</h2>
 <p>MS Excel is one of the most popular formats for storing small datasets, so let’s see <strong>how to import data from Excel files</strong>, usually with an <code>.xls</code> or <code>.xlsx</code> extension.</p>
@@ -3964,8 +3967,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </div>
 </section>
-<section id="sheet-which-sheet-to-import" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="sheet-which-sheet-to-import"><code>sheet</code>: which sheet to import</h2>
+<section id="sheet-which-sheet-to-import" class="level2">
+<h2 class="anchored" data-anchor-id="sheet-which-sheet-to-import"><code>sheet</code>: which sheet to import</h2>
 <p>An Excel file can have several sheets. The argument <strong><code>sheet</code></strong> controls <strong>which sheet is imported</strong>. It can be given as the <strong>name of the sheet</strong>, e.g. <code>sheet = &quot;Women&quot;</code>, or as <strong>its position</strong> in the workbook, e.g. <code>sheet = 2</code>. By default, <code>read_xlsx()</code> imports the <strong>first sheet</strong>.</p>
 <p>Let’s import the sheet <code>&quot;Women&quot;</code> from <code>je-e-06.02.00.01.02.xlsx</code>:</p>
 <div class="cell" data-layout-align="center">
@@ -4000,8 +4003,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </div>
 </section>
-<section id="range-which-cells-to-import" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="range-which-cells-to-import"><code>range</code>: which cells to import</h2>
+<section id="range-which-cells-to-import" class="level2">
+<h2 class="anchored" data-anchor-id="range-which-cells-to-import"><code>range</code>: which cells to import</h2>
 <p>Specifying the <code>sheet</code> is not enough here, because the <strong>data is all over the place</strong> in the sheet, and skipping lines (with <code>skip</code>) wouldn’t help. With the argument <code>range</code>, we refer to a <strong>rectangle of cells</strong> by its upper-left and lower-right cells, separated by a colon (<code>:</code>). For instance, <code>range = &quot;B2:K14&quot;</code> imports the data in the rectangle between cells B2 and K14.</p>
 <p>In our file, the table lies between the cells A9 and DP72:</p>
 <div class="cell" data-layout-align="center">
@@ -4024,8 +4027,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </div>
 </section>
-<section id="col_names-false-again" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="col_names-false-again"><code>col_names = FALSE</code>, again</h2>
+<section id="col_names-false-again" class="level2">
+<h2 class="anchored" data-anchor-id="col_names-false-again"><code>col_names = FALSE</code>, again</h2>
 <p>We are one step closer, but the <strong>column names contain values</strong>. The last step is to set an argument we already know: <code>col_names = FALSE</code>.</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4049,8 +4052,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </section>
 </section>
-<section id="files-from-statistical-software" class="level1 subsection" data-background-color="#425556" data-number="4">
-<h1 class="subsection" data-background-color="#425556" data-number="4"><span class="header-section-number">4</span> 📊 Files from statistical software</h1>
+<section id="files-from-statistical-software" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 📊 Files from statistical software</h1>
 <section id="haven-reads-sas-spss-and-stata-files" class="level2">
 <h2 class="anchored" data-anchor-id="haven-reads-sas-spss-and-stata-files"><code>{haven}</code> reads SAS, SPSS and Stata files</h2>
 <p>Data might also come in a file format generated by statistical software, e.g. SAS, SPSS or Stata. Data from these programs can be imported with the <code>{haven}</code> package, which reads and writes <code>.sas7bdat</code>, <code>.sas7bcat</code>, <code>.xpt</code>, <code>.sav</code>, <code>.por</code> and <code>.dta</code> files.</p>
@@ -4110,8 +4113,8 @@ Freddy,Male,66,169,23.11</code></pre>
 </div>
 </div>
 </section>
-<section id="example-reading-a-sas-file" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="example-reading-a-sas-file">Example: reading a SAS file</h2>
+<section id="example-reading-a-sas-file" class="level2">
+<h2 class="anchored" data-anchor-id="example-reading-a-sas-file">Example: reading a SAS file</h2>
 <p>For instance, let’s import a SAS data file with <code>read_sas()</code>:</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">

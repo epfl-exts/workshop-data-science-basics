@@ -5,18 +5,6 @@ author: "**EPFL Extension School**"
 execute:
   echo: true
 format:
-  revealjs:
-    slide-level: 2
-    transition: fade
-    background-transition: fade
-    footer: "Basics of Data Science Workshop"
-    slide-number: true
-    df-print: tibble
-    embed-resources: true
-    width: 1440
-    height: 810
-    output-file: "presentation"
-    css: ../assets/css/exts-reveal.css
   html:
     theme: simplex
     number-sections: true
@@ -30,8 +18,11 @@ format:
     title-block-banner: "#413D3A"
     title-block-banner-color: "White"
     embed-resources: true
-    output-file: "handout"
     css: ../assets/css/styles-html.css
+    other-links:
+      - text: Slides
+        href: presentation.html
+        icon: easel
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -44,8 +35,6 @@ knitr::opts_chunk$set(
   fig.height = 9/2,
   cache = FALSE)
 
-# keep wide tibbles (e.g. the 49-column WTA data) on one slide
-options(pillar.max_extra_cols = 0)
 ```
 
 ```{r packs_load, include = FALSE}
@@ -54,45 +43,12 @@ library(janitor)
 library(DT)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Wrangling: tidy, then transform
-
-::: {.notes}
-Warn participants not to knit/render: it takes too long on Renku. We execute the code as it is presented.
-:::
-:::
-
 ![](images/fig-data-wrangling.png){fig-alt="The data science pipeline, with the Tidy and Transform steps highlighted: data wrangling covers both." width="80%" fig-align="center"}
 
-::: {.content-visible when-format="revealjs"}
--   **Tidy**: clean the data into **tidy tables** (`tibbles`)
--   **Transform**: reshape it to get insight
-
-Both are **data wrangling**.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The second step in a data scientist's pipeline is to **Tidy**, i.e. "clean" the data and prepare it for analysis. In the `{tidyverse}` philosophy, this also involves **transforming** the data into **tidy tables** called `tibbles`.
 
 To get insight during the analysis stage, one needs to be able to **Transform** the data. Both of these tasks involve the **manipulation of data**, a task often called **Data Wrangling**.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Basic wrangling tasks
-
--   **Pick columns** from a table
--   **Pick rows**: subsetting
--   **Transform** or **add** columns
--   **Order** the rows
--   **Group** the rows, to compute within groups
--   Compute **summary statistics**
-
-. . .
-
-`{dplyr}` and `{tidyr}`: a whole **grammar** to manipulate data.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Some basic Data Wrangling tasks are:
 
 -   **picking a column** from a table,
@@ -103,17 +59,10 @@ Some basic Data Wrangling tasks are:
 -   computing **summary statistics** (centrality, dispersion, quantiles, etc.).
 
 In R, and more specifically in the `{tidyverse}`, data manipulation is performed with the tools of the packages `{dplyr}` and `{tidyr}`. But more than tools, these packages provide a whole **grammar to manipulate data**.
-:::
 
-# A Grammar for Data Manipulation {#DataManip .subsection background-color="#425556"}
+# A Grammar for Data Manipulation {#DataManip}
 
-::: {.content-visible when-format="revealjs"}
-## `{dplyr}`: verbs to wrangle data {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The package `{dplyr}` offers a series of functions, or *verbs*, that help us **wrangle** data the same way we would use pliers to wrangle wires. This representation is even in the logo!
-:::
 
 :::: {.columns}
 ::: {.column width="25%"}
@@ -134,28 +83,15 @@ knitr::include_graphics(path = "images/hex-dplyr.png")
 :::
 ::::
 
-::: {.content-visible when-format="revealjs"}
-## Verbs chain into sentences
-:::
-
 ::: callout-important
 ## Why "verbs"?
 
-::: {.content-visible when-format="revealjs"}
--   **First argument**: the **dataset**
--   **Other arguments**: the **columns**
-
-So, with the **pipe**, they chain into sentences:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 These functions are called *verbs* because, thanks to the **pipe** operator, they can be **written sequentially**, since:
 
 -   Their **first argument** is the **name of the dataset**
 -   The **remaining arguments** are the **names of the columns**
 
 For example:
-:::
 
 ``` r
 select(dataset, column_1, column_2)
@@ -167,22 +103,11 @@ dataset %>% select(column_1, column_2)
 # you see that it reads like a sentence!
 ```
 
-::: {.content-visible unless-format="revealjs"}
 The whole **grammar** aspect comes from this natural-language-like approach to programming!
-:::
 :::
 
 ## Inspecting Data
 
-::: {.content-visible when-format="revealjs"}
-Right after importing, check:
-
--   **Which columns** are in the dataset
--   Their **types**: numbers (`integer`, `double`), text (`character`), `logical` (`TRUE`/`FALSE`), dates...
--   Where the **missing values** (`NA`) are
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Right after importation, it is useful to **inspect** the data, to know:
 
 -   what columns are contained in our dataset,
@@ -194,26 +119,13 @@ Right after importation, it is useful to **inspect** the data, to know:
     -   dates/date times.
 
 For the illustrations, we rely on the WTA dataset, which you can import with `read_csv()`.
-:::
-
-::: {.content-visible when-format="revealjs"}
-## The WTA dataset {.smaller}
-
-Women's tennis: one row per **Grand Slam match**.
-:::
 
 ::: callout-note
-::: {.content-visible when-format="revealjs"}
--   The path goes **one level up**, to the workshop's shared `data` folder (`../data/`)
--   The path is *fed* to `read_csv()` with the pipe `%>%`
-:::
 
-::: {.content-visible unless-format="revealjs"}
 Notice that:
 
 1.  The `path` points to the shared `data` folder of the workshop, one level up (`../data/`)
 2.  The `path` is *fed* to `read_csv()` using the pipe operator (`%>%`)
-:::
 :::
 
 ```{r}
@@ -229,80 +141,43 @@ wta_data <-
 ::: {.callout-tip collapse="true"}
 ## A note on the extra arguments
 
-::: {.content-visible when-format="revealjs"}
--   `col_types = cols(.default = "c")` imports **every column as text** (`"c"` for `character`)
--   `read_csv()` *guesses* the types from the first 1000 lines: columns with many `NA` can be guessed wrong
-:::
-
-::: {.content-visible unless-format="revealjs"}
 You see that we have added an extra argument to avoid importing errors:
 
 -   We're setting the argument `col_types = cols(.default = "c")`, where `"c"` stands for `character`.
 -   This is because `read_csv()` "guesses" the type of each column (`numeric`, `character`, etc.) by **parsing the first 1000 lines**.
 -   Since we have **a lot of missing observations in some columns**, this could yield errors when importing.
 :::
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Inspecting: the first rows with `slice_head()` {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Getting a slice
 
 It's always useful to see the **first rows** of our data, to check whether they are well imported. In R, we get a printed view of the **first row** with the function `slice_head()`:
-:::
 
 ```{r}
 slice_head(wta_data)
 ```
 
-::: {.content-visible when-format="revealjs"}
-More rows? Set the argument `n`:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 If we want to print more rows, we can set the argument `n` to a value (e.g. `n = 6`):
-:::
 
 ```{r}
 slice_head(wta_data, n = 6)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 Our data has been well imported, it appears!
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Inspecting: a summary with `glimpse()` {.smaller .scrollable}
-
--   One line per column: **name**, **type** and the first values
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Getting a glimpse
 
 We can get a **summary of the contents** with the function `glimpse()`:
-:::
 
 ```{r}
 glimpse(wta_data)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 As you can see:
 
 -   there are many (`r ncol(wta_data)`) columns,
 -   most of the column names start with a descriptive prefix.
 
 Here's a breakdown of the column prefixes that we use in what follows.
-:::
-
-::: {.content-visible when-format="revealjs"}
-## The columns of the WTA data
-
-`r ncol(wta_data)` columns, grouped by **prefix**:
-:::
 
 | column / prefix | Content                                                                        |
 |:-----------------:|:----------------------------------------------------|
@@ -312,23 +187,14 @@ Here's a breakdown of the column prefixes that we use in what follows.
 |   `winner_*`    | Information related to the winner of a given match (`id`, `name`, `hand`, ...) |
 |    `loser_*`    | Information related to the loser of a given match (`id`, `name`, `hand`, ...)  |
 
-::: {.content-visible when-format="revealjs"}
-## Inspecting: the full picture with `vis_dat()`
-
--   **Colours**: the column **types** · **Grey**: **missing** values
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Getting the full picture
 
 Alternatively, we can get a *graphical* view with the function `vis_dat()` from the package `{visdat}`:
 
 -   The **colours** display the **types** of the columns (character, numeric, date...).
 -   The **grey** denotes **missing observations**.
-:::
 
 ```{r, fig.cap = "A bird's-eye view of the WTA dataset using `vis_dat()`"}
-#| output-location: column
 #| fig-alt: "vis_dat() plot of the WTA data: one vertical band per column, all coloured as character, with grey blocks marking missing values, which are frequent in some columns."
 library(visdat)
 wta_data %>%
@@ -338,20 +204,11 @@ wta_data %>%
     )
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Cleaning column names with `{janitor}` {.smaller}
-
--   Files prepared by people: spaces, capitals, units in brackets...
--   `clean_names()` rewrites **all** names in lower-case `snake_case`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Cleaning column names
 
 The WTA column names are easy to work with. Files prepared by people are often less friendly: spaces, capital letters, units in brackets... Let's import a small example, `team_bad_names.csv`. To use a name like `First Name` in our code, we would have to wrap it in backticks every time: `` team$`First Name` ``.
 
 The function `clean_names()` from the package `{janitor}` **rewrites all the column names** in lower-case `snake_case`:
-:::
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -373,67 +230,36 @@ team %>%
 ::: callout-tip
 ## Why bother?
 
-::: {.content-visible when-format="revealjs"}
-Quicker to type, **no backticks**, RStudio **autocompletes** them. Call `clean_names()` once, right after importing.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Clean names are **quicker to type** and **work without backticks**, and RStudio can **autocomplete** them. Call `clean_names()` once, right after importing, and the rest of your code stays simple.
-:::
 :::
 
 ## Picking columns with `select()`
 
-::: {.content-visible when-format="revealjs"}
--   **One column**, by its name:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The function `select()` helps **picking columns**. We can **pick one column by its name**, such as the column `year`:
-:::
 
 ```{r, eval = FALSE}
 wta_data %>%
   select(year)
 ```
 
-::: {.content-visible when-format="revealjs"}
--   **Several columns**: list their names
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To select more than one column, we pass their names to `select()`. Say we want to select the information related to the **winners** and the **tourneys**:
-:::
 
 ```{r, eval = FALSE}
 wta_data %>%
   select(year, tourney_id, tourney_name, winner_id, winner_name)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## `select()` with selection helpers
-
--   Pick the columns **whose names fulfil a condition**, e.g. `starts_with()`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can also pick the columns **whose names fulfil a condition**. This is done by means of so-called **selection helpers**.
 
 -   For instance, let's use `starts_with()` to pick all the columns that **start with** the prefixes `tourney_` and `winner_`.
 -   To make things even clearer, let's inspect the result with `vis_dat()`.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and tourney_ columns, all of type character."
 wta_data %>%
   select(year, starts_with("winner"), starts_with("tourney")) %>%
   vis_dat(warn_large_data = FALSE)
 ```
-
-::: {.content-visible when-format="revealjs"}
-## Other selection helpers
-:::
 
 ::: {.callout-tip collapse="true"}
 ## Other Selection Helpers
@@ -452,21 +278,13 @@ Other selection helpers apply to vectors of column names, such as `all_of()` and
 
 ## Transforming columns with `mutate()`
 
-::: {.content-visible when-format="revealjs"}
--   **Create** new columns or **transform** existing ones
--   Here: `year` → **number**, `tourney_date` → **date** (`ymd()` from `{lubridate}`)
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The `mutate()` verb allows us to **create new columns** or **transform existing ones**.
 
 -   For instance, we imported all the columns of the dataset as `character`, but **`year` should be numerical** and **`tourney_date` should be a date**.
 -   We **change column types** by **rewriting the columns** within a call to `mutate()`, with a transforming function: here, `as.numeric()` and `ymd()` from the package `{lubridate}`.
 -   Again, to make things clearer, we use `vis_dat()`. Notice that the type of the column `year` has switched from `character` to `numeric`, and the column `tourney_date` has changed to `Date`.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
 library(lubridate)
 
@@ -481,20 +299,10 @@ wta_data %>%
   vis_dat(warn_large_data = FALSE)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Making the changes permanent
-:::
-
 ::: callout-important
 ## Making permanent changes to a table
 
-::: {.content-visible when-format="revealjs"}
-We **assigned** the result back to `wta_data`: the original table is **rewritten**.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Notice that we have *assigned* the modified table to `wta_data`, thereby **rewriting the original table with our modifications**. This is to **make the modifications permanent**.
-:::
 
 The following pipe **does not modify** the contents of `data` **permanently**:
 
@@ -509,18 +317,11 @@ data <- data %>% mutate(...)
 ```
 :::
 
-## Sub-setting rows with `filter()` {.smaller}
+## Sub-setting rows with `filter()`
 
-::: {.content-visible when-format="revealjs"}
--   Keep the rows that **fulfil a logical condition**
--   E.g. the matches won by Serena Williams:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We use the `filter()` function to **create subsets of a tibble according to logical conditions**. These conditions apply to the values contained in a column, and `filter()` **keeps the rows fulfilling the condition**.
 
 Say, for example, that we are interested in the matches won by the great Serena Williams. We can use `filter()` to keep the rows that fulfil the condition `winner_name == "Serena Williams"`:
-:::
 
 ```{r}
 wta_data %>%
@@ -531,29 +332,14 @@ wta_data %>%
 ::: callout-important
 ## Assignment (`=`) vs Comparison (`==`)
 
-::: {.content-visible when-format="revealjs"}
-Comparison uses the **double** equal sign `==`. The single `=` assigns, e.g. in `mutate()`.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 -   **For the comparison, we've used the double equal sign `==`**.
 -   This is to avoid ambiguities with assignment (e.g. what we do with `mutate()`).
 :::
-:::
 
-::: {.content-visible when-format="revealjs"}
-## `filter()` with several conditions {.smaller}
-
--   Rows must fulfil **all** the conditions
--   `str_detect()` (`{stringr}`): `TRUE` when the text **contains a pattern**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Naturally, we can **add several conditions**, on the **same column or on others**. `filter()` then keeps the rows fulfilling all the conditions simultaneously.
 
 -   Let's suppose we are interested in analysing Serena's performance at the Australian tournaments.
 -   We can select all the rows where `tourney_name` contains the pattern `"Australian"` with `str_detect()` from the package `{stringr}`: `str_detect()` returns `TRUE` when the value of `tourney_name` contains the pattern `"Australian"`.
-:::
 
 ```{r}
 library(stringr)
@@ -562,10 +348,6 @@ wta_data %>%
     winner_name == "Serena Williams",
     str_detect(tourney_name, pattern = "Australian"))
 ```
-
-::: {.content-visible when-format="revealjs"}
-## How to write logical conditions {.smaller}
-:::
 
 ::: {.callout-tip collapse="true"}
 ## How to write logical conditions
@@ -596,58 +378,35 @@ is equivalent to:
     A %in% c(B, C, D)
 :::
 
-## Sort observations with `arrange()` {.smaller}
+## Sort observations with `arrange()`
 
-::: {.content-visible when-format="revealjs"}
--   **Numbers**: increasing order · **Text**: alphabetical order
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The verb `arrange()` allows you to **order observations** according to the values of columns of your dataset. If the ordering column is of **any number type**, the observations are ordered in **increasing numerical order**:
-:::
 
 ```{r}
-#| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 If the ordering column is of **type `character`**, the observations are arranged in alphabetical order:
-:::
 
 ```{r}
-#| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(winner_name)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## `arrange()`: several columns, descending order {.smaller}
-
--   Sorts by the **first** column, then by the **second**...
--   `desc()` reverses the order
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can also order the observations according to more than one column. The order in which we pass the columns to `arrange()` matters: `{dplyr}` orders **first** according to the column we pass first, then by the second:
-:::
 
 ```{r}
-#| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, winner_name)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 By default, **`arrange()` sorts observations in *ascending* order**. We can order in *descending* order by wrapping the ordering column in `desc()`:
-:::
 
 ```{r}
-#| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, desc(winner_name))
@@ -663,17 +422,10 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 
 ## Producing summary statistics with `summarise()`
 
-::: {.content-visible when-format="revealjs"}
--   Creates a **new table** with **summaries** of the columns
--   `n()` **counts the rows**: how many Australian matches did Serena win?
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The function `summarise()` creates a new dataset that **contains summaries of the required columns**.
 
 -   Let's say that we are interested in the **number of matches won** by **Serena Williams** in the **Australian** tournaments.
 -   Once the rows are filtered with `filter()`, we can **count the number of matches** with the counting function `n()`, which **computes the number of rows**:
-:::
 
 ```{r}
 wta_data %>%
@@ -683,13 +435,7 @@ wta_data %>%
   summarise(number_of_wins = n())
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Other summary functions
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Aside from `n()`, other useful functions calculate various other summaries:
-:::
 
 | Summary Statistic | Functions                      |
 |:-----------------:|:-------------------------------|
@@ -700,34 +446,19 @@ Aside from `n()`, other useful functions calculate various other summaries:
 |       Count       | `n()`, `n_distinct()`          |
 |      Logical      | `any()`, `all()`               |
 
-## Creating groups with `group_by()` {.smaller}
+## Creating groups with `group_by()`
 
-::: {.content-visible when-format="revealjs"}
--   **Groups** the rows by the values of one or more columns
--   The printout shows the **groups**: later computations happen **within** them
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Some analyses require that we **group the data** according to **one or several *grouping* columns** before performing calculations. This can be achieved with `group_by()`. For instance, let's group the dataset by `winner_name`:
-:::
 
 ```{r}
 wta_data %>%
   group_by(winner_name)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 -   The output in the console (or the preview) **reveals the grouping column**.
 -   From now on, **all computations** are done **within the groups defined by the column values** (more on that in the next section!).
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Removing the groups with `ungroup()` {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To remove a grouping structure, use the verb `ungroup()`:
-:::
 
 ```{r}
 wta_data %>%
@@ -735,14 +466,8 @@ wta_data %>%
   ungroup()
 ```
 
-## Computing summaries within groups with `group_by()` `%>%` `summarise()` {.smaller}
+## Computing summaries within groups with `group_by()` `%>%` `summarise()`
 
-::: {.content-visible when-format="revealjs"}
--   `summarise()` after `group_by()`: **one row per group**
--   The number of wins of **every** player:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 As we said previously, **after a call to `group_by()`**, **all the computations and some manipulations that come afterwards** are **carried out within the groups**. This ties in neatly with `summarise()`, which then creates **summary statistics for the groups** defined by the values of the column!
 
 For illustration, let's count the **number of wins** of **every player** (not just Serena!):
@@ -750,7 +475,6 @@ For illustration, let's count the **number of wins** of **every player** (not ju
 -   First, we call `group_by(winner_name)`.
 -   Then, **`summarise()`** and **`n()`** **count the rows within the groups** defined by the values of the column `winner_name`.
 -   In this case, this yields the number of times each `winner_name` appears in the dataset.
-:::
 
 ```{r}
 wta_data %>%
@@ -761,17 +485,7 @@ wta_data %>%
 ::: callout-note
 ## What does `.groups = "drop"` do?
 
-::: {.content-visible when-format="revealjs"}
-It returns a table **without groups**, as if we had added `ungroup()`. A forgotten grouping is a common source of surprises!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 It tells `summarise()` to return a table **without any grouping**, exactly as if we had added `ungroup()` at the end. Get into the habit: a grouping that you forgot about is a common source of surprises in later computations.
-:::
-:::
-
-::: {.content-visible when-format="revealjs"}
-## A shortcut for counting: `count()` {.smaller}
 :::
 
 ::: {.callout-tip collapse="true"}
@@ -785,15 +499,7 @@ wta_data %>%
 ```
 :::
 
-::: {.content-visible when-format="revealjs"}
-## Grouping by several columns {.smaller}
-
-The wins of **each player** in **each tournament**:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can group by more than one column. Let's see **how many matches** were won by **each player** in **each tournament**. For this, we need `group_by(winner_name, tourney_name)`:
-:::
 
 ```{r}
 wta_data %>%
@@ -801,13 +507,7 @@ wta_data %>%
   summarise(number_of_wins = n(), .groups = "drop")
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Exercise Time!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Exercise Time! {.unnumbered}
-:::
 
 ::: callout-important
 ## Time to work!
@@ -815,33 +515,18 @@ wta_data %>%
 Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 3](../_exercises/exercise-notebook.html#exercise-3)**. See you there!
 :::
 
-# Merging Data {.subsection background-color="#425556"}
+# Merging Data
 
-::: {.content-visible when-format="revealjs"}
-## Binding and joining
-
--   Real data is often split into **several linked tables**
--   To get the information we need, we **merge** them
-:::
-
-::: {.content-visible unless-format="revealjs"}
 In real situations, **information can be stored in many datasets linked to each other**. In those cases, we need to **merge some of these datasets** to get the information we need for a given task.
 
 The **most important** merging procedures are **binding** and **joining**. In R, we can rely on the binding and joining *verbs* of `{dplyr}`.
-:::
 
 |     Verb      | Use                                                                          |
 |:-----------------:|-----------------------------------------------------|
 | `bind_rows()` | merges two tibbles by **stacking them up** (one on top of the other)         |
 |  `*_join()`   | **attaches** tibbles by **the columns they have in common** (joining *keys*) |
 
-::: {.content-visible when-format="revealjs"}
-## Three toy datasets {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's create three toy datasets to understand these procedures. The following code generates some tables, with the columns `id`, `var_1`, `var_2` and `var_3`:
-:::
 
 ```{r}
 data_1 <- tibble(id = 1:3, var_1 = c(15, 13, 39))
@@ -849,9 +534,7 @@ data_2 <- tibble(id = c(4, 5), var_1 = 10)
 data_3 <- tibble(id = 1:3, var_2 = c(10, 12, 14), var_3 = c(45, 20, 2))
 ```
 
-::: {.content-visible unless-format="revealjs"}
 Let's print them to see their contents:
-:::
 
 ::::: {.columns}
 :::: {.column width="33%"}
@@ -875,45 +558,24 @@ data_3
 
 ## *Stacking* data sets with `bind_rows()`
 
-::: {.content-visible when-format="revealjs"}
--   **Same columns**, **different rows**: stack them up
--   The left-hand side of the pipe goes **on top**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 When two tables have the **same columns** but **different information**, they can be **merged by "stacking them up"**, one on top of the other.
 
 -   In R and with `{dplyr}`, we can use the *verb* `bind_rows()`.
 -   If we use it within a pipe, the **left-hand side of the pipe** is placed **on top** of the **right-hand side argument**.
 -   For instance, the datasets `data_1` and `data_2` have the same column names, but different information (values for `id` and `var_1`). Hence, we can merge them with `bind_rows()`:
-:::
 
 ```{r}
 data_1 %>%
   bind_rows(data_2)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 As you can see, the values of `data_1` are on top of the values of `data_2`.
-:::
 
 ## *Joining* data sets with `left_join()`
 
-::: {.content-visible when-format="revealjs"}
--   **Same rows**, **different columns**: attach the columns
--   The `*_join()` verbs: `left_join()`, `right_join()`, `full_join()`...
--   They match the rows by a **common column**: the **joining key**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 If, on the other hand, two datasets **describe the same rows** but have **different columns**, it is sometimes useful to merge them by **"attaching" their columns**.
 
 In R and with `{dplyr}`, we can use the joining *verbs*, which have the suffix `*_join`, e.g. `right_join()`, `left_join()`, `full_join()`.
-:::
-
-::: {.content-visible when-format="revealjs"}
-## Wait! Isn't there a `bind_cols()`? {.smaller .scrollable}
-:::
 
 ::: {.callout-warning collapse="true"}
 ## Wait! Isn't there a `bind_cols()`?
@@ -962,17 +624,11 @@ data_1 %>%
 Using the `*_join` verbs of `{dplyr}`, we ensure the consistency of the rows.
 :::
 
-::: {.content-visible when-format="revealjs"}
-## How `left_join()` works
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The `*_join` verbs merge two datasets and **ensure row consistency** by **relying on the common column(s)**, also known as **the joining key(s)**. In R and with `{dplyr}`, we use the `left_join()` verb.
 
 -   In the animation below, we have two datasets, `x` and `y`.
 -   They share the first column and some elements within it.
 -   When joined, the non-shared columns of `y` are attached to `x`, matching the rows by their shared elements.
-:::
 
 ![](images/left-join.gif){fig-alt="Animation of left_join(x, y): the rows of y are matched to the rows of x by their shared key column, the columns of y are attached to x, and the rows of x without a match get missing values." width="45%" fig-align="center"}
 
@@ -981,28 +637,13 @@ The `*_join` verbs merge two datasets and **ensure row consistency** by **relyin
 ::: callout-important
 ## Why the "left" in `left_join()`?
 
-::: {.content-visible when-format="revealjs"}
-It also **keeps the rows of the first** (*left-hand side*) **tibble** that have no match.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 A call to `left_join()` has the particularity that, other than joining the common elements, it also **preserves the non-shared elements of the first tibble**, i.e. the *left-hand side* tibble.
 :::
-:::
 
-::: {.content-visible when-format="revealjs"}
-## `left_join()` with a joining key {.smaller}
-
--   Default: joins on **all** the shared columns
--   `by` picks the key: `by = "id"` (or `by = join_by(id)` in recent `{dplyr}`)
-:::
-
-::: {.content-visible unless-format="revealjs"}
 **By default**, the join is performed using **all the columns shared by the datasets**. That said, one can **specify a subset of columns to join on** with the `by` argument.
 
 -   Let's try joining our three datasets using the common column `id` as the **joining key**. It works!
 -   Recent versions of `{dplyr}` also accept `by = join_by(id)`, which you may meet in other people's code.
-:::
 
 ```{r}
 data_1 %>%
@@ -1010,15 +651,7 @@ data_1 %>%
   left_join(data_3, by = "id")
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Rows without a match {.smaller}
-
-`data_4`: `data_3` plus a row with `id = 8`, which isn't in `data_1`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's see what happens when there's a non-common element. We add an observation with `id = 8` (not present in `data_1`) to `data_3`, thereby creating `data_4`:
-:::
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -1029,9 +662,7 @@ data_4
 :::
 
 ::: {.column width="50%"}
-::: {.content-visible unless-format="revealjs"}
 When applying `left_join()`, we obtain:
-:::
 
 ```{r}
 data_1 %>%
@@ -1040,33 +671,18 @@ data_1 %>%
 :::
 ::::
 
-# Pivoting Data {.subsection background-color="#425556"}
+# Pivoting Data
 
-::: {.content-visible when-format="revealjs"}
-## Long vs wide tables
-
--   **Long**: every column is a *variable* → for **analysis** (computations, plots)
--   **Wide**: some columns are named after *values* of a variable → for **display** in reports
-:::
-
-::: {.content-visible unless-format="revealjs"}
 When distributed in tables, data can come in two ways:
 
 -   **long** format, where all columns denote *variables*. These are useful for **analysis** (computations and visualisations).
 -   **wide** format, where some columns are named after values of a categorical *variable*. They are mostly used to display tables in your reports.
-:::
 
 ```{r, echo = FALSE, fig.cap='Wide-format vs. long-format data', fig.align='center', out.width = "70%", fig.alt="The same data as a wide table, with an id column and one column each for x, y and z, and as a long table with three columns: id, key (holding x, y or z) and val."}
 knitr::include_graphics("images/original-dfs-tidy.png")
 ```
 
-::: {.content-visible when-format="revealjs"}
-## `{tidyr}`: `pivot_longer()` and `pivot_wider()`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 In R and with `{tidyr}`, we pivot a table with two functions: `pivot_longer()` and `pivot_wider()`. In the animation below, we can see how pivoting works.
-:::
 
 :::: {.columns}
 ::: {.column width="25%"}
@@ -1084,9 +700,7 @@ Source: [Garrick Aden-Buie's](https://github.com/gadenbuie/tidyexplain) Tidy Ani
 
 ## Pivoting into long-form with `pivot_longer()`
 
-::: {.content-visible unless-format="revealjs"}
 `pivot_longer()` has three main arguments:
-:::
 
 |  Argument   | Use                                                                                    |
 |:----------------:|:-----------------------------------------------------|
@@ -1094,23 +708,9 @@ Source: [Garrick Aden-Buie's](https://github.com/gadenbuie/tidyexplain) Tidy Ani
 | `names_to`  | the **name of a new column**, where the **names of the selected columns** are stored   |
 | `values_to` | the **name of the column** where we store **the values**                               |
 
-::: {.content-visible when-format="revealjs"}
-Typical case: **measurements repeated over time**, one column per timepoint.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 This scenario happens when we have **many measurements carried out through time**.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## From wide to long {.smaller}
-
-Prototypes measured at 3 timepoints → one `timepoint` column, one `performance` column
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's illustrate this with `data_5_wide`, a makeshift table containing the performance of a series of machine prototypes observed at three timepoints: `t_1`, `t_2`, `t_3`.
-:::
 
 :::: {.columns}
 ::: {.column width="45%"}
@@ -1126,12 +726,10 @@ data_5_wide
 :::
 
 ::: {.column width="55%"}
-::: {.content-visible unless-format="revealjs"}
 Let's *pivot* this tibble into *long form*, by
 
 -   putting the timepoint names into a single column: `timepoint`,
 -   placing the contents of the rows into a single column: `performance`.
-:::
 
 ```{r}
 data_5_long <-
@@ -1147,18 +745,9 @@ data_5_long
 :::
 ::::
 
-::: {.content-visible when-format="revealjs"}
-## Optional: cleaner timepoints {.smaller}
-
--   `names_prefix` drops the `t_` prefix, `names_transform` makes the timepoint a **number**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 **\[optional\]** We can add a couple of optional arguments for a cleaner result:
-:::
 
 ```{r}
-#| output-location: column
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
@@ -1172,15 +761,7 @@ data_5_long <-
 data_5_long
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Long tables are made for computing
-
-The average performance of every prototype:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 **Long-form tibbles** are **practical** for **computations and visualisations**. For instance, let's compute the average performance of every prototype:
-:::
 
 ```{r}
 data_5_long %>%
@@ -1190,31 +771,16 @@ data_5_long %>%
 
 ## Pivoting into wide-form with `pivot_wider()`
 
-::: {.content-visible when-format="revealjs"}
--   The opposite of `pivot_longer()`: **spreads** the values of a column into **new columns**
--   Wide tables are good for **presentation**, e.g. in reports
-:::
-
-::: {.content-visible unless-format="revealjs"}
 In a way, `pivot_wider()` performs the opposite operation to `pivot_longer()`. The idea is to "*spread*" the values of a column and use them as column names (or columns).
 
 Other than the `data`, which can be passed via a pipe, its main arguments are:
-:::
 
 |   Argument    | Use                                                                            |
 |:-----------------:|:----------------------------------------------------|
 | `names_from`  | the column whose contents become the names of the new columns                  |
 | `values_from` | the column from which the function *fetches* the values for the new columns    |
 
-::: {.content-visible when-format="revealjs"}
-## From long to wide {.smaller}
-
-**Average yields** of **crops** by **agricultural practice**: the repeated values make it hard to read
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Wide-form tibbles are useful for **presentation** purposes, especially in written reports! For illustration, let's look at the following (makeshift) example. Imagine that you're presented with a table containing the **average yields** of a **series of crops** according to various types of **agricultural practices**.
-:::
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -1230,9 +796,7 @@ data_6_long
 :::
 
 ::: {.column width="50%"}
-::: {.content-visible unless-format="revealjs"}
 This does not look very succinct for a written report, due to the repetition of the values in the columns `crop` and `practice`. Using `pivot_wider()`, taking the column names from `practice` and the values from `yield`, makes for a more succinct table:
-:::
 
 ```{r}
 data_6_long %>%
@@ -1241,15 +805,9 @@ data_6_long %>%
 :::
 ::::
 
-::: {.content-visible when-format="revealjs"}
-## Presentation-ready with `{kableExtra}`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > This table is presentation-ready!
 
 We can pass it to `kbl()` and take advantage of `{kableExtra}` for an even better rendering:
-:::
 
 ```{r}
 library(kableExtra)
@@ -1259,17 +817,7 @@ data_6_long %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Exercise Time!
-
-::: {.notes}
-At the end: mention the bonus material!
-:::
-:::
-
-::: {.content-visible unless-format="revealjs"}
 ### Exercise Time! {.unnumbered}
-:::
 
 ::: callout-important
 ## Time to work!

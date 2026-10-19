@@ -3771,7 +3771,7 @@ background-origin: content-box;
   <li><a href="#creating-groups-with-group_by" id="toc-creating-groups-with-group_by" class="nav-link" data-scroll-target="#creating-groups-with-group_by"><span class="header-section-number">1.8</span> Creating groups with <code>group_by()</code></a></li>
   <li><a href="#computing-summaries-within-groups-with-group_by-summarise" id="toc-computing-summaries-within-groups-with-group_by-summarise" class="nav-link" data-scroll-target="#computing-summaries-within-groups-with-group_by-summarise"><span class="header-section-number">1.9</span> Computing summaries within groups with <code>group_by()</code> <code>%&gt;%</code> <code>summarise()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-time-2" id="toc-exercise-time-2" class="nav-link" data-scroll-target="#exercise-time-2">Exercise Time!</a></li>
+  <li><a href="#exercise-time-1" id="toc-exercise-time-1" class="nav-link" data-scroll-target="#exercise-time-1">Exercise Time!</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#merging-data" id="toc-merging-data" class="nav-link" data-scroll-target="#merging-data"><span class="header-section-number">2</span> Merging Data</a>
@@ -3784,11 +3784,11 @@ background-origin: content-box;
   <li><a href="#pivoting-into-long-form-with-pivot_longer" id="toc-pivoting-into-long-form-with-pivot_longer" class="nav-link" data-scroll-target="#pivoting-into-long-form-with-pivot_longer"><span class="header-section-number">3.1</span> Pivoting into long-form with <code>pivot_longer()</code></a></li>
   <li><a href="#pivoting-into-wide-form-with-pivot_wider" id="toc-pivoting-into-wide-form-with-pivot_wider" class="nav-link" data-scroll-target="#pivoting-into-wide-form-with-pivot_wider"><span class="header-section-number">3.2</span> Pivoting into wide-form with <code>pivot_wider()</code></a>
   <ul class="collapse">
-  <li><a href="#exercise-time-4" id="toc-exercise-time-4" class="nav-link" data-scroll-target="#exercise-time-4">Exercise Time!</a></li>
+  <li><a href="#exercise-time-2" id="toc-exercise-time-2" class="nav-link" data-scroll-target="#exercise-time-2">Exercise Time!</a></li>
   </ul></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="presentation.html"><i class="bi bi-easel"></i>Slides</a></li></ul></div></nav>
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -3813,8 +3813,8 @@ background-origin: content-box;
 <li>computing <strong>summary statistics</strong> (centrality, dispersion, quantiles, etc.).</li>
 </ul>
 <p>In R, and more specifically in the <code>{tidyverse}</code>, data manipulation is performed with the tools of the packages <code>{dplyr}</code> and <code>{tidyr}</code>. But more than tools, these packages provide a whole <strong>grammar to manipulate data</strong>.</p>
-<section id="DataManip" class="level1 subsection" data-background-color="#425556" data-number="1">
-<h1 class="subsection" data-background-color="#425556" data-number="1"><span class="header-section-number">1</span> A Grammar for Data Manipulation</h1>
+<section id="DataManip" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> A Grammar for Data Manipulation</h1>
 <p>The package <code>{dplyr}</code> offers a series of functions, or <em>verbs</em>, that help us <strong>wrangle</strong> data the same way we would use pliers to wrangle wires. This representation is even in the logo!</p>
 <div class="columns">
 <div class="column" style="width:25%;">
@@ -4098,7 +4098,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <li>The <strong>colours</strong> display the <strong>types</strong> of the columns (character, numeric, date…).</li>
 <li>The <strong>grey</strong> denotes <strong>missing observations</strong>.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
@@ -4194,7 +4194,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <li>For instance, let’s use <code>starts_with()</code> to pick all the columns that <strong>start with</strong> the prefixes <code>tourney_</code> and <code>winner_</code>.</li>
 <li>To make things even clearer, let’s inspect the result with <code>vis_dat()</code>.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>wta_data <span class="sc">%&gt;%</span></span>
@@ -4261,7 +4261,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 <li>We <strong>change column types</strong> by <strong>rewriting the columns</strong> within a call to <code>mutate()</code>, with a transforming function: here, <code>as.numeric()</code> and <code>ymd()</code> from the package <code>{lubridate}</code>.</li>
 <li>Again, to make things clearer, we use <code>vis_dat()</code>. Notice that the type of the column <code>year</code> has switched from <code>character</code> to <code>numeric</code>, and the column <code>tourney_date</code> has changed to <code>Date</code>.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
@@ -4302,8 +4302,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 </section>
-<section id="sub-setting-rows-with-filter" class="level2 smaller" data-number="1.4">
-<h2 class="smaller anchored" data-number="1.4" data-anchor-id="sub-setting-rows-with-filter"><span class="header-section-number">1.4</span> Sub-setting rows with <code>filter()</code></h2>
+<section id="sub-setting-rows-with-filter" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sub-setting-rows-with-filter"><span class="header-section-number">1.4</span> Sub-setting rows with <code>filter()</code></h2>
 <p>We use the <code>filter()</code> function to <strong>create subsets of a tibble according to logical conditions</strong>. These conditions apply to the values contained in a column, and <code>filter()</code> <strong>keeps the rows fulfilling the condition</strong>.</p>
 <p>Say, for example, that we are interested in the matches won by the great Serena Williams. We can use <code>filter()</code> to keep the rows that fulfil the condition <code>winner_name == &quot;Serena Williams&quot;</code>:</p>
 <div class="cell" data-layout-align="center">
@@ -4429,10 +4429,10 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 </section>
-<section id="sort-observations-with-arrange" class="level2 smaller" data-number="1.5">
-<h2 class="smaller anchored" data-number="1.5" data-anchor-id="sort-observations-with-arrange"><span class="header-section-number">1.5</span> Sort observations with <code>arrange()</code></h2>
+<section id="sort-observations-with-arrange" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sort-observations-with-arrange"><span class="header-section-number">1.5</span> Sort observations with <code>arrange()</code></h2>
 <p>The verb <code>arrange()</code> allows you to <strong>order observations</strong> according to the values of columns of your dataset. If the ordering column is of <strong>any number type</strong>, the observations are ordered in <strong>increasing numerical order</strong>:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>wta_data <span class="sc">%&gt;%</span></span>
@@ -4448,7 +4448,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 <p>If the ordering column is of <strong>type <code>character</code></strong>, the observations are arranged in alphabetical order:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>wta_data <span class="sc">%&gt;%</span></span>
@@ -4464,7 +4464,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 <p>We can also order the observations according to more than one column. The order in which we pass the columns to <code>arrange()</code> matters: <code>{dplyr}</code> orders <strong>first</strong> according to the column we pass first, then by the second:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wta_data <span class="sc">%&gt;%</span></span>
@@ -4480,7 +4480,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 <p>By default, <strong><code>arrange()</code> sorts observations in <em>ascending</em> order</strong>. We can order in <em>descending</em> order by wrapping the ordering column in <code>desc()</code>:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>wta_data <span class="sc">%&gt;%</span></span>
@@ -4572,8 +4572,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </tbody>
 </table>
 </section>
-<section id="creating-groups-with-group_by" class="level2 smaller" data-number="1.8">
-<h2 class="smaller anchored" data-number="1.8" data-anchor-id="creating-groups-with-group_by"><span class="header-section-number">1.8</span> Creating groups with <code>group_by()</code></h2>
+<section id="creating-groups-with-group_by" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="creating-groups-with-group_by"><span class="header-section-number">1.8</span> Creating groups with <code>group_by()</code></h2>
 <p>Some analyses require that we <strong>group the data</strong> according to <strong>one or several <em>grouping</em> columns</strong> before performing calculations. This can be achieved with <code>group_by()</code>. For instance, let’s group the dataset by <code>winner_name</code>:</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4610,8 +4610,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 </section>
-<section id="computing-summaries-within-groups-with-group_by-summarise" class="level2 smaller" data-number="1.9">
-<h2 class="smaller anchored" data-number="1.9" data-anchor-id="computing-summaries-within-groups-with-group_by-summarise"><span class="header-section-number">1.9</span> Computing summaries within groups with <code>group_by()</code> <code>%&gt;%</code> <code>summarise()</code></h2>
+<section id="computing-summaries-within-groups-with-group_by-summarise" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="computing-summaries-within-groups-with-group_by-summarise"><span class="header-section-number">1.9</span> Computing summaries within groups with <code>group_by()</code> <code>%&gt;%</code> <code>summarise()</code></h2>
 <p>As we said previously, <strong>after a call to <code>group_by()</code></strong>, <strong>all the computations and some manipulations that come afterwards</strong> are <strong>carried out within the groups</strong>. This ties in neatly with <code>summarise()</code>, which then creates <strong>summary statistics for the groups</strong> defined by the values of the column!</p>
 <p>For illustration, let’s count the <strong>number of wins</strong> of <strong>every player</strong> (not just Serena!):</p>
 <ul>
@@ -4693,8 +4693,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 </div>
-<section id="exercise-time-2" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-time-2">Exercise Time!</h3>
+<section id="exercise-time-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="exercise-time-1">Exercise Time!</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4711,8 +4711,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </section>
 </section>
 </section>
-<section id="merging-data" class="level1 subsection" data-background-color="#425556" data-number="2">
-<h1 class="subsection" data-background-color="#425556" data-number="2"><span class="header-section-number">2</span> Merging Data</h1>
+<section id="merging-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Merging Data</h1>
 <p>In real situations, <strong>information can be stored in many datasets linked to each other</strong>. In those cases, we need to <strong>merge some of these datasets</strong> to get the information we need for a given task.</p>
 <p>The <strong>most important</strong> merging procedures are <strong>binding</strong> and <strong>joining</strong>. In R, we can rely on the binding and joining <em>verbs</em> of <code>{dplyr}</code>.</p>
 <table class="caption-top table">
@@ -4987,8 +4987,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </section>
 </section>
-<section id="pivoting-data" class="level1 subsection" data-background-color="#425556" data-number="3">
-<h1 class="subsection" data-background-color="#425556" data-number="3"><span class="header-section-number">3</span> Pivoting Data</h1>
+<section id="pivoting-data" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Pivoting Data</h1>
 <p>When distributed in tables, data can come in two ways:</p>
 <ul>
 <li><strong>long</strong> format, where all columns denote <em>variables</em>. These are useful for <strong>analysis</strong> (computations and visualisations).</li>
@@ -5104,7 +5104,7 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </div>
 </div>
 <p><strong>[optional]</strong> We can add a couple of optional arguments for a cleaner result:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data_5_long <span class="ot">&lt;-</span></span>
@@ -5257,8 +5257,8 @@ $ loser_rank_points  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
 </table>
 </div>
 </div>
-<section id="exercise-time-4" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="exercise-time-4">Exercise Time!</h3>
+<section id="exercise-time-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="exercise-time-2">Exercise Time!</h3>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

@@ -5,18 +5,6 @@ author: "**EPFL Extension School**"
 execute:
   echo: true
 format:
-  revealjs:
-    slide-level: 2
-    transition: fade
-    background-transition: fade
-    footer: "Basics of Data Science Workshop"
-    slide-number: true
-    df-print: tibble
-    embed-resources: true
-    width: 1440
-    height: 810
-    output-file: "presentation"
-    css: ../assets/css/exts-reveal.css
   html:
     theme: simplex
     number-sections: true
@@ -30,8 +18,11 @@ format:
     title-block-banner: "#413D3A"
     title-block-banner-color: "White"
     embed-resources: true
-    output-file: "handout"
     css: ../assets/css/styles-html.css
+    other-links:
+      - text: Slides
+        href: presentation.html
+        icon: easel
 ---
 
 ```{r setup, include=FALSE}
@@ -47,52 +38,19 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(knitr)
 
-# keep wide tibbles on one slide
-options(pillar.max_extra_cols = 0)
 ```
-
-::: {.content-visible when-format="revealjs"}
-## Visualise: explore and communicate
-:::
 
 ![](images/fig-data-viz.png){fig-alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The visualise step is highlighted: data visualisation helps to understand and communicate your insights." width="80%" fig-align="center"}
 
-::: {.content-visible when-format="revealjs"}
--   Part of the **exploration** loop
--   A **tool to communicate** results clearly
-
-. . .
-
-Today: the **grammar of graphics**, with `{ggplot2}`.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We will now discover another step in the data pipeline, the visualisation part.
 
 -   Data visualisation is an important part of the data exploration loop,
 -   but it is also very important as a **tool to communicate results** in a clear and meaningful way.
 
 There are many approaches to creating a data plot. Today, we'll focus on the **visualisation approach** that relies on the **Grammar of Data Visualisation**, implemented in R via the package `{ggplot2}`.
-:::
 
-# A Grammar for Data Visualisation {.subsection background-color="#425556"}
+# A Grammar for Data Visualisation
 
-::: {.content-visible when-format="revealjs"}
-## The grammar of graphics
-
--   **Rules** to build graphics, like the grammar of a language ([Wilkinson, 2005](https://link.springer.com/book/10.1007/0-387-28695-0 "The Grammar of Graphics, Wilkinson 2005"))
-
-. . .
-
-| Language   | Graphics       |
-|:-----------|:---------------|
-| nouns      | **data**       |
-| adjectives | **aesthetics** |
-| verbs      | **geometries** |
-| adverbs    | **themes**     |
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The Grammar of Graphics (see [Wilkinson, 2005](https://link.springer.com/book/10.1007/0-387-28695-0 "The Grammar of Graphics, Wilkinson 2005")) is an attempt to **systematise** and **expand** the **production of quantitative graphics**. The idea is to give **rules** akin to the **grammar of natural language**.
 
 Much like natural language, which uses syntactic components such as **nouns**, **adjectives**, **verbs** and **adverbs** to build **statements**, the grammar of graphics relies on components, namely:
@@ -103,23 +61,10 @@ Much like natural language, which uses syntactic components such as **nouns**, *
 -   **themes**
 
 Let's explore these components in detail.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Data
-:::
-
-::: {.content-visible unless-format="revealjs"}
 #### **The Data** {.unnumbered}
-:::
 
-::: {.content-visible when-format="revealjs"}
-The **dataset** with the **variables to plot**. Our example: **Variable 1**, **Variable 2** and **Group** (A, B or C).
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The **dataset** containing the **variables we want to plot**. Let's consider for illustration a dataset with three columns: **Variable 1**, **Variable 2** and **Group** (A, B or C).
-:::
 
 ```{r}
 #| include: false
@@ -146,22 +91,6 @@ example_data %>%
   kable()
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Aesthetics and aesthetic mappings
-
--   **Aesthetics**: the features of the graphic that can depend on the data: `x`, `y`, `color`, `fill`, `size`...
--   **Aesthetic mapping**: which **variable** goes to which **aesthetic**
-
-. . .
-
-Here: two numeric variables on the axes, the categorical one on the colour:
-
--   `x = Variable 1`
--   `y = Variable 2`
--   `color = Group`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 #### **Aesthetic elements and aesthetic mappings** {.unnumbered}
 
 The **features of the graphic**, i.e. the elements of the plot we want to make data-dependent. For instance:
@@ -175,21 +104,7 @@ An **aesthetic mapping** is the way we **link** the **variables** in our data **
 -   In our illustration, we have two numeric variables and one categorical variable.
 -   It makes sense to **map the numeric variables** to the `x` and `y` axes, and to **map** the categorical variable to the `color`.
 -   Hence the aesthetic mapping would be `x = Variable 1`, `y = Variable 2` and `color = Group`.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Geometries and themes
-
--   **Geometry**: the **type of plot**: `point`, `line`, `area`, `col`umn, `bar`...
-    -   Here, a scatterplot: `geom_point()`
-    -   It depends on the **question** and on the **nature of the variables**
-
-. . .
-
--   **Theme**: all the purely cosmetic "ink": titles, axes...
-:::
-
-::: {.content-visible unless-format="revealjs"}
 #### **Geometries** {.unnumbered}
 
 The **type of plot** we want to display.
@@ -203,11 +118,6 @@ The **type of plot** we want to display.
 All the "ink", i.e. the purely cosmetic elements of the graphic: the titles, the shape of the axes, etc.
 
 With these elements, let's make a plot.
-:::
-
-::: {.content-visible when-format="revealjs"}
-## Putting it together
-:::
 
 ```{r}
 #| echo: false
@@ -218,41 +128,22 @@ example_data %>%
   theme_minimal()
 ```
 
-::: {.content-visible when-format="revealjs"}
--   A clear **linear link** between Variable 1 and Variable 2...
--   ...but it **differs across the groups**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 From this plot, we can see that:
 
 1.  There's a clear linear link between Variable 1 and Variable 2.
 2.  However, the nature of this link is different across the groups.
 
 Now let's see how we can build plots with the grammar of graphics in R, with `{ggplot2}`.
-:::
 
-# `{ggplot2}` syntax {.subsection background-color="#425556"}
+# `{ggplot2}` syntax
 
-::: {.content-visible when-format="revealjs"}
-## `{ggplot2}`: the grammar of graphics in R {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 The package that implements the grammar of graphics approach to data visualisation in the `{tidyverse}` is `{ggplot2}`.
-:::
 
 ::: callout-note
 It's even in the name! The 'gg' stands for... **g**rammar of **g**raphics.
 :::
 
-::: {.content-visible when-format="revealjs"}
-Our data: women's Grand Slam singles matches, 1968–2021. We keep the **finals**.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We make illustrations with the data on women's Grand Slam singles matches from 1968 to 2021, stored in `wta_grand_slam_data.csv`.
-:::
 
 ```{r}
 #| code-fold: true
@@ -269,26 +160,14 @@ finals <- wta %>%
 head(finals)
 ```
 
-::: {.content-visible unless-format="revealjs"}
 We attach the package as usual, using `library()`:
-:::
 
 ```{r}
 library(ggplot2)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Plots are built in layers
-:::
-
 ::: callout-important
-::: {.content-visible when-format="revealjs"}
-1.  A **base plot**: the **data** and the **aesthetic mappings**
-2.  **+** the **geometries**
-3.  **+** the cosmetic elements and other layers
-:::
 
-::: {.content-visible unless-format="revealjs"}
 One important thing to understand is that `{ggplot2}` works with **layers of information**.
 
 -   First, we create a **base plot**, made of
@@ -297,29 +176,21 @@ One important thing to understand is that `{ggplot2}` works with **layers of inf
 -   ...to which we then add the **geometries**...
 -   ...and then all the cosmetic elements and other layers.
 :::
-:::
 
-## Scatterplots with `geom_point()` {.smaller}
+## Scatterplots with `geom_point()`
 
 > *Is there a **trend in the age** of the tournament winners over the **years**?*
 
-::: {.content-visible when-format="revealjs"}
--   The base layer: `ggplot()`, with the `data` and the mapping `aes(x = year, y = winner_age)`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To construct the base layer, we make a call to the `ggplot()` function:
 
 -   We define the `data` using `data = finals`.
 -   We also map the `x` axis to `year` and the `y` axis to `winner_age`.
-:::
 
 ::: callout-important
 To define the **aesthetic mapping**, we rely on the function `aes(...)`.
 :::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "An empty plot: the axes year and winner_age are drawn, but there are no data points."
 # create a base plot
 
@@ -331,24 +202,15 @@ ggplot(data = finals, # the data
 
 > Nothing yet! The geometry is missing! But what geometry should we add?
 
-::: {.content-visible when-format="revealjs"}
-## Adding a geometry with `+` {.smaller}
-
--   One **point** per observation: `geom_point()`, **added** to the base layer with `+`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 -   Let's start by adding **points**: we want one point for every observation.
 -   We define the **geometry** as `geom_point()`...
     -   ...which we need to **add to our base layer** using the `+` sign.
-:::
 
 ::: callout-warning
 In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
 :::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Scatter plot of winner age against year for the Grand Slam finals: no overall trend, but some points line up in short clusters."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -356,32 +218,17 @@ ggplot(data = finals,
   geom_point() # our geometry of choice: points
 ```
 
-::: {.content-visible when-format="revealjs"}
--   **No uniform trend**, but **clusters** of aligned points
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > Not very informative, unfortunately.
 
 -   There is **no uniform trend** in the age of the WTA winners over time.
 -   But we see that there are **clusters**, i.e. areas where the points align.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## Mapping a third variable to `color` {.smaller}
-
-> *Could there be trends within groups?* Let's colour by `surface`: Clay, Grass or Hard.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > Could there be trends within a group?
 
 -   To assess this, we could map a categorical variable to the `color` aesthetic.
 -   Let's try with `surface`, i.e. whether the match is played on Clay, Grass or a Hard surface.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The same scatter plot of winner age against year, with the points coloured by surface (Clay, Grass, Hard): still no uniform trend."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -390,28 +237,13 @@ ggplot(data = finals,
   geom_point()
 ```
 
-::: {.content-visible when-format="revealjs"}
-Colours... but **still no uniform trend**.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > The points now have **colors**... but still no uniform trend.
 >
 > Should we try with another variable? Perhaps these clusters are due to the **same player winning over many years** and at the same time **getting older**.
-:::
 
-::: {.content-visible when-format="revealjs"}
-## One colour per player {.smaller}
-
-> Are the clusters the **same player** winning over the years, and **getting older**?
-:::
-
-::: {.content-visible unless-format="revealjs"}
 -   Let's test this conjecture by mapping `winner_name` to the `color` aesthetic...
-:::
 
 ```{r fig.width=10, fig.height= 5}
-#| output-location: column
 #| fig-alt: "Scatter plot of winner age against year, with one colour per winner and no legend: points of the same colour line up, rising with the years."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -422,10 +254,6 @@ ggplot(data = finals,
 ```
 
 > Voilà! Most **points with the same color align**, indicating the source of the clusters.
-
-::: {.content-visible when-format="revealjs"}
-## What we learnt from the colours {.smaller}
-:::
 
 ::: callout-note
 Often, mapping a third variable to an aesthetic such as color can help us discover trends within **groups**.
@@ -445,37 +273,22 @@ We have also **hidden the legend**: with 54 different players, nobody could matc
 You can see that **before 1977** there are fewer blue points: tournaments were played only on *grass* or *clay*, and *hard* surfaces arrived only after that year.
 :::
 
-## Boxplots with `geom_boxplot()` {.smaller}
+## Boxplots with `geom_boxplot()`
 
 > *Is there a difference in the distribution of the tournament winners' age across the different surfaces?*
 
-::: {.content-visible when-format="revealjs"}
--   A new question, a new geometry: **boxplots** summarise **distributions**
--   First, the base plot, with `surface` on the `x` axis
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can now ask **another question** and try to answer it using a **different geometry**. A good choice of `geometry` is *boxplots*, since they are good **summaries of distributions**.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "An empty plot with surface (Clay, Grass, Hard) on the x axis and winner_age on the y axis."
 ggplot(data = finals,
        mapping = aes(x = surface, # we change the mapping of the x axis
                      y = winner_age))
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Adding `geom_boxplot()` {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To add the boxplot geometry, we add `geom_boxplot()`:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Boxplots of winner age by surface: the winners on grass tend to be older, the winners on hard courts younger."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -489,29 +302,13 @@ ggplot(data = finals,
 The summary statistics needed to draw the boxplots (i.e. the median, the upper and lower quartiles) are computed from the "raw" data when drawing the plot.
 :::
 
-::: {.content-visible when-format="revealjs"}
-**Grass** favours **older** winners, **hard** surfaces **younger** ones.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > Voilà! It appears that the **grass surface** tends to favour the **older players**, whereas the **younger players win** on **hard surfaces**.
 >
 > (We can **conjecture** that this is because the ball is a bit **slower on grass** and **faster on hard surfaces**, favouring the more "physical", hence younger, players!)
-:::
-
-::: {.content-visible when-format="revealjs"}
-## Exploring is not confirming
-:::
 
 ::: callout-warning
 ## Exploratory Data Analysis
 
-::: {.content-visible when-format="revealjs"}
--   Plots like these **explore** the links between variables
--   To **confirm** them, more work is needed, e.g. a **statistical test**
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Plotting the data this way can give us a good hint on whether there are differences between the categories. Hence such plots work as an **exploration** of the links between variables.
 
 However, in order to **confirm** these links, **more work is needed**.
@@ -519,17 +316,9 @@ However, in order to **confirm** these links, **more work is needed**.
 -   For instance, a **statistical test** can confirm that the differences we see are not due to chance.
 -   (In that case, we should be mindful of the fact that the observations are not entirely independent!)
 :::
-:::
 
-# Adding more geometries `geoms_*` {.subsection background-color="#425556"}
+# Adding more geometries `geoms_*`
 
-::: {.content-visible when-format="revealjs"}
-## Layers on layers {.smaller}
-
-> *How many observations per surface? Any extreme values?* Let's add **points** on top of the boxplots.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 As we mentioned before, `{ggplot2}` works with **layers of information**. In our examples, we have drawn the **base plot** and then added **one single geometry** (point or boxplot).
 
 Let's focus on the comparison of the winners' ages across surfaces. What if we wanted to give more information? For instance:
@@ -538,10 +327,8 @@ Let's focus on the comparison of the winners' ages across surfaces. What if we w
 > -   Do we have extreme values?
 
 Let's add ***points*** **on top of the boxplot**, by adding the `geom_point()` geometry:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Boxplots of winner age by surface with the points drawn on top: the points pile up on a single vertical line per surface."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -553,28 +340,15 @@ ggplot(data = finals,
 ::: callout-warning
 ## Careful with Overplotting!
 
-::: {.content-visible when-format="revealjs"}
-**Overplotting**: many points drawn **on top of each other**. Common with points over a categorical variable.
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Now we have a little visualisation challenge: **overplotting**!
 
 -   Overplotting happens when **many points are drawn on top of each other, making it difficult to see individual points.**
 -   This happens often when we draw points over categorical variables.
 :::
-:::
 
-::: {.content-visible when-format="revealjs"}
-## `geom_jitter()`: shake the points {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To avoid the trap of overplotting, we "shake" the points randomly along the x axis. We do this by changing the geometry to `geom_jitter()`:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Boxplots of winner age by surface with jittered points: the points are spread randomly sideways, so the individual observations are visible."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -583,18 +357,9 @@ ggplot(data = finals,
   geom_jitter() # added a jitter on top
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Every layer has arguments {.smaller}
-
-`width` sets how far the points spread
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can adjust the jitter a bit, by defining the `width` of the spread:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The same plot with a narrower jitter: the points stay close to their box."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -606,28 +371,16 @@ ggplot(data = finals,
 ::: callout-note
 ## Every layer has Arguments
 
-::: {.content-visible when-format="revealjs"}
-Every layer is a function, hence it has arguments!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Notice that we've adjusted the argument `width`. In general, every layer is a function, hence it has arguments!
 :::
-:::
 
-# Case study: Customising a bar chart {.subsection background-color="#425556"}
+# Case study: Customising a bar chart
 
-::: {.content-visible when-format="revealjs"}
-## Who won the most Grand Slam titles? {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's ask a different question:
 
 > *Who won the most Grand Slam titles*?
 
 Let's start by creating the dataset where we count the finals won by each player.
-:::
 
 ::: callout-note
 Let's use our **Data Wrangling** skills!
@@ -640,24 +393,15 @@ total_wins <- finals %>%
   arrange(desc(total_wins))
 ```
 
-::: {.content-visible unless-format="revealjs"}
 Our dataset looks like this:
-:::
 
 ```{r}
 slice_head(total_wins, n = 6)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## A first bar chart with `geom_col()` {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 And we can use `geom_col()` to create a plot:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Horizontal bar chart of the number of titles of all 54 winners, in reverse alphabetical order from top to bottom: the names overlap and the chart is hard to read."
 ggplot(data = total_wins,
        mapping = aes(x = total_wins,
@@ -665,41 +409,21 @@ ggplot(data = total_wins,
   geom_col()
 ```
 
-::: {.content-visible when-format="revealjs"}
-Time to give it a bit more flair!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Time to give it a bit more flair with the tools in `{ggplot2}`!
-:::
 
-## Ordering the bars {.smaller}
+## Ordering the bars
 
-::: {.content-visible when-format="revealjs"}
--   Bars are in **alphabetical** order: `winner_name` is still `character`
--   `ggplot()` ignores our `arrange()`!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Currently, the bars are ordered in the alphabetical order of `winner_name`:
 
 -   This is because `winner_name` is still of type `character`,
 -   and `ggplot()` is not sensitive to our call to `arrange()`!
-:::
 
 ::: callout-important
-::: {.content-visible when-format="revealjs"}
-Turn `winner_name` into a `factor`: a type **with an order**. In the `{tidyverse}`: the package `{forcats}`.
-:::
 
-::: {.content-visible unless-format="revealjs"}
 To order the bars, we need to **create a new order** for the variable `winner_name`. For this, we transform it into a `factor`: a variable type **endowed with an order**. In the `{tidyverse}`, we use the package `{forcats}`.
 :::
-:::
 
-::: {.content-visible unless-format="revealjs"}
 Let's reorder `winner_name` according to `total_wins` with `forcats::fct_reorder()`:
-:::
 
 ```{r}
 library(forcats)
@@ -709,28 +433,15 @@ total_wins <- total_wins %>%
   mutate(winner_name = fct_reorder(winner_name, total_wins))
 ```
 
-::: {.content-visible when-format="revealjs"}
-`winner_name` is now a factor (`fct`):
-:::
-
-::: {.content-visible unless-format="revealjs"}
 See that `winner_name` is now stored as a factor (`fct`)!
-:::
 
 ```{r}
 slice_head(total_wins, n = 6)
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Ordered bars {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's plot again...
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The same bar chart with the bars ordered by number of titles, from the most titles at the top to the fewest at the bottom."
 ggplot(data = total_wins,
        mapping = aes(x = total_wins,
@@ -740,23 +451,15 @@ ggplot(data = total_wins,
 
 > The plot is already much more readable! ...but how can we improve it?
 
-## Focusing our message {.smaller}
+## Focusing our message
 
-::: {.content-visible when-format="revealjs"}
--   Keep the **top 20** with `slice_max()`, fed directly to `ggplot()`
--   The original tibble stays unchanged
-:::
-
-::: {.content-visible unless-format="revealjs"}
 For instance, we can decide to **focus on the top 20**:
 
 -   For this, we can use `slice_max()`...
 -   ...and feed its result directly to `ggplot()`,
 -   thus avoiding modifying the original tibble.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Ordered bar chart of the number of titles of the top 20 winners, led by Serena Williams and Steffi Graf."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -767,22 +470,15 @@ total_wins %>%
 
 > Much better, the plot almost speaks for itself. But let's fix those axes.
 
-## Cosmetic time! {.smaller}
+## Cosmetic time!
 
-::: {.content-visible when-format="revealjs"}
--   A title and axis names, with a `labs()` layer
-:::
-
-::: {.content-visible unless-format="revealjs"}
 It is time to add a title and fix the axis names. We add a `labs()` layer to our plot to do so.
-:::
 
 ::: callout-note
 The `labs()` layer is part of the layers that help with the *cosmetic* aspects of the plot.
 :::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The top-20 bar chart with the title 'Serena Williams won 23 Grand Slam titles', a subtitle, an x-axis label and a source caption."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -797,13 +493,7 @@ total_wins %>%
        caption = "source: https://github.com/JeffSackmann")
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Ready-made themes {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > Now we can give a different theme to the plot.
-:::
 
 ::: callout-note
 `{ggplot2}` has multiple ready-to-use themes. You can see a list of them [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Some of them are:
@@ -816,16 +506,9 @@ total_wins %>%
 You can see the proposals if you type `theme_` in your console.
 :::
 
-::: {.content-visible when-format="revealjs"}
-## Let's go `minimal` {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's go `minimal`...
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The labelled top-20 bar chart with theme_minimal(): no grey background and light grid lines."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -841,18 +524,11 @@ total_wins %>%
   theme_minimal()
 ```
 
-## How about some color? {.smaller}
+## How about some color?
 
-::: {.content-visible when-format="revealjs"}
-Let's try `fill = "lightblue"`...
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Let's give color to our bars. We can use `fill = "lightblue"`...
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The bar chart with fill = 'lightblue' inside aes(): the bars are salmon-red, and a legend shows a single key labelled lightblue."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -870,10 +546,6 @@ total_wins %>%
 
 > Oh no! Something is wrong... Can you guess what?
 
-::: {.content-visible when-format="revealjs"}
-## What's going on? {.smaller .scrollable}
-:::
-
 ::: {.callout-warning collapse="true"}
 ## What's going on?
 
@@ -884,7 +556,6 @@ total_wins %>%
 -   This creates a continuous color scale, applied to the color of the bars.
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The bar chart with fill = total_wins inside aes(): the bars are shaded along a continuous blue scale according to the number of titles, with a colour-bar legend."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -901,18 +572,9 @@ total_wins %>%
 ```
 :::
 
-::: {.content-visible when-format="revealjs"}
-## Setting a colour: outside `aes()` {.smaller}
-
--   To give **all** the bars one colour, set it **inside the `geom_*()`**, outside `aes()`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 If we want to set a color for all our bars, we need to do it **outside `aes()`**, i.e. **inside the `geom_*()`**:
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The labelled top-20 bar chart with all the bars in light blue and no legend."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -927,16 +589,8 @@ total_wins %>%
   theme_minimal()
 ```
 
-# Case Study: Plotting more variables {.subsection background-color="#425556"}
+# Case Study: Plotting more variables
 
-::: {.content-visible when-format="revealjs"}
-## Did Serena win more than Steffi on all surfaces? {.smaller}
-
--   Count the finals won **by player** and **by surface**, then map `surface` to `fill`
--   But first, **reorder** the players again
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can ask ourselves:
 
 > *Did Serena Williams win more than Steffi Graf on all surfaces?*
@@ -946,7 +600,6 @@ How can we see this visually?
 -   First, we need to create a dataset that **counts the finals won by player** and **by surface**...
 -   ...and then try to map the `surface` to `fill`...
 -   ...but! We need to **reorder the data first**, so that the bars are ordered again.
-:::
 
 ::: callout-note
 ## Other nifty `{forcats}` tricks
@@ -963,15 +616,7 @@ total_wins_surface <- finals %>%
 ```
 :::
 
-::: {.content-visible when-format="revealjs"}
-## The top 20, as a vector {.smaller}
-
-`pull()` extracts the names of the top 20 into the vector `top20`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 To focus our message, we can use our top 20. Let's extract the names in the top 20 from the `total_wins` dataset... and store them in the `vector` `top20`:
-:::
 
 ```{r}
 top20 <- total_wins %>%
@@ -981,16 +626,9 @@ top20 <- total_wins %>%
 top20
 ```
 
-::: {.content-visible when-format="revealjs"}
-## Titles by surface {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Now we're ready to plot.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Stacked bar chart of the titles of the top 20 winners, with each bar split into clay, grass and hard by fill colour."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -1008,44 +646,25 @@ total_wins_surface %>%
   theme_minimal()
 ```
 
-::: {.content-visible when-format="revealjs"}
--   Steffi Graf won more on **clay**, Serena more on **hard** surfaces
--   But **grass** is very hard to compare!
-:::
-
-::: {.content-visible unless-format="revealjs"}
 > We can see that:
 >
 > -   Steffi Graf won more than Serena Williams on clay,
 > -   and Serena won more on hard surfaces.
 >
 > But for grass, it is very difficult to compare! Clearly there's room for improvement.
-:::
 
-# Creating multiple mini-plots {.subsection background-color="#425556"}
+# Creating multiple mini-plots
 
-::: {.content-visible when-format="revealjs"}
-## One mini-plot per surface: `facet_wrap()` {.smaller}
-
--   Compare the players **surface by surface**
--   Mini-plots are called **facets**: the faceting variable goes into `vars()`
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can use a different strategy to compare the players across the different surfaces: create a **mini-plot for each surface**. To do so, we add a `facet_wrap()` layer.
 
 ::: callout-note
 The mini-plots in *`R`* are called *"facets"*.
 :::
-:::
 
 ::: callout-important
-::: {.content-visible unless-format="revealjs"}
 The syntax is slightly different: we need to wrap the name of the variable that divides the plot into facets in the function `vars()`.
-:::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "Three side-by-side bar charts, one per surface (Clay, Grass, Hard), each showing the titles of the top 20 winners on that surface."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -1065,13 +684,7 @@ total_wins_surface %>%
 ```
 :::
 
-::: {.content-visible when-format="revealjs"}
-## Hiding the redundant legend {.smaller}
-:::
-
-::: {.content-visible unless-format="revealjs"}
 We can now hide the legend, since it's redundant.
-:::
 
 ::: {.callout-note collapse="true"}
 ## The colours are redundant too
@@ -1080,7 +693,6 @@ The colors here are a bit redundant as well, but we keep them just for personal 
 :::
 
 ```{r}
-#| output-location: column
 #| fig-alt: "The same three facets without the legend: each facet title names its surface."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -1100,41 +712,23 @@ total_wins_surface %>%
   theme(legend.position = "none") #removing the legend
 ```
 
-# Exporting your plots {.subsection background-color="#425556"}
+# Exporting your plots
 
-::: {.content-visible when-format="revealjs"}
-## `ggsave()` saves the last plot
-
--   Just give it a **file name**:
-:::
-
-::: {.content-visible unless-format="revealjs"}
 Once you are happy with your plots, it is time to export them. The easiest way is to use `ggsave()`, which, by default, saves the last plot that you displayed. So basically, you just need to provide the file name you want as an argument:
-:::
 
 ```{r}
 #| eval: false
 ggsave("wta_wins_by_surface.png")
 ```
 
-::: {.content-visible when-format="revealjs"}
--   The size follows your **Plots pane**, so it changes between computers. Fix it with `width` and `height` (in inches):
-:::
-
-::: {.content-visible unless-format="revealjs"}
 By default, the image takes the size of the current plotting window (in RStudio, the *Plots* pane), so it changes from one computer to another. To control the size, use the `width` and `height` arguments, in inches by default:
-:::
 
 ```{r}
 #| eval: false
 ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 ```
 
-# More resources {.subsection background-color="#425556"}
-
-::: {.content-visible when-format="revealjs"}
-## To go further
-:::
+# More resources
 
 -   [`{ggplot2}` book](https://ggplot2-book.org)
 -   [`{ggplot2}` cheatsheet](https://ggplot2.tidyverse.org)
@@ -1142,11 +736,7 @@ ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 -   [R for data science](https://r4ds.had.co.nz)
 -   [R for data science exercise solutions](https://jrnold.github.io/r4ds-exercise-solutions/)
 
-# Exercise Time! {.unnumbered .subsection background-color="#425556"}
-
-::: {.content-visible when-format="revealjs"}
-## Time to work!
-:::
+# Exercise Time! {.unnumbered}
 
 ::: {.callout-important icon="false"}
 ## Time to work!

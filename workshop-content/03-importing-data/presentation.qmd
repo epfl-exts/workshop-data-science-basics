@@ -1,0 +1,383 @@
+---
+title: "Data Import"
+subtitle: "Getting data into R with `{readr}`, `{readxl}` and `{haven}`"
+author: "**EPFL Extension School**"
+format:
+  revealjs:
+    slide-level: 2
+    transition: fade
+    background-transition: fade
+    footer: "Basics of Data Science Workshop"
+    slide-number: true
+    df-print: tibble
+    embed-resources: true
+    width: 1440
+    height: 810
+    output-file: "presentation"
+    css: ../assets/css/exts-reveal.css
+---
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+
+# keep wide tibbles (e.g. the 120-column Excel sheet) on one slide
+options(pillar.max_extra_cols = 0)
+```
+
+```{r r_setup, include = FALSE}
+library(tidyverse)
+```
+
+# 📥 Getting the data in {.subsection background-color="#425556"}
+
+## Import: the first step of the pipeline
+
+```{r, echo=FALSE, out.width="70%", fig.alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The import step is highlighted: data import is the first step of the pipeline."}
+knitr::include_graphics("images/fig-data-import.png")
+```
+
+## In this unit
+
+How to get **tabular data** into R:
+
+-   📄 **Delimited** text files: CSV, TSV, ...
+-   📗 **Excel** workbooks
+-   📊 Files from **statistical software**: SAS, SPSS, Stata
+
+. . . 
+
+and the **arguments** that work around the usual caveats.
+
+. . .
+
+::: callout-note
+## Disclaimer
+
+Some data used in this unit is simulated.
+:::
+
+::: {.notes}
+Ask participants whether they work (or will have to work) with Excel or SAS files. If not, don't go too much into the details of the Excel example.
+:::
+
+# 📄 Delimited files {.subsection background-color="#425556"}
+
+## A table in a text file
+
+Data entries are stored as a **table** in a **text file**.
+
+-   One row of the table per line
+-   Columns separated by a **delimiter** 
+
+| separator | format  | example |
+|-----------|---------|-----------|
+| comma `,` | **C**omma-**S**eparated **V**alues  | `data.csv` |
+| comma `,` | **C**omma-**S**eparated **V**alues  | `data.csv` |
+| semicolon `;` | **T**ab-**S**eparated **V**alues | `data.tsv` |     
+
+## {.center}
+
+```{r, echo=FALSE, out.width="70%", fig.alt="The same small table (name, gender, weight, height, bmi) saved in two text formats: team.csv, where the values are separated by commas, and team.tsv, where they are separated by tabs."}
+knitr::include_graphics("images/1-delim.png")
+```
+
+## CSV is the most common format for sharing data
+
+-   Small- and mid-sized data, up to several GB
+-   **Software-agnostic**: any tool can open it
+-   Especially important when you **work in a team**
+
+## `read_csv()` reads a CSV file into R
+
+-   From `{readr}`, part of the `{tidyverse}`
+-   Give it the **path to the file**, on your computer or on the web
+-   **Store the result** in an object
+
+```{r, eval = FALSE}
+name_of_object <- read_csv("path_to_file")
+```
+
+## Example: reading `team.csv`
+
+👉 First, open `data/team.csv` and have a look at it.
+
+```{r}
+library(readr)
+
+team <- read_csv("data/team.csv")
+```
+
+. . .
+
+```{r}
+team
+```
+
+## Use paths *relative* to your document
+
+-   ✅ `"data/team.csv"`
+-   ❌ `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+
+. . .
+
+-   Relative paths work on **any computer**: share the folder as it is
+-   In Quarto / R Markdown, they start from the **document's folder**
+
+. . .
+
+:::{.callout-warning}
+
+In R scripts and in the console, **paths start from the *working directory*** instead.
+:::
+
+## Useful arguments of `read_csv()`
+
+```{r, echo=FALSE, out.width="80%", fig.alt="A call to read_csv() with the arguments file, col_names, na and skip, each linked by an arrow to what it controls in a CSV file: the file name, the header row with the column names, the 'null' values to treat as missing, and the three lines of notes above the data to skip."}
+knitr::include_graphics("images/1-read_csv.png")
+```
+
+::: callout-tip
+Forgot an argument's name? Put the cursor inside the parentheses and press <kbd>Tab</kbd>.
+
+:::
+
+## `col_names = FALSE`: the first row is data {.smaller}
+
+-   By default, `read_csv()` takes **the first row** as the **column names**
+-   No header in the file? Set `col_names = FALSE`: R names the columns `X1`, `X2`, ...
+
+:::: {.columns}
+::: {.column width="25%"}
+```{r}
+#| filename: "data/team_wo_header.csv"
+#| comment: NA 
+#| echo: false
+cat(read_lines("data/team_wo_header.csv", n_max = 4), sep = "\n")
+```
+:::
+
+::: {.column width="65%"}
+```{r}
+team_wo_header <-
+  read_csv(
+    "data/team_wo_header.csv",
+    col_names = FALSE)
+
+team_wo_header
+```
+:::
+::::
+
+## `na = "null"`: declare the missing values {.smaller}
+
+-   R writes missing values as `NA`, other programs write e.g. `null`
+-   `read_csv()` reads `null` as text, so **whole columns become text**
+
+```{r, comment=NA, echo=FALSE}
+cat(read_lines("data/team_missing.csv", n_max = 4), sep = "\n")
+```
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+team_missing <- read_csv("data/team_missing.csv")
+team_missing
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+team_missing <- read_csv("data/team_missing.csv", na = "null")
+team_missing
+```
+:::
+::::
+
+## `skip = 3`: jump over the metadata {.smaller}
+
+-   Some text files start with a **description of the data** (metadata)
+-   `skip` tells `read_csv()` how many lines to jump over
+
+:::: {.columns}
+::: {.column width="45%"}
+```{r, comment=NA, echo=FALSE}
+cat(read_lines("data/team_meta.txt", n_max = 7), sep = "\n")
+```
+:::
+
+::: {.column width="55%"}
+```{r}
+team_meta <- read_csv("data/team_meta.txt", skip = 3)
+team_meta
+```
+:::
+::::
+
+## `locale`: special characters {.smaller}
+
+-   Accents and umlauts (French, German, ...) can come out garbled
+-   Tell `read_csv()` the file's **encoding**: `locale = locale(encoding = "latin1")`
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| error: true
+cities <- read_csv("data/cities.csv")
+cities
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+cities <- read_csv(
+  "data/cities.csv",
+  locale = locale(encoding = "latin1"))
+cities
+```
+:::
+::::
+
+## Other delimiters, same arguments
+
+-   Countries with a **decimal comma** use `;` as a delimiter → `read_csv2()`
+-   Tabs → `read_tsv()`, any other delimiter → `read_delim()`
+-   They all take the **same arguments** as `read_csv()`
+
+```{r, echo=FALSE}
+tribble(
+  ~ `Function`, ~ `Delimiter`, ~ `Default decimal`,
+  "`read_csv()`", "`,` (comma)", "`.` (dot)",
+  "`read_csv2()`", "`;` (semicolon)", "`,` (comma)",
+  "`read_tsv()`", "Tab", "`.` (dot)",
+  "`read_delim()`", "Custom", "`.` (dot)",
+) %>%
+  knitr::kable()
+```
+
+# 📗 Excel files {.subsection background-color="#425556"}
+
+## `{readxl}` reads Excel workbooks
+
+-   Installed with the `{tidyverse}`, but **not attached** by `library(tidyverse)`
+-   `read_xls()` for `.xls`, `read_xlsx()` for `.xlsx`, `read_excel()` guesses
+-   First argument: the **path** to the file
+
+``` r
+install.packages("readxl")
+```
+
+::: callout-warning
+## Note
+
+You don't have to do this on Renku, as it has been installed already!
+:::
+
+```{r}
+library(readxl)
+```
+
+## Example: reading `team.xlsx`
+
+👉 First, open `data/team.xlsx` in Excel and look at how it is structured.
+
+```{r}
+team <- read_xlsx("data/team.xlsx")
+team
+```
+
+## Excel files can be a mess!
+
+👉 Open `data/je-e-06.02.00.01.02.xlsx`:
+
+-   A **workbook** with several **sheets**
+-   The table sits somewhere in the middle of the cells
+
+```{r, echo=FALSE, out.width="70%", fig.alt="A call to read_excel() with the arguments file, sheet, range and col_names, each linked by an arrow to what it controls in an Excel workbook: the file name, the second sheet, the cell range C3:G23 that holds the table, and its header row."}
+knitr::include_graphics("images/2-excel.png")
+```
+
+## `sheet`: which sheet to import {.smaller}
+
+-   By **name**: `sheet = "Women"`, or by **position**: `sheet = 2`
+-   Default: the **first** sheet
+
+```{r}
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women"
+)
+
+women_jobs
+```
+
+::: callout-important
+## Note
+
+The data has been imported, but it isn't usable yet.
+:::
+
+## `range`: which cells to import {.smaller}
+
+-   The data is all over the sheet: `skip` isn't enough
+-   `range` takes the **upper-left** and **lower-right** cells: `range = "A9:DP72"`
+
+```{r}
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72"
+)
+
+women_jobs
+```
+
+## `col_names = FALSE`, again {.smaller}
+
+-   Almost there, but the **column names contain values**
+-   Same fix as for CSV files
+
+```{r}
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72",
+  col_names = FALSE
+)
+
+women_jobs
+```
+
+# 📊 Files from statistical software {.subsection background-color="#425556"}
+
+## `{haven}` reads SAS, SPSS and Stata files
+
+-   One function per file type: `read_sas()`, `read_sav()`, `read_dta()`, ...
+
+```{r, echo=FALSE, out.width="70%", fig.alt="The {haven} package imports files from statistical software into R: read_sas() and read_xpt() for SAS, read_dta() for Stata, read_sav() and read_por() for SPSS."}
+knitr::include_graphics("images/3-other.png")
+```
+
+## Example: reading a SAS file {.smaller}
+
+```{r}
+library(haven)
+
+mtcars_data <- read_sas("data/mtcars.sas7bdat")
+
+mtcars_data
+```
+
+More arguments? See the documentation: `?read_sas`
+
+## Exercise Time!
+
+::: callout-important
+## Time to work!
+
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 1](../_exercises/exercise-notebook.html#exercise-1)**. See you there!
+:::

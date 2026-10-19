@@ -3549,7 +3549,7 @@ background-origin: content-box;
   <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">8</span> More resources</a></li>
   <li><a href="#exercise-time" id="toc-exercise-time" class="nav-link" data-scroll-target="#exercise-time">Exercise Time!</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="presentation.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="presentation.html"><i class="bi bi-easel"></i>Slides</a></li></ul></div></nav>
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -3568,8 +3568,8 @@ background-origin: content-box;
 <li>but it is also very important as a <strong>tool to communicate results</strong> in a clear and meaningful way.</li>
 </ul>
 <p>There are many approaches to creating a data plot. Today, we’ll focus on the <strong>visualisation approach</strong> that relies on the <strong>Grammar of Data Visualisation</strong>, implemented in R via the package <code>{ggplot2}</code>.</p>
-<section id="a-grammar-for-data-visualisation" class="level1 subsection" data-background-color="#425556" data-number="1">
-<h1 class="subsection" data-background-color="#425556" data-number="1"><span class="header-section-number">1</span> A Grammar for Data Visualisation</h1>
+<section id="a-grammar-for-data-visualisation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> A Grammar for Data Visualisation</h1>
 <p>The Grammar of Graphics (see <a href="https://link.springer.com/book/10.1007/0-387-28695-0" title="The Grammar of Graphics, Wilkinson 2005">Wilkinson, 2005</a>) is an attempt to <strong>systematise</strong> and <strong>expand</strong> the <strong>production of quantitative graphics</strong>. The idea is to give <strong>rules</strong> akin to the <strong>grammar of natural language</strong>.</p>
 <p>Much like natural language, which uses syntactic components such as <strong>nouns</strong>, <strong>adjectives</strong>, <strong>verbs</strong> and <strong>adverbs</strong> to build <strong>statements</strong>, the grammar of graphics relies on components, namely:</p>
 <ul>
@@ -3673,8 +3673,8 @@ background-origin: content-box;
 <p>Now let’s see how we can build plots with the grammar of graphics in R, with <code>{ggplot2}</code>.</p>
 </section>
 </section>
-<section id="ggplot2-syntax" class="level1 subsection" data-background-color="#425556" data-number="2">
-<h1 class="subsection" data-background-color="#425556" data-number="2"><span class="header-section-number">2</span> <code>{ggplot2}</code> syntax</h1>
+<section id="ggplot2-syntax" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> <code>{ggplot2}</code> syntax</h1>
 <p>The package that implements the grammar of graphics approach to data visualisation in the <code>{tidyverse}</code> is <code>{ggplot2}</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -3742,8 +3742,8 @@ Important
 </ul>
 </div>
 </div>
-<section id="scatterplots-with-geom_point" class="level2 smaller" data-number="2.1">
-<h2 class="smaller anchored" data-number="2.1" data-anchor-id="scatterplots-with-geom_point"><span class="header-section-number">2.1</span> Scatterplots with <code>geom_point()</code></h2>
+<section id="scatterplots-with-geom_point" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="scatterplots-with-geom_point"><span class="header-section-number">2.1</span> Scatterplots with <code>geom_point()</code></h2>
 <blockquote class="blockquote">
 <p><em>Is there a <strong>trend in the age</strong> of the tournament winners over the <strong>years</strong>?</em></p>
 </blockquote>
@@ -3765,7 +3765,7 @@ Important
 <p>To define the <strong>aesthetic mapping</strong>, we rely on the function <code>aes(...)</code>.</p>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a base plot</span></span>
@@ -3806,7 +3806,7 @@ Warning
 <p>In <code>{ggplot2}</code> we use the <code>+</code> instead of the <code>%&gt;%</code> sign to add layers!</p>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -3836,7 +3836,7 @@ Warning
 <li>To assess this, we could map a categorical variable to the <code>color</code> aesthetic.</li>
 <li>Let’s try with <code>surface</code>, i.e. whether the match is played on Clay, Grass or a Hard surface.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -3860,7 +3860,7 @@ Warning
 <ul>
 <li>Let’s test this conjecture by mapping <code>winner_name</code> to the <code>color</code> aesthetic…</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -3928,13 +3928,13 @@ Note
 </div>
 </div>
 </section>
-<section id="boxplots-with-geom_boxplot" class="level2 smaller" data-number="2.2">
-<h2 class="smaller anchored" data-number="2.2" data-anchor-id="boxplots-with-geom_boxplot"><span class="header-section-number">2.2</span> Boxplots with <code>geom_boxplot()</code></h2>
+<section id="boxplots-with-geom_boxplot" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="boxplots-with-geom_boxplot"><span class="header-section-number">2.2</span> Boxplots with <code>geom_boxplot()</code></h2>
 <blockquote class="blockquote">
 <p><em>Is there a difference in the distribution of the tournament winners’ age across the different surfaces?</em></p>
 </blockquote>
 <p>We can now ask <strong>another question</strong> and try to answer it using a <strong>different geometry</strong>. A good choice of <code>geometry</code> is <em>boxplots</em>, since they are good <strong>summaries of distributions</strong>.</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -3950,7 +3950,7 @@ Note
 </div>
 </div>
 <p>To add the boxplot geometry, we add <code>geom_boxplot()</code>:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -4006,8 +4006,8 @@ Note
 </div>
 </section>
 </section>
-<section id="adding-more-geometries-geoms_" class="level1 subsection" data-background-color="#425556" data-number="3">
-<h1 class="subsection" data-background-color="#425556" data-number="3"><span class="header-section-number">3</span> Adding more geometries <code>geoms_*</code></h1>
+<section id="adding-more-geometries-geoms_" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Adding more geometries <code>geoms_*</code></h1>
 <p>As we mentioned before, <code>{ggplot2}</code> works with <strong>layers of information</strong>. In our examples, we have drawn the <strong>base plot</strong> and then added <strong>one single geometry</strong> (point or boxplot).</p>
 <p>Let’s focus on the comparison of the winners’ ages across surfaces. What if we wanted to give more information? For instance:</p>
 <blockquote class="blockquote">
@@ -4017,7 +4017,7 @@ Note
 </ul>
 </blockquote>
 <p>Let’s add <strong><em>points</em></strong> <strong>on top of the boxplot</strong>, by adding the <code>geom_point()</code> geometry:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -4052,7 +4052,7 @@ Note
 </div>
 </div>
 <p>To avoid the trap of overplotting, we “shake” the points randomly along the x axis. We do this by changing the geometry to <code>geom_jitter()</code>:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -4070,7 +4070,7 @@ Note
 </div>
 </div>
 <p>We can adjust the jitter a bit, by defining the <code>width</code> of the spread:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> finals,</span>
@@ -4101,8 +4101,8 @@ Note
 </div>
 </div>
 </section>
-<section id="case-study-customising-a-bar-chart" class="level1 subsection" data-background-color="#425556" data-number="4">
-<h1 class="subsection" data-background-color="#425556" data-number="4"><span class="header-section-number">4</span> Case study: Customising a bar chart</h1>
+<section id="case-study-customising-a-bar-chart" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Case study: Customising a bar chart</h1>
 <p>Let’s ask a different question:</p>
 <blockquote class="blockquote">
 <p><em>Who won the most Grand Slam titles</em>?</p>
@@ -4145,7 +4145,7 @@ Note
 </div>
 </div>
 <p>And we can use <code>geom_col()</code> to create a plot:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> total_wins,</span>
@@ -4162,8 +4162,8 @@ Note
 </div>
 </div>
 <p>Time to give it a bit more flair with the tools in <code>{ggplot2}</code>!</p>
-<section id="ordering-the-bars" class="level2 smaller" data-number="4.1">
-<h2 class="smaller anchored" data-number="4.1" data-anchor-id="ordering-the-bars"><span class="header-section-number">4.1</span> Ordering the bars</h2>
+<section id="ordering-the-bars" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ordering-the-bars"><span class="header-section-number">4.1</span> Ordering the bars</h2>
 <p>Currently, the bars are ordered in the alphabetical order of <code>winner_name</code>:</p>
 <ul>
 <li>This is because <code>winner_name</code> is still of type <code>character</code>,</li>
@@ -4208,7 +4208,7 @@ Important
 </div>
 </div>
 <p>Let’s plot again…</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> total_wins,</span>
@@ -4228,15 +4228,15 @@ Important
 <p>The plot is already much more readable! …but how can we improve it?</p>
 </blockquote>
 </section>
-<section id="focusing-our-message" class="level2 smaller" data-number="4.2">
-<h2 class="smaller anchored" data-number="4.2" data-anchor-id="focusing-our-message"><span class="header-section-number">4.2</span> Focusing our message</h2>
+<section id="focusing-our-message" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="focusing-our-message"><span class="header-section-number">4.2</span> Focusing our message</h2>
 <p>For instance, we can decide to <strong>focus on the top 20</strong>:</p>
 <ul>
 <li>For this, we can use <code>slice_max()</code>…</li>
 <li>…and feed its result directly to <code>ggplot()</code>,</li>
 <li>thus avoiding modifying the original tibble.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4257,8 +4257,8 @@ Important
 <p>Much better, the plot almost speaks for itself. But let’s fix those axes.</p>
 </blockquote>
 </section>
-<section id="cosmetic-time" class="level2 smaller" data-number="4.3">
-<h2 class="smaller anchored" data-number="4.3" data-anchor-id="cosmetic-time"><span class="header-section-number">4.3</span> Cosmetic time!</h2>
+<section id="cosmetic-time" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="cosmetic-time"><span class="header-section-number">4.3</span> Cosmetic time!</h2>
 <p>It is time to add a title and fix the axis names. We add a <code>labs()</code> layer to our plot to do so.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4273,7 +4273,7 @@ Note
 <p>The <code>labs()</code> layer is part of the layers that help with the <em>cosmetic</em> aspects of the plot.</p>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4320,7 +4320,7 @@ Note
 </div>
 </div>
 <p>Let’s go <code>minimal</code>…</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4345,10 +4345,10 @@ Note
 </div>
 </div>
 </section>
-<section id="how-about-some-color" class="level2 smaller" data-number="4.4">
-<h2 class="smaller anchored" data-number="4.4" data-anchor-id="how-about-some-color"><span class="header-section-number">4.4</span> How about some color?</h2>
+<section id="how-about-some-color" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="how-about-some-color"><span class="header-section-number">4.4</span> How about some color?</h2>
 <p>Let’s give color to our bars. We can use <code>fill = &quot;lightblue&quot;</code>…</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4394,7 +4394,7 @@ Note
 <li>A mapping would make sense if we wanted the color of the bars to depend on the number of <code>total_wins</code>.</li>
 <li>This creates a continuous color scale, applied to the color of the bars.</li>
 </ul>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4422,7 +4422,7 @@ Note
 </div>
 </div>
 <p>If we want to set a color for all our bars, we need to do it <strong>outside <code>aes()</code></strong>, i.e. <strong>inside the <code>geom_*()</code></strong>:</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>total_wins <span class="sc">%&gt;%</span></span>
@@ -4447,8 +4447,8 @@ Note
 </div>
 </section>
 </section>
-<section id="case-study-plotting-more-variables" class="level1 subsection" data-background-color="#425556" data-number="5">
-<h1 class="subsection" data-background-color="#425556" data-number="5"><span class="header-section-number">5</span> Case Study: Plotting more variables</h1>
+<section id="case-study-plotting-more-variables" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Case Study: Plotting more variables</h1>
 <p>We can ask ourselves:</p>
 <blockquote class="blockquote">
 <p><em>Did Serena Williams win more than Steffi Graf on all surfaces?</em></p>
@@ -4507,7 +4507,7 @@ Note
 </div>
 </div>
 <p>Now we’re ready to plot.</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>total_wins_surface <span class="sc">%&gt;%</span></span>
@@ -4542,8 +4542,8 @@ Note
 <p>But for grass, it is very difficult to compare! Clearly there’s room for improvement.</p>
 </blockquote>
 </section>
-<section id="creating-multiple-mini-plots" class="level1 subsection" data-background-color="#425556" data-number="6">
-<h1 class="subsection" data-background-color="#425556" data-number="6"><span class="header-section-number">6</span> Creating multiple mini-plots</h1>
+<section id="creating-multiple-mini-plots" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Creating multiple mini-plots</h1>
 <p>We can use a different strategy to compare the players across the different surfaces: create a <strong>mini-plot for each surface</strong>. To do so, we add a <code>facet_wrap()</code> layer.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4569,7 +4569,7 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p>The syntax is slightly different: we need to wrap the name of the variable that divides the plot into facets in the function <code>vars()</code>.</p>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>total_wins_surface <span class="sc">%&gt;%</span></span>
@@ -4615,7 +4615,7 @@ Important
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center" data-output-location="column">
+<div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>total_wins_surface <span class="sc">%&gt;%</span></span>
@@ -4644,8 +4644,8 @@ Important
 </div>
 </div>
 </section>
-<section id="exporting-your-plots" class="level1 subsection" data-background-color="#425556" data-number="7">
-<h1 class="subsection" data-background-color="#425556" data-number="7"><span class="header-section-number">7</span> Exporting your plots</h1>
+<section id="exporting-your-plots" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Exporting your plots</h1>
 <p>Once you are happy with your plots, it is time to export them. The easiest way is to use <code>ggsave()</code>, which, by default, saves the last plot that you displayed. So basically, you just need to provide the file name you want as an argument:</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4661,8 +4661,8 @@ Important
 </details>
 </div>
 </section>
-<section id="more-resources" class="level1 subsection" data-background-color="#425556" data-number="8">
-<h1 class="subsection" data-background-color="#425556" data-number="8"><span class="header-section-number">8</span> More resources</h1>
+<section id="more-resources" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> More resources</h1>
 <ul>
 <li><a href="https://ggplot2-book.org"><code>{ggplot2}</code> book</a></li>
 <li><a href="https://ggplot2.tidyverse.org"><code>{ggplot2}</code> cheatsheet</a></li>
@@ -4671,8 +4671,8 @@ Important
 <li><a href="https://jrnold.github.io/r4ds-exercise-solutions/">R for data science exercise solutions</a></li>
 </ul>
 </section>
-<section id="exercise-time" class="level1 unnumbered subsection" data-background-color="#425556">
-<h1 class="unnumbered subsection" data-background-color="#425556">Exercise Time!</h1>
+<section id="exercise-time" class="level1 unnumbered">
+<h1 class="unnumbered">Exercise Time!</h1>
 <div class="callout callout-style-default callout-important no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

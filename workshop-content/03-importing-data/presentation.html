@@ -1265,6 +1265,8 @@ margin-right: 0; }
 </ul>
 <div class="fragment">
 <p>and the <strong>arguments</strong> that work around the usual caveats.</p>
+</div>
+<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1310,24 +1312,24 @@ display:block!important;
 <tr class="header">
 <th>separator</th>
 <th>format</th>
-<th>extension</th>
+<th>example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>comma <code>,</code></td>
 <td><strong>C</strong>omma-<strong>S</strong>eparated <strong>V</strong>alues</td>
-<td><code>.csv</code></td>
+<td><code>data.csv</code></td>
 </tr>
 <tr class="even">
 <td>comma <code>,</code></td>
 <td><strong>C</strong>omma-<strong>S</strong>eparated <strong>V</strong>alues</td>
-<td><code>.csv</code></td>
+<td><code>data.csv</code></td>
 </tr>
 <tr class="odd">
 <td>semicolon <code>;</code></td>
 <td><strong>T</strong>ab-<strong>S</strong>eparated <strong>V</strong>alues</td>
-<td><code>.tsv</code></td>
+<td><code>data.tsv</code></td>
 </tr>
 </tbody>
 </table>
@@ -1339,9 +1341,9 @@ display:block!important;
 <section id="csv-is-the-most-common-format-for-sharing-data" class="slide level2">
 <h2>CSV is the most common format for sharing data</h2>
 <ul>
-<li class="fragment">Small- and mid-sized data, up to several GB</li>
-<li class="fragment"><strong>Software-agnostic</strong>: any tool can open it</li>
-<li class="fragment">Especially important when you <strong>work in a team</strong>!</li>
+<li>Small- and mid-sized data, up to several GB</li>
+<li><strong>Software-agnostic</strong>: any tool can open it</li>
+<li>Especially important when you <strong>work in a team</strong></li>
 </ul>
 </section>
 <section id="read_csv-reads-a-csv-file-into-r" class="slide level2">
@@ -1396,6 +1398,21 @@ display:block!important;
 <li>In Quarto / R Markdown, they start from the <strong>document’s folder</strong></li>
 </ul>
 </div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>In R scripts and in the console, <strong>paths start from the <em>working directory</em></strong> instead.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="useful-arguments-of-read_csv" class="slide level2">
 <h2>Useful arguments of <code>read_csv()</code></h2>
@@ -1421,16 +1438,16 @@ display:block!important;
 <li>No header in the file? Set <code>col_names = FALSE</code>: R names the columns <code>X1</code>, <code>X2</code>, …</li>
 </ul>
 <div class="columns">
-<div class="column" style="width:40%;">
-<div class="cell" data-layout-align="center">
+<div class="column" style="width:25%;">
+<div class="cell" data-layout-align="center" data-filename="data/team_wo_header.csv">
 <div class="cell-output cell-output-stdout">
-<pre><code>Hilma,Female,67,190,18.56
-Olga,Female,71,179,22.16
-Freddy,Male,66,169,23.11
-Louise,Female,78,153,33.32</code></pre>
+<pre><code>NA Hilma,Female,67,190,18.56
+NA Olga,Female,71,179,22.16
+NA Freddy,Male,66,169,23.11
+NA Louise,Female,78,153,33.32</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:65%;">
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href aria-label="1"></a>team_wo_header <span class="ot">&lt;-</span></span>
 <span id="cb6-2"><a href aria-label="2"></a>  <span class="fu">read_csv</span>(</span>
