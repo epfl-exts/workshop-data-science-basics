@@ -67,6 +67,7 @@ The package `{dplyr}` offers a series of functions, or *verbs*, that help us **w
 :::: {.columns}
 ::: {.column width="25%"}
 ```{r, echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the dplyr package: a pair of pliers."}
+#| label: img-dplyr-logo
 knitr::include_graphics(path = "images/hex-dplyr.png")
 ```
 :::
@@ -129,6 +130,7 @@ Notice that:
 :::
 
 ```{r}
+#| label: read-wta
 library(readr)
 
 wta_data <-
@@ -153,12 +155,14 @@ You see that we have added an extra argument to avoid importing errors:
 It's always useful to see the **first rows** of our data, to check whether they are well imported. In R, we get a printed view of the **first row** with the function `slice_head()`:
 
 ```{r}
+#| label: slice-head-wta
 slice_head(wta_data)
 ```
 
 If we want to print more rows, we can set the argument `n` to a value (e.g. `n = 6`):
 
 ```{r}
+#| label: slice-head-wta-6
 slice_head(wta_data, n = 6)
 ```
 
@@ -169,6 +173,7 @@ Our data has been well imported, it appears!
 We can get a **summary of the contents** with the function `glimpse()`:
 
 ```{r}
+#| label: glimpse-wta
 glimpse(wta_data)
 ```
 
@@ -195,6 +200,7 @@ Alternatively, we can get a *graphical* view with the function `vis_dat()` from 
 -   The **grey** denotes **missing observations**.
 
 ```{r, fig.cap = "A bird's-eye view of the WTA dataset using `vis_dat()`"}
+#| label: vis-dat-wta
 #| fig-alt: "vis_dat() plot of the WTA data: one vertical band per column, all coloured as character, with grey blocks marking missing values, which are frequent in some columns."
 library(visdat)
 wta_data %>%
@@ -213,6 +219,7 @@ The function `clean_names()` from the package `{janitor}` **rewrites all the col
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: read-team-bad-names
 team <- read_csv("data/team_bad_names.csv")
 team
 ```
@@ -220,6 +227,7 @@ team
 
 ::: {.column width="50%"}
 ```{r}
+#| label: clean-names-team
 library(janitor)
 team %>%
   clean_names()
@@ -238,6 +246,7 @@ Clean names are **quicker to type** and **work without backticks**, and RStudio 
 The function `select()` helps **picking columns**. We can **pick one column by its name**, such as the column `year`:
 
 ```{r, eval = FALSE}
+#| label: select-year
 wta_data %>%
   select(year)
 ```
@@ -245,6 +254,7 @@ wta_data %>%
 To select more than one column, we pass their names to `select()`. Say we want to select the information related to the **winners** and the **tourneys**:
 
 ```{r, eval = FALSE}
+#| label: select-columns
 wta_data %>%
   select(year, tourney_id, tourney_name, winner_id, winner_name)
 ```
@@ -255,6 +265,7 @@ We can also pick the columns **whose names fulfil a condition**. This is done by
 -   To make things even clearer, let's inspect the result with `vis_dat()`.
 
 ```{r}
+#| label: select-helpers
 #| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and tourney_ columns, all of type character."
 wta_data %>%
   select(year, starts_with("winner"), starts_with("tourney")) %>%
@@ -285,6 +296,7 @@ The `mutate()` verb allows us to **create new columns** or **transform existing 
 -   Again, to make things clearer, we use `vis_dat()`. Notice that the type of the column `year` has switched from `character` to `numeric`, and the column `tourney_date` has changed to `Date`.
 
 ```{r}
+#| label: mutate-types
 #| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
 library(lubridate)
 
@@ -324,6 +336,7 @@ We use the `filter()` function to **create subsets of a tibble according to logi
 Say, for example, that we are interested in the matches won by the great Serena Williams. We can use `filter()` to keep the rows that fulfil the condition `winner_name == "Serena Williams"`:
 
 ```{r}
+#| label: filter-serena
 wta_data %>%
   select(year, starts_with("winner"), starts_with("tourney")) %>%
   filter(winner_name == "Serena Williams")
@@ -342,6 +355,7 @@ Naturally, we can **add several conditions**, on the **same column or on others*
 -   We can select all the rows where `tourney_name` contains the pattern `"Australian"` with `str_detect()` from the package `{stringr}`: `str_detect()` returns `TRUE` when the value of `tourney_name` contains the pattern `"Australian"`.
 
 ```{r}
+#| label: filter-serena-australian
 library(stringr)
 wta_data %>%
   filter(
@@ -383,6 +397,7 @@ is equivalent to:
 The verb `arrange()` allows you to **order observations** according to the values of columns of your dataset. If the ordering column is of **any number type**, the observations are ordered in **increasing numerical order**:
 
 ```{r}
+#| label: arrange-year
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year)
@@ -391,6 +406,7 @@ wta_data %>%
 If the ordering column is of **type `character`**, the observations are arranged in alphabetical order:
 
 ```{r}
+#| label: arrange-winner-name
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(winner_name)
@@ -399,6 +415,7 @@ wta_data %>%
 We can also order the observations according to more than one column. The order in which we pass the columns to `arrange()` matters: `{dplyr}` orders **first** according to the column we pass first, then by the second:
 
 ```{r}
+#| label: arrange-two-columns
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, winner_name)
@@ -407,6 +424,7 @@ wta_data %>%
 By default, **`arrange()` sorts observations in *ascending* order**. We can order in *descending* order by wrapping the ordering column in `desc()`:
 
 ```{r}
+#| label: arrange-desc
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, desc(winner_name))
@@ -428,6 +446,7 @@ The function `summarise()` creates a new dataset that **contains summaries of th
 -   Once the rows are filtered with `filter()`, we can **count the number of matches** with the counting function `n()`, which **computes the number of rows**:
 
 ```{r}
+#| label: summarise-serena-australian
 wta_data %>%
   filter(
     winner_name == "Serena Williams",
@@ -451,6 +470,7 @@ Aside from `n()`, other useful functions calculate various other summaries:
 Some analyses require that we **group the data** according to **one or several *grouping* columns** before performing calculations. This can be achieved with `group_by()`. For instance, let's group the dataset by `winner_name`:
 
 ```{r}
+#| label: group-by-winner
 wta_data %>%
   group_by(winner_name)
 ```
@@ -461,6 +481,7 @@ wta_data %>%
 To remove a grouping structure, use the verb `ungroup()`:
 
 ```{r}
+#| label: ungroup-winner
 wta_data %>%
   group_by(winner_name) %>%
   ungroup()
@@ -477,6 +498,7 @@ For illustration, let's count the **number of wins** of **every player** (not ju
 -   In this case, this yields the number of times each `winner_name` appears in the dataset.
 
 ```{r}
+#| label: wins-per-player
 wta_data %>%
   group_by(winner_name) %>%
   summarise(number_of_wins = n(), .groups = "drop")
@@ -494,6 +516,7 @@ It tells `summarise()` to return a table **without any grouping**, exactly as if
 Counting the rows within groups is so common that `{dplyr}` has a shortcut for it. `count()` groups, counts and ungroups in one step:
 
 ```{r}
+#| label: count-wins-per-player
 wta_data %>%
   count(winner_name, name = "number_of_wins")
 ```
@@ -502,6 +525,7 @@ wta_data %>%
 We can group by more than one column. Let's see **how many matches** were won by **each player** in **each tournament**. For this, we need `group_by(winner_name, tourney_name)`:
 
 ```{r}
+#| label: wins-per-player-tourney
 wta_data %>%
   group_by(winner_name, tourney_name) %>%
   summarise(number_of_wins = n(), .groups = "drop")
@@ -529,6 +553,7 @@ The **most important** merging procedures are **binding** and **joining**. In R,
 Let's create three toy datasets to understand these procedures. The following code generates some tables, with the columns `id`, `var_1`, `var_2` and `var_3`:
 
 ```{r}
+#| label: toy-datasets
 data_1 <- tibble(id = 1:3, var_1 = c(15, 13, 39))
 data_2 <- tibble(id = c(4, 5), var_1 = 10)
 data_3 <- tibble(id = 1:3, var_2 = c(10, 12, 14), var_3 = c(45, 20, 2))
@@ -539,18 +564,21 @@ Let's print them to see their contents:
 ::::: {.columns}
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-1
 data_1
 ```
 ::::
 
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-2
 data_2
 ```
 ::::
 
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-3
 data_3
 ```
 ::::
@@ -565,6 +593,7 @@ When two tables have the **same columns** but **different information**, they ca
 -   For instance, the datasets `data_1` and `data_2` have the same column names, but different information (values for `id` and `var_1`). Hence, we can merge them with `bind_rows()`:
 
 ```{r}
+#| label: bind-rows-data
 data_1 %>%
   bind_rows(data_2)
 ```
@@ -585,6 +614,7 @@ Yes there is! But it's a function that does not ensure **row consistency**. We c
 -   For example, `data_3` contains the same ids as `data_1`, hence we can attach the values of the columns `var_2` and `var_3` to have a more complete dataset.
 
 ```{r}
+#| label: bind-cols-data
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -601,10 +631,12 @@ There are a couple of drawbacks when using `bind_cols()`:
     -   Carrying out the merge with `bind_cols()` yields an inconsistent result!
 
 ```{r}
+#| label: permute-data-3
 data_3 <- data_3 %>% arrange(desc(id))
 ```
 
 ```{r}
+#| label: bind-cols-permuted
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -616,6 +648,7 @@ data_1 %>%
     -   This is because we have 5 rows in the first dataset and 3 in the second!
 
 ```{r, error=TRUE}
+#| label: bind-cols-error
 data_1 %>%
   bind_rows(data_2) %>%
   bind_cols(data_3)
@@ -646,6 +679,7 @@ A call to `left_join()` has the particularity that, other than joining the commo
 -   Recent versions of `{dplyr}` also accept `by = join_by(id)`, which you may meet in other people's code.
 
 ```{r}
+#| label: left-join-id
 data_1 %>%
   bind_rows(data_2) %>%
   left_join(data_3, by = "id")
@@ -656,6 +690,7 @@ Let's see what happens when there's a non-common element. We add an observation 
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: data-4
 data_4 <- bind_rows(data_3, tibble(id = 8, var_2 = 3, var_3 = 12))
 data_4
 ```
@@ -665,6 +700,7 @@ data_4
 When applying `left_join()`, we obtain:
 
 ```{r}
+#| label: left-join-unmatched
 data_1 %>%
   left_join(data_4, by = "id")
 ```
@@ -679,6 +715,7 @@ When distributed in tables, data can come in two ways:
 -   **wide** format, where some columns are named after values of a categorical *variable*. They are mostly used to display tables in your reports.
 
 ```{r, echo = FALSE, fig.cap='Wide-format vs. long-format data', fig.align='center', out.width = "70%", fig.alt="The same data as a wide table, with an id column and one column each for x, y and z, and as a long table with three columns: id, key (holding x, y or z) and val."}
+#| label: img-wide-long
 knitr::include_graphics("images/original-dfs-tidy.png")
 ```
 
@@ -687,6 +724,7 @@ In R and with `{tidyr}`, we pivot a table with two functions: `pivot_longer()` a
 :::: {.columns}
 ::: {.column width="25%"}
 ```{r, echo = FALSE, fig.cap='The brooms of `{tidyr}` will help us tidy our data!', fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the tidyr package: brooms."}
+#| label: img-tidyr-logo
 knitr::include_graphics(path = "images/hex-tidyr.png")
 ```
 :::
@@ -715,6 +753,7 @@ Let's illustrate this with `data_5_wide`, a makeshift table containing the perfo
 :::: {.columns}
 ::: {.column width="45%"}
 ```{r}
+#| label: data-5-wide
 data_5_wide <-
   tibble(
     prototype = 1:5 ,
@@ -732,6 +771,7 @@ Let's *pivot* this tibble into *long form*, by
 -   placing the contents of the rows into a single column: `performance`.
 
 ```{r}
+#| label: pivot-longer
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
@@ -748,6 +788,7 @@ data_5_long
 **\[optional\]** We can add a couple of optional arguments for a cleaner result:
 
 ```{r}
+#| label: pivot-longer-clean
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
@@ -764,6 +805,7 @@ data_5_long
 **Long-form tibbles** are **practical** for **computations and visualisations**. For instance, let's compute the average performance of every prototype:
 
 ```{r}
+#| label: average-performance
 data_5_long %>%
   group_by(prototype) %>%
   summarise(average_performance = mean(performance), .groups = "drop")
@@ -785,6 +827,7 @@ Wide-form tibbles are useful for **presentation** purposes, especially in writte
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: data-6-long
 data_6_long <-
   tibble(
     crop = c(rep("wheat", 3), rep("corn", 3), rep("quinoa",3)),
@@ -799,6 +842,7 @@ data_6_long
 This does not look very succinct for a written report, due to the repetition of the values in the columns `crop` and `practice`. Using `pivot_wider()`, taking the column names from `practice` and the values from `yield`, makes for a more succinct table:
 
 ```{r}
+#| label: pivot-wider
 data_6_long %>%
   pivot_wider(names_from = practice, values_from = yield)
 ```
@@ -810,6 +854,7 @@ data_6_long %>%
 We can pass it to `kbl()` and take advantage of `{kableExtra}` for an even better rendering:
 
 ```{r}
+#| label: pivot-wider-kable
 library(kableExtra)
 data_6_long %>%
   pivot_wider(names_from = practice, values_from = yield) %>%

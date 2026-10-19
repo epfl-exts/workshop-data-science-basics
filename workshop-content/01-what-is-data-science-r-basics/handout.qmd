@@ -186,12 +186,14 @@ Let's go a step further and explore how **R** and the `{tidyverse}` handle:
 To work with data in R, **assign the dataset** to a **variable**. Here, `read_csv()` reads the file `rolling_stones.csv` in the `data` folder, and `<-` stores its contents in the variable `rolling_stones_data`:
 
 ```{r eval=FALSE}
+#| label: read-rolling-stones
 rolling_stones_data <- read_csv("data/rolling_stones.csv")
 ```
 
 The dataset now lives in your session, and you can look at it, e.g. its first row:
 
 ```{r echo=FALSE}
+#| label: preview-rolling-stones
 rolling_stones_data <- readr::read_csv("data/rolling_stones.csv")
 
 dplyr::slice_head(rolling_stones_data)
@@ -204,6 +206,7 @@ Notice the abbreviations under the column names, such as `<chr>` (text), `<dbl>`
 You can **use more than one dataset** in your session, by **storing them in different variables**:
 
 ```{r eval=FALSE}
+#| label: read-two-datasets
 # reading a dataset: rolling_stones
 rolling_stones_data <- read_csv("data/rolling_stones.csv")
 
@@ -257,6 +260,7 @@ On Renku, the packages of this workshop are already installed: you only need to 
 The function `slice_head()` allows us to view **the first line(s)** of a dataset. It is part of the package `{dplyr}`: the notation `dplyr::slice_head()` makes this explicit. Let's attach `{dplyr}` and use `slice_head()` on the `cars` dataset, which comes with R:
 
 ```{r}
+#| label: slice-head-cars
 # attaching the package
 library(dplyr)
 
@@ -327,7 +331,7 @@ cars |> pull(speed) |> density() |> plot()    # the native pipe
 In RStudio, go to *Tools* → *Global Options* → *Code* and look for *Use native pipe operator, \|\> (requires R 4.1+)*. Unticked, the shortcut inserts `%>%`; ticked, it inserts `|>`. The workshop project is set to `%>%`.
 :::
 
-# What's next?
+# What's next? {.handout-only}
 
 The next topics follow the data pipeline:
 
@@ -357,6 +361,7 @@ Tick **one file at a time**. Exporting a whole folder fails on Renku.
 To download **all your notebooks and scripts** (`.qmd`, `.Rmd` and `.R`) at once, first pack them into a single archive. Type in the **Console**:
 
 ```{r}
+#| label: pack-my-work
 #| eval: false
 tar("my-work.tar.gz",
     files = list.files("workshop-content",

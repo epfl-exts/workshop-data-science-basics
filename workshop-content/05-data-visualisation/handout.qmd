@@ -67,6 +67,7 @@ Let's explore these components in detail.
 The **dataset** containing the **variables we want to plot**. Let's consider for illustration a dataset with three columns: **Variable 1**, **Variable 2** and **Group** (A, B or C).
 
 ```{r}
+#| label: example-data
 #| include: false
 set.seed(123)
 example_data <-
@@ -85,6 +86,7 @@ example_data <-
 ```
 
 ```{r}
+#| label: example-data-table
 #| echo: false
 example_data %>%
   head() %>%
@@ -120,6 +122,7 @@ All the "ink", i.e. the purely cosmetic elements of the graphic: the titles, the
 With these elements, let's make a plot.
 
 ```{r}
+#| label: example-plot
 #| echo: false
 #| fig-alt: "Scatter plot of Variable 2 against Variable 1, coloured by Group: in each of the groups A, B and C the points follow a straight line, but the lines differ between groups."
 example_data %>%
@@ -146,6 +149,7 @@ It's even in the name! The 'gg' stands for... **g**rammar of **g**raphics.
 We make illustrations with the data on women's Grand Slam singles matches from 1968 to 2021, stored in `wta_grand_slam_data.csv`.
 
 ```{r}
+#| label: read-finals
 #| code-fold: true
 library(readr)
 library(dplyr)
@@ -163,6 +167,7 @@ head(finals)
 We attach the package as usual, using `library()`:
 
 ```{r}
+#| label: attach-ggplot2
 library(ggplot2)
 ```
 
@@ -191,6 +196,7 @@ To define the **aesthetic mapping**, we rely on the function `aes(...)`.
 :::
 
 ```{r}
+#| label: base-plot-year-age
 #| fig-alt: "An empty plot: the axes year and winner_age are drawn, but there are no data points."
 # create a base plot
 
@@ -211,6 +217,7 @@ In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
 :::
 
 ```{r}
+#| label: geom-point-year-age
 #| fig-alt: "Scatter plot of winner age against year for the Grand Slam finals: no overall trend, but some points line up in short clusters."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -229,6 +236,7 @@ ggplot(data = finals,
 -   Let's try with `surface`, i.e. whether the match is played on Clay, Grass or a Hard surface.
 
 ```{r}
+#| label: color-surface
 #| fig-alt: "The same scatter plot of winner age against year, with the points coloured by surface (Clay, Grass, Hard): still no uniform trend."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -244,6 +252,7 @@ ggplot(data = finals,
 -   Let's test this conjecture by mapping `winner_name` to the `color` aesthetic...
 
 ```{r fig.width=10, fig.height= 5}
+#| label: color-winner
 #| fig-alt: "Scatter plot of winner age against year, with one colour per winner and no legend: points of the same colour line up, rising with the years."
 ggplot(data = finals,
        mapping = aes(x = year,
@@ -280,6 +289,7 @@ You can see that **before 1977** there are fewer blue points: tournaments were p
 We can now ask **another question** and try to answer it using a **different geometry**. A good choice of `geometry` is *boxplots*, since they are good **summaries of distributions**.
 
 ```{r}
+#| label: base-plot-surface
 #| fig-alt: "An empty plot with surface (Clay, Grass, Hard) on the x axis and winner_age on the y axis."
 ggplot(data = finals,
        mapping = aes(x = surface, # we change the mapping of the x axis
@@ -289,6 +299,7 @@ ggplot(data = finals,
 To add the boxplot geometry, we add `geom_boxplot()`:
 
 ```{r}
+#| label: geom-boxplot
 #| fig-alt: "Boxplots of winner age by surface: the winners on grass tend to be older, the winners on hard courts younger."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -329,6 +340,7 @@ Let's focus on the comparison of the winners' ages across surfaces. What if we w
 Let's add ***points*** **on top of the boxplot**, by adding the `geom_point()` geometry:
 
 ```{r}
+#| label: boxplot-points
 #| fig-alt: "Boxplots of winner age by surface with the points drawn on top: the points pile up on a single vertical line per surface."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -349,6 +361,7 @@ Now we have a little visualisation challenge: **overplotting**!
 To avoid the trap of overplotting, we "shake" the points randomly along the x axis. We do this by changing the geometry to `geom_jitter()`:
 
 ```{r}
+#| label: boxplot-jitter
 #| fig-alt: "Boxplots of winner age by surface with jittered points: the points are spread randomly sideways, so the individual observations are visible."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -360,6 +373,7 @@ ggplot(data = finals,
 We can adjust the jitter a bit, by defining the `width` of the spread:
 
 ```{r}
+#| label: boxplot-jitter-width
 #| fig-alt: "The same plot with a narrower jitter: the points stay close to their box."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -387,6 +401,7 @@ Let's use our **Data Wrangling** skills!
 :::
 
 ```{r}
+#| label: count-total-wins
 total_wins <- finals %>%
   group_by(winner_name) %>%
   summarise(total_wins = n(), .groups = "drop") %>%
@@ -396,12 +411,14 @@ total_wins <- finals %>%
 Our dataset looks like this:
 
 ```{r}
+#| label: total-wins-head
 slice_head(total_wins, n = 6)
 ```
 
 And we can use `geom_col()` to create a plot:
 
 ```{r}
+#| label: geom-col-all
 #| fig-alt: "Horizontal bar chart of the number of titles of all 54 winners, in reverse alphabetical order from top to bottom: the names overlap and the chart is hard to read."
 ggplot(data = total_wins,
        mapping = aes(x = total_wins,
@@ -426,6 +443,7 @@ To order the bars, we need to **create a new order** for the variable `winner_na
 Let's reorder `winner_name` according to `total_wins` with `forcats::fct_reorder()`:
 
 ```{r}
+#| label: reorder-winners
 library(forcats)
 
 total_wins <- total_wins %>%
@@ -436,12 +454,14 @@ total_wins <- total_wins %>%
 See that `winner_name` is now stored as a factor (`fct`)!
 
 ```{r}
+#| label: total-wins-head-reordered
 slice_head(total_wins, n = 6)
 ```
 
 Let's plot again...
 
 ```{r}
+#| label: geom-col-ordered
 #| fig-alt: "The same bar chart with the bars ordered by number of titles, from the most titles at the top to the fewest at the bottom."
 ggplot(data = total_wins,
        mapping = aes(x = total_wins,
@@ -460,6 +480,7 @@ For instance, we can decide to **focus on the top 20**:
 -   thus avoiding modifying the original tibble.
 
 ```{r}
+#| label: top20-bars
 #| fig-alt: "Ordered bar chart of the number of titles of the top 20 winners, led by Serena Williams and Steffi Graf."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -479,6 +500,7 @@ The `labs()` layer is part of the layers that help with the *cosmetic* aspects o
 :::
 
 ```{r}
+#| label: top20-labs
 #| fig-alt: "The top-20 bar chart with the title 'Serena Williams won 23 Grand Slam titles', a subtitle, an x-axis label and a source caption."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -509,6 +531,7 @@ You can see the proposals if you type `theme_` in your console.
 Let's go `minimal`...
 
 ```{r}
+#| label: top20-theme-minimal
 #| fig-alt: "The labelled top-20 bar chart with theme_minimal(): no grey background and light grid lines."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -529,6 +552,7 @@ total_wins %>%
 Let's give color to our bars. We can use `fill = "lightblue"`...
 
 ```{r}
+#| label: fill-in-aes
 #| fig-alt: "The bar chart with fill = 'lightblue' inside aes(): the bars are salmon-red, and a legend shows a single key labelled lightblue."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -556,6 +580,7 @@ total_wins %>%
 -   This creates a continuous color scale, applied to the color of the bars.
 
 ```{r}
+#| label: fill-total-wins
 #| fig-alt: "The bar chart with fill = total_wins inside aes(): the bars are shaded along a continuous blue scale according to the number of titles, with a colour-bar legend."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -575,6 +600,7 @@ total_wins %>%
 If we want to set a color for all our bars, we need to do it **outside `aes()`**, i.e. **inside the `geom_*()`**:
 
 ```{r}
+#| label: fill-outside-aes
 #| fig-alt: "The labelled top-20 bar chart with all the bars in light blue and no legend."
 total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
@@ -608,6 +634,7 @@ How can we see this visually?
 -   `fct_rev()` reverses the order, to make it **descending**.
 
 ```{r}
+#| label: wins-by-surface
 total_wins_surface <- finals %>%
   mutate(winner_name = fct_rev(fct_infreq(winner_name))) %>% #reordering the winner names
   group_by(winner_name, surface) %>%
@@ -619,6 +646,7 @@ total_wins_surface <- finals %>%
 To focus our message, we can use our top 20. Let's extract the names in the top 20 from the `total_wins` dataset... and store them in the `vector` `top20`:
 
 ```{r}
+#| label: top20-names
 top20 <- total_wins %>%
   slice_max(order_by = total_wins, n = 20) %>%
   pull(winner_name)
@@ -629,6 +657,7 @@ top20
 Now we're ready to plot.
 
 ```{r}
+#| label: stacked-by-surface
 #| fig-alt: "Stacked bar chart of the titles of the top 20 winners, with each bar split into clay, grass and hard by fill colour."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -665,6 +694,7 @@ The mini-plots in *`R`* are called *"facets"*.
 The syntax is slightly different: we need to wrap the name of the variable that divides the plot into facets in the function `vars()`.
 
 ```{r}
+#| label: facets-by-surface
 #| fig-alt: "Three side-by-side bar charts, one per surface (Clay, Grass, Hard), each showing the titles of the top 20 winners on that surface."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -693,6 +723,7 @@ The colors here are a bit redundant as well, but we keep them just for personal 
 :::
 
 ```{r}
+#| label: facets-no-legend
 #| fig-alt: "The same three facets without the legend: each facet title names its surface."
 total_wins_surface %>%
   filter(winner_name %in% top20) %>%
@@ -717,6 +748,7 @@ total_wins_surface %>%
 Once you are happy with your plots, it is time to export them. The easiest way is to use `ggsave()`, which, by default, saves the last plot that you displayed. So basically, you just need to provide the file name you want as an argument:
 
 ```{r}
+#| label: ggsave-default
 #| eval: false
 ggsave("wta_wins_by_surface.png")
 ```
@@ -724,6 +756,7 @@ ggsave("wta_wins_by_surface.png")
 By default, the image takes the size of the current plotting window (in RStudio, the *Plots* pane), so it changes from one computer to another. To control the size, use the `width` and `height` arguments, in inches by default:
 
 ```{r}
+#| label: ggsave-7x5
 #| eval: false
 ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 ```

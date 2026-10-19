@@ -1,0 +1,47 @@
+#!/bin/sh
+# Keep each module's presentation.qmd and handout.qmd in sync.
+#
+# Enabled once per clone with:  git config core.hooksPath .githooks
+# Skip it for one commit with:  git commit --no-verify
+#
+# For every module with a staged presentation.qmd or handout.qmd, this hook
+# - warns when only one file of the pair is staged,
+# - runs .githooks/check-sync.R on the staged versions of both files and
+#   blocks the commit if their code chunks have drifted apart.
+
+root=$(git rev-parse --show-toplevel) || exit 1
+staged=$(git diff --cached --name-only --diff-filter=ACMR |
+  grep -E '^workshop-content/[^/]+/(presentation|handout)\.qmd$')
+[ -z "$staged" ] && exit 0
+
+if ! command -v Rscript >/dev/null 2>&1; then
+  echo "pre-commit: Rscript not found, skipping the slides/handout check." >&2
+  exit 0
+fi
+
+tmp=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp"' EXIT
+
+modules=$(printf '%s\n' "$staged" | xargs -n1 dirname | sort -u)
+dirs=""
+for m in $modules; do
+  for f in presentation handout; do
+    if printf '%s\n' "$staged" | grep -qx "$m/$f.qmd"; then :; else
+      echo "pre-commit: note: $m/$f.qmd isn't staged, but its pair is." >&2
+    fi
+  done
+  mkdir -p "$tmp/$m"
+  # the staged (index) version; for an unstaged file this is the committed one
+  git show ":$m/presentation.qmd" > "$tmp/$m/presentation.qmd" 2>/dev/null &&
+    git show ":$m/handout.qmd" > "$tmp/$m/handout.qmd" 2>/dev/null &&
+    dirs="$dirs $tmp/$m"
+done
+[ -z "$dirs" ] && exit 0
+
+# shellcheck disable=SC2086
+if ! Rscript --vanilla "$root/.githooks/check-sync.R" $dirs; then
+  echo "" >&2
+  echo "pre-commit: presentation.qmd and handout.qmd have drifted apart (see above)." >&2
+  echo "Fix them, or commit anyway with: git commit --no-verify" >&2
+  exit 1
+fi

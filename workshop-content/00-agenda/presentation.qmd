@@ -16,6 +16,7 @@ format:
 ---
 
 ```{r echo=FALSE}
+#| label: setup
 knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
@@ -25,6 +26,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r include=FALSE}
+#| label: packages
 library(tidyverse)
 library(knitr)
 
@@ -49,6 +51,7 @@ library(knitr)
 ## Thursday
 
 ```{r}
+#| label: agenda-thursday
 agenda_thursday <- tribble(
   ~Time, ~Topic,
   "08:30 - 08:50", "Renku set-up & Prework",
@@ -70,6 +73,7 @@ agenda_thursday %>%
 ## Friday 
 
 ```{r}
+#| label: agenda-friday
 agenda_friday <- tribble(
   ~Time, ~Topic,
   "08:30 - 08:45", "Recap",

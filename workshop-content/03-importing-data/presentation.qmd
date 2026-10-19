@@ -38,6 +38,7 @@ library(tidyverse)
 ## Import: the first step of the pipeline
 
 ```{r, echo=FALSE, out.width="70%", fig.alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The import step is highlighted: data import is the first step of the pipeline."}
+#| label: img-data-import
 knitr::include_graphics("images/fig-data-import.png")
 ```
 
@@ -83,6 +84,7 @@ Data entries are stored as a **table** in a **text file**.
 ## {.center}
 
 ```{r, echo=FALSE, out.width="70%", fig.alt="The same small table (name, gender, weight, height, bmi) saved in two text formats: team.csv, where the values are separated by commas, and team.tsv, where they are separated by tabs."}
+#| label: img-delimiters
 knitr::include_graphics("images/1-delim.png")
 ```
 
@@ -99,6 +101,7 @@ knitr::include_graphics("images/1-delim.png")
 -   **Store the result** in an object
 
 ```{r, eval = FALSE}
+#| label: read-csv-template
 name_of_object <- read_csv("path_to_file")
 ```
 
@@ -107,6 +110,7 @@ name_of_object <- read_csv("path_to_file")
 👉 First, open `data/team.csv` and have a look at it.
 
 ```{r}
+#| label: read-team
 library(readr)
 
 team <- read_csv("data/team.csv")
@@ -115,6 +119,7 @@ team <- read_csv("data/team.csv")
 . . .
 
 ```{r}
+#| label: print-team
 team
 ```
 
@@ -138,6 +143,7 @@ In R scripts and in the console, **paths start from the *working directory*** in
 ## Useful arguments of `read_csv()`
 
 ```{r, echo=FALSE, out.width="80%", fig.alt="A call to read_csv() with the arguments file, col_names, na and skip, each linked by an arrow to what it controls in a CSV file: the file name, the header row with the column names, the 'null' values to treat as missing, and the three lines of notes above the data to skip."}
+#| label: img-read-csv-arguments
 knitr::include_graphics("images/1-read_csv.png")
 ```
 
@@ -154,6 +160,7 @@ Forgot an argument's name? Put the cursor inside the parentheses and press <kbd>
 :::: {.columns}
 ::: {.column width="25%"}
 ```{r}
+#| label: raw-team-wo-header
 #| filename: "data/team_wo_header.csv"
 #| comment: NA 
 #| echo: false
@@ -163,6 +170,7 @@ cat(read_lines("data/team_wo_header.csv", n_max = 4), sep = "\n")
 
 ::: {.column width="65%"}
 ```{r}
+#| label: read-team-wo-header
 team_wo_header <-
   read_csv(
     "data/team_wo_header.csv",
@@ -179,12 +187,14 @@ team_wo_header
 -   `read_csv()` reads `null` as text, so **whole columns become text**
 
 ```{r, comment=NA, echo=FALSE}
+#| label: raw-team-missing
 cat(read_lines("data/team_missing.csv", n_max = 4), sep = "\n")
 ```
 
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: read-team-missing
 team_missing <- read_csv("data/team_missing.csv")
 team_missing
 ```
@@ -192,6 +202,7 @@ team_missing
 
 ::: {.column width="50%"}
 ```{r}
+#| label: read-team-missing-na
 team_missing <- read_csv("data/team_missing.csv", na = "null")
 team_missing
 ```
@@ -206,12 +217,14 @@ team_missing
 :::: {.columns}
 ::: {.column width="45%"}
 ```{r, comment=NA, echo=FALSE}
+#| label: raw-team-meta
 cat(read_lines("data/team_meta.txt", n_max = 7), sep = "\n")
 ```
 :::
 
 ::: {.column width="55%"}
 ```{r}
+#| label: read-team-meta
 team_meta <- read_csv("data/team_meta.txt", skip = 3)
 team_meta
 ```
@@ -226,6 +239,7 @@ team_meta
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: read-cities
 #| error: true
 cities <- read_csv("data/cities.csv")
 cities
@@ -234,6 +248,7 @@ cities
 
 ::: {.column width="50%"}
 ```{r}
+#| label: read-cities-latin1
 cities <- read_csv(
   "data/cities.csv",
   locale = locale(encoding = "latin1"))
@@ -249,6 +264,7 @@ cities
 -   They all take the **same arguments** as `read_csv()`
 
 ```{r, echo=FALSE}
+#| label: table-readr-functions
 tribble(
   ~ `Function`, ~ `Delimiter`, ~ `Default decimal`,
   "`read_csv()`", "`,` (comma)", "`.` (dot)",
@@ -278,6 +294,7 @@ You don't have to do this on Renku, as it has been installed already!
 :::
 
 ```{r}
+#| label: attach-readxl
 library(readxl)
 ```
 
@@ -286,6 +303,7 @@ library(readxl)
 👉 First, open `data/team.xlsx` in Excel and look at how it is structured.
 
 ```{r}
+#| label: read-team-xlsx
 team <- read_xlsx("data/team.xlsx")
 team
 ```
@@ -298,6 +316,7 @@ team
 -   The table sits somewhere in the middle of the cells
 
 ```{r, echo=FALSE, out.width="70%", fig.alt="A call to read_excel() with the arguments file, sheet, range and col_names, each linked by an arrow to what it controls in an Excel workbook: the file name, the second sheet, the cell range C3:G23 that holds the table, and its header row."}
+#| label: img-read-excel-arguments
 knitr::include_graphics("images/2-excel.png")
 ```
 
@@ -307,6 +326,7 @@ knitr::include_graphics("images/2-excel.png")
 -   Default: the **first** sheet
 
 ```{r}
+#| label: read-women-sheet
 women_jobs <- read_xlsx(
   "data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women"
@@ -327,6 +347,7 @@ The data has been imported, but it isn't usable yet.
 -   `range` takes the **upper-left** and **lower-right** cells: `range = "A9:DP72"`
 
 ```{r}
+#| label: read-women-range
 women_jobs <- read_xlsx(
   "data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women",
@@ -342,6 +363,7 @@ women_jobs
 -   Same fix as for CSV files
 
 ```{r}
+#| label: read-women-col-names
 women_jobs <- read_xlsx(
   "data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women",
@@ -359,12 +381,14 @@ women_jobs
 -   One function per file type: `read_sas()`, `read_sav()`, `read_dta()`, ...
 
 ```{r, echo=FALSE, out.width="70%", fig.alt="The {haven} package imports files from statistical software into R: read_sas() and read_xpt() for SAS, read_dta() for Stata, read_sav() and read_por() for SPSS."}
+#| label: img-haven
 knitr::include_graphics("images/3-other.png")
 ```
 
 ## Example: reading a SAS file {.smaller}
 
 ```{r}
+#| label: read-mtcars-sas
 library(haven)
 
 mtcars_data <- read_sas("data/mtcars.sas7bdat")

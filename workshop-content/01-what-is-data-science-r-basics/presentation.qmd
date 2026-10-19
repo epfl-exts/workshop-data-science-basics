@@ -204,7 +204,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 # Why R and `{tidyverse}`? {.subsection background-color="#425556"}
 
-# With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection background-color="#425556"}
+# With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection .slides-only background-color="#425556"}
 
 ## {.center}
 
@@ -257,10 +257,12 @@ Let's explore how **R** and the `{tidyverse}` handle:
 To work with data in R, **assign the dataset** to a **variable**
 
 ```{r eval=FALSE}
+#| label: read-rolling-stones
 rolling_stones_data <- read_csv("data/rolling_stones.csv")
 ```
 
 ```{r echo=FALSE}
+#| label: preview-rolling-stones
 rolling_stones_data <- readr::read_csv("data/rolling_stones.csv")
 
 dplyr::slice_head(rolling_stones_data)
@@ -271,6 +273,7 @@ dplyr::slice_head(rolling_stones_data)
 You can **use more than one dataset** in your session, by **storing them in different variables**
 
 ```{r eval=FALSE}
+#| label: read-two-datasets
 # reading a dataset: rolling_stones
 rolling_stones_data <- read_csv("data/rolling_stones.csv")
 
@@ -376,6 +379,7 @@ library(dplyr)
 . . .
 
 ```{r}
+#| label: slice-head-cars
 # attaching the package
 library(dplyr)
 
@@ -457,7 +461,7 @@ cars |> pull(speed) |> density() |> plot()    # the native pipe
 In RStudio, go to *Tools* → *Global Options* → *Code* and look for *Use native pipe operator, \|\> (requires R 4.1+)*. Unticked, the shortcut inserts `%>%`; ticked, it inserts `|>`. The workshop project is set to `%>%`.
 :::
 
-# Questions? {.subsection background-color="#425556"}
+# Questions? {.subsection .slides-only background-color="#425556"}
 
 ## On to the next topics! {.subsection background-color="#425556"}
 
@@ -502,6 +506,7 @@ Tick **one file at a time**. Exporting a whole folder fails on Renku.
 - Type in the **Console**:
 
 ```{r}
+#| label: pack-my-work
 #| eval: false
 tar("my-work.tar.gz",
     files = list.files("workshop-content",

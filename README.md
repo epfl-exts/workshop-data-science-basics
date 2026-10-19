@@ -15,7 +15,7 @@ Everything you need is in `workshop-content/`. The modules are taught in this or
 | `04-data-wrangling` | Data wrangling |
 | `05-data-visualisation` | Data visualisation |
 
-Each module folder contains the slides (`presentation.html`, plus `handout.html` where available) and the source they are made from (`.qmd`).
+Each module folder contains the slides (`presentation.html`), a handout with the full explanations (`handout.html`), and the sources they are made from (`presentation.qmd`, `handout.qmd`).
 
 The other folders are shared by all modules:
 
@@ -40,26 +40,12 @@ Render with **R 4.3.1**, the version on Renku, so that your output matches what 
 export QUARTO_R=/Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/bin/Rscript   # macOS
 ```
 
-**Single-format documents** (modules 03–05, `_exercises/`) render as usual:
+Each module has two sources: `presentation.qmd` (the revealjs slides, → `presentation.html`) and `handout.qmd` (the html handout, → `handout.html`). Render each one on its own:
 
 ```bash
 quarto render workshop-content/04-data-wrangling/presentation.qmd
+quarto render workshop-content/04-data-wrangling/handout.qmd
 ```
-
-**Two-format documents** (`content.qmd` in modules 00–02, which give both `presentation.html` and `handout.html`) must be rendered **one format at a time**:
-
-```bash
-quarto render workshop-content/01-what-is-data-science-r-basics/content.qmd --to revealjs   # → presentation.html
-quarto render workshop-content/01-what-is-data-science-r-basics/content.qmd --to html       # → handout.html
-```
-
-A plain `quarto render content.qmd` (both formats at once) produces broken slides with Quarto 1.10: they still point to a `content_files/libs/` folder that no longer exists, and display unstyled. Quarto warns `Could not fetch resource content_files/libs/...`. **Check every two-format render before committing:**
-
-```bash
-grep -c content_files workshop-content/0[0-2]-*/presentation.html workshop-content/0[0-2]-*/handout.html
-```
-
-Every count must be `0`. A broken deck is also easy to spot by its size: around 100 KB instead of several MB.
 
 Other things to watch:
 
@@ -68,6 +54,26 @@ Other things to watch:
 - **Example code chunks:** to *show* a chunk header in the material rather than run it, write `` ```{{r}} ``. A literal `` ```{r} `` is run by knitr, even inside a block fenced with four backticks, and garbles the rest of the document (Quarto then warns about stray `:::`).
 - **Tabsets in slides:** tab titles inside a `panel-tabset` must be `###`. With `slide-level: 2`, a `##` starts a new slide and breaks the tabset.
 - **Data paths:** documents read data relative to their own folder. Shared data lives in `workshop-content/data/` and is read as `../data/...`.
+
+### Keeping slides and handouts in sync
+
+The slides and the handout of a module are written separately: the slides are short and can use slide-only features (fragments, code animations, `output-location`), the handout tells the full story. Their **code** must not drift apart, so:
+
+- **Every R chunk has a label**, and a chunk that is in both files has the **same label and the same code** in both. Chunk options (`#|` lines) may differ, e.g. `#| code-line-numbers: "|2|3"` on the slides only.
+- A chunk that belongs to one file only has a label starting with `slides-` or `handout-`.
+- A `#` section that is deliberately in one file only carries the class `.slides-only` or `.handout-only`, e.g. `# Questions? {.slides-only}`.
+- `setup` chunks are exempt: each format may set its own options.
+
+`.githooks/check-sync.R` checks these rules. Run it from the repo root at any time:
+
+```bash
+Rscript --vanilla .githooks/check-sync.R                                    # all modules
+Rscript --vanilla .githooks/check-sync.R workshop-content/04-data-wrangling # one module
+```
+
+It reports mismatched or unlabelled chunks as errors, and sections or display-only code blocks (```` ``` r ````) found in one file only as warnings. The prose isn't compared: when you change the meaning of a slide, update the handout by hand.
+
+**Pre-commit hook.** Enable it once per clone with `git config core.hooksPath .githooks`. For each module whose `presentation.qmd` or `handout.qmd` is staged, it then runs the check on the staged versions and blocks the commit on errors. It also prints a note when only one file of the pair is staged. To commit anyway (e.g. work in progress), use `git commit --no-verify`.
 
 ### R environment
 

@@ -72,6 +72,7 @@ Both are **data wrangling**.
 :::: {.columns}
 ::: {.column width="25%"}
 ```{r, echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the dplyr package: a pair of pliers."}
+#| label: img-dplyr-logo
 knitr::include_graphics(path = "images/hex-dplyr.png")
 ```
 :::
@@ -129,6 +130,7 @@ Women's tennis: one row per **Grand Slam match**.
 :::
 
 ```{r}
+#| label: read-wta
 library(readr)
 
 wta_data <-
@@ -149,12 +151,14 @@ wta_data <-
 ## Inspecting: the first rows with `slice_head()` {.smaller}
 
 ```{r}
+#| label: slice-head-wta
 slice_head(wta_data)
 ```
 
 More rows? Set the argument `n`:
 
 ```{r}
+#| label: slice-head-wta-6
 slice_head(wta_data, n = 6)
 ```
 
@@ -163,6 +167,7 @@ slice_head(wta_data, n = 6)
 -   One line per column: **name**, **type** and the first values
 
 ```{r}
+#| label: glimpse-wta
 glimpse(wta_data)
 ```
 
@@ -183,6 +188,7 @@ glimpse(wta_data)
 -   **Colours**: the column **types** · **Grey**: **missing** values
 
 ```{r, fig.cap = "A bird's-eye view of the WTA dataset using `vis_dat()`"}
+#| label: vis-dat-wta
 #| output-location: column
 #| fig-alt: "vis_dat() plot of the WTA data: one vertical band per column, all coloured as character, with grey blocks marking missing values, which are frequent in some columns."
 library(visdat)
@@ -201,6 +207,7 @@ wta_data %>%
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: read-team-bad-names
 team <- read_csv("data/team_bad_names.csv")
 team
 ```
@@ -208,6 +215,7 @@ team
 
 ::: {.column width="50%"}
 ```{r}
+#| label: clean-names-team
 library(janitor)
 team %>%
   clean_names()
@@ -227,6 +235,7 @@ Quicker to type, **no backticks**, RStudio **autocompletes** them. Call `clean_n
 -   **One column**, by its name:
 
 ```{r, eval = FALSE}
+#| label: select-year
 wta_data %>%
   select(year)
 ```
@@ -234,6 +243,7 @@ wta_data %>%
 -   **Several columns**: list their names
 
 ```{r, eval = FALSE}
+#| label: select-columns
 wta_data %>%
   select(year, tourney_id, tourney_name, winner_id, winner_name)
 ```
@@ -243,6 +253,7 @@ wta_data %>%
 -   Pick the columns **whose names fulfil a condition**, e.g. `starts_with()`
 
 ```{r}
+#| label: select-helpers
 #| output-location: column
 #| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and tourney_ columns, all of type character."
 wta_data %>%
@@ -273,6 +284,7 @@ Other selection helpers apply to vectors of column names, such as `all_of()` and
 -   Here: `year` → **number**, `tourney_date` → **date** (`ymd()` from `{lubridate}`)
 
 ```{r}
+#| label: mutate-types
 #| output-location: column
 #| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
 library(lubridate)
@@ -314,6 +326,7 @@ data <- data %>% mutate(...)
 -   E.g. the matches won by Serena Williams:
 
 ```{r}
+#| label: filter-serena
 wta_data %>%
   select(year, starts_with("winner"), starts_with("tourney")) %>%
   filter(winner_name == "Serena Williams")
@@ -332,6 +345,7 @@ Comparison uses the **double** equal sign `==`. The single `=` assigns, e.g. in 
 -   `str_detect()` (`{stringr}`): `TRUE` when the text **contains a pattern**
 
 ```{r}
+#| label: filter-serena-australian
 library(stringr)
 wta_data %>%
   filter(
@@ -375,6 +389,7 @@ is equivalent to:
 -   **Numbers**: increasing order · **Text**: alphabetical order
 
 ```{r}
+#| label: arrange-year
 #| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
@@ -382,6 +397,7 @@ wta_data %>%
 ```
 
 ```{r}
+#| label: arrange-winner-name
 #| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
@@ -394,6 +410,7 @@ wta_data %>%
 -   `desc()` reverses the order
 
 ```{r}
+#| label: arrange-two-columns
 #| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
@@ -401,6 +418,7 @@ wta_data %>%
 ```
 
 ```{r}
+#| label: arrange-desc
 #| output-location: column
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
@@ -421,6 +439,7 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 -   `n()` **counts the rows**: how many Australian matches did Serena win?
 
 ```{r}
+#| label: summarise-serena-australian
 wta_data %>%
   filter(
     winner_name == "Serena Williams",
@@ -445,6 +464,7 @@ wta_data %>%
 -   The printout shows the **groups**: later computations happen **within** them
 
 ```{r}
+#| label: group-by-winner
 wta_data %>%
   group_by(winner_name)
 ```
@@ -452,6 +472,7 @@ wta_data %>%
 ## Removing the groups with `ungroup()` {.smaller}
 
 ```{r}
+#| label: ungroup-winner
 wta_data %>%
   group_by(winner_name) %>%
   ungroup()
@@ -463,6 +484,7 @@ wta_data %>%
 -   The number of wins of **every** player:
 
 ```{r}
+#| label: wins-per-player
 wta_data %>%
   group_by(winner_name) %>%
   summarise(number_of_wins = n(), .groups = "drop")
@@ -483,6 +505,7 @@ It returns a table **without groups**, as if we had added `ungroup()`. A forgott
 Counting the rows within groups is so common that `{dplyr}` has a shortcut for it. `count()` groups, counts and ungroups in one step:
 
 ```{r}
+#| label: count-wins-per-player
 wta_data %>%
   count(winner_name, name = "number_of_wins")
 ```
@@ -493,6 +516,7 @@ wta_data %>%
 The wins of **each player** in **each tournament**:
 
 ```{r}
+#| label: wins-per-player-tourney
 wta_data %>%
   group_by(winner_name, tourney_name) %>%
   summarise(number_of_wins = n(), .groups = "drop")
@@ -521,6 +545,7 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 ## Three toy datasets {.smaller}
 
 ```{r}
+#| label: toy-datasets
 data_1 <- tibble(id = 1:3, var_1 = c(15, 13, 39))
 data_2 <- tibble(id = c(4, 5), var_1 = 10)
 data_3 <- tibble(id = 1:3, var_2 = c(10, 12, 14), var_3 = c(45, 20, 2))
@@ -529,18 +554,21 @@ data_3 <- tibble(id = 1:3, var_2 = c(10, 12, 14), var_3 = c(45, 20, 2))
 ::::: {.columns}
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-1
 data_1
 ```
 ::::
 
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-2
 data_2
 ```
 ::::
 
 :::: {.column width="33%"}
 ```{r}
+#| label: print-data-3
 data_3
 ```
 ::::
@@ -552,6 +580,7 @@ data_3
 -   The left-hand side of the pipe goes **on top**
 
 ```{r}
+#| label: bind-rows-data
 data_1 %>%
   bind_rows(data_2)
 ```
@@ -572,6 +601,7 @@ Yes there is! But it's a function that does not ensure **row consistency**. We c
 -   For example, `data_3` contains the same ids as `data_1`, hence we can attach the values of the columns `var_2` and `var_3` to have a more complete dataset.
 
 ```{r}
+#| label: bind-cols-data
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -588,10 +618,12 @@ There are a couple of drawbacks when using `bind_cols()`:
     -   Carrying out the merge with `bind_cols()` yields an inconsistent result!
 
 ```{r}
+#| label: permute-data-3
 data_3 <- data_3 %>% arrange(desc(id))
 ```
 
 ```{r}
+#| label: bind-cols-permuted
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -603,6 +635,7 @@ data_1 %>%
     -   This is because we have 5 rows in the first dataset and 3 in the second!
 
 ```{r, error=TRUE}
+#| label: bind-cols-error
 data_1 %>%
   bind_rows(data_2) %>%
   bind_cols(data_3)
@@ -630,6 +663,7 @@ It also **keeps the rows of the first** (*left-hand side*) **tibble** that have 
 -   `by` picks the key: `by = "id"` (or `by = join_by(id)` in recent `{dplyr}`)
 
 ```{r}
+#| label: left-join-id
 data_1 %>%
   bind_rows(data_2) %>%
   left_join(data_3, by = "id")
@@ -642,6 +676,7 @@ data_1 %>%
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: data-4
 data_4 <- bind_rows(data_3, tibble(id = 8, var_2 = 3, var_3 = 12))
 data_4
 ```
@@ -650,6 +685,7 @@ data_4
 ::: {.column width="50%"}
 
 ```{r}
+#| label: left-join-unmatched
 data_1 %>%
   left_join(data_4, by = "id")
 ```
@@ -664,6 +700,7 @@ data_1 %>%
 -   **Wide**: some columns are named after *values* of a variable → for **display** in reports
 
 ```{r, echo = FALSE, fig.cap='Wide-format vs. long-format data', fig.align='center', out.width = "70%", fig.alt="The same data as a wide table, with an id column and one column each for x, y and z, and as a long table with three columns: id, key (holding x, y or z) and val."}
+#| label: img-wide-long
 knitr::include_graphics("images/original-dfs-tidy.png")
 ```
 
@@ -672,6 +709,7 @@ knitr::include_graphics("images/original-dfs-tidy.png")
 :::: {.columns}
 ::: {.column width="25%"}
 ```{r, echo = FALSE, fig.cap='The brooms of `{tidyr}` will help us tidy our data!', fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the tidyr package: brooms."}
+#| label: img-tidyr-logo
 knitr::include_graphics(path = "images/hex-tidyr.png")
 ```
 :::
@@ -700,6 +738,7 @@ Prototypes measured at 3 timepoints → one `timepoint` column, one `performance
 :::: {.columns}
 ::: {.column width="45%"}
 ```{r}
+#| label: data-5-wide
 data_5_wide <-
   tibble(
     prototype = 1:5 ,
@@ -713,6 +752,7 @@ data_5_wide
 ::: {.column width="55%"}
 
 ```{r}
+#| label: pivot-longer
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
@@ -731,6 +771,7 @@ data_5_long
 -   `names_prefix` drops the `t_` prefix, `names_transform` makes the timepoint a **number**
 
 ```{r}
+#| label: pivot-longer-clean
 #| output-location: column
 data_5_long <-
   data_5_wide %>%
@@ -750,6 +791,7 @@ data_5_long
 The average performance of every prototype:
 
 ```{r}
+#| label: average-performance
 data_5_long %>%
   group_by(prototype) %>%
   summarise(average_performance = mean(performance), .groups = "drop")
@@ -772,6 +814,7 @@ data_5_long %>%
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
+#| label: data-6-long
 data_6_long <-
   tibble(
     crop = c(rep("wheat", 3), rep("corn", 3), rep("quinoa",3)),
@@ -785,6 +828,7 @@ data_6_long
 ::: {.column width="50%"}
 
 ```{r}
+#| label: pivot-wider
 data_6_long %>%
   pivot_wider(names_from = practice, values_from = yield)
 ```
@@ -794,6 +838,7 @@ data_6_long %>%
 ## Presentation-ready with `{kableExtra}`
 
 ```{r}
+#| label: pivot-wider-kable
 library(kableExtra)
 data_6_long %>%
   pivot_wider(names_from = practice, values_from = yield) %>%
