@@ -257,18 +257,36 @@ On Renku, the packages of this workshop are already installed: you only need to 
 
 ## 🧰 Example: using `dplyr::slice_head()`
 
-The function `slice_head()` allows us to view **the first line(s)** of a dataset. It is part of the package `{dplyr}`: the notation `dplyr::slice_head()` makes this explicit. Let's attach `{dplyr}` and use `slice_head()` on the `cars` dataset, which comes with R:
+The function `slice_head()` allows us to view **the first line(s)** of a dataset. It is part of the package `{dplyr}`: the notation `dplyr::slice_head()` makes this explicit. Let's see an example:
 
 ```{r}
-#| label: slice-head-cars
+#| include: false
+#| label: detaching dplyr
+detach(package:dplyr, unload=TRUE)
+```
+
+When the package is not attached, trying to use the function yields an error: 
+
+```{r}
+#| label: slice-head-cars-wo-dplyr
+#| error: true
+
+# slice_head() on cars without dplyr
+slice_head(cars)
+``` 
+
+attaching  `{dplyr}` before `slice_head()` on the `cars` dataset provides the expected result. 
+
+```{r}
+#| label: slice-head-cars-with-dplyr
 # attaching the package
 library(dplyr)
 
-# using the function slice_head() on the dataset cars
+# slice_head() on cars with dplyr
 slice_head(cars)
 ```
 
-**Success!**
+**Success!!**
 
 ## ⁉ Asking for help
 

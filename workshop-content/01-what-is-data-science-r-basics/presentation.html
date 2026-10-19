@@ -1606,7 +1606,7 @@ display:block!important;
 <p><span class="box-title">1. <strong>Install</strong> the package</span></p>
 <div class="content-box-white">
 <p><span class="box-body">We only have to do this <strong>once</strong>.</span></p>
-<p><span class="box-body">⚠️ <strong>Do not include this</strong> in your <strong>source code!</strong></span></p>
+<p><span class="box-body">❌ <strong>Do not include this</strong> in your <strong>source code!</strong></span></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href aria-label="1"></a><span class="co"># install the package dplyr</span></span>
 <span id="cb5-2"><a href aria-label="2"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1626,17 +1626,26 @@ display:block!important;
 <section id="example-using-dplyrslice_head" class="slide level2">
 <h2>🧰 Example: using <code>dplyr::slice_head()</code></h2>
 <ul>
-<li><p>The function <code>slice_head()</code> allows us to view <strong>the first line(s)</strong> of a dataset.</p></li>
-<li><p>This function <code>slice_head()</code> is part of the Package <code>{dplyr}</code>.</p></li>
-<li><p>Let’s use it on the <code>cars</code> dataset.</p></li>
+<li><code>slice_head()</code> from <code>{dplyr}</code> helps us <strong>view the first line(s)</strong> of a dataset.</li>
+<li>Let’s use it on the <code>cars</code> dataset.</li>
 </ul>
 <div class="fragment">
+<div class="columns">
+<div class="column" style="width:45%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href aria-label="1"></a><span class="co"># attaching the package</span></span>
-<span id="cb7-2"><a href aria-label="2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-3"><a href aria-label="3"></a></span>
-<span id="cb7-4"><a href aria-label="4"></a><span class="co"># using the function slice_head() on the dataset cars</span></span>
-<span id="cb7-5"><a href aria-label="5"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href aria-label="1"></a><span class="co"># slice_head() on cars without dplyr</span></span>
+<span id="cb7-2"><a href aria-label="2"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in slice_head(cars): could not find function &quot;slice_head&quot;</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href aria-label="1"></a><span class="co"># attaching the package</span></span>
+<span id="cb9-2"><a href aria-label="2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-3"><a href aria-label="3"></a></span>
+<span id="cb9-4"><a href aria-label="4"></a><span class="co"># slice_head() on cars with dplyr</span></span>
+<span id="cb9-5"><a href aria-label="5"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top">
@@ -1657,6 +1666,7 @@ display:block!important;
 </div>
 </div>
 <p><strong>Success!!</strong></p>
+</div></div>
 </div>
 </section>
 <section id="asking-for-help" class="slide level2">
@@ -1669,7 +1679,7 @@ display:block!important;
 <li><p>the name of the function you want to know more about</p></li>
 </ol>
 <p>For instance:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href aria-label="1"></a>?<span class="fu">slice_head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href aria-label="1"></a>?<span class="fu">slice_head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1685,11 +1695,11 @@ display:block!important;
 </div>
 <div class="fragment">
 <p><strong>Example:</strong> Plotting the density of the variable <code>speed</code> in the <code>cars</code> dataset</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href aria-label="1"></a><span class="co"># nested</span></span>
-<span id="cb9-2"><a href aria-label="2"></a><span class="fu">plot</span>(<span class="fu">density</span>(cars<span class="sc">$</span>speed))</span>
-<span id="cb9-3"><a href aria-label="3"></a></span>
-<span id="cb9-4"><a href aria-label="4"></a><span class="co"># with the pipe</span></span>
-<span id="cb9-5"><a href aria-label="5"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href aria-label="1"></a><span class="co"># nested</span></span>
+<span id="cb11-2"><a href aria-label="2"></a><span class="fu">plot</span>(<span class="fu">density</span>(cars<span class="sc">$</span>speed))</span>
+<span id="cb11-3"><a href aria-label="3"></a></span>
+<span id="cb11-4"><a href aria-label="4"></a><span class="co"># with the pipe</span></span>
+<span id="cb11-5"><a href aria-label="5"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <p>Which can be “read” as:</p>
@@ -1708,8 +1718,8 @@ display:block!important;
 <section id="or" class="slide level2">
 <h2>▶️ <code>%&gt;%</code> or <code>|&gt;</code>?</h2>
 <p>Since version 4.1, R also has a <strong>native pipe</strong> <code>|&gt;</code>, built into the language.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href aria-label="1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="co"># the {tidyverse} pipe</span></span>
-<span id="cb10-2"><a href aria-label="2"></a>cars <span class="sc">|&gt;</span> <span class="fu">pull</span>(speed) <span class="sc">|&gt;</span> <span class="fu">density</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()    <span class="co"># the native pipe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href aria-label="1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="co"># the {tidyverse} pipe</span></span>
+<span id="cb12-2"><a href aria-label="2"></a>cars <span class="sc">|&gt;</span> <span class="fu">pull</span>(speed) <span class="sc">|&gt;</span> <span class="fu">density</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()    <span class="co"># the native pipe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>For everyday use, they <strong>do the same thing</strong>, and you will meet both in code online.</li>
 <li>In this workshop, we use <code>%&gt;%</code>.</li>
@@ -1784,11 +1794,11 @@ display:block!important;
 <li>Type in the <strong>Console</strong>:</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href aria-label="1"></a><span class="fu">tar</span>(<span class="st">&quot;my-work.tar.gz&quot;</span>,</span>
-<span id="cb11-2"><a href aria-label="2"></a>    <span class="at">files =</span> <span class="fu">list.files</span>(<span class="st">&quot;workshop-content&quot;</span>,</span>
-<span id="cb11-3"><a href aria-label="3"></a>                       <span class="at">pattern =</span> <span class="st">&quot;[.](qmd|Rmd|R)$&quot;</span>,</span>
-<span id="cb11-4"><a href aria-label="4"></a>                       <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb11-5"><a href aria-label="5"></a>    <span class="at">compression =</span> <span class="st">&quot;gzip&quot;</span>, <span class="at">tar =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href aria-label="1"></a><span class="fu">tar</span>(<span class="st">&quot;my-work.tar.gz&quot;</span>,</span>
+<span id="cb13-2"><a href aria-label="2"></a>    <span class="at">files =</span> <span class="fu">list.files</span>(<span class="st">&quot;workshop-content&quot;</span>,</span>
+<span id="cb13-3"><a href aria-label="3"></a>                       <span class="at">pattern =</span> <span class="st">&quot;[.](qmd|Rmd|R)$&quot;</span>,</span>
+<span id="cb13-4"><a href aria-label="4"></a>                       <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-5"><a href aria-label="5"></a>    <span class="at">compression =</span> <span class="st">&quot;gzip&quot;</span>, <span class="at">tar =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li><p>Then download <code>my-work.tar.gz</code> as on the previous slide.</p></li>

@@ -329,6 +329,7 @@ We said that **R** is highly extensible through *packages*.
 To **use** the functions in a package, we need to do **two things**:
 
 :::::: {.columns}
+
 ::::: {.column width="50%"}
 
 :::: {.content-box-oil}
@@ -337,7 +338,7 @@ To **use** the functions in a package, we need to do **two things**:
 ::: {.content-box-white}
 [We only have to do this **once**.]{.box-body}
 
-[⚠️ **Do not include this** in your **source code!**]{.box-body}
+[❌ **Do not include this** in your **source code!**]{.box-body}
 
 ``` r
 # install the package dplyr
@@ -370,24 +371,48 @@ library(dplyr)
 
 ## 🧰 Example: using `dplyr::slice_head()`
 
--   The function `slice_head()` allows us to view **the first line(s)** of a dataset.
-
--   This function `slice_head()` is part of the Package `{dplyr}`.
-
+-  `slice_head()` from `{dplyr}` helps us **view the first line(s)** of a dataset.
 -   Let's use it on the `cars` dataset.
+
+```{r}
+#| include: false
+#| label: detaching dplyr
+detach(package:dplyr, unload=TRUE)
+```
 
 . . .
 
+::::{.columns}
+
+:::{.column width="45%"}
+
 ```{r}
-#| label: slice-head-cars
+#| label: slice-head-cars-wo-dplyr
+#| error: true
+
+# slice_head() on cars without dplyr
+slice_head(cars)
+```
+
+:::
+
+:::{.column width="45%"}
+
+```{r}
+#| label: slice-head-cars-with-dplyr
 # attaching the package
 library(dplyr)
 
-# using the function slice_head() on the dataset cars
+# slice_head() on cars with dplyr
 slice_head(cars)
 ```
 
 **Success!!**
+
+:::
+:::: 
+
+
 
 ## ⁉ Asking for help
 
