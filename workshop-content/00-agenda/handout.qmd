@@ -1,0 +1,100 @@
+---
+title: "Agenda and Objectives"
+subtitle: "Basics of Data Science Workshop"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    code-fold: show
+    highlight-style: zenburn
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Slides
+        href: presentation.html
+        icon: easel
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+
+```
+
+```{r include=FALSE}
+library(tidyverse)
+library(knitr)
+
+```
+
+# Learning Objectives
+
+::: {.callout-important icon="false"}
+## At the end of the workshop, participants will be able to:
+
+-   **Understand** the **Data Science pipeline.**
+
+-   Gain **hands-on experience** with R, RStudio, the `{tidyverse}` and R Markdown to perform the Data scientist's tasks:
+
+    -   Import, handle and visualize data
+
+    -   Produce automated and reproducible reports with R Markdown files
+:::
+
+# AGENDA
+
+## Thursday
+
+```{r}
+agenda_thursday <- tribble(
+  ~Time, ~Topic,
+  "08:30 - 08:50", "Renku set-up & Prework",
+  "08:50 - 09:00", "Welcome",
+  "09:00 - 09:35", "Introduction to R",
+  "09:35 - 10:00", "Working with R Markdown",
+  "10:00 - 10:45", "Importing data with R + Exercise 1",
+  "10:45 - 11:00", "Break",
+  "11:00 - 11:15", "Exercise 1: Walkthrough",
+  "11:15 - 12:15", "Data wrangling (Part 1) + Exercises 2-3",
+  "12:15 - 12:30", "Exercises 2-3: Walkthrough"
+)
+
+agenda_thursday %>% 
+  kable()
+
+```
+
+## Friday 
+
+```{r}
+agenda_friday <- tribble(
+  ~Time, ~Topic,
+  "08:30 - 08:45", "Recap",
+  "08:45 - 10:00", "Data wrangling (Part 2) + Exercises 4-5",
+  "10:00 - 10:15", "Exercises 4-5: Walkthrough",
+  "10:15 - 10:30", "Break",
+  "10:30 - 11:45", "Data visualisation + Exercise 6",
+  "11:45 - 12:00", "Exercise 6: Walkthrough",
+  "12:00 - 12:15", "Wrap-up",
+  "12:15 - 12:30", "Q&A Session"
+)
+
+agenda_friday %>% 
+  kable()
+
+```
+
+## Duration
+
+Two mornings, 08:30 - 12:30: 8 hours, including two 15-minute breaks

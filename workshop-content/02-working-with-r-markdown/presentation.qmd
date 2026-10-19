@@ -2,7 +2,7 @@
 title: "Working with R Notebooks"
 subtitle: "R Markdown and Quarto"
 author: "**EPFL Extension School**"
-format: 
+format:
   revealjs:
     slide-level: 2
     transition: fade
@@ -15,22 +15,6 @@ format:
     height: 810
     output-file: "presentation"
     css: ../assets/css/exts-reveal.css
-  html:
-    theme: simplex
-    number-sections: true
-    number-depth: 1
-    code-fold: show
-    highlight-style: github
-    toc: true
-    df-print: paged
-    toc-location: right
-    toc-float:
-      smooth-scroll: true
-    title-block-banner: "#413D3A"
-    title-block-banner-color: "White"
-    embed-resources: true
-    output-file: "handout"
-    css: ../assets/css/styles-html.css
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -61,8 +45,6 @@ For instance, you can:
 
 > -   Define a quote block by placing `>` in front of the quote.
 :::
-
-
 
 ## Markdown can be rendered in various formats
 
@@ -103,7 +85,6 @@ This is useful in two ways:
 # Quarto {.subsection background-color="#425556"}
 
 ## Quarto is the **next-generation version of R Markdown** {.smaller}
-
 
 -   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
 
@@ -227,7 +208,6 @@ plot(cars)
 
 Once you're done with your analysis, click on the `Knit` / `Render` button at the top of the source editor to produce a document.
 
-
 ## Exercise
 
 Time to get your fingers dirty!
@@ -245,4 +225,3 @@ In your newly created R Markdown / Quarto document:
     -   Execute the chunk with the **play button** or the shortcut.
 
 -   Save the file in a convenient location, then *Knit* / *Render* it.
-

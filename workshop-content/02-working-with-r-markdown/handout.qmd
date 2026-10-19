@@ -1,0 +1,228 @@
+---
+title: "Working with R Notebooks"
+subtitle: "R Markdown and Quarto"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    number-depth: 1
+    code-fold: show
+    highlight-style: github
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Slides
+        href: presentation.html
+        icon: easel
+---
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+```
+
+# Markdown
+
+## Markdown is a *simple* "markup" language
+
+::: {.content-box-marine}
+A markup language allows you to format a document with **commands** instead of menu items.
+:::
+
+For instance, you can:
+
+-   Enclose a word between two sets of \*\*two asterisks\*\* to obtain **bold text**.
+
+-   Enclose a word between \_underscores\_ to produce *italic text*.
+
+-   Create headers and subheaders at various levels with `#`, `##` and `###`.
+
+> -   Define a quote block by placing `>` in front of the quote.
+
+## Markdown can be rendered in various formats
+
+-   `html`
+
+-   `pdf`
+
+-   MS Word
+
+# R Markdown
+
+## R Markdown
+
+::: {.content-box-marine}
+R Markdown combines **text written with Markdown** and **code written with R**.
+:::
+
+This is useful in two ways:
+
+-   **As a tool for analysis**:
+
+    -   R Markdown **replaces scripts** when carrying out analyses.
+
+    -   You can **execute the R code** contained in the R Markdown document to analyse your data.
+
+    -   Since it allows for text, it can be used to **document your data analysis**.
+
+-   **As a reporting tool**:
+
+    -   It can produce reports in various formats, including `.pdf`, `.docx` and `html`.
+
+    -   Rendering in `html` allows for some degree of **interactivity**.
+
+# Quarto
+
+## Quarto is the **next-generation version of R Markdown**
+
+-   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
+
+    -   Languages supported: **R, Python, Julia, Observable**.
+
+    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim**.
+
+-   It **works seamlessly with R**, since it is developed by Posit PBC (the company behind the RStudio IDE).
+
+-   Recent versions of the RStudio IDE provide a **Visual Quarto Editor**.
+
+    -   This makes things easier, as **there's no need to know all the Markdown commands!**
+
+::: callout-note
+The notebooks in this workshop are written in **Quarto**.
+:::
+
+# Your first notebook
+
+## Create a new document
+
+::: panel-tabset
+### R Markdown
+
+-   `File` → `New File` → `R Markdown...`
+
+### Quarto
+
+-   `File` → `New File` → `Quarto Document...`
+:::
+
+The default choice for new documents is HTML.
+
+::: {.callout-important icon="false"}
+## Exercise
+
+To follow the next sections, create your own R Markdown / Quarto document!
+:::
+
+## YAML options
+
+Look closely at the header of the template.
+
+-   In any Quarto/R Markdown document, there's a *header* written in YAML.
+
+-   In the header, we provide the rendering options, for instance the basic document information:
+
+::: panel-tabset
+### R Markdown
+
+``` yaml
+title: "Working with R Markdown"
+author: MYSELF
+output: html_document
+```
+
+### Quarto
+
+``` yaml
+title: "Working with Quarto"
+author: MYSELF
+format: html
+editor: visual
+```
+
+In Quarto, you can also choose which editor you want to use!
+:::
+
+The YAML header can be populated with many options.
+
+::: callout-note
+We will discuss these options at the end of the workshop.
+:::
+
+## Insert a code chunk
+
+-   Code is written in *chunks*. To insert one:
+
+    -   use the <kbd>+C</kbd> button at the top of the script editor,
+
+    -   or the shortcut <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd> (<kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on a Mac).
+
+-   An empty chunk looks like this:
+
+```` markdown
+```{{r}}
+
+```
+````
+
+-   Inside, you can write some R code. For instance, the object `cars` contains data on the speed and the stopping distance of cars:
+
+```` markdown
+```{{r}}
+cars
+```
+````
+
+## Execute a code chunk
+
+-  Use the *play* button ▶️ on its right-hand side,
+
+-  Or the shortcut <kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd> (<kbd>Cmd</kbd>
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r cars}
+cars
+```
+:::
+
+::: {.column width="50%"}
+```{r plot-cars}
+#| fig-alt: "Scatter plot of the cars data: stopping distance increases with speed."
+plot(cars)
+```
+:::
+::::
+
+## *Knitting*, or the art of *rendering* a document
+
+Once you're done with your analysis, click on the `Knit` / `Render` button at the top of the source editor to produce a document.
+
+## Exercise
+
+Time to get your fingers dirty!
+
+In your newly created R Markdown / Quarto document:
+
+-   **Modify the YAML header**: add a title, an author and a date.
+
+-   **Write some text**, e.g. add a header and a short sentence.
+
+-   **Insert a chunk**:
+
+    -   Add a couple of simple commands, e.g. compute `5 + 5` and `30 / 6`.
+
+    -   Execute the chunk with the **play button** or the shortcut.
+
+-   Save the file in a convenient location, then *Knit* / *Render* it.

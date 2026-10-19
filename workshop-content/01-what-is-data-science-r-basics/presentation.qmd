@@ -2,7 +2,7 @@
 title: "A brief introduction to Data Science"
 subtitle: "With examples in R and the `{tidyverse}`"
 author: "**EPFL Extension School**"
-format: 
+format:
   revealjs:
     slide-level: 2
     transition: fade
@@ -15,22 +15,6 @@ format:
     height: 810
     output-file: "presentation"
     css: ../assets/css/exts-reveal.css
-  html:
-    theme: simplex
-    number-sections: true
-    number-depth: 1
-    code-fold: show
-    highlight-style: github
-    toc: true
-    df-print: paged
-    toc-location: right
-    toc-float:
-      smooth-scroll: true
-    title-block-banner: "#413D3A"
-    title-block-banner-color: "White"
-    embed-resources: true
-    output-file: "handout"
-    css: ../assets/css/styles-html.css
 ---
 
 ```{r setup, include = FALSE, message = FALSE, warning = FALSE}
@@ -48,26 +32,9 @@ library(tidyverse)
 
 # 📊 What is Data Science? {.subsection background-color="#425556"}
 
-
 ## A **_Practical_** definition {background-image="images/chrome-capture-2026-10-15.png" background-size="300px" background-position="90% 10%" background-opacity="0.5"} 
 
-::: {.content-visible unless-format="revealjs"}
-
-This is the first question you may have in mind when approaching the topic of Data Science. We think that a first answer to this question comes from a practical standpoint, i.e. from what Data Science _does_.  To cite a [post by Ally Heinrich on the Harvard Business School blog](https://online.hbs.edu/blog/post/data-analytics-vs-data-science) (emphasis ours): 
-
-![](images/chrome-capture-2026-10-15.png){fig-alt="A screenshot of the HBS blog post title" fig-align="center" width="90%"}
-
-> Data science centers on **collecting, preparing, modeling, and analyzing data** to build predictive capabilities and solve complex problems.
-> 
-> As [HBS Professor Karim] Lakhani notes in Data Science and AI for Decision Making, data science “focuses on **transforming raw data** into **practical understanding** that **informs decisions**."
->
-> To achieve this, data scientists leverage a combination of technical tools and methodologies [...] 
-
-:::
-
-::: {.content-visible when-format="revealjs"}
-
-A _practical_ definition[^1]: what Data Science **_does_**:
+Data Science can be defined by what it **_does_**[^1]:
 
 . . . 
 
@@ -81,35 +48,17 @@ A _practical_ definition[^1]: what Data Science **_does_**:
 
 > To achieve this, data scientists leverage a **combination of technical tools and methodologies** [...]
 
-
 [^1]: Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
 
-:::
-
-
 ## In Theory
-
-::: {.content-visible unless-format="revealjs"}
-
-:::
-
-::: {.content-visible when-format="revealjs"}
 
 Using an **intersection** of **practices** and **skills** to answer a research **question** that involves **data**
 
 . . .
 
-:::
-
 ![](images/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="80%"}
 
 ## In Practice 
-
-::: {.content-visible unless-format="revealjs"}
-
-:::
-
-::: {.content-visible when-format="revealjs"}
 
 **Mastering** the **Data pipeline**
 
@@ -157,15 +106,13 @@ Using an **intersection** of **practices** and **skills** to answer a research *
 :::::
 ::::::
 
-:::
-
 ## The Data Pipeline 
 
 ![](images/fig-data-pipeline-empty.png){fig-alt="The data pipeline as a flow: import, then tidy, then a loop of transform, visualise and model, then communicate." fig-align="center" width="90%"}
 
 # What is R? {.subsection background-color="#425556"}
 
-## A brief overview
+## A brief overview{background-image="images/r-logo.png" background-size="150px" background-position="90% 90%"}
 
 :::{.fragment}
 ::: {.content-box-oil}
@@ -211,23 +158,15 @@ Using an **intersection** of **practices** and **skills** to answer a research *
 
 ## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
-
 Base **R** is **powerful** but a bit **hard to learn**
 
 ::: {.content-box-marine}
 One of the main problems: **many different ways to organise data**.
 :::
 
-::: {.notes}
-- functions have same names, they don't communicate well with each other
-- the output of one does not become easily the input of another (especially if they come from different packages)
-- `lists` are the preferred data source
-- "Freedom comes at a price" lists are powerful but can lead to those inconsistencies
-:::
-
 ## {.center}
 
-![](images/tidydata_2-1-mod.png){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+![](images/tidydata_2-1-mod.png){fig-alt="Cartoon of four messy tables, each messy in its own way: one has values in its columns and variables in its rows, one has variables in both columns and rows, one has several variables in a single column, and the last one doesn't even know what its deal is." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
@@ -235,11 +174,7 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 :::
 :::
 
-
-
-
 ## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
-
 
 Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
 
@@ -247,13 +182,9 @@ Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
 The Data is **organised in single, consistent way**: **"tidy" data**.
 :::
 
-::: {.notes}
--   "opinionated" they are directive, i.e. they come with a set of rules and guidelines
-:::
-
 ## {.center}
 
-![](images/tidydata_1.jpg){fig-alt="A tidy data frame drawn as a friendly table: every column is a variable, every row is an observation, every cell is a single value." fig-align="center" width="80%"}
+![](images/tidydata_1.jpg){fig-alt="Hadley Wickham's definition, 'Tidy data is a standard way of mapping the meaning of a dataset to its structure', with the three rules of tidy data: each variable forms a column, each observation forms a row, each cell is a single measurement, next to a small example table." fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
@@ -261,22 +192,19 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 :::
 :::
 
-
 ## {.center}
 
-![](images/tidydata_2-2-mod.jpg){fig-alt="Cartoon showing that tidy datasets all look alike and can be combined easily, while every messy dataset is messy in its own way." fig-align="center" width="80%"}
+![](images/tidydata_2-2-mod.jpg){fig-alt="Cartoon of three happy tidy tables saying together: our columns are variables and our rows are observations!" fig-align="center" width="80%"}
 
 ::: aside
 ::: {.tiny}
 Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) by Julia Lowndes and Allison Horst
 :::
 :::
-
 
 # Why R and `{tidyverse}`? {.subsection background-color="#425556"}
 
 # With the `{tidyverse}` collection, it is **easy to master the Data Pipeline** within R! {.subsection background-color="#425556"}
-
 
 ## {.center}
 
@@ -294,28 +222,9 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 # Prework Refresh {.subsection background-color="#425556"}
 
-## What you already set up
-
-::: {.content-box-marine}
-Before today you started a **Renku** session and met the **RStudio IDE**.
-:::
-
-
-## {.center}
+## The Rstudio IDE
 
 ![](images/rstudio_ide.png){fig-alt="The Rstudio interface highlighting the source editor and the console" fig-align="center" width="90%"}
-
-::: {.notes}
-
--   The **Console** — where R evaluates what you type, one line at a time.
-
--   The **Source editor** — where you *save* the code you want to keep.
-
-
-
-Today we build on all four. If any of them feels shaky, say so now.
-:::
-
 
 ## What you already set up
 
@@ -332,20 +241,18 @@ x <- 5
 [1] "Code that does evaluate"
 ```
 
-
 # Beyond the Prework {.subsection background-color="#425556"}
 
-## Let's go beyond the Prework
+## Beyond the Prework
 
-### 🗄️ Datasets
+Let's explore how **R** and the `{tidyverse}` handle:
 
-### 🧰 Using packages
+- 🗄️ Datasets
+- 🧰 Using packages
+- ⁉️ Documentation
+- ▶️️ The Pipe operator
 
-### ⁉️ Asking for Help!
-
-### ▶️️ The Pipe operator
-
-## 🗄️ Datasets in variables
+## 🗄️ Datasets
 
 To work with data in R, **assign the dataset** to a **variable**
 
@@ -359,7 +266,7 @@ rolling_stones_data <- readr::read_csv("data/rolling_stones.csv")
 dplyr::slice_head(rolling_stones_data)
 ```
 
-. . .
+## 🗄️ Datasets in variables
 
 You can **use more than one dataset** in your session, by **storing them in different variables**
 
@@ -380,26 +287,21 @@ Here, talk about data types:
 
 ## 🗄️ Data Formats
 
-::: {.content-box-marine}
-In this workshop, we will focus on **data that comes in tables**, like **MS Excel**.
+In this workshop, we will focus on **data that comes in tables**, like **MS Excel**. 
+
+But R suppports many **different data structures** through dedicated **packages**: 
+
+::: {.fragment}
+-   **structured** databases, like an **SQL** database
+-   **unstructured** databases, such as **json** and **xml** files
+-   **raw text** and **html code**
+-   even **STATA, SAS and SPSS data**. 
 :::
 
-. . .
-
-But, in R you can work with **many different data structures**, such as:
-
--   **structured** databases, like an **SQL** database
-
--   **unstructured** databases, such as **json** and **xml** files
-
--   **raw text** and **html code**
-
--   even **STATA, SAS and SPSS data**!
-
-. . .
-
+::: {.fragment}
 ::: {.content-box-marine}
 We are not limited by a particular data format when using **R**
+:::
 :::
 
 ## 🧰 Packages {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
@@ -529,7 +431,6 @@ Which can be "read" as:
 
 > "*take the dataset `cars` **then** `pull()` the variable `speed` **then** compute the `density()`**then** build a `plot()`.*"
 
-
 ## ▶️ The *Pipe* operator of the `{tidyverse}`
 
 ::: {.content-box-marine}
@@ -569,7 +470,6 @@ In RStudio, go to *Tools* → *Global Options* → *Code* and look for *Use nati
 ### Data **Wrangling**
 
 ### Data **Visualisation**
-
 
 # 💾 Extra info: Saving today's work {.subsection background-color="#425556"}
 
