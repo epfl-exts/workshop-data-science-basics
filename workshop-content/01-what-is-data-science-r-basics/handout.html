@@ -3552,6 +3552,7 @@ background-origin: content-box;
   <ul class="collapse">
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">🗄️ Datasets</a></li>
   <li><a href="#datasets-in-variables" id="toc-datasets-in-variables" class="nav-link" data-scroll-target="#datasets-in-variables">🗄️ Datasets in variables</a></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">🗄️ Data Types</a></li>
   <li><a href="#data-formats" id="toc-data-formats" class="nav-link" data-scroll-target="#data-formats">🗄️ Data Formats</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">🧰 Packages</a></li>
   <li><a href="#installing-and-attaching-r-packages" id="toc-installing-and-attaching-r-packages" class="nav-link" data-scroll-target="#installing-and-attaching-r-packages">🧰 Installing and Attaching R Packages</a></li>
@@ -3746,15 +3747,19 @@ background-origin: content-box;
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rolling_stones_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/rolling_stones.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rolling_stones_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/rolling_stones.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>The dataset now lives in your session, and you can look at it, e.g. its first row:</p>
+<p>The dataset now lives in your session, and you can look at it, e.g. its first few rows:</p>
 <div class="cell" data-layout-align="center">
+<details open class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rolling_stones_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["song_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["album_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["release_year"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["song_duration"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["song_popularity"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["live"],"name":[6],"type":["lgl"],"align":["right"]}],"data":[{"1":"Sad Sad Sad","2":"Steel Wheels","3":"1989","4":"215","5":"23","6":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["song_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["album_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["release_year"],"name":[3],"type":["int"],"align":["right"]},{"label":["song_duration"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["song_popularity"],"name":[5],"type":["int"],"align":["right"]},{"label":["live"],"name":[6],"type":["lgl"],"align":["right"]}],"data":[{"1":"Sad Sad Sad","2":"Steel Wheels","3":"1989","4":"215.000","5":"23","6":"FALSE","_rn_":"1"},{"1":"Mixed Emotions","2":"Steel Wheels","3":"1989","4":"278.640","5":"30","6":"FALSE","_rn_":"2"},{"1":"Terrifying","2":"Steel Wheels","3":"1989","4":"291.500","5":"22","6":"FALSE","_rn_":"3"},{"1":"Hold On To Your Hat","2":"Steel Wheels","3":"1989","4":"212.133","5":"19","6":"FALSE","_rn_":"4"},{"1":"Hearts For Sale","2":"Steel Wheels","3":"1989","4":"279.750","5":"20","6":"FALSE","_rn_":"5"},{"1":"Blinded By Love","2":"Steel Wheels","3":"1989","4":"276.933","5":"21","6":"FALSE","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -3767,14 +3772,59 @@ background-origin: content-box;
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reading a dataset: rolling_stones</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rolling_stones_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/rolling_stones.csv&quot;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># reading another dataset: sales</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sales_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/sales_data.tsv&quot;</span>, <span class="at">skip =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reading a dataset: rolling_stones</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rolling_stones_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/rolling_stones.csv&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># reading another dataset: sales</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sales_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;data/sales_data.tsv&quot;</span>, <span class="at">skip =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>The sales data is <em>tab</em>-separated, hence <code>read_tsv()</code>, and its first three lines are a report header, which <code>skip = 3</code> jumps over. You will learn these functions in the Data Import module.</p>
+</section>
+<section id="data-types" class="level2">
+<h2 class="anchored" data-anchor-id="data-types">🗄️ Data Types</h2>
+<p>Notice the output of <code>slice_head()</code> (the function that gives you the first row of a dataset). Do you notice something? You see here <code>chr</code>, <code>numeric</code> on top of every column. This indicates the <em>type</em> of data a column holds. Aside from the usual (<em>double</em> for numeric data, <em>character</em> for text), R supports a few more.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>data type</th>
+<th>display in R</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>character</td>
+<td><code>chr</code></td>
+<td><code>&quot;hello&quot;</code>, <code>&quot;Rolling Stones&quot;</code></td>
+</tr>
+<tr class="even">
+<td>integer</td>
+<td><code>int</code></td>
+<td><code>1</code>, <code>42</code>, <code>2024</code></td>
+</tr>
+<tr class="odd">
+<td>double</td>
+<td><code>dbl</code></td>
+<td><code>3.14</code>, <code>2.5</code></td>
+</tr>
+<tr class="even">
+<td>logical</td>
+<td><code>lgl</code></td>
+<td><code>TRUE</code>, <code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td>factor</td>
+<td><code>fct</code></td>
+<td><code>&quot;low&quot;</code>, <code>&quot;high&quot;</code></td>
+</tr>
+<tr class="even">
+<td>date</td>
+<td><code>date</code></td>
+<td><code>2024-01-31</code></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="data-formats" class="level2">
 <h2 class="anchored" data-anchor-id="data-formats">🗄️ Data Formats</h2>
@@ -3798,13 +3848,13 @@ background-origin: content-box;
 <ol type="1">
 <li><strong>Install</strong> the package. We only have to do this <strong>once</strong> on a computer, so <strong>do not include this</strong> in your <strong>source code</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install the package dplyr</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install the package dplyr</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="2" type="1">
 <li><strong>Attach</strong> the package. You need to do this in <strong>each session</strong>, so <strong>include this</strong> in your <strong>source code</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># attach the package dplyr</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># attach the package dplyr</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3826,8 +3876,8 @@ Note
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slice_head() on cars without dplyr</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slice_head() on cars without dplyr</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in slice_head(cars): could not find function &quot;slice_head&quot;</code></pre>
@@ -3837,11 +3887,11 @@ Note
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># attaching the package</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># slice_head() on cars with dplyr</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># attaching the package</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># slice_head() on cars with dplyr</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div data-pagedtable="false">
@@ -3863,7 +3913,7 @@ Note
 <li>the name of the function you want to know more about</li>
 </ol>
 <p>For instance:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?<span class="fu">slice_head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>?<span class="fu">slice_head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The documentation opens in the <strong>Help</strong> pane. It describes what the function does, its arguments, and usually ends with examples you can copy.</p>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
@@ -3878,11 +3928,11 @@ Note
 <h2 class="anchored" data-anchor-id="the-pipe-operator-of-the-tidyverse">▶️ The <em>Pipe</em> operator of the <code>{tidyverse}</code></h2>
 <p>The <em>pipe</em> <code>%&gt;%</code> allows us to <strong>write code <em>sequentially</em></strong>, which makes complex calls <strong>easy to read and write</strong>. It <strong>“feeds” the left-hand side</strong> as the <strong>first argument</strong> of the next function.</p>
 <p>For example, let’s plot the density of the variable <code>speed</code> in the <code>cars</code> dataset. Without the pipe, the calls are <em>nested</em> and must be read from the inside out; with the pipe, they read from left to right:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nested</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(cars<span class="sc">$</span>speed))</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with the pipe</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># nested</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(cars<span class="sc">$</span>speed))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with the pipe</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The second line can be “read” as:</p>
 <blockquote class="blockquote">
 <p>“<em>take the dataset <code>cars</code> <strong>then</strong> <code>pull()</code> the variable <code>speed</code> <strong>then</strong> compute the <code>density()</code> <strong>then</strong> build a <code>plot()</code>.</em>”</p>
@@ -3892,8 +3942,8 @@ Note
 <section id="or" class="level2">
 <h2 class="anchored" data-anchor-id="or">▶️ <code>%&gt;%</code> or <code>|&gt;</code>?</h2>
 <p>Since version 4.1, R also has a <strong>native pipe</strong> <code>|&gt;</code>, built into the language.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="co"># the {tidyverse} pipe</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">|&gt;</span> <span class="fu">pull</span>(speed) <span class="sc">|&gt;</span> <span class="fu">density</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()    <span class="co"># the native pipe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">%&gt;%</span> <span class="fu">pull</span>(speed) <span class="sc">%&gt;%</span> <span class="fu">density</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>() <span class="co"># the {tidyverse} pipe</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cars <span class="sc">|&gt;</span> <span class="fu">pull</span>(speed) <span class="sc">|&gt;</span> <span class="fu">density</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>()    <span class="co"># the native pipe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>For everyday use, they <strong>do the same thing</strong>, and you will meet both in code online.</li>
 <li>In this workshop, we use <code>%&gt;%</code>.</li>
@@ -3954,11 +4004,11 @@ Tip
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span>(<span class="st">&quot;my-work.tar.gz&quot;</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">list.files</span>(<span class="st">&quot;workshop-content&quot;</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pattern =</span> <span class="st">&quot;[.](qmd|Rmd|R)$&quot;</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">compression =</span> <span class="st">&quot;gzip&quot;</span>, <span class="at">tar =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span>(<span class="st">&quot;my-work.tar.gz&quot;</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">files =</span> <span class="fu">list.files</span>(<span class="st">&quot;workshop-content&quot;</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pattern =</span> <span class="st">&quot;[.](qmd|Rmd|R)$&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">compression =</span> <span class="st">&quot;gzip&quot;</span>, <span class="at">tar =</span> <span class="st">&quot;internal&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Then download <code>my-work.tar.gz</code> as described above. On your computer, <strong>double-click</strong> it to unpack it (macOS and Windows 11).</p>

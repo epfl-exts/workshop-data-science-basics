@@ -185,18 +185,16 @@ Let's go a step further and explore how **R** and the `{tidyverse}` handle:
 
 To work with data in R, **assign the dataset** to a **variable**. Here, `read_csv()` reads the file `rolling_stones.csv` in the `data` folder, and `<-` stores its contents in the variable `rolling_stones_data`:
 
-```{r eval=FALSE}
+```{r}
 #| label: read-rolling-stones
-rolling_stones_data <- read_csv("data/rolling_stones.csv")
+rolling_stones_data <- read.csv("data/rolling_stones.csv")
 ```
 
-The dataset now lives in your session, and you can look at it, e.g. its first row:
+The dataset now lives in your session, and you can look at it, e.g. its first few rows:
 
-```{r echo=FALSE}
+```{r}
 #| label: preview-rolling-stones
-rolling_stones_data <- readr::read_csv("data/rolling_stones.csv")
-
-dplyr::slice_head(rolling_stones_data)
+head(rolling_stones_data, 3)
 ```
 
 Notice the abbreviations under the column names, such as `<chr>` (text), `<dbl>` (numbers) and, in the last column, `<lgl>` (`TRUE`/`FALSE`): **every column has a type**. We will come back to types throughout the workshop.
@@ -215,6 +213,19 @@ sales_data <- read_tsv("data/sales_data.tsv", skip = 3)
 ```
 
 The sales data is *tab*-separated, hence `read_tsv()`, and its first three lines are a report header, which `skip = 3` jumps over. You will learn these functions in the Data Import module.
+
+## 🗄️ Data Types
+
+Notice the output of `slice_head()` (the function that gives you the first row of a dataset). Do you notice something? You see here `chr`, `numeric` on top of every column. This indicates the *type* of data a column holds. Aside from the usual (_double_ for numeric data, _character_ for text), R supports a few more. 
+
+| data type | display in R | example |
+|-----------|--------------|---------|
+| character | `chr`        | `"hello"`, `"Rolling Stones"` |
+| integer   | `int`        | `1`, `42`, `2024` |
+| double    | `dbl`       | `3.14`, `2.5` |
+| logical   | `lgl`        | `TRUE`, `FALSE` |
+| factor    | `fct`        | `"low"`, `"high"` |
+| date      | `date`       | `2024-01-31` |
 
 ## 🗄️ Data Formats
 
