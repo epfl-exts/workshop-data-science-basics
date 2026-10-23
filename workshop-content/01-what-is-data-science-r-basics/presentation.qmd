@@ -53,15 +53,15 @@ Data Science can be defined by what it **_does_**[^1]:
 
 ## In Theory
 
-Using an **intersection** of **practices** and **skills** to answer a research **question** that involves **data**
+> [...] data scientists leverage a **combination of technical tools and methodologies**
 
 . . .
 
-![](images/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="80%"}
+![](images/fig-data-science.png){fig-alt="The three overlapping circles of data science: computer science, mathematics and statistics, and domain expertise. Data science sits where all three meet." fig-align="center" width="75%"}
 
 ## In Practice 
 
-**Mastering** the **Data pipeline**
+A data science project involves **mastering** the **data pipeline**
 
 . . .
 
