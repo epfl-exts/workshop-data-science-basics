@@ -1,0 +1,812 @@
+---
+title: "Datenimport"
+subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
+lang: de
+translated-from: "5d2c5610b027933bfdc90ae1f605bdfa7b68b961"
+author: "**EPFL Extension School**"
+format:
+  revealjs:
+    slide-level: 2
+    transition: fade
+    footer: "Workshop Grundlagen der Data Science"
+    slide-number: true
+    df-print: tibble
+    embed-resources: true
+    width: 1440
+    height: 810
+    output-file: "presentation-de"
+    css: ../assets/css/exts-reveal.css
+---
+
+<!-- Translation of presentation.qmd. Don't change the structure here: change presentation.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+
+# breite Tibbles (z. B. das Excel-Blatt mit 120 Spalten) auf einer Folie halten
+options(pillar.max_extra_cols = 0)
+```
+
+```{r r_setup, include = FALSE}
+library(tidyverse)
+```
+
+# 📥 Die Daten einlesen {.subsection background-color="#425556"}
+
+## Import: der erste Schritt der Pipeline
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Die Data-Science-Pipeline: importieren, dann aufbereiten, dann eine Schleife aus transformieren, visualisieren und modellieren, dann kommunizieren. Der Import ist hervorgehoben: Der Datenimport ist der erste Schritt der Pipeline."}
+#| label: img-data-import
+knitr::include_graphics("images/fig-data-import.png")
+```
+
+## In dieser Einheit
+
+Wie man **tabellarische Daten** in R einliest:
+
+-   📄 **Textdateien mit Trennzeichen**: CSV, TSV, ...
+-   📗 **Excel**-Arbeitsmappen
+-   📊 Dateien aus **Statistiksoftware**: SAS, SPSS, Stata
+
+und die **Argumente**, mit denen sich die üblichen Stolpersteine umgehen lassen.
+
+. . .
+
+::: callout-note
+## Hinweis
+
+Ein Teil der Daten in dieser Einheit ist simuliert.
+:::
+
+::: {.notes}
+Fragen Sie die Teilnehmenden, ob sie mit Excel- oder SAS-Dateien arbeiten (oder arbeiten werden). Falls nicht, gehen Sie beim Excel-Beispiel nicht zu sehr ins Detail.
+:::
+
+# 📄 Dateien mit Trennzeichen {.subsection background-color="#425556"}
+
+## Eine Tabelle in einer Textdatei
+
+Die Datensätze sind als **Tabelle** in einer **Textdatei** gespeichert.
+
+-   Eine Tabellenzeile pro Textzeile
+-   Spalten durch ein **Trennzeichen** getrennt
+
+| Trennzeichen | Format  | Beispiel |
+|-----------|---------|-----------|
+| Komma `,` | **C**omma-**S**eparated **V**alues  | `data.csv` |
+| Komma `,` | **C**omma-**S**eparated **V**alues  | `data.csv` |
+| Semikolon `;` | **T**ab-**S**eparated **V**alues | `data.tsv` |
+
+## {.center}
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Dieselbe kleine Tabelle (name, gender, weight, height, bmi) in zwei Textformaten gespeichert: team.csv, wo die Werte durch Kommas getrennt sind, und team.tsv, wo sie durch Tabulatoren getrennt sind."}
+#| label: img-delimiters
+knitr::include_graphics("images/1-delim.png")
+```
+
+## CSV ist das häufigste Format zum Austausch von Daten
+
+-   Kleine und mittelgrosse Daten, bis zu mehreren GB
+-   **Software-unabhängig**: Jedes Programm kann sie öffnen
+-   Besonders wichtig, wenn Sie **im Team arbeiten**
+
+## `read_csv()` liest eine CSV-Datei in R ein
+
+-   Aus `{readr}`, Teil des `{tidyverse}`
+-   Geben Sie den **Pfad zur Datei** an, auf Ihrem Computer oder im Web
+-   **Speichern Sie das Ergebnis** in einem Objekt
+
+```{r, eval = FALSE}
+#| label: read-csv-template
+name_of_object <- read_csv("pfad_zur_datei")
+```
+
+## Beispiel: `team.csv` einlesen {auto-animate=true}
+
+👉 Öffnen Sie zuerst `data/team.csv` und schauen Sie sich die Datei an.
+
+![](images/team_csv.png){fig.alt="Ein Screenshot der Datei team.csv" fig-align="center"}
+
+## Beispiel: `team.csv` einlesen {auto-animate=true}
+
+👉 Verwenden Sie `readr::read_csv()`. Weisen Sie das Ergebnis einer Variablen zu
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_csv.png){fig.alt="Ein Screenshot der Datei team.csv" fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: slides-read-team
+# readr laden
+library(readr)
+
+# die Daten einlesen
+team <- read_csv("data/team.csv")
+```
+
+:::
+::::
+
+## Beispiel: `team.csv` einlesen {auto-animate=true}
+
+👉 Geben Sie das Objekt aus, um es anzuschauen
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_csv.png){fig.alt="Ein Screenshot der Datei team.csv" fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: print-team
+# readr laden
+library(readr)
+
+# die Daten einlesen
+team <- read_csv("data/team.csv")
+
+# die Daten ausgeben
+team
+```
+:::
+::::
+
+
+
+
+# Nützliche Argumente von `read_csv()`
+
+
+## Wo Ihre Datei liegt: der Pfad `file`
+
+- Das erste Argument ist der Pfad `file`, also:
+
+> Wo (auf Ihrem Computer) liegt die Datei, die Sie importieren möchten?
+
+- Es nimmt den Pfad zu Ihrer CSV-Datei **als String** entgegen
+- Das kann ein lokaler Pfad (`data/team.csv`) oder eine URL sein.
+
+. . .
+
+:::{.callout-tip}
+
+## Relative und absolute Pfade
+
+In Quarto / R Markdown können Ihre Pfade im **Ordner des Dokuments** beginnen.
+<!--
+```
+|___your_document.qmd
+|___data/
+    |___team.csv
+```
+-->
+
+- ✅ `"data/team.csv"`
+- ❌ `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+
+Relative Pfade funktionieren auf **jedem Computer**. Sie können den Ordner so weitergeben, wie er ist.
+
+:::
+
+. . .
+
+:::{.callout-warning}
+
+In R-Skripten und in der Console **beginnen Pfade im *Arbeitsverzeichnis*** (working directory)
+
+:::
+
+
+## Auch CSV-/TSV-Daten können unordentlich sein!
+
+![](images/team_meta_data.png){fig.alt="Ein Screenshot der Datei team_meta.csv mit den Daten und einigen typischen Stolpersteinen dieses Dateityps" fig-align="center"}
+
+
+
+## {.center}
+```{r, echo=FALSE, out.width="80%", fig.alt="Ein Aufruf von read_csv() mit den Argumenten file, col_names, na und skip, jeweils mit einem Pfeil zu dem, was sie in einer CSV-Datei steuern: der Dateiname, die Kopfzeile mit den Spaltennamen, die Werte 'null', die als fehlend gelten sollen, und die drei Notizzeilen über den Daten, die übersprungen werden."}
+#| label: img-read-csv-arguments
+knitr::include_graphics("images/1-read_csv.png")
+```
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Manche Daten haben keine Spaltennamen
+:::
+
+![](images/team_wo_header_csv.png){fig.alt="Die Datei team_wo_header in TextEdit" fig-align="center"}
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Manche Daten haben keine Spaltennamen
+- Standardmässig benennt `read_csv()` die Spalten nach **der ersten Zeile**.
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_wo_header_csv.png){fig.alt="Die Datei team_wo_header in TextEdit"}
+
+:::
+
+::: {.column width="70%"}
+
+
+```{r}
+#| label: raw-team-wo-header
+team_wo_header <- read_csv("data/team_wo_header.csv")
+
+team_wo_header %>% head()
+```
+:::
+::::
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE` {auto-animate="true"}
+
+
+::: {.callout-tip}
+
+## Die Lösung
+
+- Setzen Sie `col_names = FALSE`
+- R benennt die Spalten `X1`, `X2`, ...
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_wo_header_csv.png){fig.alt="Die Datei team_wo_header in TextEdit"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-wo-header
+#| code-line-numbers: "2"
+team_wo_header <- read_csv("data/team_wo_header.csv",
+                           col_names = FALSE)
+
+team_wo_header %>% head()
+```
+
+:::
+
+::::
+
+
+## Fehlende Werte angeben: `na = "null"` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Andere Programme schreiben fehlende Werte manchmal anders (z. B. `null`)
+:::
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="Die Datei team_missing.csv in einem Texteditor" fig-align="center"}
+
+## Fehlende Werte angeben: `na = "null"` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Andere Programme schreiben fehlende Werte manchmal anders (z. B. `null`)
+- `read_csv()` liest `null` als Text, sodass **ganze Spalten zu Text werden**
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="Die Datei team_missing.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-missing
+team_missing <- read_csv("data/team_missing.csv")
+team_missing
+```
+:::
+::::
+
+## Fehlende Werte angeben: `na = "null"` {auto-animate="true"}
+
+::: {.callout-tip}
+
+## Die Lösung
+
+- Setzen Sie `na = "null"`
+- `null` wird jetzt als `NA` gelesen
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="Die Datei team_missing.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-missing-na
+#| code-line-numbers: "2"
+team_missing <- read_csv("data/team_missing.csv",
+                         na = "null")
+team_missing
+```
+:::
+::::
+
+## Metadaten überspringen: `skip = 3` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Manche Textdateien beginnen mit einer **Beschreibung der Daten** (Metadaten)
+:::
+
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="Die Datei team_meta.csv in einem Texteditor" fig-align="center"}
+
+## Metadaten überspringen: `skip = 3` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Manche Textdateien beginnen mit einer **Beschreibung der Daten** (Metadaten)
+- Liest man sie unverändert ein, geraten die Metadaten in die Daten
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="Die Datei team_meta.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-meta-default
+team_meta <- read_csv("data/team_meta.csv")
+team_meta
+```
+:::
+::::
+
+## Metadaten überspringen: `skip = 3` {auto-animate="true"}
+
+::: {.callout-tip}
+
+## Die Lösung
+
+- Setzen Sie `skip = 3`
+- `skip` gibt `read_csv()` an, wie viele Zeilen übersprungen werden
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="Die Datei team_meta.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-meta
+#| code-line-numbers: "2"
+team_meta <- read_csv("data/team_meta.csv",
+                      skip = 3)
+team_meta
+```
+:::
+::::
+
+## Sonderzeichen richtig lesen: `locale` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Akzente und Umlaute (Französisch, Deutsch, ...) können verstümmelt ankommen
+:::
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="Die Datei cities.csv in einem Texteditor" fig-align="center"}
+
+## Sonderzeichen richtig lesen: `locale` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## Das Problem
+
+- Akzente und Umlaute (Französisch, Deutsch, ...) können verstümmelt ankommen
+- `read_csv()` errät die falsche **Zeichenkodierung** (encoding)
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="Die Datei cities.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-cities
+#| error: true
+cities <- read_csv("data/cities.csv")
+cities
+```
+:::
+::::
+
+## Sonderzeichen richtig lesen: `locale` {auto-animate="true"}
+
+::: {.callout-tip}
+
+## Die Lösung
+
+- Setzen Sie `locale = locale(encoding = "latin1")`
+- So wird die richtige Zeichenkodierung verwendet
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="Die Datei cities.csv in einem Texteditor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-cities-latin1
+#| code-line-numbers: "3"
+cities <- read_csv(
+  "data/cities.csv",
+  locale = locale(encoding = "latin1"))
+cities
+```
+:::
+::::
+
+## 💡 Nutze die ~~Macht~~ <kbd>Tab</kbd>-Taste
+
+::: callout-tip
+Den Namen eines Arguments vergessen? Setzen Sie den Cursor zwischen die Klammern und drücken Sie <kbd>Tab</kbd>.
+:::
+
+
+::: {.notes}
+
+Live vorführen
+
+:::
+
+
+## Andere Trennzeichen, dieselben Argumente
+
+- Länder mit **Dezimalkomma** verwenden `;` als Trennzeichen → `read_csv2()`
+- Tabulatoren → `read_tsv()`, jedes andere Trennzeichen → `read_delim()`
+- Alle nehmen **dieselben Argumente** wie `read_csv()`
+
+```{r, echo=FALSE}
+#| label: table-readr-functions
+tribble(
+  ~ `Funktion`, ~ `Trennzeichen`, ~ `Standard-Dezimalzeichen`,
+  "`read_csv()`", "`,` (Komma)", "`.` (Punkt)",
+  "`read_csv2()`", "`;` (Semikolon)", "`,` (Komma)",
+  "`read_tsv()`", "Tabulator", "`.` (Punkt)",
+  "`read_delim()`", "Beliebig", "`.` (Punkt)",
+) %>%
+  knitr::kable()
+```
+
+# 📗 Excel-Dateien {.subsection background-color="#425556"}
+
+## `{readxl}` liest Excel-Arbeitsmappen
+
+- Wird mit dem `{tidyverse}` installiert, aber von `library(tidyverse)` **nicht geladen**
+
+. . .
+
+```{r}
+#| label: attach-readxl
+library(readxl)
+```
+
+. . .
+
+- Bietet folgende Funktionen:
+
+| Funktion | Dateiendung |
+|----------|-----------|
+| `read_xls()` | `.xls` |
+| `read_xlsx()` | `.xlsx`|
+| `read_excel()`| errät die Dateiendung |
+
+
+
+## Beispiel: `team.xlsx` einlesen {auto-animate="true"}
+
+👉 Öffnen Sie zuerst `data/team.xlsx` in Excel und schauen Sie sich den Aufbau an.
+
+![](images/team_xlsx.png){fig.alt="Ein Screenshot der Datei team.xlsx" fig-align="center"}
+
+
+## Beispiel: `team.xlsx` einlesen {auto-animate=true}
+
+👉 Importieren Sie die Datei und geben Sie das Objekt aus, um es anzuschauen
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_xlsx.png){fig.alt="Ein Screenshot der Datei team.xlsx" fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-xlsx
+team <- read_xlsx("data/team.xlsx")
+team
+```
+
+:::
+::::
+
+## Excel-Dateien sind noch unordentlicher!
+
+👉 Öffnen Sie `data/je-e-06.02.00.01.02.xlsx` in Excel und überzeugen Sie sich selbst!
+
+
+![](images/je-e-06.02.00.01.02.gif){fig-align="center"}
+
+
+::: {.notes}
+-   Eine **Arbeitsmappe** mit mehreren **Blättern**
+-   Die Tabelle steht irgendwo mitten in den Zellen
+:::
+
+##
+
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Ein Aufruf von read_excel() mit den Argumenten file, sheet, range und col_names, jeweils mit einem Pfeil zu dem, was sie in einer Excel-Arbeitsmappe steuern: der Dateiname, das zweite Blatt, der Zellbereich C3:G23 mit der Tabelle und deren Kopfzeile."}
+#| label: img-read-excel-arguments
+knitr::include_graphics("images/2-excel.png")
+```
+
+
+
+## Welches Blatt importieren: `sheet`:  {auto-animate="true"}
+
+::: {.callout-warning}
+## Das Problem
+- Excel-Dateien (Arbeitsmappen) können viele _Blätter_ (sheets) haben
+:::
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+
+
+## Welches Blatt importieren: `sheet`:  {auto-animate="true" .smaller}
+
+::: {.callout-warning}
+## Das Problem
+
+- Excel-Dateien (Arbeitsmappen) können viele _Blätter_ (sheets) haben
+- Standardmässig importieren die Funktionen von `{readxl}` das **erste** Blatt
+:::
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+
+## Welches Blatt importieren: `sheet`:  {auto-animate="true".smaller}
+
+::: {.callout-tip}
+## Die Lösung
+
+- Verwenden Sie das Argument `sheet`
+- Geben Sie den **Namen** (`sheet = "Women"`) oder die **Position** (`sheet = 4`) an
+:::
+
+
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-women-sheet
+#| code-line-numbers: "2"
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women"
+)
+
+women_jobs %>% head()
+```
+
+::: callout-important
+## Moment!
+
+Die Daten sind importiert, aber noch nicht brauchbar.
+:::
+
+:::
+::::
+
+
+
+## Welche Zellen importieren: `range` {auto-animate="true"}
+
+::: {.callout-warning}
+## Das Problem
+
+- Die Tabelle beginnt nicht oben links im Blatt
+- Die Daten sind über das ganze Blatt verteilt: `skip` reicht nicht
+:::
+
+```{r}
+#| label: slides-read-women-range-problem
+#| echo: false
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women"
+)
+
+women_jobs %>% head()
+```
+
+## Welche Zellen importieren: `range` {auto-animate="true" .smaller}
+
+::: {.callout-warning}
+## Das Problem
+
+- Die Tabelle beginnt nicht oben links im Blatt
+- Die Daten sind über das ganze Blatt verteilt: `skip` reicht nicht
+- Vielleicht interessiert uns nur ein Teil der Zellen (von «A9» bis, sagen wir, «DP72»)
+:::
+
+![](images/je-e-06.02.00.01.02_sheet_range.png){fig-align="center"}
+
+## Welche Zellen importieren: `range` {auto-animate="true" .smaller}
+
+::: {.callout-tip}
+## Die Lösung
+
+- Verwenden Sie das Argument `range`
+- Geben Sie die Zelle **oben links** und die Zelle **unten rechts** an: `range = "A9:DP72"`
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/je-e-06.02.00.01.02_sheet_range.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-women-range
+#| code-line-numbers: "4"
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72"
+)
+
+women_jobs
+```
+:::
+
+. . .
+
+::: callout-important
+## Fast geschafft!
+aber die **Spaltennamen enthalten Werte**
+:::
+
+::::
+
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE` {.smaller auto-animate="true"}
+
+::: {.callout-tip}
+## Die Lösung
+`col_names = FALSE`, schon wieder
+:::
+
+```{r}
+#| label: read-women-col-names
+#| code-line-numbers: "4"
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72",
+  col_names = FALSE
+)
+
+women_jobs
+```
+
+. . .
+
+::: callout-important
+## Achten Sie auf die Namen
+
+Anders als `readr::read_csv` benennt `{readxl}` die Spalten `...1`, `...2` usw.
+
+:::
+
+# 📊 Dateien aus Statistiksoftware {.subsection background-color="#425556"}
+
+## `{haven}` liest SAS-, SPSS- und Stata-Dateien
+
+-   Eine Funktion pro Dateityp: `read_sas()`, `read_sav()`, `read_dta()`, ...
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Das Paket {haven} importiert Dateien aus Statistiksoftware in R: read_sas() und read_xpt() für SAS, read_dta() für Stata, read_sav() und read_por() für SPSS."}
+#| label: img-haven
+knitr::include_graphics("images/3-other.png")
+```
+
+## Beispiel: eine SAS-Datei einlesen
+
+```{r}
+#| label: read-mtcars-sas
+library(haven)
+
+mtcars_data <- read_sas("data/mtcars.sas7bdat")
+
+mtcars_data
+```
+
+Weitere Argumente? Siehe Dokumentation: `?read_sas`
+
+## Zeit für eine Übung!
+
+::: callout-important
+## An die Arbeit!
+
+Öffnen Sie das Übungs-Notebook `_exercises/exercise-notebook.qmd` und lösen Sie **[Übung 1](../_exercises/exercise-notebook.html#exercise-1)**. Bis gleich!
+:::

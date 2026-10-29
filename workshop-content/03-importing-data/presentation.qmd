@@ -6,7 +6,6 @@ format:
   revealjs:
     slide-level: 2
     transition: fade
-    background-transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
     df-print: tibble
@@ -49,8 +48,6 @@ How to get **tabular data** into R:
 -   📄 **Delimited** text files: CSV, TSV, ...
 -   📗 **Excel** workbooks
 -   📊 Files from **statistical software**: SAS, SPSS, Stata
-
-. . . 
 
 and the **arguments** that work around the usual caveats.
 
@@ -105,139 +102,369 @@ knitr::include_graphics("images/1-delim.png")
 name_of_object <- read_csv("path_to_file")
 ```
 
-## Example: reading `team.csv`
+## Example: reading `team.csv` {auto-animate=true}
 
 👉 First, open `data/team.csv` and have a look at it.
 
+![](images/team_csv.png){fig.alt="A screenshot of the the team.csv file" fig-align="center"}
+
+## Example: reading `team.csv` {auto-animate=true}
+
+👉 Use `readr::read_csv()`. Assign it to a variable
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_csv.png){fig.alt="A screenshot of the the team.csv file" fig-align="center"}
+:::
+
+::: {.column width="70%"}
+
 ```{r}
-#| label: read-team
+#| label: slides-read-team
+# attach readr
 library(readr)
 
+# load the data
 team <- read_csv("data/team.csv")
 ```
 
-. . .
+:::
+::::
+
+## Example: reading `team.csv` {auto-animate=true}
+
+👉 Print the object to have a look
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_csv.png){fig.alt="A screenshot of the the team.csv file" fig-align="center"}
+:::
+
+::: {.column width="70%"}
 
 ```{r}
 #| label: print-team
+# attach readr
+library(readr)
+
+# load the data
+team <- read_csv("data/team.csv")
+
+# print the data
 team
 ```
+:::
+::::
 
-## Use paths *relative* to your document
 
--   ✅ `"data/team.csv"`
--   ❌ `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+
+
+# Useful arguments of `read_csv()`
+
+
+## Where your file is: the `file` path
+
+- The first argument is `file` path, i.e. 
+
+> where (in your computer) is the file you want to import? 
+
+- It accepts the path towards your csv **as a string** 
+- Can be a local path (`data/team.csv`) or a URL. 
 
 . . .
 
--   Relative paths work on **any computer**: share the folder as it is
--   In Quarto / R Markdown, they start from the **document's folder**
+:::{.callout-tip}
 
-. . .
+## Relative vs Absolute paths
+
+In Quarto / R Markdown, your paths can start from the **document's folder**. 
+<!-- 
+```
+|___your_document.qmd
+|___data/
+    |___team.csv
+```
+-->
+
+- ✅ `"data/team.csv"`
+- ❌ `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+
+Relative paths work on **any computer**. You can share the folder as it is. 
+
+:::
+
+. . . 
 
 :::{.callout-warning}
 
-In R scripts and in the console, **paths start from the *working directory*** instead.
+In R scripts and in the console, **paths start from the *working directory***
+
 :::
 
-## Useful arguments of `read_csv()`
 
+## CSV/TSV Data can be messy too!
+
+![](images/team_meta_data.png){fig.alt="A screenshot of the the team_meta.csv file containing the data and some pitfalls of this type of data" fig-align="center"}
+
+
+
+## {.center}
 ```{r, echo=FALSE, out.width="80%", fig.alt="A call to read_csv() with the arguments file, col_names, na and skip, each linked by an arrow to what it controls in a CSV file: the file name, the header row with the column names, the 'null' values to treat as missing, and the three lines of notes above the data to skip."}
 #| label: img-read-csv-arguments
 knitr::include_graphics("images/1-read_csv.png")
 ```
 
-::: callout-tip
-Forgot an argument's name? Put the cursor inside the parentheses and press <kbd>Tab</kbd>.
+## When the first row is data: `col_names = FALSE` {auto-animate="true"}
 
+::: {.callout-warning}
+
+## The problem
+
+- Some data may come without column names
 :::
 
-## `col_names = FALSE`: the first row is data {.smaller}
+![](images/team_wo_header_csv.png){fig.alt="The file team_wo_header as shown in textedit" fig-align="center"}
 
--   By default, `read_csv()` takes **the first row** as the **column names**
--   No header in the file? Set `col_names = FALSE`: R names the columns `X1`, `X2`, ...
+## When the first row is data: `col_names = FALSE` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Some data may come without column names
+- By default, `read_csv()` names the columns after **the first row**.
+:::
 
 :::: {.columns}
-::: {.column width="25%"}
-```{r}
-#| label: raw-team-wo-header
-#| filename: "data/team_wo_header.csv"
-#| comment: NA 
-#| echo: false
-cat(read_lines("data/team_wo_header.csv", n_max = 4), sep = "\n")
-```
+::: {.column width="30%"}
+
+![](images/team_wo_header_csv.png){fig.alt="The file team_wo_header as shown in textedit"}
+
 :::
 
-::: {.column width="65%"}
-```{r}
-#| label: read-team-wo-header
-team_wo_header <-
-  read_csv(
-    "data/team_wo_header.csv",
-    col_names = FALSE)
+::: {.column width="70%"}
 
-team_wo_header
+
+```{r}
+#| label: raw-team-wo-header
+team_wo_header <- read_csv("data/team_wo_header.csv")
+
+team_wo_header %>% head()
 ```
 :::
 ::::
 
-## `na = "null"`: declare the missing values {.smaller}
+## When the first row is data: `col_names = FALSE` {auto-animate="true"}
 
--   R writes missing values as `NA`, other programs write e.g. `null`
--   `read_csv()` reads `null` as text, so **whole columns become text**
 
-```{r, comment=NA, echo=FALSE}
-#| label: raw-team-missing
-cat(read_lines("data/team_missing.csv", n_max = 4), sep = "\n")
-```
+::: {.callout-tip}
+
+## The Solution
+
+- Set `col_names = FALSE`
+- R names the columns `X1`, `X2`, ...
+
+:::
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="30%"}
+
+![](images/team_wo_header_csv.png){fig.alt="The file team_wo_header as shown in textedit"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-wo-header
+#| code-line-numbers: "2"
+team_wo_header <- read_csv("data/team_wo_header.csv", 
+                           col_names = FALSE)
+
+team_wo_header %>% head()
+```
+
+:::
+
+::::
+
+
+## Declare the missing values: `na = "null"` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Other programs may write missing values differently (e.g. `null`)
+:::
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="The file team_missing.csv as shown in a text editor" fig-align="center"}
+
+## Declare the missing values: `na = "null"` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Other programs may write missing values differently (e.g. `null`)
+- `read_csv()` reads `null` as text, so **whole columns become text**
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="The file team_missing.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
 ```{r}
 #| label: read-team-missing
 team_missing <- read_csv("data/team_missing.csv")
 team_missing
 ```
 :::
+::::
 
-::: {.column width="50%"}
+## Declare the missing values: `na = "null"` {auto-animate="true"}
+
+::: {.callout-tip}
+
+## The Solution
+
+- Set `na = "null"`
+- `null` is now read as `NA`
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_missing_csv.png){fig.alt="The file team_missing.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
 ```{r}
 #| label: read-team-missing-na
-team_missing <- read_csv("data/team_missing.csv", na = "null")
+#| code-line-numbers: "2"
+team_missing <- read_csv("data/team_missing.csv", 
+                         na = "null")
 team_missing
 ```
 :::
 ::::
 
-## `skip = 3`: jump over the metadata {.smaller}
+## Jump over the metadata: `skip = 3` {auto-animate="true"}
 
--   Some text files start with a **description of the data** (metadata)
--   `skip` tells `read_csv()` how many lines to jump over
+::: {.callout-warning}
 
-:::: {.columns}
-::: {.column width="45%"}
-```{r, comment=NA, echo=FALSE}
-#| label: raw-team-meta
-cat(read_lines("data/team_meta.txt", n_max = 7), sep = "\n")
-```
+## The problem
+
+- Some text files start with a **description of the data** (metadata)
 :::
 
-::: {.column width="55%"}
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="The file team_meta.csv as shown in a text editor" fig-align="center"}
+
+## Jump over the metadata: `skip = 3` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Some text files start with a **description of the data** (metadata)
+- Reading as-is mixes the metadata into the data
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="The file team_meta.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
 ```{r}
-#| label: read-team-meta
-team_meta <- read_csv("data/team_meta.txt", skip = 3)
+#| label: read-team-meta-default
+team_meta <- read_csv("data/team_meta.csv")
 team_meta
 ```
 :::
 ::::
 
-## `locale`: special characters {.smaller}
+## Jump over the metadata: `skip = 3` {auto-animate="true"}
 
--   Accents and umlauts (French, German, ...) can come out garbled
--   Tell `read_csv()` the file's **encoding**: `locale = locale(encoding = "latin1")`
+::: {.callout-tip}
+
+## The Solution
+
+- Set `skip = 3`
+- `skip` tells `read_csv()` how many lines to jump over
+
+:::
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/team_meta_csv.png){fig.alt="The file team_meta.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
+```{r}
+#| label: read-team-meta
+#| code-line-numbers: "2"
+team_meta <- read_csv("data/team_meta.csv", 
+                      skip = 3)
+team_meta
+```
+:::
+::::
+
+## Handle special characters: `locale` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Accents and umlauts (French, German, ...) can come out garbled
+:::
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="The file cities.csv as shown in a text editor" fig-align="center"}
+
+## Handle special characters: `locale` {auto-animate="true"}
+
+::: {.callout-warning}
+
+## The problem
+
+- Accents and umlauts (French, German, ...) can come out garbled
+- `read_csv()` guesses the wrong **encoding**
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="The file cities.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
 ```{r}
 #| label: read-cities
 #| error: true
@@ -245,10 +472,32 @@ cities <- read_csv("data/cities.csv")
 cities
 ```
 :::
+::::
 
-::: {.column width="50%"}
+## Handle special characters: `locale` {auto-animate="true"}
+
+::: {.callout-tip}
+
+## The Solution
+
+- Set `locale = locale(encoding = "latin1")`
+- Ensures that the encoding is the right one
+
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+<!-- TODO: add screenshot -->
+![](images/cities_csv.png){fig.alt="The file cities.csv as shown in a text editor"}
+
+:::
+
+::: {.column width="70%"}
+
 ```{r}
 #| label: read-cities-latin1
+#| code-line-numbers: "3"
 cities <- read_csv(
   "data/cities.csv",
   locale = locale(encoding = "latin1"))
@@ -257,11 +506,25 @@ cities
 :::
 ::::
 
+## 💡 Use the ~~force~~ <kbd>Tab</kbd>
+
+::: callout-tip
+Forgot an argument's name? Put the cursor inside the parentheses and press <kbd>Tab</kbd>.
+:::
+
+
+::: {.notes}
+
+Demo this
+
+:::
+
+
 ## Other delimiters, same arguments
 
--   Countries with a **decimal comma** use `;` as a delimiter → `read_csv2()`
--   Tabs → `read_tsv()`, any other delimiter → `read_delim()`
--   They all take the **same arguments** as `read_csv()`
+- Countries with a **decimal comma** use `;` as a delimiter → `read_csv2()`
+- Tabs → `read_tsv()`, any other delimiter → `read_delim()`
+- They all take the **same arguments** as `read_csv()`
 
 ```{r, echo=FALSE}
 #| label: table-readr-functions
@@ -279,28 +542,45 @@ tribble(
 
 ## `{readxl}` reads Excel workbooks
 
--   Installed with the `{tidyverse}`, but **not attached** by `library(tidyverse)`
--   `read_xls()` for `.xls`, `read_xlsx()` for `.xlsx`, `read_excel()` guesses
--   First argument: the **path** to the file
+- Installed with the `{tidyverse}`, but **not attached** by `library(tidyverse)`
 
-``` r
-install.packages("readxl")
-```
-
-::: callout-warning
-## Note
-
-You don't have to do this on Renku, as it has been installed already!
-:::
+. . . 
 
 ```{r}
 #| label: attach-readxl
 library(readxl)
 ```
 
-## Example: reading `team.xlsx`
+. . . 
+
+- Provides the following functions: 
+
+| function | extension | 
+|----------|-----------| 
+| `read_xls()` | `.xls` | 
+| `read_xlsx()` | `.xlsx`|
+| `read_excel()`| guesses the extension | 
+
+
+
+## Example: reading `team.xlsx` {auto-animate="true"}
 
 👉 First, open `data/team.xlsx` in Excel and look at how it is structured.
+
+![](images/team_xlsx.png){fig.alt="A screenshot of the the team.xlsx file" fig-align="center"}
+
+
+## Example: reading `team.xlsx` {auto-animate=true}
+
+👉 Import and print the object to have a look
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/team_xlsx.png){fig.alt="A screenshot of the the team.xlsx file" fig-align="center"}
+:::
+
+::: {.column width="70%"}
 
 ```{r}
 #| label: read-team-xlsx
@@ -308,46 +588,145 @@ team <- read_xlsx("data/team.xlsx")
 team
 ```
 
-## Excel files can be a mess!
+:::
+::::
 
-👉 Open `data/je-e-06.02.00.01.02.xlsx`:
+## Excel files are even messier!
 
+👉 Open `data/je-e-06.02.00.01.02.xlsx` in Excel and see it for yourself!
+
+
+![](images/je-e-06.02.00.01.02.gif){fig-align="center"}
+
+
+::: {.notes}
 -   A **workbook** with several **sheets**
 -   The table sits somewhere in the middle of the cells
+:::
+
+## 
+
 
 ```{r, echo=FALSE, out.width="70%", fig.alt="A call to read_excel() with the arguments file, sheet, range and col_names, each linked by an arrow to what it controls in an Excel workbook: the file name, the second sheet, the cell range C3:G23 that holds the table, and its header row."}
 #| label: img-read-excel-arguments
 knitr::include_graphics("images/2-excel.png")
 ```
 
-## `sheet`: which sheet to import {.smaller}
 
--   By **name**: `sheet = "Women"`, or by **position**: `sheet = 2`
--   Default: the **first** sheet
+
+## Which sheet to import: `sheet`:  {auto-animate="true"}
+
+::: {.callout-warning}
+## The problem
+- Excel files (workbooks) can have many _sheets_ 
+:::
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+
+
+## Which sheet to import: `sheet`:  {auto-animate="true" .smaller}
+
+::: {.callout-warning}
+## The problem
+
+- Excel files (workbooks) can have many _sheets_ 
+- By default `{readxl}` functions import the **first** sheet
+:::
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+
+## Which sheet to import: `sheet`:  {auto-animate="true".smaller}
+
+::: {.callout-tip}
+## The solution
+
+- Use the `sheet` argument
+- Indicate the **name** (`sheet = "Women"`), or the **position** (`sheet = 4`)
+:::
+
+
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
 
 ```{r}
 #| label: read-women-sheet
+#| code-line-numbers: "2"
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women"
+)
+
+women_jobs %>% head()
+```
+
+::: callout-important
+## Wait!
+
+The data has been imported, but it isn't usable yet.
+:::
+
+:::
+::::
+
+
+
+## Which cells to import: `range` {auto-animate="true"}
+
+::: {.callout-warning}
+## The problem
+
+- The table doesn't start at the top-left of the sheet 
+- The data is all over the sheet: `skip` isn't enough
+:::
+
+```{r}
+#| label: slides-read-women-range-problem
+#| echo: false
 women_jobs <- read_xlsx(
   "data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women"
 )
 
-women_jobs
+women_jobs %>% head()
 ```
 
-::: callout-important
-## Note
+## Which cells to import: `range` {auto-animate="true" .smaller}
 
-The data has been imported, but it isn't usable yet.
+::: {.callout-warning}
+## The problem
+
+- The table doesn't start at the top-left of the sheet 
+- The data is all over the sheet: `skip` isn't enough
+- We may be interested in only a subset of cells (ranging from "A9" to, say "DP72")
 :::
 
-## `range`: which cells to import {.smaller}
+![](images/je-e-06.02.00.01.02_sheet_range.png){fig-align="center"}
 
--   The data is all over the sheet: `skip` isn't enough
--   `range` takes the **upper-left** and **lower-right** cells: `range = "A9:DP72"`
+## Which cells to import: `range` {auto-animate="true" .smaller}
+
+::: {.callout-tip}
+## The solution
+
+- Use the `range` argument
+- Give the **upper-left** and **lower-right** cells: `range = "A9:DP72"`
+:::
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](images/je-e-06.02.00.01.02_sheet_range.png){fig-align="center"}
+:::
+
+::: {.column width="70%"}
 
 ```{r}
 #| label: read-women-range
+#| code-line-numbers: "4"
 women_jobs <- read_xlsx(
   "data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women",
@@ -356,16 +735,29 @@ women_jobs <- read_xlsx(
 
 women_jobs
 ```
+:::
 
-## `col_names = FALSE`, again {.smaller}
+. . .
 
--   Almost there, but the **column names contain values**
--   Same fix as for CSV files
+::: callout-important
+## Almost there!
+but the **column names contain values**
+:::
+
+::::
+
+
+## When the first row is data: `col_names = FALSE` {.smaller auto-animate="true"}
+
+::: {.callout-tip}
+## The solution
+`col_names = FALSE`, again 
+:::
 
 ```{r}
 #| label: read-women-col-names
-women_jobs <- read_xlsx(
-  "data/je-e-06.02.00.01.02.xlsx",
+#| code-line-numbers: "4"
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
   sheet = "Women",
   range = "A9:DP72",
   col_names = FALSE
@@ -373,6 +765,15 @@ women_jobs <- read_xlsx(
 
 women_jobs
 ```
+
+. . . 
+
+::: callout-important
+## Notice the name choice
+
+Unlike `readr::read_csv`, `{readxl}` renames columns as `...1`, `...2`, etc.
+
+:::
 
 # 📊 Files from statistical software {.subsection background-color="#425556"}
 
@@ -385,7 +786,7 @@ women_jobs
 knitr::include_graphics("images/3-other.png")
 ```
 
-## Example: reading a SAS file {.smaller}
+## Example: reading a SAS file
 
 ```{r}
 #| label: read-mtcars-sas

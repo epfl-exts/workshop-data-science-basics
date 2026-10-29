@@ -1,0 +1,459 @@
+---
+title: "Datenimport"
+subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
+lang: de
+translated-from: "8dc15c8cbe87a78c0bfb0b512400cc17f0deb926"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    number-depth: 1
+    code-fold: show
+    highlight-style: github
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Folien
+        href: presentation-de.html
+        icon: easel
+---
+
+<!-- Translation of handout.qmd. Don't change the structure here: change handout.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+
+```
+
+```{r r_setup, include = FALSE}
+library(tidyverse)
+```
+
+# 📥 Die Daten einlesen
+
+## Import: der erste Schritt der Pipeline
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Die Data-Science-Pipeline: importieren, dann aufbereiten, dann eine Schleife aus transformieren, visualisieren und modellieren, dann kommunizieren. Der Import ist hervorgehoben: Der Datenimport ist der erste Schritt der Pipeline."}
+#| label: img-data-import
+knitr::include_graphics("images/fig-data-import.png")
+```
+
+In der Data-Science-Pipeline beginnt jedes Data-Science-Projekt damit, **die Daten in unsere Software zu bringen**. Dieser Schritt heisst **Datenimport**.
+
+## In dieser Einheit
+
+In dieser Einheit zeigen wir, **wie man Daten in R einliest**:
+
+-   Wir betrachten **zwei besondere Fälle**: Dateien *mit Trennzeichen* und *MS-Excel-Arbeitsmappen*. Beide sind Beispiele für **tabellarische Daten**, also Daten in Tabellenform.
+-   Wir sprechen einige **Stolpersteine** an und zeigen die **Argumente** der Importfunktionen, mit denen sie sich umgehen lassen.
+-   Wir zeigen auch, wie man **andere Dateitypen importiert**, nämlich Dateien aus Statistiksoftware.
+
+::: callout-note
+## Hinweis
+
+Ein Teil der Daten in dieser Einheit ist simuliert.
+:::
+
+# 📄 Dateien mit Trennzeichen
+
+## Eine Tabelle in einer Textdatei
+
+In Dateien mit Trennzeichen sind die Datensätze als **Tabelle** in einer **Textdatei** gespeichert: eine Tabellenzeile pro Textzeile, wobei die Spalten durch ein bestimmtes **Trennzeichen** getrennt sind, z. B. ein Komma (`,`), ein Semikolon (`;`) oder ein Tabulatorzeichen (kurz Tab).
+
+Die Trennzeichen geben den beiden verbreitetsten Dateitypen ihre **Namen**: CSV (**C**omma-**S**eparated **V**alues, durch Kommas getrennte Werte, z. B. `data.csv`) und TSV (**T**ab-**S**eparated **V**alues, durch Tabulatoren getrennte Werte, z. B. `data.tsv`).
+
+##
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Dieselbe kleine Tabelle (name, gender, weight, height, bmi) in zwei Textformaten gespeichert: team.csv, wo die Werte durch Kommas getrennt sind, und team.tsv, wo sie durch Tabulatoren getrennt sind."}
+#| label: img-delimiters
+knitr::include_graphics("images/1-delim.png")
+```
+
+## CSV ist das häufigste Format zum Austausch von Daten
+
+CSV-Dateien sind das **häufigste Dateiformat zum Austausch kleiner und mittelgrosser Daten** (bis zu mehreren GB). Ihr Hauptvorteil ist, dass sie **software-unabhängig** sind: Jedes Programm kann sie lesen. Das ist besonders wichtig, wenn Sie im Team arbeiten.
+
+## `read_csv()` liest eine CSV-Datei in R ein
+
+R hat Dutzende von Funktionen, um solche Dateien zu importieren. Wir verwenden die Funktionen des Pakets `{readr}`, das Teil des `{tidyverse}` ist. Die Funktion `read_csv()` liest CSV-Dateien.
+
+Wir müssen ihr den **Pfad zur Datei** angeben, auf unserem Computer oder sogar im Web. Es ist praktisch, **die Daten in einem Objekt zu speichern**, damit wir sie später verwenden können:
+
+```{r, eval = FALSE}
+#| label: read-csv-template
+name_of_object <- read_csv("pfad_zur_datei")
+```
+
+## Beispiel: `team.csv` einlesen
+
+Im Ordner `data` liegt eine Datei namens `team.csv`. Öffnen Sie sie zuerst, um sie anzuschauen:
+
+![](images/team_csv.png){fig-alt="Die Datei team.csv in einem Texteditor: eine Kopfzeile name,gender,weight,height,bmi, gefolgt von zehn Zeilen mit kommagetrennten Werten, eine pro Teammitglied." fig-align="center" width="40%"}
+
+In unserem Fall lautet der Pfad, den wir `read_csv()` übergeben, `"data/team.csv"`. Wir speichern das Ergebnis im Objekt `team` und geben es aus, um es anzuschauen:
+
+```{r}
+#| label: print-team
+# readr laden
+library(readr)
+
+# die Daten einlesen
+team <- read_csv("data/team.csv")
+
+# die Daten ausgeben
+team
+```
+
+# Nützliche Argumente von `read_csv()`
+
+## Wo Ihre Datei liegt: der Pfad `file`
+
+Das erste Argument von `read_csv()` ist `file`, der Pfad zu der Datei, die Sie importieren möchten: *Wo auf Ihrem Computer liegt sie?* Er wird **als String** (Zeichenkette) angegeben und kann ein lokaler Pfad (`"data/team.csv"`) oder eine URL sein.
+
+:::{.callout-tip}
+## Relative und absolute Pfade
+
+In Quarto- und R-Markdown-Dokumenten können Pfade im **Ordner des Dokuments** beginnen. Unser Dokument liegt in einem Ordner, der einen Ordner `data` enthält, in dem sich die Datei `team.csv` befindet:
+
+-   ✅ der **relative** Pfad `"data/team.csv"`
+-   ❌ ein **absoluter** Pfad wie `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+
+Relative Pfade funktionieren auf **jedem Computer**, Sie können den Ordner also so weitergeben, wie er ist. Das ist äusserst hilfreich, besonders wenn Sie **mit anderen zusammenarbeiten!** Derselbe Code läuft auf deren Computer, unabhängig von ihrer Ordnerstruktur.
+:::
+
+:::{.callout-warning}
+Pfade beginnen **nur in Quarto- und R-Markdown-Dokumenten** im Ordner des Dokuments. In R-Skripten und in der Console beginnen sie stattdessen im *Arbeitsverzeichnis* (working directory).
+:::
+
+## Auch CSV-/TSV-Daten können unordentlich sein!
+
+Echte Dateien sehen selten so sauber aus wie `team.csv`. Ihnen kann die Kopfzeile fehlen, sie schreiben fehlende Werte auf ihre eigene Art, oder sie beginnen mit einigen Notizzeilen:
+
+![](images/team_meta_data.png){fig-alt="Eine CSV-Datei in einem Texteditor. Ihre ersten zwei Zeilen sind Notizen zu den Daten, gefolgt von einer leeren Zeile, der Kopfzeile name,gender,weight,height,bmi und zehn Zeilen mit kommagetrennten Werten." fig-align="center" width="40%"}
+
+`read_csv()` hat für jeden dieser Stolpersteine ein Argument:
+
+```{r, echo=FALSE, out.width="80%", fig.alt="Ein Aufruf von read_csv() mit den Argumenten file, col_names, na und skip, jeweils mit einem Pfeil zu dem, was sie in einer CSV-Datei steuern: der Dateiname, die Kopfzeile mit den Spaltennamen, die Werte 'null', die als fehlend gelten sollen, und die drei Notizzeilen über den Daten, die übersprungen werden."}
+#| label: img-read-csv-arguments
+knitr::include_graphics("images/1-read_csv.png")
+```
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE`
+
+Manche Daten haben **keine Spaltennamen**. Die Datei `team_wo_header.csv` ist ein Beispiel dafür: Ihre erste Zeile enthält bereits Daten.
+
+![](images/team_wo_header_csv.png){fig-alt="Die Datei team_wo_header.csv in einem Texteditor: zehn Zeilen mit kommagetrennten Werten, die direkt mit dem ersten Teammitglied beginnen, ohne Kopfzeile." fig-align="center" width="40%"}
+
+Standardmässig betrachtet `read_csv()` **die erste Zeile** als **Spaltennamen**, sodass das erste Teammitglied im Spaltenkopf landet:
+
+```{r}
+#| label: raw-team-wo-header
+team_wo_header <- read_csv("data/team_wo_header.csv")
+
+team_wo_header %>% head()
+```
+
+Das Argument `col_names` legt fest, **wie die erste Zeile behandelt wird**: Enthält sie nicht die Spaltennamen, setzen wir `col_names = FALSE`, und R erzeugt die Spaltennamen `X1`, `X2` usw.
+
+```{r}
+#| label: read-team-wo-header
+team_wo_header <- read_csv("data/team_wo_header.csv",
+                           col_names = FALSE)
+
+team_wo_header %>% head()
+```
+
+## Fehlende Werte angeben: `na = "null"`
+
+In R werden **fehlende Werte als `NA` angegeben**. Andere Programme kennzeichnen einen fehlenden Wert jedoch auf andere Weise, z. B. mit `null`. Schauen Sie sich den Datensatz `team_missing.csv` an:
+
+![](images/team_missing_csv.png){fig-alt="Die Datei team_missing.csv in einem Texteditor: die Teamdaten, bei denen bei einigen Gewichten und Grössen das Wort null steht." fig-align="center" width="40%"}
+
+Beim Import mit `read_csv()` werden diese Werte als **Zeichenkette `"null"`** gelesen, und jede Spalte, die eine solche enthält, wird als Text importiert, auch wenn sie Zahlen enthält:
+
+```{r}
+#| label: read-team-missing
+team_missing <- read_csv("data/team_missing.csv")
+team_missing
+```
+
+Mit `na = "null"` ist das Problem gelöst: `null` wird als `NA` gelesen, und die numerischen Spalten sind wieder Zahlen.
+
+```{r}
+#| label: read-team-missing-na
+team_missing <- read_csv("data/team_missing.csv",
+                         na = "null")
+team_missing
+```
+
+## Metadaten überspringen: `skip = 3`
+
+Manche Textdateien enthalten in ihren ersten Zeilen eine **Beschreibung der Daten**, die man manchmal «Metadaten» nennt. Die Datei `team_meta.csv` beginnt mit drei solchen Zeilen: zwei Notizzeilen und einer leeren Zeile.
+
+![](images/team_meta_csv.png){fig-alt="Die Datei team_meta.csv in einem Texteditor: zwei Notizzeilen, 'The physiological data of team members' und 'Only for internal use!', eine leere Zeile, dann die Kopfzeile und die Teamdaten." fig-align="center" width="40%"}
+
+Liest man sie unverändert ein, geraten die Metadaten in die Daten:
+
+```{r}
+#| label: read-team-meta-default
+team_meta <- read_csv("data/team_meta.csv")
+team_meta
+```
+
+Beim Import in ein Tibble **müssen diese Zeilen übersprungen werden**. Das Argument `skip` gibt `read_csv()` an, wie viele Zeilen übersprungen werden:
+
+```{r}
+#| label: read-team-meta
+team_meta <- read_csv("data/team_meta.csv",
+                      skip = 3)
+team_meta
+```
+
+## Sonderzeichen richtig lesen: `locale`
+
+Dateien in einer **Sprache mit Sonderzeichen** (z. B. Französisch, Deutsch usw.) können verstümmelt ankommen, weil `read_csv()` die falsche **Zeichenkodierung** (encoding) errät. Die Datei `cities.csv` enthält zwei Schweizer Städtenamen:
+
+![](images/cities_csv.png){fig-alt="Der Inhalt von cities.csv als Tabelle mit den Spalten name und population: Neuchâtel, 32819, und Zürich, 402762." fig-align="center" width="30%"}
+
+Vergleichen Sie die Ausgabe der folgenden Code-Chunks. Mit `locale = locale(encoding = "latin1")` wird die Datei mit der Kodierung `latin1` gelesen, sodass die Sonderzeichen korrekt importiert werden.
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-cities
+#| error: true
+cities <- read_csv("data/cities.csv")
+cities
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: read-cities-latin1
+cities <- read_csv(
+  "data/cities.csv",
+  locale = locale(encoding = "latin1"))
+cities
+```
+:::
+::::
+
+## 💡 Nutze die ~~Macht~~ <kbd>Tab</kbd>-Taste
+
+::: callout-tip
+Wenn Sie den genauen Namen eines Arguments nicht mehr wissen, setzen Sie den Cursor zwischen die Klammern und drücken Sie <kbd>Tab</kbd>. Die Liste der Argumente der Funktion erscheint: Sie können das gewünschte auswählen und sogar eine kurze Beschreibung lesen.
+:::
+
+## Andere Trennzeichen, dieselben Argumente
+
+Da `read_csv()` ein Komma (`,`) als Trennzeichen verwendet, geht die Funktion davon aus, dass das **Dezimalzeichen ein Punkt (`.`)** ist. Sonst würde sie Dezimalzeichen mit Trennzeichen verwechseln!
+
+-   In Ländern mit **Dezimalkomma** ist das **Trennzeichen meist ein Semikolon (`;`)**. Für solche Dateien hat `read_csv()` einen Zwilling: `read_csv2()`.
+-   Zwei weitere Funktionen, `read_tsv()` und `read_delim()`, lesen tabulatorgetrennte Dateien und Dateien mit jedem anderen Trennzeichen.
+-   Ein weiterer Vorteil von `{readr}`: Alle Argumente, die wir gesehen haben, gibt es auch in diesen Funktionen.
+
+Die folgende Tabelle fasst die Funktionen von `{readr}` und ihre Trennzeichen zusammen.
+
+```{r, echo=FALSE}
+#| label: table-readr-functions
+tribble(
+  ~ `Funktion`, ~ `Trennzeichen`, ~ `Standard-Dezimalzeichen`,
+  "`read_csv()`", "`,` (Komma)", "`.` (Punkt)",
+  "`read_csv2()`", "`;` (Semikolon)", "`,` (Komma)",
+  "`read_tsv()`", "Tabulator", "`.` (Punkt)",
+  "`read_delim()`", "Beliebig", "`.` (Punkt)",
+) %>%
+  knitr::kable()
+```
+
+# 📗 Excel-Dateien
+
+## `{readxl}` liest Excel-Arbeitsmappen
+
+MS Excel ist eines der beliebtesten Formate, um kleine Datensätze zu speichern. Schauen wir uns also an, **wie man Daten aus Excel-Dateien importiert**, die meist die Endung `.xls` oder `.xlsx` haben.
+
+Wir verwenden das Paket `{readxl}`. Es wird zusammen mit dem `{tidyverse}` installiert, gehört aber nicht zu dessen Kern, sodass `library(tidyverse)` es nicht lädt. Falls es auf Ihrem System fehlt, installieren Sie es:
+
+``` r
+install.packages("readxl")
+```
+
+::: callout-warning
+## Hinweis
+
+Auf Renku müssen Sie das nicht tun, das Paket ist bereits installiert!
+:::
+
+Sobald es installiert ist, laden wir es:
+
+```{r}
+#| label: attach-readxl
+library(readxl)
+```
+
+Um Daten aus Excel in R einzulesen, hat `{readxl}` mehrere Funktionen. Wie bei `{readr}` ist das **erste Argument** der **Pfad** zur Datei.
+
+| Funktion | Dateiendung |
+|----------|-----------|
+| `read_xls()` | `.xls` |
+| `read_xlsx()` | `.xlsx` |
+| `read_excel()` | errät die Dateiendung |
+
+## Beispiel: `team.xlsx` einlesen
+
+Öffnen Sie die Datei `team.xlsx` (mit MS Excel) und schauen Sie sich an, wie sie aufgebaut ist:
+
+![](images/team_xlsx.png){fig-alt="Die Datei team.xlsx in Excel: ein einziges Blatt, Sheet 1, mit den Spaltennamen name, gender, weight, height und bmi in Zeile 1 und darunter einem Teammitglied pro Zeile." fig-align="center" width="50%"}
+
+Importieren wir sie dann in R und speichern ihren Inhalt im Objekt `team`:
+
+```{r}
+#| label: read-team-xlsx
+team <- read_xlsx("data/team.xlsx")
+team
+```
+
+## Excel-Dateien sind noch unordentlicher!
+
+Excel-Dateien sind nicht immer sauber und aufgeräumt. Öffnen Sie zum Beispiel die Datei `je-e-06.02.00.01.02.xlsx` und überzeugen Sie sich selbst: Es ist eine **Excel-Arbeitsmappe** mit mehreren **Blättern**, und die Tabelle steht irgendwo mitten in den **Zellen**.
+
+![](images/je-e-06.02.00.01.02.gif){fig-alt="Die Arbeitsmappe je-e-06.02.00.01.02.xlsx in Excel, auf dem Blatt Women. Die Zeilen 1 bis 4 enthalten Titel und Notizen, die Zeilen 6 und 7 die Jahre und Quartale, und die Werte nach Wirtschaftsabschnitten beginnen in Zeile 9 und erstrecken sich über viele Spalten." fig-align="center"}
+
+Am Ende dieses Abschnitts können Sie die Daten, die Sie brauchen, aus dieser Datei herausholen. Diese Argumente verwenden wir dafür:
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Ein Aufruf von read_excel() mit den Argumenten file, sheet, range und col_names, jeweils mit einem Pfeil zu dem, was sie in einer Excel-Arbeitsmappe steuern: der Dateiname, das zweite Blatt, der Zellbereich C3:G23 mit der Tabelle und deren Kopfzeile."}
+#| label: img-read-excel-arguments
+knitr::include_graphics("images/2-excel.png")
+```
+
+## Welches Blatt importieren: `sheet`
+
+Eine Excel-Datei (eine Arbeitsmappe) kann mehrere **Blätter** (sheets) haben. Standardmässig importieren die Funktionen von `{readxl}` das **erste Blatt**. Das Argument **`sheet`** legt fest, **welches Blatt importiert wird**. Es kann als **Name des Blatts** angegeben werden, z. B. `sheet = "Women"`, oder als **seine Position** in der Arbeitsmappe, z. B. `sheet = 4`.
+
+![](images/je-e-06.02.00.01.02_sheet.png){fig-alt="Die Arbeitsmappe je-e-06.02.00.01.02.xlsx in Excel, unten mit den Blattregistern Total, Seasonally adjusted total, Men und Women. Das Register Women ist eingekreist." fig-align="center" width="70%"}
+
+Importieren wir das Blatt `"Women"` aus `je-e-06.02.00.01.02.xlsx`:
+
+```{r}
+#| label: read-women-sheet
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women"
+)
+
+women_jobs %>% head()
+```
+
+::: callout-important
+## Moment!
+
+Die Daten sind importiert, aber noch nicht brauchbar.
+:::
+
+## Welche Zellen importieren: `range`
+
+Das Blatt anzugeben reicht hier nicht: Die Tabelle beginnt nicht oben links im Blatt, und die **Daten sind überall verteilt**, sodass das Überspringen von Zeilen (mit `skip`) nicht hilft. Ausserdem interessiert uns vielleicht nur ein Teil der Zellen.
+
+Mit dem Argument `range` geben wir ein **Rechteck aus Zellen** über seine Zelle **oben links** und seine Zelle **unten rechts** an, getrennt durch einen Doppelpunkt (`:`). Zum Beispiel importiert `range = "B2:K14"` die Daten im Rechteck zwischen den Zellen B2 und K14. In unserer Datei liegt die Tabelle zwischen den Zellen A9 und DP72:
+
+![](images/je-e-06.02.00.01.02_sheet_range.png){fig-alt="Das Blatt Women von je-e-06.02.00.01.02.xlsx in Excel, mit umrandeten Zellen ab A9 nach unten und nach rechts: der zu importierende Wertebereich, ohne Titel, Notizen und Kopfzeilen darüber." fig-align="center" width="70%"}
+
+```{r}
+#| label: read-women-range
+women_jobs <- read_xlsx(
+  "data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72"
+)
+
+women_jobs
+```
+
+::: callout-important
+## Fast geschafft!
+
+Wir sind einen Schritt weiter, aber die **Spaltennamen enthalten Werte**.
+:::
+
+## Wenn die erste Zeile Daten enthält: `col_names = FALSE`, schon wieder
+
+Im letzten Schritt setzen wir ein Argument, das wir bereits kennen: `col_names = FALSE`.
+
+```{r}
+#| label: read-women-col-names
+women_jobs <- read_xlsx("data/je-e-06.02.00.01.02.xlsx",
+  sheet = "Women",
+  range = "A9:DP72",
+  col_names = FALSE
+)
+
+women_jobs
+```
+
+::: callout-important
+## Achten Sie auf die Namen
+
+Anders als `readr::read_csv()` benennt `{readxl}` die Spalten `...1`, `...2` usw.
+:::
+
+# 📊 Dateien aus Statistiksoftware
+
+## `{haven}` liest SAS-, SPSS- und Stata-Dateien
+
+Daten können auch in einem Dateiformat vorliegen, das von Statistiksoftware wie SAS, SPSS oder Stata erzeugt wurde. Solche Daten lassen sich mit dem Paket `{haven}` importieren, das Dateien vom Typ `.sas7bdat`, `.sas7bcat`, `.xpt`, `.sav`, `.por` und `.dta` liest und schreibt.
+
+Die folgende Tabelle fasst zusammen, welche Funktion Sie verwenden:
+
+```{r, echo=FALSE}
+#| label: handout-table-haven-functions
+tribble(
+  ~ `Dateiendung`, ~ `Software`, ~ `Funktion`,
+  "`.sas7bdat`", "SAS", "`read_sas()`",
+  "`.sas7bcat`", "SAS", "`read_sas()`",
+  "`.xpt`", "SAS", "`read_xpt()`",
+  "`.sav`", "SPSS", "`read_sav()`",
+  "`.por`", "SPSS", "`read_por()`",
+  "`.dta`", "Stata", "`read_dta()`"
+) %>%
+  knitr::kable()
+```
+
+```{r, echo=FALSE, out.width="70%", fig.alt="Das Paket {haven} importiert Dateien aus Statistiksoftware in R: read_sas() und read_xpt() für SAS, read_dta() für Stata, read_sav() und read_por() für SPSS."}
+#| label: img-haven
+knitr::include_graphics("images/3-other.png")
+```
+
+## Beispiel: eine SAS-Datei einlesen
+
+Importieren wir zum Beispiel eine SAS-Datendatei mit `read_sas()`:
+
+```{r}
+#| label: read-mtcars-sas
+library(haven)
+
+mtcars_data <- read_sas("data/mtcars.sas7bdat")
+
+mtcars_data
+```
+
+Da diese Dateitypen sehr speziell sind, gehen wir nicht auf jedes einzelne Argument ein. Sie können aber jederzeit die Dokumentation lesen, z. B. `?read_sas`!
+
+## Zeit für eine Übung!
+
+::: callout-important
+## An die Arbeit!
+
+Öffnen Sie das Übungs-Notebook `_exercises/exercise-notebook.qmd` und lösen Sie **[Übung 1](../_exercises/exercise-notebook.html#exercise-1)**. Bis gleich!
+:::
