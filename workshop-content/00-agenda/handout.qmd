@@ -2,17 +2,7 @@
 title: "Agenda and Objectives"
 subtitle: "Basics of Data Science Workshop"
 author: "**EPFL Extension School**"
-format: 
-  revealjs:
-    slide-level: 2
-    transition: slide
-    background-transition: fade
-    footer: "Basics of Data Science Workshop"
-    slide-number: true
-    df-print: paged
-    embed-resources: true
-    output-file: "presentation"
-    css: ../assets/css/exts-reveal.css
+format:
   html:
     theme: simplex
     number-sections: true
@@ -26,11 +16,15 @@ format:
     title-block-banner: "#413D3A"
     title-block-banner-color: "White"
     embed-resources: true
-    output-file: "handout"
     css: ../assets/css/styles-html.css
+    other-links:
+      - text: Slides
+        href: presentation.html
+        icon: easel
 ---
 
 ```{r echo=FALSE}
+#| label: setup
 knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
@@ -40,6 +34,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r include=FALSE}
+#| label: packages
 library(tidyverse)
 library(knitr)
 
@@ -64,8 +59,9 @@ library(knitr)
 ## Thursday
 
 ```{r}
+#| label: agenda-thursday
 agenda_thursday <- tribble(
-  ~Time, ~Topic,
+  ~"Time", ~"Topic",
   "08:30 - 08:50", "Renku set-up & Prework",
   "08:50 - 09:00", "Welcome",
   "09:00 - 09:35", "Introduction to R",
@@ -85,8 +81,9 @@ agenda_thursday %>%
 ## Friday 
 
 ```{r}
+#| label: agenda-friday
 agenda_friday <- tribble(
-  ~Time, ~Topic,
+  ~"Time", ~"Topic",
   "08:30 - 08:45", "Recap",
   "08:45 - 10:00", "Data wrangling (Part 2) + Exercises 4-5",
   "10:00 - 10:15", "Exercises 4-5: Walkthrough",
