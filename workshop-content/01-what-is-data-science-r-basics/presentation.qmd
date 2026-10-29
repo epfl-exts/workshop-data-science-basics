@@ -6,7 +6,6 @@ format:
   revealjs:
     slide-level: 2
     transition: fade
-    background-transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
     df-print: kable
@@ -444,7 +443,7 @@ For instance:
 ## ▶️ The *Pipe* operator of the `{tidyverse}`
 
 ::: {.content-box-marine}
-Allows us to **write code *sequentially*** which makes it **easy to read and write** complex calls.
+**Write code *sequentially*** which makes it **easy to read and write** complex calls.
 :::
 
 . . .

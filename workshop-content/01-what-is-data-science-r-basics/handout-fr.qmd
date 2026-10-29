@@ -1,0 +1,410 @@
+---
+title: "Une brève introduction à la science des données"
+subtitle: "Avec des exemples en R et le `{tidyverse}`"
+lang: fr
+translated-from: "86f4c2c26ba0ee0216609fd9036e7a853864773c"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    number-depth: 1
+    code-fold: show
+    highlight-style: github
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Diapositives
+        href: presentation-fr.html
+        icon: easel
+---
+
+<!-- Translation of handout.qmd. Don't change the structure here: change handout.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+```
+
+```{r r_setup, include = FALSE}
+library(tidyverse)
+```
+
+# 📊 Qu'est-ce que la science des données ?
+
+## Une définition **_pratique_**
+
+C'est sans doute la première question qui vous vient à l'esprit quand vous abordez la science des données. Selon nous, une première réponse vient de la pratique, c'est-à-dire de ce que la science des données _fait_. Citons un [article d'Ally Heinrich sur le blog de la Harvard Business School](https://online.hbs.edu/blog/post/data-analytics-vs-data-science) (c'est nous qui soulignons et qui traduisons) :
+
+![](images/chrome-capture-2026-10-15.png){fig-alt="Une capture d'écran du titre de l'article de blog de la HBS" fig-align="center" width="90%"}
+
+> La science des données consiste à **collecter, préparer, modéliser et analyser des données** pour développer des capacités prédictives et résoudre des problèmes complexes.
+>
+> Comme le note [le professeur de la HBS Karim] Lakhani dans Data Science and AI for Decision Making, la science des données « vise à **transformer des données brutes** en une **compréhension concrète** qui **éclaire les décisions**. »
+>
+> Pour y parvenir, les data scientists s'appuient sur une combinaison d'outils techniques et de méthodes [...]
+
+## En théorie
+
+En théorie, la science des données consiste à mobiliser un **ensemble** de **pratiques** et de **compétences** pour répondre à une **question** de recherche qui fait intervenir des **données**. Trois domaines de compétences se rejoignent :
+
+-   l'**informatique**, pour collecter, stocker et traiter les données avec du code,
+-   les **mathématiques et la statistique**, pour modéliser les données et quantifier l'incertitude,
+-   l'**expertise métier**, pour poser les bonnes questions et interpréter les réponses.
+
+Aucun ne suffit à lui seul : la science des données se situe là où les trois se chevauchent.
+
+![](images/fig-data-science.png){fig-alt="Les trois cercles qui se chevauchent de la science des données : informatique, mathématiques et statistique, et expertise métier. La science des données se situe là où les trois se rencontrent." fig-align="center" width="80%"}
+
+## En pratique
+
+En pratique, un projet de science des données demande de **maîtriser** le **pipeline de données**, c'est-à-dire la suite d'étapes qui mène des données brutes aux enseignements :
+
+-   📥 **Importer** : *charger* les données dans notre outil d'analyse
+-   🧹 **Préparer** : *nettoyer* et *transformer* les données
+-   🔍 **Comprendre** : grâce à des *visualisations* et des *modèles*
+-   📄 **Communiquer** : *présenter* vos résultats
+
+Ce workshop suit ces étapes : vous rédigerez vos analyses dans des **notebooks**, qui aident à communiquer, puis vous apprendrez à **importer**, **manipuler** (préparer et transformer) et **visualiser** des données.
+
+## Le pipeline de données
+
+Sous forme de schéma, le pipeline ressemble à ceci :
+
+![](images/fig-data-pipeline-empty.png){fig-alt="Le pipeline de données sous forme de flux : importer, puis préparer, puis une boucle transformer, visualiser et modéliser, puis communiquer." fig-align="center" width="90%"}
+
+Remarquez que transformer, visualiser et modéliser forment une **boucle** : on comprend rarement des données du premier coup. Un graphique soulève une nouvelle question, qui demande une nouvelle transformation, et ainsi de suite, jusqu'à obtenir quelque chose qui mérite d'être communiqué.
+
+# Qu'est-ce que R ?
+
+## Un bref aperçu
+
+**R** est un **langage de programmation** open source conçu pour le **calcul statistique**. Il est gratuit et fonctionne sous Windows, macOS et Linux.
+
+Sa force vient de ce qu'il est **très extensible grâce aux `{packages}`**, que **tout le monde peut développer**. Un package est une **collection de fonctions** qui étend ce que R sait faire : il existe des packages pour lire presque tous les formats de fichiers, ajuster des modèles statistiques, dessiner des graphiques, rédiger des rapports...
+
+## **R**, votre **établi**
+
+Vous pouvez voir R comme votre établi, où :
+
+-   les **données** sont les **matériaux** avec lesquels vous travaillez (métal ou bois),
+-   les **fonctions** sont les **outils** qui servent à transformer les matériaux (scies, marteaux, pinces),
+-   les **packages** sont les **boîtes à outils** qui rassemblent tout un tas d'outils utiles.
+
+## `{tidyverse}` : une autre façon de faire du R
+
+**R** de base est **puissant**, mais un peu **difficile à apprendre**. Cela tient à de nombreux facteurs, parmi lesquels :
+
+-   Des fonctions portant le même nom existent dans différents packages, ce qui provoque des erreurs et demande de bien préciser l'*espace de noms* (*namespacing*).
+-   La sortie d'une fonction ne devient pas facilement l'entrée d'une autre, surtout quand elles viennent de packages différents, si bien qu'il faut sans cesse transformer les données.
+
+Au cœur de ce dernier problème se trouve le fait que les `lists` (listes) sont la structure de données privilégiée. Elles sont très souples, mais cette liberté a pour prix ces incohérences : chaque package, et chaque développeur ou développeuse, peut avoir **sa propre façon d'organiser les données**.
+
+![](images/tidydata_2-1-mod.png){fig-alt="Dessin de quatre tableaux désordonnés, chacun à sa manière : l'un a des valeurs dans ses colonnes et des variables dans ses lignes, un autre a des variables à la fois dans ses colonnes et ses lignes, un autre a plusieurs variables dans une seule colonne, et le dernier ne sait même pas ce qui ne va pas chez lui." fig-align="center" width="80%"}
+
+Voici le **`{tidyverse}`**, « une collection de packages *qui a des partis pris* ». Par là, on entend qu'il établit des règles pour écrire du code R et mener des tâches de science des données. L'une de ces règles veut que les données soient **organisées d'une seule manière cohérente**, appelée **données « tidy »** (données bien rangées) :
+
+-   chaque **variable** forme une **colonne**,
+-   chaque **observation** forme une **ligne**,
+-   chaque **cellule** est une **mesure unique**.
+
+![](images/tidydata_1.jpg){fig-alt="La définition de Hadley Wickham, « Tidy data is a standard way of mapping the meaning of a dataset to its structure » (les données bien rangées font correspondre de manière standard le sens d'un jeu de données à sa structure), avec les trois règles des données bien rangées : chaque variable forme une colonne, chaque observation forme une ligne, chaque cellule est une mesure unique, à côté d'un petit tableau d'exemple." fig-align="center" width="80%"}
+
+Comme tous les jeux de données bien rangés suivent les mêmes règles, ils se ressemblent tous, et les mêmes outils fonctionnent sur chacun d'eux :
+
+![](images/tidydata_2-2-mod.jpg){fig-alt="Dessin de trois tableaux bien rangés et joyeux qui disent ensemble : nos colonnes sont des variables et nos lignes sont des observations !" fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrations tirées de l'article de blog [Openscapes](https://www.openscapes.org) [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) de Julia Lowndes et Allison Horst
+:::
+:::
+
+# Pourquoi R et le `{tidyverse}` ?
+
+Avec la collection `{tidyverse}`, il est **facile de maîtriser le pipeline de données** dans R ! Chaque package attend des données bien rangées et renvoie des données bien rangées, si bien que la sortie d'une étape est directement l'entrée de la suivante :
+
+![](images/tidydata_5.jpg){fig-alt="Un dessin du pipeline de données : chaque étape produit des données bien rangées que l'étape suivante utilise, jusqu'à un résultat final que l'on peut partager." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrations tirées de l'article de blog [Openscapes](https://www.openscapes.org) [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) de Julia Lowndes et Allison Horst
+:::
+:::
+
+Il existe un package du `{tidyverse}` pour chaque étape du pipeline. Voici ceux que vous utiliserez dans ce workshop :
+
+![](images/fig-data-pipeline-packages-today.png){fig-alt="De nouveau le pipeline de données, avec le package du tidyverse utilisé à chaque étape : readr pour importer, tidyr et dplyr pour préparer et transformer, ggplot2 pour visualiser et R Markdown pour communiquer." fig-align="center" width="90%"}
+
+# Rappel du prework
+
+## L'IDE RStudio
+
+Avant le workshop, vous avez lancé une session Renku et découvert l'IDE RStudio (*Integrated Development Environment*, environnement de développement intégré). Ses deux panneaux (panes) les plus importants sont :
+
+-   La **Console** : R y évalue ce que vous tapez, une ligne à la fois.
+-   L'**éditeur Source** : vous y *enregistrez* le code que vous voulez conserver.
+
+![](images/rstudio_ide.png){fig-alt="L'interface de RStudio, avec l'éditeur Source et la Console mis en évidence" fig-align="center" width="90%"}
+
+## Ce que vous connaissez déjà
+
+Dans le prework, vous avez aussi découvert deux éléments de base du code R :
+
+-   Les **variables**, assignées avec `<-`, p. ex.
+
+```r
+x <- 5
+```
+
+-   Les **commentaires**, écrits après un `#`, que R n'évalue pas. Ce sont des notes pour les humains qui lisent le code :
+
+```r
+> # Code qui n'est pas évalué
+> print("Code qui est évalué")
+[1] "Code qui est évalué"
+```
+
+# Au-delà du prework
+
+Allons un peu plus loin et voyons comment **R** et le `{tidyverse}` gèrent :
+
+-   🗄️ Les jeux de données
+-   🧰 L'utilisation des packages
+-   ⁉️ La documentation
+-   ▶️️ L'opérateur pipe
+
+## 🗄️ Jeux de données
+
+Pour travailler avec des données dans R, **assignez le jeu de données** à une **variable**. Ici, `read_csv()` lit le fichier `rolling_stones.csv` du dossier `data`, et `<-` stocke son contenu dans la variable `rolling_stones_data` :
+
+```{r}
+#| label: read-rolling-stones
+rolling_stones_data <- read.csv("data/rolling_stones.csv")
+```
+
+Le jeu de données est maintenant disponible dans votre session, et vous pouvez l'examiner, p. ex. ses premières lignes :
+
+```{r}
+#| label: preview-rolling-stones
+head(rolling_stones_data, 3)
+```
+
+Remarquez les abréviations sous les noms de colonnes, comme `<chr>` (texte), `<dbl>` (nombres) et, dans la dernière colonne, `<lgl>` (`TRUE`/`FALSE`) : **chaque colonne a un type**. Nous reviendrons sur les types tout au long du workshop.
+
+## 🗄️ Jeux de données dans des variables
+
+Vous pouvez **utiliser plusieurs jeux de données** dans votre session, en **les stockant dans différentes variables** :
+
+```{r eval=FALSE}
+#| label: read-two-datasets
+# lire un jeu de données : rolling_stones
+rolling_stones_data <- read_csv("data/rolling_stones.csv")
+
+# lire un autre jeu de données : sales
+sales_data <- read_tsv("data/sales_data.tsv", skip = 3)
+```
+
+Les données de ventes sont séparées par des *tabulations*, d'où `read_tsv()`, et leurs trois premières lignes forment un en-tête de rapport, que `skip = 3` permet de sauter. Vous apprendrez ces fonctions dans le module sur l'import de données.
+
+## 🗄️ Types de données
+
+Observez la sortie de `slice_head()` (la fonction qui vous donne la première ligne d'un jeu de données). Remarquez-vous quelque chose ? Au-dessus de chaque colonne figure `chr`, `numeric`, etc. Cela indique le *type* de données que contient la colonne. Outre les types courants (_double_ pour les données numériques, _character_ pour le texte), R en prend en charge quelques autres.
+
+| type de données | affichage dans R | exemple |
+|-----------|--------------|---------|
+| character (texte) | `chr`        | `"bonjour"`, `"Rolling Stones"` |
+| integer (entier) | `int`        | `1`, `42`, `2024` |
+| double (décimal) | `dbl`       | `3.14`, `2.5` |
+| logical (logique) | `lgl`        | `TRUE`, `FALSE` |
+| factor (facteur) | `fct`        | `"bas"`, `"haut"` |
+| date | `date`       | `2024-01-31` |
+
+## 🗄️ Formats de données
+
+Dans ce workshop, nous nous concentrons sur les **données qui se présentent sous forme de tableaux**, comme dans **MS Excel**. Mais R prend en charge de nombreuses **structures de données différentes**, grâce à des **packages** dédiés :
+
+-   des bases de données **structurées**, comme une base de données **SQL**,
+-   des formats **semi-structurés**, comme les fichiers **json** et **xml**,
+-   du **texte brut** et du **code html**,
+-   et même des **données STATA, SAS et SPSS**.
+
+En bref : avec **R**, nous ne sommes pas limités à un format de données particulier.
+
+## 🧰 Packages
+
+Nous l'avons dit : **R** est très extensible grâce aux *packages*. Ils fonctionnent comme les *plugins* d'Excel, de Photoshop ou de votre navigateur web : quoi que vous ayez à faire, il y a de fortes chances qu'« il existe un package pour ça ».
+
+Dans un projet, on n'utilise que les outils dont on a besoin. On **ne charge** donc **que** les packages **dont on a besoin**. (Après tout, personne n'aime un établi en désordre !)
+
+## 🧰 Installer et charger des packages R
+
+Pour **utiliser** les fonctions d'un package, il faut faire **deux choses** :
+
+1.  **Installer** le package. Il suffit de le faire **une seule fois** sur un ordinateur, alors **ne l'incluez pas** dans votre **code source** :
+
+``` r
+# installer le package dplyr
+install.packages("dplyr")
+```
+
+2.  **Charger** le package (*attach*). C'est à faire dans **chaque session**, alors **incluez-le** dans votre **code source** :
+
+``` r
+# charger le package dplyr
+library(dplyr)
+```
+
+::: callout-note
+Sur Renku, les packages de ce workshop sont déjà installés : il vous suffit de les charger.
+:::
+
+## 🧰 Exemple : utiliser `dplyr::slice_head()`
+
+La fonction `slice_head()` permet d'afficher **la ou les premières lignes** d'un jeu de données. Elle fait partie du package `{dplyr}` : la notation `dplyr::slice_head()` le rend explicite. Voyons un exemple :
+
+```{r}
+#| include: false
+#| label: detaching dplyr
+detach(package:dplyr, unload=TRUE)
+```
+
+Si le package n'est pas chargé, appeler la fonction produit une erreur :
+
+```{r}
+#| label: slice-head-cars-wo-dplyr
+#| error: true
+
+# slice_head() sur cars sans dplyr
+slice_head(cars)
+```
+
+Si l'on charge `{dplyr}` avant d'appeler `slice_head()` sur le jeu de données `cars`, on obtient le résultat attendu.
+
+```{r}
+#| label: slice-head-cars-with-dplyr
+# charger le package
+library(dplyr)
+
+# slice_head() sur cars avec dplyr
+slice_head(cars)
+```
+
+**Ça marche !!**
+
+## ⁉ Demander de l'aide
+
+:::: {.columns}
+::: {.column width="50%"}
+Pour savoir ce que fait une fonction, il suffit de taper :
+
+1.  un point d'interrogation `?`
+2.  le nom de la fonction sur laquelle vous voulez en savoir plus
+
+Par exemple :
+
+``` r
+?slice_head()
+```
+
+La documentation s'ouvre dans le panneau **Help**. Elle décrit ce que fait la fonction et ses arguments, et se termine généralement par des exemples que vous pouvez copier.
+:::
+
+::: {.column width="50%"}
+![](images/help.png){fig-alt="Le panneau Help de RStudio, qui affiche la page de documentation d'une fonction : sa description, son utilisation et ses arguments." fig-align="center"}
+:::
+::::
+
+## ▶️ L'opérateur *pipe* du `{tidyverse}`
+
+Le *pipe* `%>%` permet d'**écrire du code *étape par étape***, ce qui rend les appels complexes **faciles à lire et à écrire**. Il **transmet le membre de gauche** comme **premier argument** de la fonction suivante.
+
+Par exemple, représentons la densité de la variable `speed` du jeu de données `cars`. Sans le pipe, les appels sont *imbriqués* et se lisent de l'intérieur vers l'extérieur ; avec le pipe, ils se lisent de gauche à droite :
+
+``` r
+# imbriqué
+plot(density(cars$speed))
+
+# avec le pipe
+cars %>% pull(speed) %>% density() %>% plot()
+```
+
+La deuxième ligne peut se « lire » ainsi :
+
+> « *prends le jeu de données `cars`, **puis** extrais la variable `speed` avec `pull()`, **puis** calcule la densité avec `density()`, **puis** construis un graphique avec `plot()`.* »
+
+Pour taper le pipe, utilisez le raccourci <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>M</kbd> (<kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>M</kbd> sur Mac).
+
+## ▶️ `%>%` ou `|>` ?
+
+Depuis la version 4.1, R dispose aussi d'un **pipe natif** `|>`, intégré au langage.
+
+``` r
+cars %>% pull(speed) %>% density() %>% plot() # le pipe du {tidyverse}
+cars |> pull(speed) |> density() |> plot()    # le pipe natif
+```
+
+-   Au quotidien, ils **font la même chose**, et vous rencontrerez les deux dans le code en ligne.
+-   Dans ce workshop, nous utilisons `%>%`.
+
+::: callout-tip
+## Quel pipe le raccourci insère-t-il ?
+
+Dans RStudio, allez dans *Tools* → *Global Options* → *Code* et cherchez *Use native pipe operator, \|\> (requires R 4.1+)*. Non cochée, le raccourci insère `%>%` ; cochée, il insère `|>`. Le projet du workshop est réglé sur `%>%`.
+:::
+
+# Et ensuite ? {.handout-only}
+
+Les sujets suivants suivent le pipeline de données :
+
+-   [Travailler avec des **notebooks R**](../02-working-with-r-markdown/handout-fr.html)
+-   [**Importer** des données](../03-importing-data/handout-fr.html)
+-   [**Manipuler** des données](../04-data-wrangling/handout.html)
+-   [**Visualiser** des données](../05-data-visualisation/handout.html)
+
+# 💾 Info en plus : sauvegarder le travail du jour
+
+## 💾 Sauvegarder un fichier
+
+Votre session Renku est **temporaire** : avant qu'elle ne se termine, **téléchargez** sur votre ordinateur les fichiers que vous souhaitez conserver.
+
+L'essentiel de votre travail se trouve dans **un seul fichier** : le notebook d'exercices.
+
+-   Dans le panneau **Files**, allez dans `workshop-content/_exercises/`.
+-   **Cochez la case** à côté de `exercise-notebook.qmd`.
+-   Cliquez sur **More** ⚙️ → **Export...** → **Download**.
+
+::: callout-tip
+Cochez **un fichier à la fois**. L'export d'un dossier entier échoue sur Renku.
+:::
+
+## 💾 Sauvegarder tous les scripts d'un coup
+
+Pour télécharger **tous vos notebooks et scripts** (`.qmd`, `.Rmd` et `.R`) d'un coup, rassemblez-les d'abord dans une seule archive. Tapez dans la **Console** :
+
+```{r}
+#| label: pack-my-work
+#| eval: false
+tar("my-work.tar.gz",
+    files = list.files("workshop-content",
+                       pattern = "[.](qmd|Rmd|R)$",
+                       recursive = TRUE, full.names = TRUE),
+    compression = "gzip", tar = "internal")
+```
+
+Téléchargez ensuite `my-work.tar.gz` comme décrit plus haut. Sur votre ordinateur, **double-cliquez** dessus pour le décompresser (macOS et Windows 11).
+
+::: callout-important
+Les pages rendues et leurs fichiers annexes peuvent être recréés en relançant le rendu.
+:::

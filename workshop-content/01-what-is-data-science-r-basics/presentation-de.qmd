@@ -1,0 +1,559 @@
+---
+title: "Eine kurze Einführung in Data Science"
+subtitle: "Mit Beispielen in R und dem `{tidyverse}`"
+lang: de
+translated-from: "d725b004ed54a19efbee131a180b310135a3956b"
+author: "**EPFL Extension School**"
+format:
+  revealjs:
+    slide-level: 2
+    transition: fade
+    footer: "Workshop Grundlagen der Data Science"
+    slide-number: true
+    df-print: kable
+    embed-resources: true
+    width: 1440
+    height: 810
+    output-file: "presentation-de"
+    code-line-numbers: false
+    css: ../assets/css/exts-reveal.css
+---
+
+<!-- Translation of presentation.qmd. Don't change the structure here: change presentation.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+```
+
+```{r r_setup, include = FALSE}
+library(tidyverse)
+```
+
+# 📊 Was ist Data Science? {.subsection background-color="#425556"}
+
+## Eine **_praktische_** Definition {background-image="images/chrome-capture-2026-10-15.png" background-size="300px" background-position="90% 10%" background-opacity="0.5"}
+
+Data Science lässt sich über das definieren, was sie **_tut_**[^1]:
+
+. . .
+
+>  [...] Data Science dreht sich um das **Sammeln, Aufbereiten, Modellieren und Analysieren von Daten**, um Vorhersagen zu ermöglichen und komplexe Probleme zu lösen.
+
+. . .
+
+> [...] Data Science «konzentriert sich darauf, **Rohdaten** in **praktisches Verständnis** zu **verwandeln**, das Entscheidungen unterstützt.»
+
+. . .
+
+> Dazu nutzen Data Scientists eine **Kombination aus technischen Werkzeugen und Methoden** [...]
+
+[^1]: Heinrich, Ally. "What's the Difference between Data Analytics & Data Science?" Harvard Business School, 18. Juni 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Abgerufen am 15. Okt. 2026. Zitate übersetzt.
+
+## In der Theorie
+
+> [...] Data Scientists nutzen eine **Kombination aus technischen Werkzeugen und Methoden**
+
+. . .
+
+![](images/fig-data-science.png){fig-alt="Die drei sich überschneidenden Kreise der Data Science: Informatik, Mathematik und Statistik sowie Fachwissen. Data Science liegt dort, wo sich alle drei treffen." fig-align="center" width="75%"}
+
+## In der Praxis
+
+Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
+
+. . .
+
+:::::: {.columns}
+::::: {.column width="50%"}
+
+:::: {.content-box-oil}
+[📥 **Importieren**]{.box-title}
+
+::: {.content-box-white}
+[Daten in unser Analysewerkzeug *laden*]{.box-body}
+:::
+::::
+
+:::: {.content-box-oil}
+[🧹 **Aufbereiten**]{.box-title}
+
+::: {.content-box-white}
+[Die Daten *bereinigen* und *umformen*]{.box-body}
+:::
+::::
+
+:::::
+
+::::: {.column width="50%"}
+
+:::: {.content-box-oil}
+[🔍 **Verstehen**]{.box-title}
+
+::: {.content-box-white}
+[Mit *Visualisierungen* und *Modellen*]{.box-body}
+:::
+::::
+
+:::: {.content-box-oil}
+[📄 **Kommunizieren**]{.box-title}
+
+::: {.content-box-white}
+[Ihre Erkenntnisse *berichten*]{.box-body}
+:::
+::::
+
+:::::
+::::::
+
+## Die Daten-Pipeline
+
+![](images/fig-data-pipeline-empty.png){fig-alt="Die Daten-Pipeline als Ablauf: importieren, dann aufbereiten, dann eine Schleife aus transformieren, visualisieren und modellieren, dann kommunizieren." fig-align="center" width="90%"}
+
+# Was ist R? {.subsection background-color="#425556"}
+
+## Ein kurzer Überblick{background-image="images/r-logo.png" background-size="150px" background-position="90% 90%"}
+
+:::{.fragment}
+::: {.content-box-oil}
+**R** ist eine Open-Source-**Programmiersprache**, die für **statistische Berechnungen** entwickelt wurde
+:::
+:::
+
+:::{.fragment}
+::: {.content-box-oil}
+**R** ist durch **`{packages}` (Pakete) sehr gut erweiterbar**, die **jede und jeder entwickeln kann**.
+:::
+:::
+
+:::{.fragment}
+::: {.content-box-oil}
+**Pakete** sind **Sammlungen von Funktionen**, die den Funktionsumfang von R erweitern.
+:::
+:::
+
+## **R** als Ihre **Werkbank** {background-image="images/elmer-canas-1UimDTf69ho-unsplash.jpg"background-position="cover" background-opacity="0.3"}
+
+:::{.fragment}
+::: {.content-box-oil}
+**Daten**: das **Material**, mit dem Sie arbeiten (Metall oder Holz)
+:::
+:::
+
+. . .
+
+:::{.fragment}
+::: {.content-box-oil}
+**Funktionen**: die **Werkzeuge**, mit denen Sie das Material bearbeiten (Säge, Hammer, Zange)
+:::
+:::
+
+. . .
+
+:::{.fragment}
+::: {.content-box-oil}
+**Pakete**: die **Werkzeugkisten** mit einer Menge nützlicher Werkzeuge.
+:::
+:::
+
+## `{tidyverse}`: Eine andere Spielart von R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
+
+Base **R** ist **mächtig**, aber etwas **schwer zu erlernen**
+
+::: {.content-box-marine}
+Eines der Hauptprobleme: **viele verschiedene Arten, Daten zu organisieren**.
+:::
+
+## {.center}
+
+![](images/tidydata_2-1-mod.png){fig-alt="Cartoon mit vier unordentlichen Tabellen, jede auf ihre eigene Art: eine hat Werte in den Spalten und Variablen in den Zeilen, eine hat Variablen sowohl in Spalten als auch in Zeilen, eine hat mehrere Variablen in einer einzigen Spalte, und die letzte weiss selbst nicht, was mit ihr los ist." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrationen aus dem [Openscapes](https://www.openscapes.org)-Blogbeitrag [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) von Julia Lowndes und Allison Horst
+:::
+:::
+
+## `{tidyverse}`: Eine andere Spielart von R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
+
+Auftritt **`{tidyverse}`**, «eine *meinungsstarke* Sammlung von Paketen»
+
+::: {.content-box-marine}
+Die Daten sind auf **eine einzige, einheitliche Weise organisiert**: **«tidy» Daten** (aufgeräumte Daten).
+:::
+
+## {.center}
+
+![](images/tidydata_1.jpg){fig-alt="Hadley Wickhams Definition, «Tidy data is a standard way of mapping the meaning of a dataset to its structure» (aufgeräumte Daten bilden die Bedeutung eines Datensatzes auf standardisierte Weise auf seine Struktur ab), mit den drei Regeln für aufgeräumte Daten: jede Variable bildet eine Spalte, jede Beobachtung bildet eine Zeile, jede Zelle ist ein einzelner Messwert, neben einer kleinen Beispieltabelle." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrationen aus dem [Openscapes](https://www.openscapes.org)-Blogbeitrag [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) von Julia Lowndes und Allison Horst
+:::
+:::
+
+## {.center}
+
+![](images/tidydata_2-2-mod.jpg){fig-alt="Cartoon mit drei fröhlichen, aufgeräumten Tabellen, die gemeinsam sagen: Unsere Spalten sind Variablen und unsere Zeilen sind Beobachtungen!" fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrationen aus dem [Openscapes](https://www.openscapes.org)-Blogbeitrag [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) von Julia Lowndes und Allison Horst
+:::
+:::
+
+# Warum R und `{tidyverse}`? {.subsection background-color="#425556"}
+
+# Mit der `{tidyverse}`-Sammlung ist es **einfach, die Daten-Pipeline** in R **zu beherrschen**! {.subsection .slides-only background-color="#425556"}
+
+## {.center}
+
+![](images/tidydata_5.jpg){fig-alt="Ein Cartoon der Daten-Pipeline: Jeder Schritt erzeugt aufgeräumte Daten, die der nächste Schritt weiterverwendet, bis ein teilbares Endergebnis entsteht." fig-align="center" width="80%"}
+
+::: aside
+::: {.tiny}
+Illustrationen aus dem [Openscapes](https://www.openscapes.org)-Blogbeitrag [Tidy Data for reproducibility, efficiency, and collaboration](https://www.openscapes.org/blog/2020/10/12/tidy-data/) von Julia Lowndes und Allison Horst
+:::
+:::
+
+## {.center}
+
+![](images/fig-data-pipeline-packages-today.png){fig-alt="Noch einmal die Daten-Pipeline, mit dem tidyverse-Paket für jeden Schritt: readr zum Importieren, tidyr und dplyr zum Aufbereiten und Transformieren, ggplot2 zum Visualisieren und R Markdown zum Kommunizieren." fig-align="center" width="90%"}
+
+# Prework-Auffrischung {.subsection background-color="#425556"}
+
+## Die RStudio-IDE
+
+![](images/rstudio_ide.png){fig-alt="Die RStudio-Oberfläche, in der der Source-Editor und die Console hervorgehoben sind" fig-align="center" width="90%"}
+
+## Was Sie bereits kennen
+
+- **Variablen**, zugewiesen mit `<-`, z. B.
+```r
+x <- 5
+```
+
+- **Kommentare**, nach einem `#` geschrieben, die R nicht auswertet.
+
+```r
+> # Code, der nicht ausgewertet wird
+> print("Code, der ausgewertet wird")
+[1] "Code, der ausgewertet wird"
+```
+
+# Über das Prework hinaus {.subsection background-color="#425556"}
+
+## Über das Prework hinaus
+
+Schauen wir uns an, wie **R** und das `{tidyverse}` mit folgenden Themen umgehen:
+
+- 🗄️ Datensätze
+- 🧰 Pakete verwenden
+- ⁉️ Dokumentation
+- ▶️️ Der Pipe-Operator
+
+## 🗄️ Datensätze
+
+- Um in R mit Daten zu arbeiten, **weisen Sie den Datensatz** einer **Variablen zu**
+
+```{r}
+#| label: read-rolling-stones
+rolling_stones_data <- read.csv("data/rolling_stones.csv")
+```
+
+. . .
+
+- Für eine Vorschau können Sie einen Teil des Objekts ausgeben, z. B. die ersten drei Zeilen mit `head(3)`
+
+```{r}
+#| label: preview-rolling-stones
+head(rolling_stones_data, 3)
+```
+
+## 🗄️ Datensätze in Variablen
+
+Sie können **mehrere Datensätze** in Ihrer Sitzung **verwenden**, indem Sie sie **in verschiedenen Variablen speichern**
+
+```{r eval=FALSE}
+#| label: read-two-datasets
+# einen Datensatz einlesen: rolling_stones
+rolling_stones_data <- read_csv("data/rolling_stones.csv")
+
+# einen weiteren Datensatz einlesen: sales
+sales_data <- read_tsv("data/sales_data.tsv", skip = 3)
+```
+
+## 🗄️ Datentypen
+
+- `slice_head()` gibt Ihnen die erste Zeile eines Datensatzes
+- Sehen Sie hier `chr`, `numeric` usw.? Das zeigt den *Typ* der Daten in einer Spalte an
+
+. . .
+
+| Datentyp | Anzeige in R | Beispiel |
+|-----------|--------------|---------|
+| character (Text) | `chr`        | `"hallo"`, `"Rolling Stones"` |
+| integer (ganze Zahl) | `int`        | `1`, `42`, `2024` |
+| double (Dezimalzahl) | `dbl`       | `3.14`, `2.5` |
+| logical (logisch) | `lgl`        | `TRUE`, `FALSE` |
+| factor (Faktor) | `fct`        | `"tief"`, `"hoch"` |
+| date (Datum) | `date`       | `2024-01-31` |
+
+## 🗄️ Datenformate
+
+In diesem Workshop konzentrieren wir uns auf **Daten in Tabellenform**, wie in **MS Excel**.
+
+::: {.fragment}
+
+::: {.content-box-marine}
+R unterstützt über spezielle **Pakete** viele **verschiedene Datenstrukturen**:
+:::
+
+:::
+
+::: {.fragment}
+
+| Datenstruktur | Beispiele |
+|----------------|----------|
+| **strukturierte** Datenbanken | **SQL**-Datenbank |
+| **unstrukturierte** Datenbanken | **json**- und **xml**-Dateien |
+| **Rohtext** und **HTML-Code** | reiner Text, Webseiten |
+| Daten aus Statistiksoftware | **STATA**-, **SAS**- und **SPSS**-Daten |
+
+:::
+
+## 🧰 Pakete {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
+
+::: {.content-box-marine}
+Wie gesagt: **R** ist durch *Pakete* sehr gut erweiterbar.
+:::
+
+-   In einem Projekt verwenden wir nur die Werkzeuge, die wir brauchen.
+
+-   Deshalb **laden** wir **nur** die Pakete, **die wir brauchen**.
+
+(Schliesslich mag niemand eine unordentliche Werkbank!)
+
+
+## 🧰 R-Pakete installieren und laden {.smaller}
+
+Um die Funktionen eines Pakets zu **verwenden**, braucht es **zwei Schritte**:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.content-box-oil}
+
+[1. Das Paket **installieren**]{.box-title}
+
+::: {.content-box-white}
+[Das ist nur **einmal** nötig.]{.box-body}
+
+[❌ **Nicht** in Ihren **Quellcode** aufnehmen!]{.box-body}
+
+``` r
+# das Paket dplyr installieren
+install.packages("dplyr")
+```
+:::
+:::
+:::
+
+::: {.column width="50%"}
+::: {.content-box-oil}
+[2. Das Paket **laden**]{.box-title}
+
+::: {.content-box-white}
+[Das ist in **jeder Sitzung** nötig.]{.box-body}
+
+[⚠️ **In** Ihren **Quellcode aufnehmen**!]{.box-body}
+
+``` r
+# das Paket dplyr laden
+library(dplyr)
+```
+:::
+:::
+:::
+::::
+
+
+## 🧰 Beispiel: `dplyr::slice_head()` verwenden {auto-animate=true}
+
+-  `slice_head()` aus `{dplyr}` zeigt uns **die erste(n) Zeile(n)** eines Datensatzes.
+-   Probieren wir es mit dem Datensatz `cars` aus.
+
+```{r}
+#| include: false
+#| label: detaching dplyr
+detach(package:dplyr, unload=TRUE)
+```
+
+
+```{r}
+#| label: slice-head-cars-wo-dplyr
+#| error: true
+
+# slice_head() auf cars ohne dplyr
+slice_head(cars)
+```
+
+## 🧰 Beispiel: `dplyr::slice_head()` verwenden {auto-animate=true}
+
+-  `slice_head()` aus `{dplyr}` zeigt uns **die erste(n) Zeile(n)** eines Datensatzes.
+-   Probieren wir es mit dem Datensatz `cars` aus.
+
+
+
+```{r}
+#| label: slice-head-cars-with-dplyr
+# das Paket laden
+library(dplyr)
+
+# slice_head() auf cars mit dplyr
+slice_head(cars)
+```
+
+**Geschafft!!**
+
+
+## ⁉ Hilfe holen
+
+:::: {.columns}
+::: {.column width="50%"}
+Wenn Sie wissen möchten, was eine Funktion tut, tippen Sie einfach:
+
+1.  ein Fragezeichen `?`
+
+2.  den Namen der Funktion, über die Sie mehr erfahren möchten
+
+Zum Beispiel:
+
+``` r
+?slice_head()
+```
+:::
+
+::: {.column width="50%"}
+![](images/help.png){fig-alt="Der Help-Bereich von RStudio mit der Dokumentationsseite einer Funktion: Beschreibung, Verwendung und Argumente." fig-align="center"}
+:::
+::::
+
+## ▶️ Der *Pipe*-Operator des `{tidyverse}`
+
+::: {.content-box-marine}
+**Code *schrittweise* schreiben**, damit komplexe Aufrufe **leicht zu lesen und zu schreiben** sind.
+:::
+
+. . .
+
+**Beispiel:** Die Dichte der Variablen `speed` im Datensatz `cars` darstellen
+
+``` r
+# verschachtelt
+plot(density(cars$speed))
+
+# mit der Pipe
+cars %>% pull(speed) %>% density() %>% plot()
+```
+
+. . .
+
+Das lässt sich so «lesen»:
+
+> «*Nimm den Datensatz `cars`, **dann** ziehe mit `pull()` die Variable `speed` heraus, **dann** berechne die Dichte mit `density()`, **dann** erstelle einen `plot()`.*»
+
+## ▶️ Der *Pipe*-Operator des `{tidyverse}`
+
+::: {.content-box-marine}
+Die *Pipe* `%>%` **«füttert» die linke Seite** als **erstes Argument** in die nächste Funktion.
+:::
+
+Verwenden Sie das Tastenkürzel: <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>M</kbd> (<kbd>Shift</kbd> + <kbd>Cmd</kbd> + <kbd>M</kbd> auf dem Mac)
+
+## ▶️ `%>%` oder `|>`?
+
+Seit Version 4.1 hat R auch eine **native Pipe** `|>`, die in die Sprache eingebaut ist.
+
+``` r
+cars %>% pull(speed) %>% density() %>% plot() # die {tidyverse}-Pipe
+cars |> pull(speed) |> density() |> plot()    # die native Pipe
+```
+
+-   Im Alltag **tun sie dasselbe**, und Sie werden online beiden begegnen.
+-   In diesem Workshop verwenden wir `%>%`.
+
+::: callout-tip
+## Welche Pipe fügt das Tastenkürzel ein?
+
+Gehen Sie in RStudio zu *Tools* → *Global Options* → *Code* und suchen Sie *Use native pipe operator, \|\> (requires R 4.1+)*. Ohne Häkchen fügt das Tastenkürzel `%>%` ein, mit Häkchen `|>`. Das Workshop-Projekt ist auf `%>%` eingestellt.
+:::
+
+# Fragen? {.subsection .slides-only background-color="#425556"}
+
+## Weiter zu den nächsten Themen! {.subsection background-color="#425556"}
+
+. . .
+
+### Arbeiten mit **R-Notebooks**
+
+### Daten **importieren**
+
+### Daten **aufbereiten**
+
+### Daten **visualisieren**
+
+# 💾 Zusatzinfo: Die Arbeit von heute speichern {.subsection background-color="#425556"}
+
+## 💾 Eine Datei speichern
+
+::: {.content-box-marine}
+Ihre Renku-Sitzung ist **temporär**: **Laden** Sie vor ihrem Ende die Dateien, die Sie behalten möchten, auf Ihren Computer **herunter**.
+:::
+
+Der Grossteil Ihrer Arbeit steckt in **einer Datei**: dem Übungs-Notebook.
+
+-   Gehen Sie im Bereich **Files** zu `workshop-content/_exercises/`.
+
+-   **Setzen Sie das Häkchen** neben `exercise-notebook.qmd`.
+
+-   Klicken Sie auf **More** ⚙️ → **Export...** → **Download**.
+
+. . .
+
+::: callout-tip
+Markieren Sie **jeweils nur eine Datei**. Das Exportieren eines ganzen Ordners schlägt auf Renku fehl.
+:::
+
+## 💾 Alle Skripte auf einmal speichern
+
+- Um **alle Ihre Notebooks und Skripte** (`.qmd`, `.Rmd` und `.R`) auf einmal herunterzuladen, packen Sie sie zuerst in ein einziges Archiv.
+
+. . .
+
+- Tippen Sie in die **Console**:
+
+```{r}
+#| label: pack-my-work
+#| eval: false
+tar("my-work.tar.gz",
+    files = list.files("workshop-content",
+                       pattern = "[.](qmd|Rmd|R)$",
+                       recursive = TRUE, full.names = TRUE),
+    compression = "gzip", tar = "internal")
+```
+
+- Laden Sie dann `my-work.tar.gz` wie auf der vorherigen Folie herunter.
+
+- **Doppelklicken** Sie auf Ihrem Computer darauf, um es zu entpacken (macOS und Windows 11).
+
+. . .
+
+::: callout-important
+Gerenderte Seiten und ihre Hilfsdateien lassen sich durch erneutes Rendern wiederherstellen.
+:::
