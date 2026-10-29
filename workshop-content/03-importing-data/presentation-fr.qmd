@@ -89,11 +89,15 @@ Les données sont stockées sous forme de **tableau** dans un **fichier texte**.
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## Le CSV est le format le plus courant pour partager des données
+## Le format CSV 
 
--   Données de petite et moyenne taille, jusqu'à plusieurs Go
+::: {.color-box-marine}
+CSV est le format le plus courant pour partager des données. 
+:::
+
+-   Peut stocker des **données de toutes tailles** (petite, moyenne jusqu'à plusieurs Go)
 -   **Indépendant du logiciel** : n'importe quel outil peut l'ouvrir
--   Particulièrement important quand vous **travaillez en équipe**
+-   Particulièrement utile quand vous **travaillez en équipe**
 
 ## `read_csv()` lit un fichier CSV dans R
 
@@ -162,20 +166,17 @@ team
 :::
 ::::
 
+# Quelques arguments utiles de `read_csv()`
 
 
+## Où se trouve votre fichier : le chemin d'accès ("path") `file`
 
-# Arguments utiles de `read_csv()`
+- Le premier argument est le chemin d'accès ("path" en anglais). L'argument s'appelle `file`. 
 
+> Où (sur votre ordinateur ou ailleurs) se trouve le fichier que vous voulez importer ?
 
-## Où se trouve votre fichier : le chemin `file`
-
-- Le premier argument est le chemin `file`, c'est-à-dire :
-
-> où (sur votre ordinateur) se trouve le fichier que vous voulez importer ?
-
-- Il prend le chemin de votre CSV **sous forme de chaîne de caractères**
-- Ce peut être un chemin local (`data/team.csv`) ou une URL.
+- Il prend le chemin d'accès de votre CSV **sous forme de chaîne de caractères**
+- Ce peut être un chemin d'accès local (`data/team.csv`) ou une URL.
 
 . . .
 
@@ -183,7 +184,7 @@ team
 
 ## Chemins relatifs et absolus
 
-Dans Quarto / R Markdown, vos chemins peuvent partir du **dossier du document**.
+Dans Quarto / R Markdown, vos chemins d'accès peuvent partir du **dossier du document**. C'est ce qu'on appelle un chemin d'accès rélatif.
 <!--
 ```
 |___your_document.qmd
@@ -195,7 +196,7 @@ Dans Quarto / R Markdown, vos chemins peuvent partir du **dossier du document**.
 - ✅ `"data/team.csv"`
 - ❌ `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
 
-Les chemins relatifs fonctionnent sur **n'importe quel ordinateur**. Vous pouvez partager le dossier tel quel.
+Les chemins d'accès relatifs fonctionnent sur **n'importe quel ordinateur**. Vous pouvez partager le dossier tel quel.
 
 :::
 
@@ -203,7 +204,7 @@ Les chemins relatifs fonctionnent sur **n'importe quel ordinateur**. Vous pouvez
 
 :::{.callout-warning}
 
-Dans les scripts R et dans la console, **les chemins partent du *répertoire de travail*** (working directory)
+Dans les scripts R et dans la console, **les chemins d'accès partent du *répertoire de travail*** (working directory)
 
 :::
 
@@ -751,7 +752,7 @@ mais les **noms de colonnes contiennent des valeurs**
 ::::
 
 
-## Quand la première ligne contient des données : `col_names = FALSE` {.smaller auto-animate="true"}
+## `col_names = FALSE` à la rescousse! {.smaller auto-animate="true"}
 
 ::: {.callout-tip}
 ## La solution
@@ -803,10 +804,15 @@ mtcars_data
 
 Plus d'arguments ? Consultez la documentation : `?read_sas`
 
+# Exercice {.subsection background-color="#425556"}
+
 ## C'est l'heure de l'exercice !
 
 ::: callout-important
+
 ## Au travail !
 
-Ouvrez le notebook d'exercices `_exercises/exercise-notebook.qmd` et faites l'**[exercice 1](../_exercises/exercise-notebook.html#exercise-1)**. À tout de suite !
+Ouvrez le notebook d'exercices `_exercises/exercise-notebook.qmd` et faites l'**[exercice 1](../_exercises/exercise-notebook.html#exercise-1)**. 
+
+À tout de suite !
 :::

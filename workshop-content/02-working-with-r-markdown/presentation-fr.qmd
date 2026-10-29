@@ -41,11 +41,12 @@ Un langage de balisage (markup language) permet de mettre en forme un document a
 Vous pouvez par exemple :
 
 ::: {.incremental}
--   Entourer un mot de deux paires de \*\*deux astérisques\*\* pour obtenir du **texte en gras**.
 
--   Entourer un mot de \_tirets bas\_ pour produire du *texte en italique*.
+- Entourer un mot de:
+    - deux paires de \*\*deux astérisques\*\* pour obtenir du **texte en gras**.
+    - de \_tirets bas\_ pour produire du *texte en italique*.
 
--   Créer des titres et sous-titres de différents niveaux avec `#`, `##` et `###`.
+- Créer des titres et sous-titres de différents niveaux avec `#`, `##` et `###`.
 
 > -   Définir un bloc de citation en plaçant `>` devant la citation.
 :::
@@ -66,7 +67,7 @@ Vous pouvez par exemple :
 R Markdown combine du **texte écrit en Markdown** et du **code écrit en R**.
 :::
 
-C'est utile de deux manières :
+Ceci est utile de deux manières:
 
 ::: {.fragment}
 -   **Comme outil d'analyse** : R Markdown **remplace les scripts**
@@ -84,32 +85,23 @@ C'est utile de deux manières :
     -   Le rendu en `html` permet une certaine **interactivité**.
 :::
 
-## Quarto {.smaller}
+## Quarto
 
 ::: {.content-box-marine}
-Quarto est la **nouvelle génération de R Markdown**
+Quarto est **l'evolution de R Markdown**. Conçu pour fonctionner avec **plusieurs langages** et dans **plusieurs IDEs**.
 :::
 
-::: {.fragment}
-Il est conçu pour fonctionner avec **plusieurs langages**, sur **plusieurs plateformes** et dans **plusieurs IDE**.
-
--   Langages pris en charge : **R, Python, Julia, Observable**.
-
--   IDE : **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
-
-:::
-
-::: {.fragment}
-
-Il **fonctionne parfaitement avec R**, puisqu'il est développé par Posit PBC (anciennement RStudio Inc.)
-
--   Les versions récentes de l'IDE RStudio proposent un **éditeur Quarto visuel**.
-
--   Cela simplifie les choses, car **il n'est pas nécessaire de connaître toutes les commandes Markdown !**
+::: {.incremental}
+- Langages pris en charge : **R, Python, Julia, Observable**.
+- IDE : **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+- **Fonctionne parfaitement avec R**, puisqu'il est développé par Posit PBC
+- Les versions récentes de l'IDE RStudio proposent même un **éditeur Quarto visuel**. 
 :::
 
 ::: {.fragment}
 ::: callout-note
+## Regardez-moi ce matériel 
+
 Par exemple, les supports de ce workshop sont écrits en **Quarto**.
 :::
 :::
@@ -171,7 +163,7 @@ L'en-tête YAML peut contenir de nombreuses options.
 Nous aborderons ces options à la fin du workshop.
 :::
 
-## Insérer un chunk de code {.smaller}
+## Insérer un chunk de code
 
 -   Le code s'écrit dans des *chunks* (blocs de code). Pour en insérer un :
 
@@ -216,7 +208,7 @@ plot(cars)
 :::
 ::::
 
-## Le *knitting*, ou l'art de faire le *rendu* d'un document {.smaller}
+## Le *knitting*
 
 Une fois votre analyse terminée, cliquez sur le bouton `Knit` / `Render` en haut de l'éditeur Source pour produire un document.
 

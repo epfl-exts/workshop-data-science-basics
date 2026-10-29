@@ -62,9 +62,9 @@ La science des données peut se définir par ce qu'elle **_fait_**[^1] :
 
 ![](images/fig-data-science.png){fig-alt="Les trois cercles qui se chevauchent de la science des données : informatique, mathématiques et statistique, et expertise métier. La science des données se situe là où les trois se rencontrent." fig-align="center" width="75%"}
 
-## En pratique
+## Dans la pratique
 
-Un projet de science des données demande de **maîtriser** le **pipeline de données**
+Un projet de science des données demande de **maîtriser** le **pipeline de données** ("Data Pipeline")
 
 . . .
 
@@ -72,7 +72,7 @@ Un projet de science des données demande de **maîtriser** le **pipeline de don
 ::::: {.column width="50%"}
 
 :::: {.content-box-oil}
-[📥 **Importer**]{.box-title}
+[📥 **Importer** (_"Import"_)]{.box-title}
 
 ::: {.content-box-white}
 [*Charger* les données dans notre outil d'analyse]{.box-body}
@@ -80,7 +80,7 @@ Un projet de science des données demande de **maîtriser** le **pipeline de don
 ::::
 
 :::: {.content-box-oil}
-[🧹 **Préparer**]{.box-title}
+[🧹 **Préparer** (_"Tidy"_)]{.box-title}
 
 ::: {.content-box-white}
 [*Nettoyer* et *transformer* les données]{.box-body}
@@ -92,7 +92,7 @@ Un projet de science des données demande de **maîtriser** le **pipeline de don
 ::::: {.column width="50%"}
 
 :::: {.content-box-oil}
-[🔍 **Comprendre**]{.box-title}
+[🔍 **Comprendre** (_"Understand"_)]{.box-title}
 
 ::: {.content-box-white}
 [Grâce à des *visualisations* et des *modèles*]{.box-body}
@@ -110,7 +110,7 @@ Un projet de science des données demande de **maîtriser** le **pipeline de don
 :::::
 ::::::
 
-## Le pipeline de données
+## Le pipeline de données (Data Pipeline)
 
 ![](images/fig-data-pipeline-empty.png){fig-alt="Le pipeline de données sous forme de flux : importer, puis préparer, puis une boucle transformer, visualiser et modéliser, puis communiquer." fig-align="center" width="90%"}
 
@@ -136,7 +136,7 @@ Les **packages** sont des **collections de fonctions** qui étendent les fonctio
 :::
 :::
 
-## **R**, votre **établi** {background-image="images/elmer-canas-1UimDTf69ho-unsplash.jpg"background-position="cover" background-opacity="0.3"}
+## **R**, votre **plan de travail** {background-image="images/elmer-canas-1UimDTf69ho-unsplash.jpg"background-position="cover" background-opacity="0.3"}
 
 :::{.fragment}
 ::: {.content-box-oil}
@@ -156,7 +156,7 @@ Les **packages** sont des **collections de fonctions** qui étendent les fonctio
 
 :::{.fragment}
 ::: {.content-box-oil}
-**Packages** : les **boîtes à outils** qui rassemblent tout un tas d'outils utiles.
+**Packages** : les **boîtes à outils** qui rassemblent vos outils.
 :::
 :::
 
@@ -180,11 +180,18 @@ Illustrations tirées de l'article de blog [Openscapes](https://www.openscapes.o
 
 ## `{tidyverse}` : une autre façon de faire du R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
-Voici le **`{tidyverse}`**, « une collection de packages *qui a des partis pris* »
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^2].
+
+. . . 
+
+Le **`{tidyverse}`** une collection de packages « *qui a des partis pris* », notamment en ce qui concerne l'organisation des données.  
 
 ::: {.content-box-marine}
-Les données sont **organisées d'une seule manière cohérente** : les **données « tidy »** (données bien rangées).
+Les données sont **organisées d'une seule manière cohérente** : les **données «bien rangées»** ("**tidy data**").
 :::
+
+[^2]: Tidyverse. (n.d.-b). [https://tidyverse.org/](https://tidyverse.org/)
 
 ## {.center}
 
@@ -329,14 +336,14 @@ R prend en charge de nombreuses **structures de données différentes** grâce �
 ## 🧰 Packages {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
-Nous l'avons dit : **R** est très extensible grâce aux *packages*.
+Comme dit précedemment: **R** est très extensible grâce aux *packages*.
 :::
 
 -   Dans un projet, on n'utilise que les outils dont on a besoin.
 
 -   On **ne charge** donc **que** les packages **dont on a besoin**.
 
-(Après tout, personne n'aime un établi en désordre !)
+(Après tout, personne n'aime un plan de travail desorganisé!)
 
 
 ## 🧰 Installer et charger des packages R {.smaller}
@@ -382,6 +389,15 @@ library(dplyr)
 :::
 ::::
 
+
+. . .
+
+::: {.callout-important}
+
+## Pas besoin d'installer des packages pendant ce workshop. 
+
+Dans ce workshop, tous les packages dont vous avez besoin **sont déjà installées**!
+:::
 
 ## 🧰 Exemple : utiliser `dplyr::slice_head()` {auto-animate=true}
 
