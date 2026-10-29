@@ -3538,11 +3538,11 @@ background-origin: content-box;
   <ul class="collapse">
   <li><a href="#eine-tabelle-in-einer-textdatei" id="toc-eine-tabelle-in-einer-textdatei" class="nav-link" data-scroll-target="#eine-tabelle-in-einer-textdatei">Eine Tabelle in einer Textdatei</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#csv-ist-das-häufigste-format-zum-austausch-von-daten" id="toc-csv-ist-das-häufigste-format-zum-austausch-von-daten" class="nav-link" data-scroll-target="#csv-ist-das-häufigste-format-zum-austausch-von-daten">CSV ist das häufigste Format zum Austausch von Daten</a></li>
+  <li><a href="#das-csv-format" id="toc-das-csv-format" class="nav-link" data-scroll-target="#das-csv-format">Das CSV-Format</a></li>
   <li><a href="#read_csv-liest-eine-csv-datei-in-r-ein" id="toc-read_csv-liest-eine-csv-datei-in-r-ein" class="nav-link" data-scroll-target="#read_csv-liest-eine-csv-datei-in-r-ein"><code>read_csv()</code> liest eine CSV-Datei in R ein</a></li>
   <li><a href="#beispiel-team.csv-einlesen" id="toc-beispiel-team.csv-einlesen" class="nav-link" data-scroll-target="#beispiel-team.csv-einlesen">Beispiel: <code>team.csv</code> einlesen</a></li>
   </ul></li>
-  <li><a href="#nützliche-argumente-von-read_csv" id="toc-nützliche-argumente-von-read_csv" class="nav-link" data-scroll-target="#nützliche-argumente-von-read_csv"><span class="header-section-number">3</span> Nützliche Argumente von <code>read_csv()</code></a>
+  <li><a href="#einige-nützliche-argumente-von-read_csv" id="toc-einige-nützliche-argumente-von-read_csv" class="nav-link" data-scroll-target="#einige-nützliche-argumente-von-read_csv"><span class="header-section-number">3</span> Einige nützliche Argumente von <code>read_csv()</code></a>
   <ul class="collapse">
   <li><a href="#wo-ihre-datei-liegt-der-pfad-file" id="toc-wo-ihre-datei-liegt-der-pfad-file" class="nav-link" data-scroll-target="#wo-ihre-datei-liegt-der-pfad-file">Wo Ihre Datei liegt: der Pfad <code>file</code></a></li>
   <li><a href="#auch-csv-tsv-daten-können-unordentlich-sein" id="toc-auch-csv-tsv-daten-können-unordentlich-sein" class="nav-link" data-scroll-target="#auch-csv-tsv-daten-können-unordentlich-sein">Auch CSV-/TSV-Daten können unordentlich sein!</a></li>
@@ -3560,12 +3560,15 @@ background-origin: content-box;
   <li><a href="#excel-dateien-sind-noch-unordentlicher" id="toc-excel-dateien-sind-noch-unordentlicher" class="nav-link" data-scroll-target="#excel-dateien-sind-noch-unordentlicher">Excel-Dateien sind noch unordentlicher!</a></li>
   <li><a href="#welches-blatt-importieren-sheet" id="toc-welches-blatt-importieren-sheet" class="nav-link" data-scroll-target="#welches-blatt-importieren-sheet">Welches Blatt importieren: <code>sheet</code></a></li>
   <li><a href="#welche-zellen-importieren-range" id="toc-welche-zellen-importieren-range" class="nav-link" data-scroll-target="#welche-zellen-importieren-range">Welche Zellen importieren: <code>range</code></a></li>
-  <li><a href="#wenn-die-erste-zeile-daten-enthält-col_names-false-schon-wieder" id="toc-wenn-die-erste-zeile-daten-enthält-col_names-false-schon-wieder" class="nav-link" data-scroll-target="#wenn-die-erste-zeile-daten-enthält-col_names-false-schon-wieder">Wenn die erste Zeile Daten enthält: <code>col_names = FALSE</code>, schon wieder</a></li>
+  <li><a href="#col_names-false-als-retter-in-der-not" id="toc-col_names-false-als-retter-in-der-not" class="nav-link" data-scroll-target="#col_names-false-als-retter-in-der-not"><code>col_names = FALSE</code> als Retter in der Not!</a></li>
   </ul></li>
   <li><a href="#dateien-aus-statistiksoftware" id="toc-dateien-aus-statistiksoftware" class="nav-link" data-scroll-target="#dateien-aus-statistiksoftware"><span class="header-section-number">5</span> 📊 Dateien aus Statistiksoftware</a>
   <ul class="collapse">
   <li><a href="#haven-liest-sas--spss--und-stata-dateien" id="toc-haven-liest-sas--spss--und-stata-dateien" class="nav-link" data-scroll-target="#haven-liest-sas--spss--und-stata-dateien"><code>{haven}</code> liest SAS-, SPSS- und Stata-Dateien</a></li>
   <li><a href="#beispiel-eine-sas-datei-einlesen" id="toc-beispiel-eine-sas-datei-einlesen" class="nav-link" data-scroll-target="#beispiel-eine-sas-datei-einlesen">Beispiel: eine SAS-Datei einlesen</a></li>
+  </ul></li>
+  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung"><span class="header-section-number">6</span> Übung</a>
+  <ul class="collapse">
   <li><a href="#zeit-für-eine-übung" id="toc-zeit-für-eine-übung" class="nav-link" data-scroll-target="#zeit-für-eine-übung">Zeit für eine Übung!</a></li>
   </ul></li>
   </ul>
@@ -3635,9 +3638,9 @@ background-origin: content-box;
 </div>
 </div>
 </section>
-<section id="csv-ist-das-häufigste-format-zum-austausch-von-daten" class="level2">
-<h2 class="anchored" data-anchor-id="csv-ist-das-häufigste-format-zum-austausch-von-daten">CSV ist das häufigste Format zum Austausch von Daten</h2>
-<p>CSV-Dateien sind das <strong>häufigste Dateiformat zum Austausch kleiner und mittelgrosser Daten</strong> (bis zu mehreren GB). Ihr Hauptvorteil ist, dass sie <strong>software-unabhängig</strong> sind: Jedes Programm kann sie lesen. Das ist besonders wichtig, wenn Sie im Team arbeiten.</p>
+<section id="das-csv-format" class="level2">
+<h2 class="anchored" data-anchor-id="das-csv-format">Das CSV-Format</h2>
+<p>CSV-Dateien sind das <strong>häufigste Dateiformat zum Austausch von Daten</strong>. Sie können <strong>Daten jeder Grösse</strong> speichern, von klein bis zu mehreren GB. Ihr Hauptvorteil ist, dass sie <strong>software-unabhängig</strong> sind: Jedes Programm kann sie lesen. Das ist besonders nützlich, wenn Sie im Team arbeiten.</p>
 </section>
 <section id="read_csv-liest-eine-csv-datei-in-r-ein" class="level2">
 <h2 class="anchored" data-anchor-id="read_csv-liest-eine-csv-datei-in-r-ein"><code>read_csv()</code> liest eine CSV-Datei in R ein</h2>
@@ -3681,11 +3684,11 @@ background-origin: content-box;
 </div>
 </section>
 </section>
-<section id="nützliche-argumente-von-read_csv" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Nützliche Argumente von <code>read_csv()</code></h1>
+<section id="einige-nützliche-argumente-von-read_csv" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Einige nützliche Argumente von <code>read_csv()</code></h1>
 <section id="wo-ihre-datei-liegt-der-pfad-file" class="level2">
 <h2 class="anchored" data-anchor-id="wo-ihre-datei-liegt-der-pfad-file">Wo Ihre Datei liegt: der Pfad <code>file</code></h2>
-<p>Das erste Argument von <code>read_csv()</code> ist <code>file</code>, der Pfad zu der Datei, die Sie importieren möchten: <em>Wo auf Ihrem Computer liegt sie?</em> Er wird <strong>als String</strong> (Zeichenkette) angegeben und kann ein lokaler Pfad (<code>&quot;data/team.csv&quot;</code>) oder eine URL sein.</p>
+<p>Das erste Argument von <code>read_csv()</code> ist der Pfad zu der Datei, die Sie importieren möchten: <em>Wo, auf Ihrem Computer oder anderswo, liegt sie?</em> Das Argument heisst <code>file</code>. Der Pfad wird <strong>als String</strong> (Zeichenkette) angegeben und kann ein lokaler Pfad (<code>&quot;data/team.csv&quot;</code>) oder eine URL sein.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4142,8 +4145,8 @@ Tipp
 </div>
 </div>
 </section>
-<section id="wenn-die-erste-zeile-daten-enthält-col_names-false-schon-wieder" class="level2">
-<h2 class="anchored" data-anchor-id="wenn-die-erste-zeile-daten-enthält-col_names-false-schon-wieder">Wenn die erste Zeile Daten enthält: <code>col_names = FALSE</code>, schon wieder</h2>
+<section id="col_names-false-als-retter-in-der-not" class="level2">
+<h2 class="anchored" data-anchor-id="col_names-false-als-retter-in-der-not"><code>col_names = FALSE</code> als Retter in der Not!</h2>
 <p>Im letzten Schritt setzen wir ein Argument, das wir bereits kennen: <code>col_names = FALSE</code>.</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4262,6 +4265,9 @@ Tipp
 </div>
 <p>Da diese Dateitypen sehr speziell sind, gehen wir nicht auf jedes einzelne Argument ein. Sie können aber jederzeit die Dokumentation lesen, z. B. <code>?read_sas</code>!</p>
 </section>
+</section>
+<section id="übung" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Übung</h1>
 <section id="zeit-für-eine-übung" class="level2">
 <h2 class="anchored" data-anchor-id="zeit-für-eine-übung">Zeit für eine Übung!</h2>
 <div class="callout callout-style-default callout-important callout-titled">

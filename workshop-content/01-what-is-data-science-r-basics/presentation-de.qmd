@@ -2,7 +2,7 @@
 title: "Eine kurze Einführung in Data Science"
 subtitle: "Mit Beispielen in R und dem `{tidyverse}`"
 lang: de
-translated-from: "d725b004ed54a19efbee131a180b310135a3956b"
+translated-from: "6d50f87d97768fef0caea53974b54030e8cf3a53"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -64,7 +64,7 @@ Data Science lässt sich über das definieren, was sie **_tut_**[^1]:
 
 ## In der Praxis
 
-Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
+Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** («Data Pipeline») zu **beherrschen**
 
 . . .
 
@@ -72,7 +72,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 ::::: {.column width="50%"}
 
 :::: {.content-box-oil}
-[📥 **Importieren**]{.box-title}
+[📥 **Importieren** (_«Import»_)]{.box-title}
 
 ::: {.content-box-white}
 [Daten in unser Analysewerkzeug *laden*]{.box-body}
@@ -80,7 +80,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 ::::
 
 :::: {.content-box-oil}
-[🧹 **Aufbereiten**]{.box-title}
+[🧹 **Aufbereiten** (_«Tidy»_)]{.box-title}
 
 ::: {.content-box-white}
 [Die Daten *bereinigen* und *umformen*]{.box-body}
@@ -92,7 +92,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 ::::: {.column width="50%"}
 
 :::: {.content-box-oil}
-[🔍 **Verstehen**]{.box-title}
+[🔍 **Verstehen** (_«Understand»_)]{.box-title}
 
 ::: {.content-box-white}
 [Mit *Visualisierungen* und *Modellen*]{.box-body}
@@ -100,7 +100,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 ::::
 
 :::: {.content-box-oil}
-[📄 **Kommunizieren**]{.box-title}
+[📄 **Kommunizieren** (_«Communicate»_)]{.box-title}
 
 ::: {.content-box-white}
 [Ihre Erkenntnisse *berichten*]{.box-body}
@@ -110,7 +110,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 :::::
 ::::::
 
-## Die Daten-Pipeline
+## Die Daten-Pipeline (Data Pipeline)
 
 ![](images/fig-data-pipeline-empty.png){fig-alt="Die Daten-Pipeline als Ablauf: importieren, dann aufbereiten, dann eine Schleife aus transformieren, visualisieren und modellieren, dann kommunizieren." fig-align="center" width="90%"}
 
@@ -156,7 +156,7 @@ Ein Data-Science-Projekt erfordert, die **Daten-Pipeline** zu **beherrschen**
 
 :::{.fragment}
 ::: {.content-box-oil}
-**Pakete**: die **Werkzeugkisten** mit einer Menge nützlicher Werkzeuge.
+**Pakete**: die **Werkzeugkisten**, in denen Ihre Werkzeuge liegen.
 :::
 :::
 
@@ -180,11 +180,17 @@ Illustrationen aus dem [Openscapes](https://www.openscapes.org)-Blogbeitrag [Tid
 
 ## `{tidyverse}`: Eine andere Spielart von R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
-Auftritt **`{tidyverse}`**, «eine *meinungsstarke* Sammlung von Paketen»
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^2].
+
+. . . 
+
+Das **`{tidyverse}`** ist eine «*meinungsstarke*» Sammlung von Paketen, insbesondere was die Organisation der Daten betrifft.
 
 ::: {.content-box-marine}
-Die Daten sind auf **eine einzige, einheitliche Weise organisiert**: **«tidy» Daten** (aufgeräumte Daten).
+Die Daten sind auf **eine einzige, einheitliche Weise organisiert**: **«aufgeräumte» Daten** («**tidy data**»).
 :::
+
+[^2]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)
 
 ## {.center}
 
@@ -329,7 +335,7 @@ R unterstützt über spezielle **Pakete** viele **verschiedene Datenstrukturen**
 ## 🧰 Pakete {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
-Wie gesagt: **R** ist durch *Pakete* sehr gut erweiterbar.
+Wie bereits erwähnt: **R** ist durch *Pakete* sehr gut erweiterbar.
 :::
 
 -   In einem Projekt verwenden wir nur die Werkzeuge, die wir brauchen.
@@ -382,6 +388,14 @@ library(dplyr)
 :::
 ::::
 
+. . .
+
+::: {.callout-important}
+
+## Während dieses Workshops müssen Sie keine Pakete installieren
+
+In diesem Workshop sind alle Pakete, die Sie brauchen, **bereits installiert**!
+:::
 
 ## 🧰 Beispiel: `dplyr::slice_head()` verwenden {auto-animate=true}
 

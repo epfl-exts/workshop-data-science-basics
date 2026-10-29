@@ -85,11 +85,15 @@ Data entries are stored as a **table** in a **text file**.
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## CSV is the most common format for sharing data
+## The CSV format
 
--   Small- and mid-sized data, up to several GB
+::: {.content-box-marine}
+CSV is the most common format for sharing data.
+:::
+
+-   Can store **data of all sizes** (small, mid-sized, up to several GB)
 -   **Software-agnostic**: any tool can open it
--   Especially important when you **work in a team**
+-   Especially useful when you **work in a team**
 
 ## `read_csv()` reads a CSV file into R
 
@@ -161,14 +165,14 @@ team
 
 
 
-# Useful arguments of `read_csv()`
+# A few useful arguments of `read_csv()`
 
 
 ## Where your file is: the `file` path
 
-- The first argument is `file` path, i.e. 
+- The first argument is the path to your file. The argument is called `file`.
 
-> where (in your computer) is the file you want to import? 
+> Where (on your computer or elsewhere) is the file you want to import?
 
 - It accepts the path towards your csv **as a string** 
 - Can be a local path (`data/team.csv`) or a URL. 
@@ -179,7 +183,7 @@ team
 
 ## Relative vs Absolute paths
 
-In Quarto / R Markdown, your paths can start from the **document's folder**. 
+In Quarto / R Markdown, your paths can start from the **document's folder**. This is called a relative path.
 <!-- 
 ```
 |___your_document.qmd
@@ -747,7 +751,7 @@ but the **column names contain values**
 ::::
 
 
-## When the first row is data: `col_names = FALSE` {.smaller auto-animate="true"}
+## `col_names = FALSE` to the rescue! {.smaller auto-animate="true"}
 
 ::: {.callout-tip}
 ## The solution
@@ -799,10 +803,14 @@ mtcars_data
 
 More arguments? See the documentation: `?read_sas`
 
+# Exercise {.subsection background-color="#425556"}
+
 ## Exercise Time!
 
 ::: callout-important
 ## Time to work!
 
-Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 1](../_exercises/exercise-notebook.html#exercise-1)**. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 1](../_exercises/exercise-notebook.html#exercise-1)**.
+
+See you there!
 :::

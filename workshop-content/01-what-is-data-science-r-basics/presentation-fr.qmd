@@ -2,7 +2,7 @@
 title: "Une brève introduction à la science des données"
 subtitle: "Avec des exemples en R et le `{tidyverse}`"
 lang: fr
-translated-from: "d725b004ed54a19efbee131a180b310135a3956b"
+translated-from: "6d50f87d97768fef0caea53974b54030e8cf3a53"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -100,7 +100,7 @@ Un projet de science des données demande de **maîtriser** le **pipeline de don
 ::::
 
 :::: {.content-box-oil}
-[📄 **Communiquer**]{.box-title}
+[📄 **Communiquer** (_"Communicate"_)]{.box-title}
 
 ::: {.content-box-white}
 [*Présenter* vos résultats]{.box-body}
@@ -185,13 +185,13 @@ Illustrations tirées de l'article de blog [Openscapes](https://www.openscapes.o
 
 . . . 
 
-Le **`{tidyverse}`** une collection de packages « *qui a des partis pris* », notamment en ce qui concerne l'organisation des données.  
+Le **`{tidyverse}`** est une collection de packages « *qui a des partis pris* », notamment en ce qui concerne l'organisation des données.  
 
 ::: {.content-box-marine}
 Les données sont **organisées d'une seule manière cohérente** : les **données «bien rangées»** ("**tidy data**").
 :::
 
-[^2]: Tidyverse. (n.d.-b). [https://tidyverse.org/](https://tidyverse.org/)
+[^2]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)
 
 ## {.center}
 
@@ -336,14 +336,14 @@ R prend en charge de nombreuses **structures de données différentes** grâce �
 ## 🧰 Packages {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
-Comme dit précedemment: **R** est très extensible grâce aux *packages*.
+Comme dit précédemment : **R** est très extensible grâce aux *packages*.
 :::
 
 -   Dans un projet, on n'utilise que les outils dont on a besoin.
 
 -   On **ne charge** donc **que** les packages **dont on a besoin**.
 
-(Après tout, personne n'aime un plan de travail desorganisé!)
+(Après tout, personne n'aime un plan de travail désorganisé !)
 
 
 ## 🧰 Installer et charger des packages R {.smaller}
@@ -396,7 +396,7 @@ library(dplyr)
 
 ## Pas besoin d'installer des packages pendant ce workshop. 
 
-Dans ce workshop, tous les packages dont vous avez besoin **sont déjà installées**!
+Dans ce workshop, tous les packages dont vous avez besoin **sont déjà installés** !
 :::
 
 ## 🧰 Exemple : utiliser `dplyr::slice_head()` {auto-animate=true}

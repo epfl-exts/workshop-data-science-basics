@@ -2,7 +2,7 @@
 title: "Datenimport"
 subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
 lang: de
-translated-from: "5d2c5610b027933bfdc90ae1f605bdfa7b68b961"
+translated-from: "a6db51dc40948035a6d8c544ef97f3ca75ded359"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -89,11 +89,15 @@ Die Datensätze sind als **Tabelle** in einer **Textdatei** gespeichert.
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## CSV ist das häufigste Format zum Austausch von Daten
+## Das CSV-Format
 
--   Kleine und mittelgrosse Daten, bis zu mehreren GB
+::: {.content-box-marine}
+CSV ist das häufigste Format zum Austausch von Daten.
+:::
+
+-   Kann **Daten jeder Grösse** speichern (klein, mittelgross, bis zu mehreren GB)
 -   **Software-unabhängig**: Jedes Programm kann sie öffnen
--   Besonders wichtig, wenn Sie **im Team arbeiten**
+-   Besonders nützlich, wenn Sie **im Team arbeiten**
 
 ## `read_csv()` liest eine CSV-Datei in R ein
 
@@ -165,14 +169,14 @@ team
 
 
 
-# Nützliche Argumente von `read_csv()`
+# Einige nützliche Argumente von `read_csv()`
 
 
 ## Wo Ihre Datei liegt: der Pfad `file`
 
-- Das erste Argument ist der Pfad `file`, also:
+- Das erste Argument ist der Pfad zu Ihrer Datei. Das Argument heisst `file`.
 
-> Wo (auf Ihrem Computer) liegt die Datei, die Sie importieren möchten?
+> Wo (auf Ihrem Computer oder anderswo) liegt die Datei, die Sie importieren möchten?
 
 - Es nimmt den Pfad zu Ihrer CSV-Datei **als String** entgegen
 - Das kann ein lokaler Pfad (`data/team.csv`) oder eine URL sein.
@@ -183,7 +187,7 @@ team
 
 ## Relative und absolute Pfade
 
-In Quarto / R Markdown können Ihre Pfade im **Ordner des Dokuments** beginnen.
+In Quarto / R Markdown können Ihre Pfade im **Ordner des Dokuments** beginnen. Das nennt man einen relativen Pfad.
 <!--
 ```
 |___your_document.qmd
@@ -751,7 +755,7 @@ aber die **Spaltennamen enthalten Werte**
 ::::
 
 
-## Wenn die erste Zeile Daten enthält: `col_names = FALSE` {.smaller auto-animate="true"}
+## `col_names = FALSE` als Retter in der Not! {.smaller auto-animate="true"}
 
 ::: {.callout-tip}
 ## Die Lösung
@@ -803,10 +807,14 @@ mtcars_data
 
 Weitere Argumente? Siehe Dokumentation: `?read_sas`
 
+# Übung {.subsection background-color="#425556"}
+
 ## Zeit für eine Übung!
 
 ::: callout-important
 ## An die Arbeit!
 
-Öffnen Sie das Übungs-Notebook `_exercises/exercise-notebook.qmd` und lösen Sie **[Übung 1](../_exercises/exercise-notebook.html#exercise-1)**. Bis gleich!
+Öffnen Sie das Übungs-Notebook `_exercises/exercise-notebook.qmd` und lösen Sie **[Übung 1](../_exercises/exercise-notebook.html#exercise-1)**.
+
+Bis gleich!
 :::

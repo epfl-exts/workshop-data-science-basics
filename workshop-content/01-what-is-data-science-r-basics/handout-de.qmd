@@ -2,7 +2,7 @@
 title: "Eine kurze Einführung in Data Science"
 subtitle: "Mit Beispielen in R und dem `{tidyverse}`"
 lang: de
-translated-from: "86f4c2c26ba0ee0216609fd9036e7a853864773c"
+translated-from: "af6a70ecdec4a249b71eedf07ae6bd88bdfcd08a"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -69,16 +69,16 @@ Keiner davon genügt für sich allein: Data Science liegt dort, wo sich alle dre
 
 ## In der Praxis
 
-In der Praxis erfordert ein Data-Science-Projekt, die **Daten-Pipeline** zu **beherrschen**, also die Abfolge von Schritten, die von Rohdaten zu Erkenntnissen führt:
+In der Praxis erfordert ein Data-Science-Projekt, die **Daten-Pipeline** («Data Pipeline») zu **beherrschen**, also die Abfolge von Schritten, die von Rohdaten zu Erkenntnissen führt:
 
--   📥 **Importieren**: Daten in unser Analysewerkzeug *laden*
--   🧹 **Aufbereiten**: Die Daten *bereinigen* und *umformen*
--   🔍 **Verstehen**: Mit *Visualisierungen* und *Modellen*
--   📄 **Kommunizieren**: Ihre Erkenntnisse *berichten*
+-   📥 **Importieren** (_«Import»_): Daten in unser Analysewerkzeug *laden*
+-   🧹 **Aufbereiten** (_«Tidy»_): Die Daten *bereinigen* und *umformen*
+-   🔍 **Verstehen** (_«Understand»_): Mit *Visualisierungen* und *Modellen*
+-   📄 **Kommunizieren** (_«Communicate»_): Ihre Erkenntnisse *berichten*
 
 Dieser Workshop folgt diesen Schritten: Sie schreiben Ihre Analysen in **Notebooks**, die beim Kommunizieren helfen, und lernen dann, Daten zu **importieren**, **aufzubereiten** (bereinigen und umformen) und zu **visualisieren**.
 
-## Die Daten-Pipeline
+## Die Daten-Pipeline (Data Pipeline)
 
 Als Diagramm sieht die Pipeline so aus:
 
@@ -100,7 +100,7 @@ Sie können sich R als Ihre Werkbank vorstellen, wobei:
 
 -   **Daten** das **Material** sind, mit dem Sie arbeiten (Metall oder Holz),
 -   **Funktionen** die **Werkzeuge** sind, mit denen Sie das Material bearbeiten (Sägen, Hämmer, Zangen),
--   **Pakete** die **Werkzeugkisten** sind, die eine Menge nützlicher Werkzeuge enthalten.
+-   **Pakete** die **Werkzeugkisten** sind, in denen Ihre Werkzeuge liegen.
 
 ## `{tidyverse}`: Eine andere Spielart von R
 
@@ -113,7 +113,11 @@ Im Kern des letzten Problems steht, dass `lists` (Listen) die bevorzugte Datenst
 
 ![](images/tidydata_2-1-mod.png){fig-alt="Cartoon mit vier unordentlichen Tabellen, jede auf ihre eigene Art: eine hat Werte in den Spalten und Variablen in den Zeilen, eine hat Variablen sowohl in Spalten als auch in Zeilen, eine hat mehrere Variablen in einer einzigen Spalte, und die letzte weiss selbst nicht, was mit ihr los ist." fig-align="center" width="80%"}
 
-Auftritt **`{tidyverse}`**, «eine *meinungsstarke* Sammlung von Paketen». *Meinungsstark* bedeutet, dass es Regeln für die Entwicklung von R-Code und für Data-Science-Aufgaben festlegt. Eine dieser Regeln lautet, dass die Daten **auf eine einzige, einheitliche Weise organisiert** sein müssen, die man **«tidy» Daten** (aufgeräumte Daten) nennt:
+Auftritt **`{tidyverse}`**. Seine Website beschreibt es so:
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^1].
+
+Das `{tidyverse}` ist also eine «*meinungsstarke*» (*opinionated*) Sammlung von Paketen: Es legt Regeln für die Entwicklung von R-Code und für Data-Science-Aufgaben fest, insbesondere was die Organisation der Daten betrifft. Eine dieser Regeln lautet, dass die Daten **auf eine einzige, einheitliche Weise organisiert** sein müssen, die man **«aufgeräumte» Daten** («**tidy data**») nennt:
 
 -   jede **Variable** bildet eine **Spalte**,
 -   jede **Beobachtung** bildet eine **Zeile**,
@@ -244,7 +248,7 @@ Kurz gesagt: Mit **R** sind wir nicht auf ein bestimmtes Datenformat beschränkt
 
 ## 🧰 Pakete
 
-Wie gesagt: **R** ist durch *Pakete* sehr gut erweiterbar. Sie funktionieren wie die *Plugins* von Excel, Photoshop oder Ihrem Webbrowser: Was auch immer Sie tun müssen, die Chancen stehen gut, dass es «ein Paket dafür gibt».
+Wie bereits erwähnt: **R** ist durch *Pakete* sehr gut erweiterbar. Sie funktionieren wie die *Plugins* von Excel, Photoshop oder Ihrem Webbrowser: Was auch immer Sie tun müssen, die Chancen stehen gut, dass es «ein Paket dafür gibt».
 
 In einem Projekt verwenden wir nur die Werkzeuge, die wir brauchen. Deshalb **laden** wir **nur** die Pakete, **die wir brauchen**. (Schliesslich mag niemand eine unordentliche Werkbank!)
 
@@ -408,3 +412,5 @@ Laden Sie dann `my-work.tar.gz` wie oben beschrieben herunter. **Doppelklicken**
 ::: callout-important
 Gerenderte Seiten und ihre Hilfsdateien lassen sich durch erneutes Rendern wiederherstellen.
 :::
+
+[^1]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)

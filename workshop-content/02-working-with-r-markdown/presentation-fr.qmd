@@ -2,7 +2,7 @@
 title: "Travailler avec des notebooks R"
 subtitle: "R Markdown et Quarto"
 lang: fr
-translated-from: "e504eb29332bce51b8030b12ea74524f0f97e4a3"
+translated-from: "61a0f61f3b264240292f6687d1016bcf9ca9a8ea"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -42,9 +42,9 @@ Vous pouvez par exemple :
 
 ::: {.incremental}
 
-- Entourer un mot de:
+- Entourer un mot de :
     - deux paires de \*\*deux astérisques\*\* pour obtenir du **texte en gras**.
-    - de \_tirets bas\_ pour produire du *texte en italique*.
+    - \_tirets bas\_ pour produire du *texte en italique*.
 
 - Créer des titres et sous-titres de différents niveaux avec `#`, `##` et `###`.
 
@@ -67,7 +67,7 @@ Vous pouvez par exemple :
 R Markdown combine du **texte écrit en Markdown** et du **code écrit en R**.
 :::
 
-Ceci est utile de deux manières:
+Ceci est utile de deux manières :
 
 ::: {.fragment}
 -   **Comme outil d'analyse** : R Markdown **remplace les scripts**
@@ -88,7 +88,7 @@ Ceci est utile de deux manières:
 ## Quarto
 
 ::: {.content-box-marine}
-Quarto est **l'evolution de R Markdown**. Conçu pour fonctionner avec **plusieurs langages** et dans **plusieurs IDEs**.
+Quarto est **l'évolution de R Markdown**. Il est conçu pour fonctionner avec **plusieurs langages** et dans **plusieurs IDE**.
 :::
 
 ::: {.incremental}

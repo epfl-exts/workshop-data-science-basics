@@ -78,9 +78,9 @@ The delimiters give their **names** to the two most widespread file types: CSV (
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## CSV is the most common format for sharing data
+## The CSV format
 
-CSV files are the **most common file format for sharing small- and mid-sized data** (up to several GB). Their main advantage is that they are **software-agnostic**: any program can read them. This is especially important if you work in a team. 
+CSV files are the **most common file format for sharing data**. They can store **data of all sizes**, from small to several GB. Their main advantage is that they are **software-agnostic**: any program can read them. This is especially useful if you work in a team.
 
 ## `read_csv()` reads a CSV file into R
 
@@ -113,11 +113,11 @@ team <- read_csv("data/team.csv")
 team
 ```
 
-# Useful arguments of `read_csv()`
+# A few useful arguments of `read_csv()`
 
 ## Where your file is: the `file` path
 
-The first argument of `read_csv()` is `file`, the path to the file you want to import: *where on your computer is it?* It is given **as a string**, and it can be a local path (`"data/team.csv"`) or a URL.
+The first argument of `read_csv()` is the path to the file you want to import: *where, on your computer or elsewhere, is it?* The argument is called `file`. It is given **as a string**, and it can be a local path (`"data/team.csv"`) or a URL.
 
 :::{.callout-tip}
 ## Relative vs Absolute paths
@@ -383,7 +383,7 @@ women_jobs
 We are one step closer, but the **column names contain values**.
 :::
 
-## When the first row is data: `col_names = FALSE`, again
+## `col_names = FALSE` to the rescue!
 
 The last step is to set an argument we already know: `col_names = FALSE`.
 
@@ -445,6 +445,8 @@ mtcars_data
 ```
 
 Since these file types are very specific, we won't cover each and every argument. However, you can always read the documentation, e.g. `?read_sas`!
+
+# Exercise
 
 ## Exercise Time!
 

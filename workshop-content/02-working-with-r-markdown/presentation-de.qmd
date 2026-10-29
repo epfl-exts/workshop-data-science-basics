@@ -2,7 +2,7 @@
 title: "Arbeiten mit R-Notebooks"
 subtitle: "R Markdown und Quarto"
 lang: de
-translated-from: "e504eb29332bce51b8030b12ea74524f0f97e4a3"
+translated-from: "61a0f61f3b264240292f6687d1016bcf9ca9a8ea"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -41,11 +41,12 @@ Mit einer Auszeichnungssprache (markup language) formatieren Sie ein Dokument mi
 Sie können zum Beispiel:
 
 ::: {.incremental}
--   Ein Wort zwischen zwei Paare von \*\*zwei Sternchen\*\* setzen, um **fetten Text** zu erhalten.
 
--   Ein Wort zwischen \_Unterstriche\_ setzen, um *kursiven Text* zu erzeugen.
+- Ein Wort setzen zwischen:
+    - zwei Paare von \*\*zwei Sternchen\*\*, um **fetten Text** zu erhalten.
+    - \_Unterstriche\_, um *kursiven Text* zu erzeugen.
 
--   Mit `#`, `##` und `###` Überschriften und Unterüberschriften auf verschiedenen Ebenen erstellen.
+- Mit `#`, `##` und `###` Überschriften und Unterüberschriften auf verschiedenen Ebenen erstellen.
 
 > -   Mit `>` vor einem Zitat einen Zitatblock definieren.
 :::
@@ -84,32 +85,23 @@ Das ist in zweierlei Hinsicht nützlich:
     -   Das Rendern in `html` ermöglicht eine gewisse **Interaktivität**.
 :::
 
-## Quarto {.smaller}
+## Quarto
 
 ::: {.content-box-marine}
-Quarto ist die **nächste Generation von R Markdown**
+Quarto ist die **Weiterentwicklung von R Markdown**, konzipiert für **mehrere Sprachen** und **mehrere IDEs**.
 :::
 
-::: {.fragment}
-Es ist für **mehrere Sprachen**, **mehrere Plattformen** und **IDEs** konzipiert.
-
--   Unterstützte Sprachen: **R, Python, Julia, Observable**.
-
--   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
-
-:::
-
-::: {.fragment}
-
-Es **funktioniert nahtlos mit R**, da es von Posit PBC (früher RStudio Inc.) entwickelt wird
-
--   Neuere Versionen der RStudio-IDE bieten einen **visuellen Quarto-Editor**.
-
--   Das macht vieles einfacher, denn **Sie müssen nicht alle Markdown-Befehle kennen!**
+::: {.incremental}
+- Unterstützte Sprachen: **R, Python, Julia, Observable**.
+- IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+- **Funktioniert nahtlos mit R**, da es von Posit PBC entwickelt wird
+- Neuere Versionen der RStudio-IDE bieten sogar einen **visuellen Quarto-Editor**.
 :::
 
 ::: {.fragment}
 ::: callout-note
+## Bestes Beispiel
+
 Zum Beispiel sind die Unterlagen dieses Workshops in **Quarto** geschrieben.
 :::
 :::
@@ -171,7 +163,7 @@ Der YAML-Kopf kann viele Optionen enthalten.
 Wir besprechen diese Optionen am Ende des Workshops.
 :::
 
-## Einen Code-Chunk einfügen {.smaller}
+## Einen Code-Chunk einfügen
 
 -   Code wird in *Chunks* (Code-Blöcken) geschrieben. So fügen Sie einen ein:
 
@@ -216,7 +208,7 @@ plot(cars)
 :::
 ::::
 
-## *Knitting*, oder die Kunst, ein Dokument zu *rendern* {.smaller}
+## *Knitting*
 
 Wenn Ihre Analyse fertig ist, klicken Sie oben im Source-Editor auf die Schaltfläche `Knit` / `Render`, um ein Dokument zu erzeugen.
 

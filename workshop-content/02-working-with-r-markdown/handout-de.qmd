@@ -2,7 +2,7 @@
 title: "Arbeiten mit R-Notebooks"
 subtitle: "R Markdown und Quarto"
 lang: de
-translated-from: "2ee6ff88e47fe512748fe9b336a52a1b78b8320a"
+translated-from: "16eac2aacce6d7c3e0930a0ae6c9dae47a28ba89"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -47,9 +47,11 @@ Mit einer Auszeichnungssprache (markup language) formatieren Sie ein Dokument mi
 
 Sie können zum Beispiel:
 
--   Ein Wort zwischen zwei Paare von \*\*zwei Sternchen\*\* setzen, um **fetten Text** zu erhalten.
+-   Ein Wort setzen zwischen:
 
--   Ein Wort zwischen \_Unterstriche\_ setzen, um *kursiven Text* zu erzeugen.
+    -   zwei Paare von \*\*zwei Sternchen\*\*, um **fetten Text** zu erhalten.
+
+    -   \_Unterstriche\_, um *kursiven Text* zu erzeugen.
 
 -   Mit `#`, `##` und `###` Überschriften und Unterüberschriften auf verschiedenen Ebenen erstellen.
 
@@ -90,22 +92,22 @@ Das ist in zweierlei Hinsicht nützlich:
 ## Quarto
 
 ::: {.content-box-marine}
-Quarto ist die **nächste Generation von R Markdown**.
+Quarto ist die **Weiterentwicklung von R Markdown**, konzipiert für **mehrere Sprachen** und **mehrere IDEs**.
 :::
 
--   Es ist für **mehrere Sprachen**, **mehrere Plattformen** und **IDEs** konzipiert.
+-   Unterstützte Sprachen: **R, Python, Julia, Observable**.
 
-    -   Unterstützte Sprachen: **R, Python, Julia, Observable**.
-
-    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+-   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
 
 -   Es **funktioniert nahtlos mit R**, da es von Posit PBC entwickelt wird (früher RStudio Inc., das Unternehmen hinter der RStudio-IDE).
 
--   Neuere Versionen der RStudio-IDE bieten einen **visuellen Quarto-Editor**.
+-   Neuere Versionen der RStudio-IDE bieten sogar einen **visuellen Quarto-Editor**.
 
     -   Das macht vieles einfacher, denn **Sie müssen nicht alle Markdown-Befehle kennen!**
 
 ::: callout-note
+## Bestes Beispiel
+
 Zum Beispiel sind die Unterlagen dieses Workshops in **Quarto** geschrieben.
 :::
 

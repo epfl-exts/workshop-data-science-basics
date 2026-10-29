@@ -3538,13 +3538,13 @@ background-origin: content-box;
   <ul class="collapse">
   <li><a href="#un-tableau-dans-un-fichier-texte" id="toc-un-tableau-dans-un-fichier-texte" class="nav-link" data-scroll-target="#un-tableau-dans-un-fichier-texte">Un tableau dans un fichier texte</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#le-csv-est-le-format-le-plus-courant-pour-partager-des-données" id="toc-le-csv-est-le-format-le-plus-courant-pour-partager-des-données" class="nav-link" data-scroll-target="#le-csv-est-le-format-le-plus-courant-pour-partager-des-données">Le CSV est le format le plus courant pour partager des données</a></li>
+  <li><a href="#le-format-csv" id="toc-le-format-csv" class="nav-link" data-scroll-target="#le-format-csv">Le format CSV</a></li>
   <li><a href="#read_csv-lit-un-fichier-csv-dans-r" id="toc-read_csv-lit-un-fichier-csv-dans-r" class="nav-link" data-scroll-target="#read_csv-lit-un-fichier-csv-dans-r"><code>read_csv()</code> lit un fichier CSV dans R</a></li>
   <li><a href="#exemple-lire-team.csv" id="toc-exemple-lire-team.csv" class="nav-link" data-scroll-target="#exemple-lire-team.csv">Exemple : lire <code>team.csv</code></a></li>
   </ul></li>
-  <li><a href="#arguments-utiles-de-read_csv" id="toc-arguments-utiles-de-read_csv" class="nav-link" data-scroll-target="#arguments-utiles-de-read_csv"><span class="header-section-number">3</span> Arguments utiles de <code>read_csv()</code></a>
+  <li><a href="#quelques-arguments-utiles-de-read_csv" id="toc-quelques-arguments-utiles-de-read_csv" class="nav-link" data-scroll-target="#quelques-arguments-utiles-de-read_csv"><span class="header-section-number">3</span> Quelques arguments utiles de <code>read_csv()</code></a>
   <ul class="collapse">
-  <li><a href="#où-se-trouve-votre-fichier-le-chemin-file" id="toc-où-se-trouve-votre-fichier-le-chemin-file" class="nav-link" data-scroll-target="#où-se-trouve-votre-fichier-le-chemin-file">Où se trouve votre fichier : le chemin <code>file</code></a></li>
+  <li><a href="#où-se-trouve-votre-fichier-le-chemin-daccès-path-file" id="toc-où-se-trouve-votre-fichier-le-chemin-daccès-path-file" class="nav-link" data-scroll-target="#où-se-trouve-votre-fichier-le-chemin-daccès-path-file">Où se trouve votre fichier : le chemin d’accès (“path”) <code>file</code></a></li>
   <li><a href="#les-données-csvtsv-peuvent-aussi-être-désordonnées" id="toc-les-données-csvtsv-peuvent-aussi-être-désordonnées" class="nav-link" data-scroll-target="#les-données-csvtsv-peuvent-aussi-être-désordonnées">Les données CSV/TSV peuvent aussi être désordonnées !</a></li>
   <li><a href="#quand-la-première-ligne-contient-des-données-col_names-false" id="toc-quand-la-première-ligne-contient-des-données-col_names-false" class="nav-link" data-scroll-target="#quand-la-première-ligne-contient-des-données-col_names-false">Quand la première ligne contient des données : <code>col_names = FALSE</code></a></li>
   <li><a href="#déclarer-les-valeurs-manquantes-na-null" id="toc-déclarer-les-valeurs-manquantes-na-null" class="nav-link" data-scroll-target="#déclarer-les-valeurs-manquantes-na-null">Déclarer les valeurs manquantes : <code>na = &quot;null&quot;</code></a></li>
@@ -3560,12 +3560,15 @@ background-origin: content-box;
   <li><a href="#les-fichiers-excel-sont-encore-plus-désordonnés" id="toc-les-fichiers-excel-sont-encore-plus-désordonnés" class="nav-link" data-scroll-target="#les-fichiers-excel-sont-encore-plus-désordonnés">Les fichiers Excel sont encore plus désordonnés !</a></li>
   <li><a href="#quelle-feuille-importer-sheet" id="toc-quelle-feuille-importer-sheet" class="nav-link" data-scroll-target="#quelle-feuille-importer-sheet">Quelle feuille importer : <code>sheet</code></a></li>
   <li><a href="#quelles-cellules-importer-range" id="toc-quelles-cellules-importer-range" class="nav-link" data-scroll-target="#quelles-cellules-importer-range">Quelles cellules importer : <code>range</code></a></li>
-  <li><a href="#quand-la-première-ligne-contient-des-données-col_names-false-encore-une-fois" id="toc-quand-la-première-ligne-contient-des-données-col_names-false-encore-une-fois" class="nav-link" data-scroll-target="#quand-la-première-ligne-contient-des-données-col_names-false-encore-une-fois">Quand la première ligne contient des données : <code>col_names = FALSE</code>, encore une fois</a></li>
+  <li><a href="#col_names-false-à-la-rescousse" id="toc-col_names-false-à-la-rescousse" class="nav-link" data-scroll-target="#col_names-false-à-la-rescousse"><code>col_names = FALSE</code> à la rescousse !</a></li>
   </ul></li>
   <li><a href="#fichiers-de-logiciels-statistiques" id="toc-fichiers-de-logiciels-statistiques" class="nav-link" data-scroll-target="#fichiers-de-logiciels-statistiques"><span class="header-section-number">5</span> 📊 Fichiers de logiciels statistiques</a>
   <ul class="collapse">
   <li><a href="#haven-lit-les-fichiers-sas-spss-et-stata" id="toc-haven-lit-les-fichiers-sas-spss-et-stata" class="nav-link" data-scroll-target="#haven-lit-les-fichiers-sas-spss-et-stata"><code>{haven}</code> lit les fichiers SAS, SPSS et Stata</a></li>
   <li><a href="#exemple-lire-un-fichier-sas" id="toc-exemple-lire-un-fichier-sas" class="nav-link" data-scroll-target="#exemple-lire-un-fichier-sas">Exemple : lire un fichier SAS</a></li>
+  </ul></li>
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><span class="header-section-number">6</span> Exercice</a>
+  <ul class="collapse">
   <li><a href="#cest-lheure-de-lexercice" id="toc-cest-lheure-de-lexercice" class="nav-link" data-scroll-target="#cest-lheure-de-lexercice">C’est l’heure de l’exercice !</a></li>
   </ul></li>
   </ul>
@@ -3635,9 +3638,9 @@ background-origin: content-box;
 </div>
 </div>
 </section>
-<section id="le-csv-est-le-format-le-plus-courant-pour-partager-des-données" class="level2">
-<h2 class="anchored" data-anchor-id="le-csv-est-le-format-le-plus-courant-pour-partager-des-données">Le CSV est le format le plus courant pour partager des données</h2>
-<p>Les fichiers CSV sont le <strong>format de fichier le plus courant pour partager des données de petite et moyenne taille</strong> (jusqu’à plusieurs Go). Leur principal avantage est d’être <strong>indépendants du logiciel</strong> : n’importe quel programme peut les lire. C’est particulièrement important si vous travaillez en équipe.</p>
+<section id="le-format-csv" class="level2">
+<h2 class="anchored" data-anchor-id="le-format-csv">Le format CSV</h2>
+<p>Les fichiers CSV sont le <strong>format de fichier le plus courant pour partager des données</strong>. Ils peuvent stocker des <strong>données de toutes tailles</strong>, des plus petites jusqu’à plusieurs Go. Leur principal avantage est d’être <strong>indépendants du logiciel</strong> : n’importe quel programme peut les lire. C’est particulièrement utile si vous travaillez en équipe.</p>
 </section>
 <section id="read_csv-lit-un-fichier-csv-dans-r" class="level2">
 <h2 class="anchored" data-anchor-id="read_csv-lit-un-fichier-csv-dans-r"><code>read_csv()</code> lit un fichier CSV dans R</h2>
@@ -3681,11 +3684,11 @@ background-origin: content-box;
 </div>
 </section>
 </section>
-<section id="arguments-utiles-de-read_csv" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Arguments utiles de <code>read_csv()</code></h1>
-<section id="où-se-trouve-votre-fichier-le-chemin-file" class="level2">
-<h2 class="anchored" data-anchor-id="où-se-trouve-votre-fichier-le-chemin-file">Où se trouve votre fichier : le chemin <code>file</code></h2>
-<p>Le premier argument de <code>read_csv()</code> est <code>file</code>, le chemin du fichier que vous voulez importer : <em>où se trouve-t-il sur votre ordinateur ?</em> Il est donné <strong>sous forme de chaîne de caractères</strong>, et ce peut être un chemin local (<code>&quot;data/team.csv&quot;</code>) ou une URL.</p>
+<section id="quelques-arguments-utiles-de-read_csv" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Quelques arguments utiles de <code>read_csv()</code></h1>
+<section id="où-se-trouve-votre-fichier-le-chemin-daccès-path-file" class="level2">
+<h2 class="anchored" data-anchor-id="où-se-trouve-votre-fichier-le-chemin-daccès-path-file">Où se trouve votre fichier : le chemin d’accès (“path”) <code>file</code></h2>
+<p>Le premier argument de <code>read_csv()</code> est le chemin d’accès (“path” en anglais) du fichier que vous voulez importer : <em>où se trouve-t-il, sur votre ordinateur ou ailleurs ?</em> L’argument s’appelle <code>file</code>. Le chemin d’accès est donné <strong>sous forme de chaîne de caractères</strong>, et ce peut être un chemin d’accès local (<code>&quot;data/team.csv&quot;</code>) ou une URL.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -3696,12 +3699,12 @@ background-origin: content-box;
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Dans les documents Quarto et R Markdown, les chemins peuvent partir du <strong>dossier du document</strong>. Notre document se trouve dans un dossier qui contient un dossier <code>data</code>, où se trouve le fichier <code>team.csv</code> :</p>
+<p>Dans les documents Quarto et R Markdown, les chemins d’accès peuvent partir du <strong>dossier du document</strong> : c’est ce qu’on appelle un chemin d’accès relatif. Notre document se trouve dans un dossier qui contient un dossier <code>data</code>, où se trouve le fichier <code>team.csv</code> :</p>
 <ul>
-<li>✅ le chemin <strong>relatif</strong> <code>&quot;data/team.csv&quot;</code></li>
-<li>❌ un chemin <strong>absolu</strong> comme <code>&quot;/Users/jack/Documents/my/unique/folders/data/team.csv&quot;</code></li>
+<li>✅ le chemin d’accès <strong>relatif</strong> <code>&quot;data/team.csv&quot;</code></li>
+<li>❌ un chemin d’accès <strong>absolu</strong> comme <code>&quot;/Users/jack/Documents/my/unique/folders/data/team.csv&quot;</code></li>
 </ul>
-<p>Les chemins relatifs fonctionnent sur <strong>n’importe quel ordinateur</strong> : vous pouvez donc partager le dossier tel quel. C’est extrêmement utile, surtout si vous <strong>travaillez avec d’autres personnes !</strong> Le même code tourne sur leur ordinateur, quelle que soit leur arborescence de dossiers.</p>
+<p>Les chemins d’accès relatifs fonctionnent sur <strong>n’importe quel ordinateur</strong> : vous pouvez donc partager le dossier tel quel. C’est extrêmement utile, surtout si vous <strong>travaillez avec d’autres personnes !</strong> Le même code tourne sur leur ordinateur, quelle que soit leur arborescence de dossiers.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -3714,7 +3717,7 @@ Avertissement
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Les chemins partent du dossier du document <strong>uniquement dans les documents Quarto / R Markdown</strong>. Dans les scripts R et dans la console, ils partent du <em>répertoire de travail</em> (working directory).</p>
+<p>Les chemins d’accès partent du dossier du document <strong>uniquement dans les documents Quarto / R Markdown</strong>. Dans les scripts R et dans la console, ils partent du <em>répertoire de travail</em> (working directory).</p>
 </div>
 </div>
 </section>
@@ -4142,8 +4145,8 @@ Astuce
 </div>
 </div>
 </section>
-<section id="quand-la-première-ligne-contient-des-données-col_names-false-encore-une-fois" class="level2">
-<h2 class="anchored" data-anchor-id="quand-la-première-ligne-contient-des-données-col_names-false-encore-une-fois">Quand la première ligne contient des données : <code>col_names = FALSE</code>, encore une fois</h2>
+<section id="col_names-false-à-la-rescousse" class="level2">
+<h2 class="anchored" data-anchor-id="col_names-false-à-la-rescousse"><code>col_names = FALSE</code> à la rescousse !</h2>
 <p>La dernière étape consiste à indiquer un argument que nous connaissons déjà : <code>col_names = FALSE</code>.</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4262,6 +4265,9 @@ Astuce
 </div>
 <p>Comme ces types de fichiers sont très spécifiques, nous ne passerons pas en revue chacun de leurs arguments. Vous pouvez cependant toujours consulter la documentation, p. ex. <code>?read_sas</code> !</p>
 </section>
+</section>
+<section id="exercice" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Exercice</h1>
 <section id="cest-lheure-de-lexercice" class="level2">
 <h2 class="anchored" data-anchor-id="cest-lheure-de-lexercice">C’est l’heure de l’exercice !</h2>
 <div class="callout callout-style-default callout-important callout-titled">

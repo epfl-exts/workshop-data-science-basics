@@ -2,7 +2,7 @@
 title: "Datenimport"
 subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
 lang: de
-translated-from: "8dc15c8cbe87a78c0bfb0b512400cc17f0deb926"
+translated-from: "f70e2576ab42b9e84f23acdc3d137546b736dc2c"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -82,9 +82,9 @@ Die Trennzeichen geben den beiden verbreitetsten Dateitypen ihre **Namen**: CSV 
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## CSV ist das häufigste Format zum Austausch von Daten
+## Das CSV-Format
 
-CSV-Dateien sind das **häufigste Dateiformat zum Austausch kleiner und mittelgrosser Daten** (bis zu mehreren GB). Ihr Hauptvorteil ist, dass sie **software-unabhängig** sind: Jedes Programm kann sie lesen. Das ist besonders wichtig, wenn Sie im Team arbeiten.
+CSV-Dateien sind das **häufigste Dateiformat zum Austausch von Daten**. Sie können **Daten jeder Grösse** speichern, von klein bis zu mehreren GB. Ihr Hauptvorteil ist, dass sie **software-unabhängig** sind: Jedes Programm kann sie lesen. Das ist besonders nützlich, wenn Sie im Team arbeiten.
 
 ## `read_csv()` liest eine CSV-Datei in R ein
 
@@ -117,11 +117,11 @@ team <- read_csv("data/team.csv")
 team
 ```
 
-# Nützliche Argumente von `read_csv()`
+# Einige nützliche Argumente von `read_csv()`
 
 ## Wo Ihre Datei liegt: der Pfad `file`
 
-Das erste Argument von `read_csv()` ist `file`, der Pfad zu der Datei, die Sie importieren möchten: *Wo auf Ihrem Computer liegt sie?* Er wird **als String** (Zeichenkette) angegeben und kann ein lokaler Pfad (`"data/team.csv"`) oder eine URL sein.
+Das erste Argument von `read_csv()` ist der Pfad zu der Datei, die Sie importieren möchten: *Wo, auf Ihrem Computer oder anderswo, liegt sie?* Das Argument heisst `file`. Der Pfad wird **als String** (Zeichenkette) angegeben und kann ein lokaler Pfad (`"data/team.csv"`) oder eine URL sein.
 
 :::{.callout-tip}
 ## Relative und absolute Pfade
@@ -387,7 +387,7 @@ women_jobs
 Wir sind einen Schritt weiter, aber die **Spaltennamen enthalten Werte**.
 :::
 
-## Wenn die erste Zeile Daten enthält: `col_names = FALSE`, schon wieder
+## `col_names = FALSE` als Retter in der Not!
 
 Im letzten Schritt setzen wir ein Argument, das wir bereits kennen: `col_names = FALSE`.
 
@@ -449,6 +449,8 @@ mtcars_data
 ```
 
 Da diese Dateitypen sehr speziell sind, gehen wir nicht auf jedes einzelne Argument ein. Sie können aber jederzeit die Dokumentation lesen, z. B. `?read_sas`!
+
+# Übung
 
 ## Zeit für eine Übung!
 

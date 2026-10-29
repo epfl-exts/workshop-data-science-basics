@@ -2,7 +2,7 @@
 title: "Importer des données"
 subtitle: "Charger des données dans R avec `{readr}`, `{readxl}` et `{haven}`"
 lang: fr
-translated-from: "8dc15c8cbe87a78c0bfb0b512400cc17f0deb926"
+translated-from: "f70e2576ab42b9e84f23acdc3d137546b736dc2c"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -82,9 +82,9 @@ Les délimiteurs donnent leur **nom** aux deux types de fichiers les plus répan
 knitr::include_graphics("images/1-delim.png")
 ```
 
-## Le CSV est le format le plus courant pour partager des données
+## Le format CSV
 
-Les fichiers CSV sont le **format de fichier le plus courant pour partager des données de petite et moyenne taille** (jusqu'à plusieurs Go). Leur principal avantage est d'être **indépendants du logiciel** : n'importe quel programme peut les lire. C'est particulièrement important si vous travaillez en équipe.
+Les fichiers CSV sont le **format de fichier le plus courant pour partager des données**. Ils peuvent stocker des **données de toutes tailles**, des plus petites jusqu'à plusieurs Go. Leur principal avantage est d'être **indépendants du logiciel** : n'importe quel programme peut les lire. C'est particulièrement utile si vous travaillez en équipe.
 
 ## `read_csv()` lit un fichier CSV dans R
 
@@ -117,25 +117,25 @@ team <- read_csv("data/team.csv")
 team
 ```
 
-# Arguments utiles de `read_csv()`
+# Quelques arguments utiles de `read_csv()`
 
-## Où se trouve votre fichier : le chemin `file`
+## Où se trouve votre fichier : le chemin d'accès ("path") `file`
 
-Le premier argument de `read_csv()` est `file`, le chemin du fichier que vous voulez importer : *où se trouve-t-il sur votre ordinateur ?* Il est donné **sous forme de chaîne de caractères**, et ce peut être un chemin local (`"data/team.csv"`) ou une URL.
+Le premier argument de `read_csv()` est le chemin d'accès ("path" en anglais) du fichier que vous voulez importer : *où se trouve-t-il, sur votre ordinateur ou ailleurs ?* L'argument s'appelle `file`. Le chemin d'accès est donné **sous forme de chaîne de caractères**, et ce peut être un chemin d'accès local (`"data/team.csv"`) ou une URL.
 
 :::{.callout-tip}
 ## Chemins relatifs et absolus
 
-Dans les documents Quarto et R Markdown, les chemins peuvent partir du **dossier du document**. Notre document se trouve dans un dossier qui contient un dossier `data`, où se trouve le fichier `team.csv` :
+Dans les documents Quarto et R Markdown, les chemins d'accès peuvent partir du **dossier du document** : c'est ce qu'on appelle un chemin d'accès relatif. Notre document se trouve dans un dossier qui contient un dossier `data`, où se trouve le fichier `team.csv` :
 
--   ✅ le chemin **relatif** `"data/team.csv"`
--   ❌ un chemin **absolu** comme `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
+-   ✅ le chemin d'accès **relatif** `"data/team.csv"`
+-   ❌ un chemin d'accès **absolu** comme `"/Users/jack/Documents/my/unique/folders/data/team.csv"`
 
-Les chemins relatifs fonctionnent sur **n'importe quel ordinateur** : vous pouvez donc partager le dossier tel quel. C'est extrêmement utile, surtout si vous **travaillez avec d'autres personnes !** Le même code tourne sur leur ordinateur, quelle que soit leur arborescence de dossiers.
+Les chemins d'accès relatifs fonctionnent sur **n'importe quel ordinateur** : vous pouvez donc partager le dossier tel quel. C'est extrêmement utile, surtout si vous **travaillez avec d'autres personnes !** Le même code tourne sur leur ordinateur, quelle que soit leur arborescence de dossiers.
 :::
 
 :::{.callout-warning}
-Les chemins partent du dossier du document **uniquement dans les documents Quarto / R Markdown**. Dans les scripts R et dans la console, ils partent du *répertoire de travail* (working directory).
+Les chemins d'accès partent du dossier du document **uniquement dans les documents Quarto / R Markdown**. Dans les scripts R et dans la console, ils partent du *répertoire de travail* (working directory).
 :::
 
 ## Les données CSV/TSV peuvent aussi être désordonnées !
@@ -387,7 +387,7 @@ women_jobs
 Nous avançons, mais les **noms de colonnes contiennent des valeurs**.
 :::
 
-## Quand la première ligne contient des données : `col_names = FALSE`, encore une fois
+## `col_names = FALSE` à la rescousse !
 
 La dernière étape consiste à indiquer un argument que nous connaissons déjà : `col_names = FALSE`.
 
@@ -449,6 +449,8 @@ mtcars_data
 ```
 
 Comme ces types de fichiers sont très spécifiques, nous ne passerons pas en revue chacun de leurs arguments. Vous pouvez cependant toujours consulter la documentation, p. ex. `?read_sas` !
+
+# Exercice
 
 ## C'est l'heure de l'exercice !
 

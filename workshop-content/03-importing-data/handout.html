@@ -3538,11 +3538,11 @@ background-origin: content-box;
   <ul class="collapse">
   <li><a href="#a-table-in-a-text-file" id="toc-a-table-in-a-text-file" class="nav-link" data-scroll-target="#a-table-in-a-text-file">A table in a text file</a></li>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  <li><a href="#csv-is-the-most-common-format-for-sharing-data" id="toc-csv-is-the-most-common-format-for-sharing-data" class="nav-link" data-scroll-target="#csv-is-the-most-common-format-for-sharing-data">CSV is the most common format for sharing data</a></li>
+  <li><a href="#the-csv-format" id="toc-the-csv-format" class="nav-link" data-scroll-target="#the-csv-format">The CSV format</a></li>
   <li><a href="#read_csv-reads-a-csv-file-into-r" id="toc-read_csv-reads-a-csv-file-into-r" class="nav-link" data-scroll-target="#read_csv-reads-a-csv-file-into-r"><code>read_csv()</code> reads a CSV file into R</a></li>
   <li><a href="#example-reading-team.csv" id="toc-example-reading-team.csv" class="nav-link" data-scroll-target="#example-reading-team.csv">Example: reading <code>team.csv</code></a></li>
   </ul></li>
-  <li><a href="#useful-arguments-of-read_csv" id="toc-useful-arguments-of-read_csv" class="nav-link" data-scroll-target="#useful-arguments-of-read_csv"><span class="header-section-number">3</span> Useful arguments of <code>read_csv()</code></a>
+  <li><a href="#a-few-useful-arguments-of-read_csv" id="toc-a-few-useful-arguments-of-read_csv" class="nav-link" data-scroll-target="#a-few-useful-arguments-of-read_csv"><span class="header-section-number">3</span> A few useful arguments of <code>read_csv()</code></a>
   <ul class="collapse">
   <li><a href="#where-your-file-is-the-file-path" id="toc-where-your-file-is-the-file-path" class="nav-link" data-scroll-target="#where-your-file-is-the-file-path">Where your file is: the <code>file</code> path</a></li>
   <li><a href="#csvtsv-data-can-be-messy-too" id="toc-csvtsv-data-can-be-messy-too" class="nav-link" data-scroll-target="#csvtsv-data-can-be-messy-too">CSV/TSV data can be messy too!</a></li>
@@ -3560,12 +3560,15 @@ background-origin: content-box;
   <li><a href="#excel-files-are-even-messier" id="toc-excel-files-are-even-messier" class="nav-link" data-scroll-target="#excel-files-are-even-messier">Excel files are even messier!</a></li>
   <li><a href="#which-sheet-to-import-sheet" id="toc-which-sheet-to-import-sheet" class="nav-link" data-scroll-target="#which-sheet-to-import-sheet">Which sheet to import: <code>sheet</code></a></li>
   <li><a href="#which-cells-to-import-range" id="toc-which-cells-to-import-range" class="nav-link" data-scroll-target="#which-cells-to-import-range">Which cells to import: <code>range</code></a></li>
-  <li><a href="#when-the-first-row-is-data-col_names-false-again" id="toc-when-the-first-row-is-data-col_names-false-again" class="nav-link" data-scroll-target="#when-the-first-row-is-data-col_names-false-again">When the first row is data: <code>col_names = FALSE</code>, again</a></li>
+  <li><a href="#col_names-false-to-the-rescue" id="toc-col_names-false-to-the-rescue" class="nav-link" data-scroll-target="#col_names-false-to-the-rescue"><code>col_names = FALSE</code> to the rescue!</a></li>
   </ul></li>
   <li><a href="#files-from-statistical-software" id="toc-files-from-statistical-software" class="nav-link" data-scroll-target="#files-from-statistical-software"><span class="header-section-number">5</span> 📊 Files from statistical software</a>
   <ul class="collapse">
   <li><a href="#haven-reads-sas-spss-and-stata-files" id="toc-haven-reads-sas-spss-and-stata-files" class="nav-link" data-scroll-target="#haven-reads-sas-spss-and-stata-files"><code>{haven}</code> reads SAS, SPSS and Stata files</a></li>
   <li><a href="#example-reading-a-sas-file" id="toc-example-reading-a-sas-file" class="nav-link" data-scroll-target="#example-reading-a-sas-file">Example: reading a SAS file</a></li>
+  </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6</span> Exercise</a>
+  <ul class="collapse">
   <li><a href="#exercise-time" id="toc-exercise-time" class="nav-link" data-scroll-target="#exercise-time">Exercise Time!</a></li>
   </ul></li>
   </ul>
@@ -3634,9 +3637,9 @@ background-origin: content-box;
 </div>
 </div>
 </section>
-<section id="csv-is-the-most-common-format-for-sharing-data" class="level2">
-<h2 class="anchored" data-anchor-id="csv-is-the-most-common-format-for-sharing-data">CSV is the most common format for sharing data</h2>
-<p>CSV files are the <strong>most common file format for sharing small- and mid-sized data</strong> (up to several GB). Their main advantage is that they are <strong>software-agnostic</strong>: any program can read them. This is especially important if you work in a team.</p>
+<section id="the-csv-format" class="level2">
+<h2 class="anchored" data-anchor-id="the-csv-format">The CSV format</h2>
+<p>CSV files are the <strong>most common file format for sharing data</strong>. They can store <strong>data of all sizes</strong>, from small to several GB. Their main advantage is that they are <strong>software-agnostic</strong>: any program can read them. This is especially useful if you work in a team.</p>
 </section>
 <section id="read_csv-reads-a-csv-file-into-r" class="level2">
 <h2 class="anchored" data-anchor-id="read_csv-reads-a-csv-file-into-r"><code>read_csv()</code> reads a CSV file into R</h2>
@@ -3680,11 +3683,11 @@ background-origin: content-box;
 </div>
 </section>
 </section>
-<section id="useful-arguments-of-read_csv" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Useful arguments of <code>read_csv()</code></h1>
+<section id="a-few-useful-arguments-of-read_csv" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> A few useful arguments of <code>read_csv()</code></h1>
 <section id="where-your-file-is-the-file-path" class="level2">
 <h2 class="anchored" data-anchor-id="where-your-file-is-the-file-path">Where your file is: the <code>file</code> path</h2>
-<p>The first argument of <code>read_csv()</code> is <code>file</code>, the path to the file you want to import: <em>where on your computer is it?</em> It is given <strong>as a string</strong>, and it can be a local path (<code>&quot;data/team.csv&quot;</code>) or a URL.</p>
+<p>The first argument of <code>read_csv()</code> is the path to the file you want to import: <em>where, on your computer or elsewhere, is it?</em> The argument is called <code>file</code>. It is given <strong>as a string</strong>, and it can be a local path (<code>&quot;data/team.csv&quot;</code>) or a URL.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4141,8 +4144,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="when-the-first-row-is-data-col_names-false-again" class="level2">
-<h2 class="anchored" data-anchor-id="when-the-first-row-is-data-col_names-false-again">When the first row is data: <code>col_names = FALSE</code>, again</h2>
+<section id="col_names-false-to-the-rescue" class="level2">
+<h2 class="anchored" data-anchor-id="col_names-false-to-the-rescue"><code>col_names = FALSE</code> to the rescue!</h2>
 <p>The last step is to set an argument we already know: <code>col_names = FALSE</code>.</p>
 <div class="cell" data-layout-align="center">
 <details open class="code-fold">
@@ -4261,6 +4264,9 @@ Tip
 </div>
 <p>Since these file types are very specific, we won’t cover each and every argument. However, you can always read the documentation, e.g. <code>?read_sas</code>!</p>
 </section>
+</section>
+<section id="exercise" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Exercise</h1>
 <section id="exercise-time" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-time">Exercise Time!</h2>
 <div class="callout callout-style-default callout-important callout-titled">

@@ -2,7 +2,7 @@
 title: "Importer des données"
 subtitle: "Charger des données dans R avec `{readr}`, `{readxl}` et `{haven}`"
 lang: fr
-translated-from: "5d2c5610b027933bfdc90ae1f605bdfa7b68b961"
+translated-from: "a6db51dc40948035a6d8c544ef97f3ca75ded359"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -91,7 +91,7 @@ knitr::include_graphics("images/1-delim.png")
 
 ## Le format CSV 
 
-::: {.color-box-marine}
+::: {.content-box-marine}
 CSV est le format le plus courant pour partager des données. 
 :::
 
@@ -184,7 +184,7 @@ team
 
 ## Chemins relatifs et absolus
 
-Dans Quarto / R Markdown, vos chemins d'accès peuvent partir du **dossier du document**. C'est ce qu'on appelle un chemin d'accès rélatif.
+Dans Quarto / R Markdown, vos chemins d'accès peuvent partir du **dossier du document**. C'est ce qu'on appelle un chemin d'accès relatif.
 <!--
 ```
 |___your_document.qmd

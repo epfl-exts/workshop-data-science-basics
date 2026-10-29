@@ -2,7 +2,7 @@
 title: "Une brève introduction à la science des données"
 subtitle: "Avec des exemples en R et le `{tidyverse}`"
 lang: fr
-translated-from: "86f4c2c26ba0ee0216609fd9036e7a853864773c"
+translated-from: "af6a70ecdec4a249b71eedf07ae6bd88bdfcd08a"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -67,18 +67,18 @@ Aucun ne suffit à lui seul : la science des données se situe là où les trois
 
 ![](images/fig-data-science.png){fig-alt="Les trois cercles qui se chevauchent de la science des données : informatique, mathématiques et statistique, et expertise métier. La science des données se situe là où les trois se rencontrent." fig-align="center" width="80%"}
 
-## En pratique
+## Dans la pratique
 
-En pratique, un projet de science des données demande de **maîtriser** le **pipeline de données**, c'est-à-dire la suite d'étapes qui mène des données brutes aux enseignements :
+Dans la pratique, un projet de science des données demande de **maîtriser** le **pipeline de données** ("Data Pipeline"), c'est-à-dire la suite d'étapes qui mène des données brutes aux enseignements :
 
--   📥 **Importer** : *charger* les données dans notre outil d'analyse
--   🧹 **Préparer** : *nettoyer* et *transformer* les données
--   🔍 **Comprendre** : grâce à des *visualisations* et des *modèles*
--   📄 **Communiquer** : *présenter* vos résultats
+-   📥 **Importer** (_"Import"_) : *charger* les données dans notre outil d'analyse
+-   🧹 **Préparer** (_"Tidy"_) : *nettoyer* et *transformer* les données
+-   🔍 **Comprendre** (_"Understand"_) : grâce à des *visualisations* et des *modèles*
+-   📄 **Communiquer** (_"Communicate"_) : *présenter* vos résultats
 
 Ce workshop suit ces étapes : vous rédigerez vos analyses dans des **notebooks**, qui aident à communiquer, puis vous apprendrez à **importer**, **manipuler** (préparer et transformer) et **visualiser** des données.
 
-## Le pipeline de données
+## Le pipeline de données (Data Pipeline)
 
 Sous forme de schéma, le pipeline ressemble à ceci :
 
@@ -94,13 +94,13 @@ Remarquez que transformer, visualiser et modéliser forment une **boucle** : on 
 
 Sa force vient de ce qu'il est **très extensible grâce aux `{packages}`**, que **tout le monde peut développer**. Un package est une **collection de fonctions** qui étend ce que R sait faire : il existe des packages pour lire presque tous les formats de fichiers, ajuster des modèles statistiques, dessiner des graphiques, rédiger des rapports...
 
-## **R**, votre **établi**
+## **R**, votre **plan de travail**
 
-Vous pouvez voir R comme votre établi, où :
+Vous pouvez voir R comme votre plan de travail, où :
 
 -   les **données** sont les **matériaux** avec lesquels vous travaillez (métal ou bois),
 -   les **fonctions** sont les **outils** qui servent à transformer les matériaux (scies, marteaux, pinces),
--   les **packages** sont les **boîtes à outils** qui rassemblent tout un tas d'outils utiles.
+-   les **packages** sont les **boîtes à outils** qui rassemblent vos outils.
 
 ## `{tidyverse}` : une autre façon de faire du R
 
@@ -113,7 +113,11 @@ Au cœur de ce dernier problème se trouve le fait que les `lists` (listes) sont
 
 ![](images/tidydata_2-1-mod.png){fig-alt="Dessin de quatre tableaux désordonnés, chacun à sa manière : l'un a des valeurs dans ses colonnes et des variables dans ses lignes, un autre a des variables à la fois dans ses colonnes et ses lignes, un autre a plusieurs variables dans une seule colonne, et le dernier ne sait même pas ce qui ne va pas chez lui." fig-align="center" width="80%"}
 
-Voici le **`{tidyverse}`**, « une collection de packages *qui a des partis pris* ». Par là, on entend qu'il établit des règles pour écrire du code R et mener des tâches de science des données. L'une de ces règles veut que les données soient **organisées d'une seule manière cohérente**, appelée **données « tidy »** (données bien rangées) :
+Voici le **`{tidyverse}`**. Son site web le décrit ainsi :
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^1].
+
+Le `{tidyverse}` est donc une collection de packages « *qui a des partis pris* » (*opinionated*) : il établit des règles pour écrire du code R et mener des tâches de science des données, notamment en ce qui concerne l'organisation des données. L'une de ces règles veut que les données soient **organisées d'une seule manière cohérente**, appelée **données «bien rangées»** ("**tidy data**") :
 
 -   chaque **variable** forme une **colonne**,
 -   chaque **observation** forme une **ligne**,
@@ -244,9 +248,9 @@ En bref : avec **R**, nous ne sommes pas limités à un format de données parti
 
 ## 🧰 Packages
 
-Nous l'avons dit : **R** est très extensible grâce aux *packages*. Ils fonctionnent comme les *plugins* d'Excel, de Photoshop ou de votre navigateur web : quoi que vous ayez à faire, il y a de fortes chances qu'« il existe un package pour ça ».
+Comme dit précédemment : **R** est très extensible grâce aux *packages*. Ils fonctionnent comme les *plugins* d'Excel, de Photoshop ou de votre navigateur web : quoi que vous ayez à faire, il y a de fortes chances qu'« il existe un package pour ça ».
 
-Dans un projet, on n'utilise que les outils dont on a besoin. On **ne charge** donc **que** les packages **dont on a besoin**. (Après tout, personne n'aime un établi en désordre !)
+Dans un projet, on n'utilise que les outils dont on a besoin. On **ne charge** donc **que** les packages **dont on a besoin**. (Après tout, personne n'aime un plan de travail désorganisé !)
 
 ## 🧰 Installer et charger des packages R
 
@@ -408,3 +412,5 @@ Téléchargez ensuite `my-work.tar.gz` comme décrit plus haut. Sur votre ordina
 ::: callout-important
 Les pages rendues et leurs fichiers annexes peuvent être recréés en relançant le rendu.
 :::
+
+[^1]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)
