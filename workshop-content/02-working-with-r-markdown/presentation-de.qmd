@@ -1,0 +1,239 @@
+---
+title: "Arbeiten mit R-Notebooks"
+subtitle: "R Markdown und Quarto"
+lang: de
+translated-from: "e504eb29332bce51b8030b12ea74524f0f97e4a3"
+author: "**EPFL Extension School**"
+format:
+  revealjs:
+    slide-level: 2
+    transition: fade
+    background-transition: fade
+    footer: "Workshop Grundlagen der Data Science"
+    slide-number: true
+    df-print: kable
+    embed-resources: true
+    width: 1440
+    height: 810
+    output-file: "presentation-de"
+    css: ../assets/css/exts-reveal.css
+---
+
+<!-- Translation of presentation.qmd. Don't change the structure here: change presentation.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r setup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center',
+  fig.height = 5)
+```
+
+# Markdown {.subsection background-color="#425556"}
+
+## Markdown ist eine *einfache* «Auszeichnungssprache»
+
+::: {.content-box-marine}
+Mit einer Auszeichnungssprache (markup language) formatieren Sie ein Dokument mit **Befehlen** statt über Menüs.
+:::
+
+Sie können zum Beispiel:
+
+::: {.incremental}
+-   Ein Wort zwischen zwei Paare von \*\*zwei Sternchen\*\* setzen, um **fetten Text** zu erhalten.
+
+-   Ein Wort zwischen \_Unterstriche\_ setzen, um *kursiven Text* zu erzeugen.
+
+-   Mit `#`, `##` und `###` Überschriften und Unterüberschriften auf verschiedenen Ebenen erstellen.
+
+> -   Mit `>` vor einem Zitat einen Zitatblock definieren.
+:::
+
+## Markdown lässt sich in verschiedene Formate rendern
+
+-   `html`
+
+-   `pdf`
+
+-   MS Word
+
+# R Markdown {.subsection background-color="#425556"}
+
+## R Markdown
+
+::: {.content-box-marine}
+R Markdown verbindet **mit Markdown geschriebenen Text** und **in R geschriebenen Code**.
+:::
+
+Das ist in zweierlei Hinsicht nützlich:
+
+::: {.fragment}
+-   **Als Analysewerkzeug**: R Markdown **ersetzt Skripte**
+
+    -   Der R-Code kann ausgeführt werden, um die Analyse zu erstellen.
+
+    -   Mit Markdown-Text können Sie **Ihre Datenanalyse dokumentieren**.
+:::
+
+::: {.fragment}
+-   **Als Berichtswerkzeug**:
+
+    -   R Markdown lässt sich in verschiedene Formate rendern (z. B. `.pdf`, `.docx` und `html`).
+
+    -   Das Rendern in `html` ermöglicht eine gewisse **Interaktivität**.
+:::
+
+## Quarto {.smaller}
+
+::: {.content-box-marine}
+Quarto ist die **nächste Generation von R Markdown**
+:::
+
+::: {.fragment}
+Es ist für **mehrere Sprachen**, **mehrere Plattformen** und **IDEs** konzipiert.
+
+-   Unterstützte Sprachen: **R, Python, Julia, Observable**.
+
+-   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+
+:::
+
+::: {.fragment}
+
+Es **funktioniert nahtlos mit R**, da es von Posit PBC (früher RStudio Inc.) entwickelt wird
+
+-   Neuere Versionen der RStudio-IDE bieten einen **visuellen Quarto-Editor**.
+
+-   Das macht vieles einfacher, denn **Sie müssen nicht alle Markdown-Befehle kennen!**
+:::
+
+::: {.fragment}
+::: callout-note
+Zum Beispiel sind die Unterlagen dieses Workshops in **Quarto** geschrieben.
+:::
+:::
+
+# Ihr erstes Notebook {.subsection background-color="#425556"}
+
+## Ein neues Dokument erstellen
+
+::: panel-tabset
+### R Markdown
+
+-   `File` → `New File` → `R Markdown...`
+
+### Quarto
+
+-   `File` → `New File` → `Quarto Document...`
+:::
+
+Für neue Dokumente ist HTML voreingestellt.
+
+::: {.callout-important icon="false"}
+## Übung
+
+Um den nächsten Abschnitten zu folgen, erstellen Sie Ihr eigenes R-Markdown- bzw. Quarto-Dokument!
+:::
+
+## YAML-Optionen {.smaller}
+
+Schauen Sie sich den Kopf der Vorlage genau an.
+
+-   Jedes Quarto- bzw. R-Markdown-Dokument hat einen in YAML geschriebenen *Kopf* (Header).
+
+-   Im Kopf geben wir die Render-Optionen an, zum Beispiel die grundlegenden Angaben zum Dokument:
+
+::: panel-tabset
+### R Markdown
+
+``` yaml
+title: "Arbeiten mit R Markdown"
+author: ICH
+output: html_document
+```
+
+### Quarto
+
+``` yaml
+title: "Arbeiten mit Quarto"
+author: ICH
+format: html
+editor: visual
+```
+
+In Quarto können Sie auch wählen, welchen Editor Sie verwenden möchten!
+:::
+
+Der YAML-Kopf kann viele Optionen enthalten.
+
+::: callout-note
+Wir besprechen diese Optionen am Ende des Workshops.
+:::
+
+## Einen Code-Chunk einfügen {.smaller}
+
+-   Code wird in *Chunks* (Code-Blöcken) geschrieben. So fügen Sie einen ein:
+
+    -   mit der Schaltfläche <kbd>+C</kbd> oben im Skript-Editor,
+
+    -   oder mit dem Tastenkürzel <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>I</kbd> (<kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> auf dem Mac).
+
+-   Ein leerer Chunk sieht so aus:
+
+```` markdown
+```{{r}}
+
+```
+````
+
+-   Darin können Sie R-Code schreiben. Das Objekt `cars` enthält zum Beispiel Daten zur Geschwindigkeit und zum Bremsweg von Autos:
+
+```` markdown
+```{{r}}
+cars
+```
+````
+
+## Einen Code-Chunk ausführen {.smaller}
+
+-  Mit der *Play*-Schaltfläche ▶️ rechts davon,
+
+-  Oder mit dem Tastenkürzel <kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd>
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r cars}
+head(cars)
+```
+:::
+
+::: {.column width="50%"}
+```{r plot-cars}
+#| fig-alt: "Streudiagramm der Daten cars: Der Bremsweg nimmt mit der Geschwindigkeit zu."
+plot(cars)
+```
+:::
+::::
+
+## *Knitting*, oder die Kunst, ein Dokument zu *rendern* {.smaller}
+
+Wenn Ihre Analyse fertig ist, klicken Sie oben im Source-Editor auf die Schaltfläche `Knit` / `Render`, um ein Dokument zu erzeugen.
+
+# Übung {.subsection background-color="#425556"}
+
+## Übung
+
+In Ihrem neu erstellten R-Markdown- bzw. Quarto-Dokument:
+
+-   **Ändern Sie den YAML-Kopf**: Fügen Sie einen Titel, eine Autorin oder einen Autor und ein Datum hinzu.
+
+-   **Schreiben Sie etwas Text**, z. B. eine Überschrift und einen kurzen Satz.
+
+-   **Fügen Sie einen Chunk ein**:
+
+    -   Fügen Sie ein paar einfache Befehle hinzu, z. B. berechnen Sie `5 + 5` und `30 / 6`.
+
+    -   Führen Sie den Chunk mit der **Play-Schaltfläche** oder dem Tastenkürzel aus.
+
+-   Speichern Sie die Datei an einem geeigneten Ort und klicken Sie dann auf *Knit* / *Render*.

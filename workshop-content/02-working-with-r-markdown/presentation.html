@@ -1283,7 +1283,7 @@ margin-right: 0; }
 <h1>R Markdown</h1>
 
 </section>
-<section id="r-markdown-1" class="slide level2 smaller">
+<section id="r-markdown-1" class="slide level2">
 <h2>R Markdown</h2>
 <div class="content-box-marine">
 <p>R Markdown combines <strong>text written with Markdown</strong> and <strong>code written with R</strong>.</p>
@@ -1291,11 +1291,10 @@ margin-right: 0; }
 <p>This is useful in two ways:</p>
 <div class="fragment">
 <ul>
-<li><p><strong>As a tool for analysis</strong>:</p>
+<li><p><strong>As a tool for analysis</strong>: Rmarkdown <strong>replaces scripts</strong></p>
 <ul>
-<li><p>R Markdown <strong>replaces scripts</strong> when carrying out analyses.</p></li>
-<li><p>You can <strong>execute the R code</strong> contained in the R Markdown document to analyse your data.</p></li>
-<li><p>Since it allows for text, it can be used to <strong>document your data analysis</strong>.</p></li>
+<li><p>The R code can be executed to produce the analysis.</p></li>
+<li><p>Markdown text can be written to <strong>document your data analysis</strong>.</p></li>
 </ul></li>
 </ul>
 </div>
@@ -1303,31 +1302,32 @@ margin-right: 0; }
 <ul>
 <li><p><strong>As a reporting tool</strong>:</p>
 <ul>
-<li><p>It can produce reports in various formats, including <code>.pdf</code>, <code>.docx</code> and <code>html</code>.</p></li>
+<li><p>Rmarkdown can be rendered in various formats (e.g. <code>.pdf</code>, <code>.docx</code> and <code>html</code>).</p></li>
 <li><p>Rendering in <code>html</code> allows for some degree of <strong>interactivity</strong>.</p></li>
 </ul></li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="quarto" class="title-slide slide level1 subsection center" data-background-color="#425556">
-<h1>Quarto</h1>
-
 </section>
-<section id="quarto-is-the-next-generation-version-of-r-markdown" class="slide level2 smaller">
-<h2>Quarto is the <strong>next-generation version of R Markdown</strong></h2>
-<ul>
-<li><p>It is designed to work with <strong>multiple languages</strong>, across <strong>multiple platforms</strong> and <strong>IDEs</strong>.</p>
+<section id="quarto" class="slide level2 smaller">
+<h2>Quarto</h2>
+<div class="content-box-marine">
+<p>Quarto is the <strong>next-generation version of R Markdown</strong></p>
+</div>
+<div class="fragment">
+<p>It is designed to work with <strong>multiple languages</strong>, across <strong>multiple platforms</strong> and <strong>IDEs</strong>.</p>
 <ul>
 <li><p>Languages supported: <strong>R, Python, Julia, Observable</strong>.</p></li>
-<li><p>IDEs: <strong>RStudio, Jupyter Notebooks, VS Code, NeoVim</strong>.</p></li>
-</ul></li>
-<li><p>It <strong>works seamlessly with R</strong>, since it is developed by Posit PBC (the company behind the RStudio IDE).</p></li>
-<li><p>Recent versions of the RStudio IDE provide a <strong>Visual Quarto Editor</strong>.</p>
-<ul>
-<li>This makes things easier, as <strong>there’s no need to know all the Markdown commands!</strong></li>
-</ul></li>
+<li><p>IDEs: <strong>RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron</strong>.</p></li>
 </ul>
+</div>
+<div class="fragment">
+<p>It <strong>works seamlessly with R</strong> as it is developed by Posit PBC (formerly RStudio Inc.)</p>
+<ul>
+<li><p>Recent versions of the RStudio IDE provide a <strong>Visual Quarto Editor</strong>.</p></li>
+<li><p>This makes things easier, as <strong>there’s no need to know all the Markdown commands!</strong></p></li>
+</ul>
+</div>
+<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1337,7 +1337,8 @@ margin-right: 0; }
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>The notebooks in this workshop are written in <strong>Quarto</strong>.</p>
+<p>For instance, the materials in this workshop are written in <strong>Quarto</strong>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1444,7 +1445,7 @@ margin-right: 0; }
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href aria-label="1"></a>cars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href aria-label="1"></a><span class="fu">head</span>(cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="kable-table">
 <table class="caption-top">
@@ -1479,182 +1480,6 @@ margin-right: 0; }
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">10</td>
 </tr>
-<tr class="odd">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">18</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">26</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">34</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">17</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">28</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">24</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">28</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">26</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">34</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">34</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">46</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">26</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">60</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">80</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">26</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">32</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">32</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">50</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">42</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">56</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">76</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">84</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">36</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">46</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">68</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">32</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">48</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">52</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">56</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">64</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">22</td>
-<td style="text-align: right;">66</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">54</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">70</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">92</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">93</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">120</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">85</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1676,10 +1501,14 @@ margin-right: 0; }
 <section id="knitting-or-the-art-of-rendering-a-document" class="slide level2 smaller">
 <h2><em>Knitting</em>, or the art of <em>rendering</em> a document</h2>
 <p>Once you’re done with your analysis, click on the <code>Knit</code> / <code>Render</code> button at the top of the source editor to produce a document.</p>
+</section></section>
+<section>
+<section id="exercise-1" class="title-slide slide level1 subsection center" data-background-color="#425556">
+<h1>Exercise</h1>
+
 </section>
-<section id="exercise-1" class="slide level2">
+<section id="exercise-2" class="slide level2">
 <h2>Exercise</h2>
-<p>Time to get your fingers dirty!</p>
 <p>In your newly created R Markdown / Quarto document:</p>
 <ul>
 <li><p><strong>Modify the YAML header</strong>: add a title, an author and a date.</p></li>

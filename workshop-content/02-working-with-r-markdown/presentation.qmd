@@ -56,7 +56,7 @@ For instance, you can:
 
 # R Markdown {.subsection background-color="#425556"}
 
-## R Markdown {.smaller}
+## R Markdown
 
 ::: {.content-box-marine}
 R Markdown combines **text written with Markdown** and **code written with R**.
@@ -65,41 +65,49 @@ R Markdown combines **text written with Markdown** and **code written with R**.
 This is useful in two ways:
 
 ::: {.fragment}
--   **As a tool for analysis**:
+-   **As a tool for analysis**: Rmarkdown **replaces scripts**
 
-    -   R Markdown **replaces scripts** when carrying out analyses.
+    -   The R code can be executed to produce the analysis.
 
-    -   You can **execute the R code** contained in the R Markdown document to analyse your data.
-
-    -   Since it allows for text, it can be used to **document your data analysis**.
+    -   Markdown text can be written to **document your data analysis**.
 :::
 
 ::: {.fragment}
 -   **As a reporting tool**:
 
-    -   It can produce reports in various formats, including `.pdf`, `.docx` and `html`.
+    -   Rmarkdown can be rendered in various formats (e.g. `.pdf`, `.docx` and `html`).
 
     -   Rendering in `html` allows for some degree of **interactivity**.
 :::
 
-# Quarto {.subsection background-color="#425556"}
+## Quarto {.smaller}
 
-## Quarto is the **next-generation version of R Markdown** {.smaller}
+::: {.content-box-marine}
+Quarto is the **next-generation version of R Markdown** 
+:::
 
--   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
+::: {.fragment}
+It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
 
-    -   Languages supported: **R, Python, Julia, Observable**.
+-   Languages supported: **R, Python, Julia, Observable**.
 
-    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim**.
+-   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
 
--   It **works seamlessly with R**, since it is developed by Posit PBC (the company behind the RStudio IDE).
+:::
+
+::: {.fragment}
+
+It **works seamlessly with R** as  it is developed by Posit PBC (formerly RStudio Inc.)
 
 -   Recent versions of the RStudio IDE provide a **Visual Quarto Editor**.
 
-    -   This makes things easier, as **there's no need to know all the Markdown commands!**
+-   This makes things easier, as **there's no need to know all the Markdown commands!**
+:::
 
+::: {.fragment}
 ::: callout-note
-The notebooks in this workshop are written in **Quarto**.
+For instance, the materials in this workshop are written in **Quarto**.
+:::
 :::
 
 # Your first notebook {.subsection background-color="#425556"}
@@ -192,7 +200,7 @@ cars
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r cars}
-cars
+head(cars)
 ```
 :::
 
@@ -208,9 +216,9 @@ plot(cars)
 
 Once you're done with your analysis, click on the `Knit` / `Render` button at the top of the source editor to produce a document.
 
-## Exercise
+# Exercise {.subsection background-color="#425556"}
 
-Time to get your fingers dirty!
+## Exercise
 
 In your newly created R Markdown / Quarto document:
 

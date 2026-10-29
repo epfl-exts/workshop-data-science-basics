@@ -83,24 +83,26 @@ This is useful in two ways:
 
     -   Rendering in `html` allows for some degree of **interactivity**.
 
-# Quarto
+## Quarto
 
-## Quarto is the **next-generation version of R Markdown**
+::: {.content-box-marine}
+Quarto is the **next-generation version of R Markdown**.
+:::
 
 -   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
 
     -   Languages supported: **R, Python, Julia, Observable**.
 
-    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim**.
+    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
 
--   It **works seamlessly with R**, since it is developed by Posit PBC (the company behind the RStudio IDE).
+-   It **works seamlessly with R**, since it is developed by Posit PBC (formerly RStudio Inc., the company behind the RStudio IDE).
 
 -   Recent versions of the RStudio IDE provide a **Visual Quarto Editor**.
 
     -   This makes things easier, as **there's no need to know all the Markdown commands!**
 
 ::: callout-note
-The notebooks in this workshop are written in **Quarto**.
+For instance, the materials in this workshop are written in **Quarto**.
 :::
 
 # Your first notebook
@@ -193,7 +195,7 @@ cars
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r cars}
-cars
+head(cars)
 ```
 :::
 
@@ -209,7 +211,7 @@ plot(cars)
 
 Once you're done with your analysis, click on the `Knit` / `Render` button at the top of the source editor to produce a document.
 
-## Exercise
+# Exercise
 
 Time to get your fingers dirty!
 
