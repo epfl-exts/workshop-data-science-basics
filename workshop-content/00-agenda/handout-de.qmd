@@ -1,0 +1,108 @@
+---
+title: "Agenda und Lernziele"
+subtitle: "Workshop Grundlagen der Data Science"
+lang: de
+translated-from: "3fa7159cbcde147c796d7b7eebb188dac9be8203"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    code-fold: show
+    highlight-style: zenburn
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Folien
+        href: presentation-de.html
+        icon: easel
+---
+
+<!-- Translation of handout.qmd. Don't change the structure here: change handout.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r echo=FALSE}
+#| label: setup
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+
+```
+
+```{r include=FALSE}
+#| label: packages
+library(tidyverse)
+library(knitr)
+
+```
+
+# Lernziele
+
+::: {.callout-important icon="false"}
+## Am Ende des Workshops können die Teilnehmenden:
+
+-   die **Data-Science-Pipeline verstehen.**
+
+-   mit R, RStudio, dem `{tidyverse}` und R Markdown **praktische Erfahrung** in den Aufgaben einer Data Scientist sammeln:
+
+    -   Daten importieren, bearbeiten und visualisieren
+
+    -   automatisierte und reproduzierbare Berichte mit R-Markdown-Dateien erstellen
+:::
+
+# AGENDA
+
+## Donnerstag
+
+```{r}
+#| label: agenda-thursday
+agenda_thursday <- tribble(
+  ~"Zeit", ~"Thema",
+  "08:30 - 08:50", "Einrichtung von Renku & Prework",
+  "08:50 - 09:00", "Begrüssung",
+  "09:00 - 09:35", "Einführung in R",
+  "09:35 - 10:00", "Arbeiten mit R Markdown",
+  "10:00 - 10:45", "Daten in R importieren + Übung 1",
+  "10:45 - 11:00", "Pause",
+  "11:00 - 11:15", "Übung 1: Besprechung",
+  "11:15 - 12:15", "Datenaufbereitung (Teil 1) + Übungen 2-3",
+  "12:15 - 12:30", "Übungen 2-3: Besprechung"
+)
+
+agenda_thursday %>% 
+  kable()
+
+```
+
+## Freitag 
+
+```{r}
+#| label: agenda-friday
+agenda_friday <- tribble(
+  ~"Zeit", ~"Thema",
+  "08:30 - 08:45", "Rückblick",
+  "08:45 - 10:00", "Datenaufbereitung (Teil 2) + Übungen 4-5",
+  "10:00 - 10:15", "Übungen 4-5: Besprechung",
+  "10:15 - 10:30", "Pause",
+  "10:30 - 11:45", "Datenvisualisierung + Übung 6",
+  "11:45 - 12:00", "Übung 6: Besprechung",
+  "12:00 - 12:15", "Zusammenfassung",
+  "12:15 - 12:30", "Fragen & Antworten"
+)
+
+agenda_friday %>% 
+  kable()
+
+```
+
+## Dauer
+
+Zwei Vormittage, 08:30 - 12:30: 8 Stunden, inklusive zwei Pausen von je 15 Minuten

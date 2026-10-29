@@ -1,0 +1,108 @@
+---
+title: "Programme et objectifs"
+subtitle: "Workshop Bases de la Science des Données"
+lang: fr
+translated-from: "3fa7159cbcde147c796d7b7eebb188dac9be8203"
+author: "**EPFL Extension School**"
+format:
+  html:
+    theme: simplex
+    number-sections: true
+    code-fold: show
+    highlight-style: zenburn
+    toc: true
+    df-print: paged
+    toc-location: right
+    toc-float:
+      smooth-scroll: true
+    title-block-banner: "#413D3A"
+    title-block-banner-color: "White"
+    embed-resources: true
+    css: ../assets/css/styles-html.css
+    other-links:
+      - text: Diapositives
+        href: presentation-fr.html
+        icon: easel
+---
+
+<!-- Translation of handout.qmd. Don't change the structure here: change handout.qmd, then port the changes (see README.md, "Translations"). -->
+
+```{r echo=FALSE}
+#| label: setup
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	echo = FALSE
+)
+
+```
+
+```{r include=FALSE}
+#| label: packages
+library(tidyverse)
+library(knitr)
+
+```
+
+# Objectifs d'apprentissage
+
+::: {.callout-important icon="false"}
+## À la fin du workshop, les participant·e·s seront capables de :
+
+-   **Comprendre** le **pipeline de la science des données.**
+
+-   Acquérir une **expérience pratique** de R, RStudio, du `{tidyverse}` et de R Markdown pour réaliser les tâches d'un·e data scientist :
+
+    -   Importer, manipuler et visualiser des données
+
+    -   Produire des rapports automatisés et reproductibles avec des fichiers R Markdown
+:::
+
+# PROGRAMME
+
+## Jeudi
+
+```{r}
+#| label: agenda-thursday
+agenda_thursday <- tribble(
+  ~"Horaire", ~"Sujet",
+  "08:30 - 08:50", "Configuration de Renku & Prework",
+  "08:50 - 09:00", "Accueil",
+  "09:00 - 09:35", "Introduction à R",
+  "09:35 - 10:00", "Travailler avec R Markdown",
+  "10:00 - 10:45", "Importer des données avec R + Exercice 1",
+  "10:45 - 11:00", "Pause",
+  "11:00 - 11:15", "Exercice 1 : correction",
+  "11:15 - 12:15", "Manipulation des données (partie 1) + Exercices 2-3",
+  "12:15 - 12:30", "Exercices 2-3 : correction"
+)
+
+agenda_thursday %>% 
+  kable()
+
+```
+
+## Vendredi 
+
+```{r}
+#| label: agenda-friday
+agenda_friday <- tribble(
+  ~"Horaire", ~"Sujet",
+  "08:30 - 08:45", "Récapitulatif",
+  "08:45 - 10:00", "Manipulation des données (partie 2) + Exercices 4-5",
+  "10:00 - 10:15", "Exercices 4-5 : correction",
+  "10:15 - 10:30", "Pause",
+  "10:30 - 11:45", "Visualisation des données + Exercice 6",
+  "11:45 - 12:00", "Exercice 6 : correction",
+  "12:00 - 12:15", "Synthèse",
+  "12:15 - 12:30", "Questions-réponses"
+)
+
+agenda_friday %>% 
+  kable()
+
+```
+
+## Durée
+
+Deux matinées, 08:30 - 12:30 : 8 heures, dont deux pauses de 15 minutes

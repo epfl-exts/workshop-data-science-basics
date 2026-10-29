@@ -5,8 +5,7 @@ author: "**EPFL Extension School**"
 format:
   revealjs:
     slide-level: 2
-    transition: slide
-    background-transition: fade
+    transition: fade
     footer: "Basics of Data Science Workshop"
     slide-number: true
     df-print: paged
@@ -53,7 +52,7 @@ library(knitr)
 ```{r}
 #| label: agenda-thursday
 agenda_thursday <- tribble(
-  ~Time, ~Topic,
+  ~"Time", ~"Topic",
   "08:30 - 08:50", "Renku set-up & Prework",
   "08:50 - 09:00", "Welcome",
   "09:00 - 09:35", "Introduction to R",
@@ -75,7 +74,7 @@ agenda_thursday %>%
 ```{r}
 #| label: agenda-friday
 agenda_friday <- tribble(
-  ~Time, ~Topic,
+  ~"Time", ~"Topic",
   "08:30 - 08:45", "Recap",
   "08:45 - 10:00", "Data wrangling (Part 2) + Exercises 4-5",
   "10:00 - 10:15", "Exercises 4-5: Walkthrough",
