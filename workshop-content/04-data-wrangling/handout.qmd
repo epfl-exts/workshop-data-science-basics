@@ -52,8 +52,8 @@ To get insight during the analysis stage, one needs to be able to **Transform** 
 Some basic Data Wrangling tasks are:
 
 -   **picking a column** from a table,
--   subsetting, i.e. **picking a set of rows**,
 -   **transforming and/or adding columns** to a table,
+-   subsetting, i.e. **picking a set of rows**,
 -   **ordering the rows** according to the values of a (set of) column(s),
 -   **grouping** according to the values of a (set of) column(s), to perform analyses within the groups,
 -   computing **summary statistics** (centrality, dispersion, quantiles, etc.).
@@ -76,8 +76,8 @@ knitr::include_graphics(path = "images/hex-dplyr.png")
 |           Verb            | Use                                                                                                 |
 |:-----------------:|-----------------------------------------------------|
 |        `select()`         | **pick a set of columns** from a `tibble`                                                           |
-|        `filter()`         | **pick a set of rows**                                                                              |
 |        `mutate()`         | **transform and add columns** to the `tibble`                                                       |
+|        `filter()`         | **pick a set of rows**                                                                              |
 |        `arrange()`        | **order the rows** according to the values of a (set of) column(s)                                  |
 |       `group_by()`        | **group** according to the values of a (set of) column(s) to perform calculations within the groups |
 | `summarise()/summarize()` | create a new `tibble` containing **summary statistics** for a set of columns                        |
@@ -131,13 +131,24 @@ Notice that:
 
 ```{r}
 #| label: read-wta
-library(readr)
 
+# 1. attach the package
+library(readr)   
+
+# 2. assign data to an object
 wta_data <-
+
+  # 3. give the path through the pipe
   "../data/wta_grand_slam_data.csv" %>%
+  
+  # 4. use the function readr::read_csv()
   read_csv(
+
+  # 5. set all columns as character
     col_types = cols(.default = "c")
     )
+
+wta_data
 ```
 
 ::: {.callout-tip collapse="true"}
@@ -155,14 +166,14 @@ You see that we have added an extra argument to avoid importing errors:
 It's always useful to see the **first rows** of our data, to check whether they are well imported. In R, we get a printed view of the **first row** with the function `slice_head()`:
 
 ```{r}
-#| label: slice-head-wta
+#| label: handout-slice-head-wta
 slice_head(wta_data)
 ```
 
 If we want to print more rows, we can set the argument `n` to a value (e.g. `n = 6`):
 
 ```{r}
-#| label: slice-head-wta-6
+#| label: handout-slice-head-wta-6
 slice_head(wta_data, n = 6)
 ```
 
@@ -202,73 +213,49 @@ Alternatively, we can get a *graphical* view with the function `vis_dat()` from 
 ```{r, fig.cap = "A bird's-eye view of the WTA dataset using `vis_dat()`"}
 #| label: vis-dat-wta
 #| fig-alt: "vis_dat() plot of the WTA data: one vertical band per column, all coloured as character, with grey blocks marking missing values, which are frequent in some columns."
+# 1. attach the package visdat
 library(visdat)
+
 wta_data %>%
+
+# 2. use visdat::vis_dat()
   vis_dat(
-    # `warn_large_data = FALSE` added to avoid warnings
+    # 3. avoid warnings about large data
     warn_large_data = FALSE
     )
 ```
-
-### Cleaning column names
-
-The WTA column names are easy to work with. Files prepared by people are often less friendly: spaces, capital letters, units in brackets... Let's import a small example, `team_bad_names.csv`. To use a name like `First Name` in our code, we would have to wrap it in backticks every time: `` team$`First Name` ``.
-
-The function `clean_names()` from the package `{janitor}` **rewrites all the column names** in lower-case `snake_case`:
-
-:::: {.columns}
-::: {.column width="50%"}
-```{r}
-#| label: read-team-bad-names
-team <- read_csv("data/team_bad_names.csv")
-team
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| label: clean-names-team
-library(janitor)
-team %>%
-  clean_names()
-```
-:::
-::::
-
-::: callout-tip
-## Why bother?
-
-Clean names are **quicker to type** and **work without backticks**, and RStudio can **autocomplete** them. Call `clean_names()` once, right after importing, and the rest of your code stays simple.
-:::
 
 ## Picking columns with `select()`
 
 The function `select()` helps **picking columns**. We can **pick one column by its name**, such as the column `year`:
 
 ```{r, eval = FALSE}
-#| label: select-year
+#| label: handout-select-year
 wta_data %>%
   select(year)
 ```
 
-To select more than one column, we pass their names to `select()`. Say we want to select the information related to the **winners** and the **tourneys**:
+To select more than one column, we pass their names to `select()`. Say we want to see **who played against whom** over the years:
 
 ```{r, eval = FALSE}
 #| label: select-columns
 wta_data %>%
-  select(year, tourney_id, tourney_name, winner_id, winner_name)
+  select(year, winner_name, loser_name)
 ```
 
 We can also pick the columns **whose names fulfil a condition**. This is done by means of so-called **selection helpers**.
 
--   For instance, let's use `starts_with()` to pick all the columns that **start with** the prefixes `tourney_` and `winner_`.
+-   For instance, let's use `starts_with()` to pick all the columns that **start with** the prefixes `winner` and `loser`.
 -   To make things even clearer, let's inspect the result with `vis_dat()`.
 
 ```{r}
 #| label: select-helpers
-#| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and tourney_ columns, all of type character."
+#| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and loser_ columns, all of type character."
+
 wta_data %>%
-  select(year, starts_with("winner"), starts_with("tourney")) %>%
+  select(year, 
+    starts_with("winner"), 
+    starts_with("loser")) %>%
   vis_dat(warn_large_data = FALSE)
 ```
 
@@ -296,16 +283,22 @@ The `mutate()` verb allows us to **create new columns** or **transform existing 
 -   Again, to make things clearer, we use `vis_dat()`. Notice that the type of the column `year` has switched from `character` to `numeric`, and the column `tourney_date` has changed to `Date`.
 
 ```{r}
-#| label: mutate-types
-#| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
+#| label: handout-attach-lubridate
 library(lubridate)
+```
 
+```{r}
+#| label: mutate-types
 wta_data <-
   wta_data %>%
   mutate(
     year = as.numeric(year),
     tourney_date = ymd(tourney_date))
+```
 
+```{r}
+#| label: handout-mutate-types-check
+#| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
 wta_data %>%
   select(year, starts_with("winner"), starts_with("tourney")) %>%
   vis_dat(warn_large_data = FALSE)
@@ -319,13 +312,16 @@ Notice that we have *assigned* the modified table to `wta_data`, thereby **rewri
 The following pipe **does not modify** the contents of `data` **permanently**:
 
 ``` r
-data %>% mutate(...)
+data %>% 
+  mutate(...)
 ```
 
 The following pipe **does modify** the contents of `data` **permanently**:
 
 ``` r
-data <- data %>% mutate(...)
+data <- 
+  data %>% 
+  mutate(...) 
 ```
 :::
 
@@ -338,7 +334,7 @@ Say, for example, that we are interested in the matches won by the great Serena 
 ```{r}
 #| label: filter-serena
 wta_data %>%
-  select(year, starts_with("winner"), starts_with("tourney")) %>%
+  select(year, tourney_name, winner_name) %>%
   filter(winner_name == "Serena Williams")
 ```
 
@@ -353,14 +349,24 @@ Naturally, we can **add several conditions**, on the **same column or on others*
 
 -   Let's suppose we are interested in analysing Serena's performance at the Australian tournaments.
 -   We can select all the rows where `tourney_name` contains the pattern `"Australian"` with `str_detect()` from the package `{stringr}`: `str_detect()` returns `TRUE` when the value of `tourney_name` contains the pattern `"Australian"`.
+-   We finish with `select()`, to see the relevant columns.
 
 ```{r}
 #| label: filter-serena-australian
+# 1. attach stringr
 library(stringr)
+
 wta_data %>%
   filter(
+    # 2. first condition: the winner
     winner_name == "Serena Williams",
-    str_detect(tourney_name, pattern = "Australian"))
+    # 3. second condition: the tournament
+    str_detect(
+      tourney_name,
+      pattern = "Australian")) %>%
+
+# 4. keep a few columns
+  select(year, tourney_name, winner_name)
 ```
 
 ::: {.callout-tip collapse="true"}
@@ -406,7 +412,7 @@ wta_data %>%
 If the ordering column is of **type `character`**, the observations are arranged in alphabetical order:
 
 ```{r}
-#| label: arrange-winner-name
+#| label: handout-arrange-winner-name
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(winner_name)
@@ -448,9 +454,15 @@ The function `summarise()` creates a new dataset that **contains summaries of th
 ```{r}
 #| label: summarise-serena-australian
 wta_data %>%
+
+# 1. keep Serena's Australian wins
   filter(
     winner_name == "Serena Williams",
-    str_detect(tourney_name, pattern = "Australian")) %>%
+    str_detect(
+      tourney_name,
+      pattern = "Australian")) %>%
+
+# 2. count the rows
   summarise(number_of_wins = n())
 ```
 
@@ -461,6 +473,7 @@ Aside from `n()`, other useful functions calculate various other summaries:
 |      Center       | `mean()`, `median()`           |
 |      Spread       | `sd()`, `IQR()`, `mad()`       |
 |       Range       | `min()`, `max()`, `quantile()` |
+|       Total       | `sum()`                        |
 |     Position      | `first()`, `last()`, `nth()`   |
 |       Count       | `n()`, `n_distinct()`          |
 |      Logical      | `any()`, `all()`               |
@@ -481,7 +494,7 @@ wta_data %>%
 To remove a grouping structure, use the verb `ungroup()`:
 
 ```{r}
-#| label: ungroup-winner
+#| label: handout-ungroup-winner
 wta_data %>%
   group_by(winner_name) %>%
   ungroup()
@@ -501,7 +514,9 @@ For illustration, let's count the **number of wins** of **every player** (not ju
 #| label: wins-per-player
 wta_data %>%
   group_by(winner_name) %>%
-  summarise(number_of_wins = n(), .groups = "drop")
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop")
 ```
 
 ::: callout-note
@@ -510,16 +525,36 @@ wta_data %>%
 It tells `summarise()` to return a table **without any grouping**, exactly as if we had added `ungroup()` at the end. Get into the habit: a grouping that you forgot about is a common source of surprises in later computations.
 :::
 
+To see **who won the most**, we sort the result in descending order with `arrange()` and `desc()`:
+
+```{r}
+#| label: wins-ranking
+wta_data %>%
+  group_by(winner_name) %>%
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop") %>%
+  arrange(desc(number_of_wins))
+```
+
 ::: {.callout-tip collapse="true"}
 ## A shortcut for counting: `count()`
 
 Counting the rows within groups is so common that `{dplyr}` has a shortcut for it. `count()` groups, counts and ungroups in one step:
 
 ```{r}
-#| label: count-wins-per-player
+#| label: handout-count-wins-per-player
 wta_data %>%
   count(winner_name, name = "number_of_wins")
 ```
+:::
+
+::: {.callout-tip collapse="true"}
+## `group_by()` also works with `mutate()`
+
+After `group_by()`, `mutate()` computes **within the groups** too. Unlike `summarise()`, it **keeps all the rows**: each row gets the result of its group.
+
+![](images/mutate-and-grouped-data-v1-figure-4191.png){fig-alt="The card for group_by() with mutate(): five sales rows for clients Bob, Alice and Jean keep their rows and gain a total_sales column, holding 66 for both Bob rows, 14 for both Alice rows and 76 for Jean." width="70%" fig-align="center"}
 :::
 
 We can group by more than one column. Let's see **how many matches** were won by **each player** in **each tournament**. For this, we need `group_by(winner_name, tourney_name)`:
@@ -528,7 +563,9 @@ We can group by more than one column. Let's see **how many matches** were won by
 #| label: wins-per-player-tourney
 wta_data %>%
   group_by(winner_name, tourney_name) %>%
-  summarise(number_of_wins = n(), .groups = "drop")
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop")
 ```
 
 ### Exercise Time! {.unnumbered}
@@ -614,7 +651,7 @@ Yes there is! But it's a function that does not ensure **row consistency**. We c
 -   For example, `data_3` contains the same ids as `data_1`, hence we can attach the values of the columns `var_2` and `var_3` to have a more complete dataset.
 
 ```{r}
-#| label: bind-cols-data
+#| label: handout-bind-cols-data
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -631,12 +668,12 @@ There are a couple of drawbacks when using `bind_cols()`:
     -   Carrying out the merge with `bind_cols()` yields an inconsistent result!
 
 ```{r}
-#| label: permute-data-3
+#| label: handout-permute-data-3
 data_3 <- data_3 %>% arrange(desc(id))
 ```
 
 ```{r}
-#| label: bind-cols-permuted
+#| label: handout-bind-cols-permuted
 data_1 %>%
   bind_cols(select(data_3, starts_with("var")))
 ```
@@ -648,7 +685,7 @@ data_1 %>%
     -   This is because we have 5 rows in the first dataset and 3 in the second!
 
 ```{r, error=TRUE}
-#| label: bind-cols-error
+#| label: handout-bind-cols-error
 data_1 %>%
   bind_rows(data_2) %>%
   bind_cols(data_3)
@@ -681,7 +718,11 @@ A call to `left_join()` has the particularity that, other than joining the commo
 ```{r}
 #| label: left-join-id
 data_1 %>%
+
+# 1. stack the first two tables
   bind_rows(data_2) %>%
+
+# 2. attach data_3, matching on id
   left_join(data_3, by = "id")
 ```
 
@@ -691,7 +732,10 @@ Let's see what happens when there's a non-common element. We add an observation 
 ::: {.column width="50%"}
 ```{r}
 #| label: data-4
-data_4 <- bind_rows(data_3, tibble(id = 8, var_2 = 3, var_3 = 12))
+data_4 <-
+  bind_rows(
+    data_3,
+    tibble(id = 8, var_2 = 3, var_3 = 12))
 data_4
 ```
 :::
@@ -775,8 +819,11 @@ Let's *pivot* this tibble into *long form*, by
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
-    cols = -c(prototype), # means: selecting all but the prototype column
+    # 1. all the columns but prototype
+    cols = -c(prototype),
+    # 2. where the old names go
     names_to = "timepoint",
+    # 3. where the values go
     values_to = "performance"
   )
 
@@ -795,8 +842,11 @@ data_5_long <-
     cols = -c(prototype),
     names_to = "timepoint",
     values_to = "performance",
-    names_prefix = "t_", # to remove the `t_` prefix
-    names_transform = list(timepoint = as.integer) # to transform the timepoints into integers
+    # 1. remove the `t_` prefix
+    names_prefix = "t_",
+    # 2. make the timepoints integers
+    names_transform = list(
+      timepoint = as.integer)
   )
 
 data_5_long
@@ -808,7 +858,9 @@ data_5_long
 #| label: average-performance
 data_5_long %>%
   group_by(prototype) %>%
-  summarise(average_performance = mean(performance), .groups = "drop")
+  summarise(
+    average_performance = mean(performance),
+    .groups = "drop")
 ```
 
 ## Pivoting into wide-form with `pivot_wider()`
@@ -844,7 +896,11 @@ This does not look very succinct for a written report, due to the repetition of 
 ```{r}
 #| label: pivot-wider
 data_6_long %>%
-  pivot_wider(names_from = practice, values_from = yield)
+  pivot_wider(
+    # 1. the names of the new columns
+    names_from = practice,
+    # 2. the values of the new columns
+    values_from = yield)
 ```
 :::
 ::::
@@ -854,7 +910,7 @@ data_6_long %>%
 We can pass it to `kbl()` and take advantage of `{kableExtra}` for an even better rendering:
 
 ```{r}
-#| label: pivot-wider-kable
+#| label: handout-pivot-wider-kable
 library(kableExtra)
 data_6_long %>%
   pivot_wider(names_from = practice, values_from = yield) %>%

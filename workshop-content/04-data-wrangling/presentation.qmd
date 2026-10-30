@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
   fig.height = 9/2,
   cache = FALSE)
 
-# keep wide tibbles (e.g. the 49-column WTA data) on one slide
+# keep wide tibbles (e.g. the 45-column WTA data) on one slide
 options(pillar.max_extra_cols = 0)
 ```
 
@@ -39,65 +39,158 @@ library(janitor)
 library(DT)
 ```
 
-## Wrangling: tidy, then transform
+# Tidying and Transforming the data {.subsection background-color="#425556"}
 
-::: {.notes}
-Warn participants not to knit/render: it takes too long on Renku. We execute the code as it is presented.
+## Wrangling: essential to tidy and transform the data {auto-animate="true"}
+
+
+![](images/fig-data-wrangling.png){fig-alt="The data science pipeline, with the Tidy and Transform steps highlighted: data wrangling covers both." width="70%" fig-align="center"}
+
+## Wrangling: essential to tidy and transform the data {auto-animate="true"}
+
+
+![](images/fig-data-wrangling.png){fig-alt="The data science pipeline, with the Tidy and Transform steps highlighted: data wrangling covers both." width="60%" fig-align="center"}
+
+::: {.incremental}
+- **Tidy**: "cleaning" the data, making it ready for **analysis**
+- Successively **Transform**: to refine our **understanding**
 :::
 
-![](images/fig-data-wrangling.png){fig-alt="The data science pipeline, with the Tidy and Transform steps highlighted: data wrangling covers both." width="80%" fig-align="center"}
+::: {.fragment}
 
--   **Tidy**: clean the data into **tidy tables** (`tibbles`)
--   **Transform**: reshape it to get insight
+::: {.content-box-marine}
+Both tasks require data manipulation, a.k.a. **data wrangling**.
+:::
 
-Both are **data wrangling**.
+:::
 
-## Basic wrangling tasks
+## In this unit
 
--   **Pick columns** from a table
--   **Pick rows**: subsetting
--   **Transform** or **add** columns
--   **Order** the rows
--   **Group** the rows, to compute within groups
--   Compute **summary statistics**
-
-. . .
-
-`{dplyr}` and `{tidyr}`: a whole **grammar** to manipulate data.
+::: {.incremental}
+- **The grammar of Data Manipulation**:
+  - The `{tidyverse}` functions to wrangle data
+  - Compute summary statistics: 
+    - in the dataset
+    - by groups 
+- **Merge**: combine multiple datasets
+- **Reshape**: reshape it to get insight or prepare for analysis
+:::
 
 # A Grammar for Data Manipulation {#DataManip .subsection background-color="#425556"}
 
-## `{dplyr}`: verbs to wrangle data {.smaller}
+## A Grammar for Data Manipulation {.center}
+
+::: {.content-box-marine}
+Because we are dealing with **tabular data**, the possible manipulations are a set of systematised tasks
+:::
+
+## **Pick** columns from the table 
+
+👉 Create a dataset with only columns `C1` and `C3`
+
+![](images/only-select.png){fig-alt="A table with columns C1, C2 and C3 becomes a table with only C1 and C3." fig-align="center" width="70%"}
+
+## **Transform** or **add** columns
+
+👉 Add a column `C3 = 2*C1`
+
+![](images/only-mutate.png){fig-alt="A table with columns C1 and C2 gains a highlighted column C3, holding twice the values of C1." fig-align="center" width="70%"}
+
+## **Subset rows** according to a value in a column
+
+👉 Filter only the rows where `C1 == "DOG"`
+
+![](images/only-filter.png){fig-alt="A table with C1 values DOG, CAT, BIRD and DOG becomes a table with only the two DOG rows." fig-align="center" width="70%"}
+
+## **Order** the rows
+
+👉 Arrange the rows according to the values of `C3`
+
+![](images/only-arrange.png){fig-alt="Four rows with C3 values 21, 41, 12 and 3 are reordered so that C3 increases: 3, 12, 21, 41." fig-align="center" width="70%"}
+
+## Compute **summary statistics**
+
+
+👉 The **sum of the `sales` column** over the whole dataset
+
+![](images/only-summarise.png){fig-alt="A table of three dates with sales of 23, 45 and 12 becomes a single row: total_sales, 80." fig-align="center" width="70%"}
+
+
+## Compute **grouped** **summary statistics**
+
+👉 The sum of the `sales` **per `client`**.
+
+![](images/only-group-by-summarise.png){fig-alt="Five sales rows for clients Bob, Alice and Jean become one row per client with their total sales: 66, 14 and 76." fig-align="center" width="70%"}
+
+The `client` becomes the **grouping** factor. 
+
+## A Grammar for Data Manipulation {.center .smaller auto-animate="true"}
+
+::: {.content-box-marine}
+Because we are dealing with **tabular data**, the possible manipulations are a set of systematised tasks
+:::
+
+| Use                                                                                                 |
+|-----------------------------------------------------| 
+| **pick a set of columns** from a `tibble`                                                           |
+| **transform and add columns** to the `tibble`                                                       |
+| **subsets rows** according to the values of a column                                                |
+| **order the rows** according to the values of a (set of) column(s)                                  |
+| **group** according to the values of a (set of) column(s) to perform calculations within the groups |
+| create a new table containing **summary statistics** for a set of columns                        |
+
+. . . 
+
+::: {.content-box-marine}
+`{dplyr}` and `{tidyr}` are packages that provide a whole **grammar** to manipulate data.
+:::
+
+
+## A Grammar for Data Manipulation {.center .smaller auto-animate="true"}
+
+::: {.content-box-marine}
+`{dplyr}` and `{tidyr}` are packages that provide a whole **grammar** to manipulate data.
+:::
+
 
 :::: {.columns}
+
 ::: {.column width="25%"}
-```{r, echo = FALSE, fig.cap='The pliers of `{dplyr}` will help us wrangle our data!', fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the dplyr package: a pair of pliers."}
+
+```{r, echo = FALSE, fig.cap="These pliers will help us wrangle our data!", fig.align='center', out.width = "90%", fig.alt="The hexagonal logo of the dplyr package: a pair of pliers."}
 #| label: img-dplyr-logo
 knitr::include_graphics(path = "images/hex-dplyr.png")
 ```
 :::
 
 ::: {.column width="75%"}
+
 |           Verb            | Use                                                                                                 |
-|:-----------------:|-----------------------------------------------------|
-|        `select()`         | **pick a set of columns** from a `tibble`                                                           |
-|        `filter()`         | **pick a set of rows**                                                                              |
-|        `mutate()`         | **transform and add columns** to the `tibble`                                                       |
-|        `arrange()`        | **order the rows** according to the values of a (set of) column(s)                                  |
-|       `group_by()`        | **group** according to the values of a (set of) column(s) to perform calculations within the groups |
-| `summarise()/summarize()` | create a new `tibble` containing **summary statistics** for a set of columns                        |
+|:-----------------:|-----------------------------------------------------| 
+| `select()`    | **pick a set of columns** from a `tibble`                                                           |
+| `mutate()`    | **transform and add columns** to the `tibble`                                                       |
+| `filter()`    | **subsets rows** according to the values of a column                                                |
+| `arrange()`   | **order the rows** according to the values of a (set of) column(s)                                  |
+| `group_by()`  | **group** according to the values of a (set of) column(s) to perform calculations within the groups |
+| `summarise()` | create a new `tibble` containing **summary statistics** for a set of columns                        |
+
 :::
+
+
 ::::
 
-## Verbs chain into sentences
+## `{dplyr}`: Why _verbs_?
 
-::: callout-important
-## Why "verbs"?
+All the `{dplyr}` functions share a common structure
 
--   **First argument**: the **dataset**
--   **Other arguments**: the **columns**
+-   Their **first argument** is the **dataset**.
+-   The **other arguments** relate to the **columns** on which we are operating
 
-So, with the **pipe**, they chain into sentences:
+. . . 
+
+::: {.content-box-marine}
+With the **pipe** operator(s), the commands can **chain like sentences**:
+:::
 
 ``` r
 select(dataset, column_1, column_2)
@@ -109,69 +202,44 @@ dataset %>% select(column_1, column_2)
 # you see that it reads like a sentence!
 ```
 
-:::
+# 🎾 Let's practice wrangling in a real dataset {background-image="images/jim-sung-eQuMbR-0mco-unsplash.jpg" background-position="cover" background-opacity="0.4"}
 
-## Inspecting Data
+## 🎾 The WTA dataset 
 
-Right after importing, check:
+- `../data/wta_grand_slam_data.csv` contains the Women's Tennis data.
+- one row per **Grand Slam match**.
 
--   **Which columns** are in the dataset
--   Their **types**: numbers (`integer`, `double`), text (`character`), `logical` (`TRUE`/`FALSE`), dates...
--   Where the **missing values** (`NA`) are
-
-## The WTA dataset {.smaller}
-
-Women's tennis: one row per **Grand Slam match**.
-
-::: callout-note
--   The path goes **one level up**, to the workshop's shared `data` folder (`../data/`)
--   The path is *fed* to `read_csv()` with the pipe `%>%`
-
-:::
-
+Use readr to import it: 
 ```{r}
 #| label: read-wta
-library(readr)
+#| output-location: column-fragment
 
+# 1. attach the package
+library(readr)   
+
+# 2. assign data to an object
 wta_data <-
+
+  # 3. give the path through the pipe
   "../data/wta_grand_slam_data.csv" %>%
+  
+  # 4. use the function readr::read_csv()
   read_csv(
+
+  # 5. set all columns as character
     col_types = cols(.default = "c")
     )
+
+wta_data
 ```
 
-::: {.callout-tip collapse="true"}
-## A note on the extra arguments
+::: {.notes}
 
--   `col_types = cols(.default = "c")` imports **every column as text** (`"c"` for `character`)
--   `read_csv()` *guesses* the types from the first 1000 lines: columns with many `NA` can be guessed wrong
-
+3) The path goes **one level up**, to the `data` folder (`../data/`) and it is *fed* to `read_csv()` with the pipe `%>%`
+5) to import every column as text (`"c"` for `character`). We do this because `read_csv()` *guesses* the types from the first 1000 lines. columns with many `NA` can be guessed wrong
 :::
 
-## Inspecting: the first rows with `slice_head()` {.smaller}
-
-```{r}
-#| label: slice-head-wta
-slice_head(wta_data)
-```
-
-More rows? Set the argument `n`:
-
-```{r}
-#| label: slice-head-wta-6
-slice_head(wta_data, n = 6)
-```
-
-## Inspecting: a summary with `glimpse()` {.smaller .scrollable}
-
--   One line per column: **name**, **type** and the first values
-
-```{r}
-#| label: glimpse-wta
-glimpse(wta_data)
-```
-
-## The columns of the WTA data
+## 🎾 The columns of the WTA data
 
 `r ncol(wta_data)` columns, grouped by **prefix**:
 
@@ -183,231 +251,298 @@ glimpse(wta_data)
 |   `winner_*`    | Information related to the winner of a given match (`id`, `name`, `hand`, ...) |
 |    `loser_*`    | Information related to the loser of a given match (`id`, `name`, `hand`, ...)  |
 
-## Inspecting: the full picture with `vis_dat()`
+## 🔎 Inspecting Data
+
+
+::: {.content-box-marine}
+Right after importing, it's always useful to **inspect** your dataset. 
+:::
+
+::: fragment
+
+- **Which columns** are in the dataset  
+-  Their **types** (numbers, text, dates, ...) 
+-  Where the **missing values** (`NA`) are
+-  and any other feature (or problem!) in the data
+
+:::
+
+::: fragment
+::: {.callout-tip}
+
+## Some inspecting tools
+
+::: {.incremental}
+- check the first rows with `head()` or `dplyr::slice_head()`
+- get a summary of the contents with `dplyr::glimpse()`
+- a visual representation with `visdat::vis_dat()`
+:::
+
+:::
+:::
+
+## 🔎 Getting a `dplyr::glimpse()` {.scrollable}
+
+-   One line per column: **name**, **type** and the first values
+
+```{r}
+#| label: glimpse-wta
+glimpse(wta_data)
+```
+
+
+## 🔎 The full picture with `visdat::vis_dat()`
 
 -   **Colours**: the column **types** · **Grey**: **missing** values
 
-```{r, fig.cap = "A bird's-eye view of the WTA dataset using `vis_dat()`"}
+```{r, fig.cap = "A bird's-eye view of the WTA dataset using `visdat::vis_dat()`"}
 #| label: vis-dat-wta
-#| output-location: column
 #| fig-alt: "vis_dat() plot of the WTA data: one vertical band per column, all coloured as character, with grey blocks marking missing values, which are frequent in some columns."
+#| output-location: column-fragment
+# 1. attach the package visdat
 library(visdat)
+
 wta_data %>%
+
+# 2. use visdat::vis_dat()
   vis_dat(
-    # `warn_large_data = FALSE` added to avoid warnings
+    # 3. avoid warnings about large data
     warn_large_data = FALSE
     )
 ```
 
-## Cleaning column names with `{janitor}` {.smaller}
-
--   Files prepared by people: spaces, capitals, units in brackets...
--   `clean_names()` rewrites **all** names in lower-case `snake_case`
-
-:::: {.columns}
-::: {.column width="50%"}
-```{r}
-#| label: read-team-bad-names
-team <- read_csv("data/team_bad_names.csv")
-team
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| label: clean-names-team
-library(janitor)
-team %>%
-  clean_names()
-```
-:::
-::::
-
-::: callout-tip
-## Why bother?
-
-Quicker to type, **no backticks**, RStudio **autocompletes** them. Call `clean_names()` once, right after importing.
-
-:::
+# The `{dplyr}` verbs in action {.subsection background-color="#425556"}
 
 ## Picking columns with `select()`
 
--   **One column**, by its name:
+::: {.content-box-marine}
+`dplyr::select()` to pick **one** or **several** columns by their name(s)
+:::
 
-```{r, eval = FALSE}
-#| label: select-year
-wta_data %>%
-  select(year)
-```
+![](images/selecting-columns-of-data-v2-figure-3882.png){fig-alt="The select() card: select(tib, C1, C3) keeps only columns C1 and C3 of a three-column table." fig-align="center" width="80%"}
 
--   **Several columns**: list their names
 
-```{r, eval = FALSE}
+## Picking columns with `select()`
+
+👉 use `select` to see who played against who over the years
+
+```{r}
 #| label: select-columns
 wta_data %>%
-  select(year, tourney_id, tourney_name, winner_id, winner_name)
+  select(year, winner_name, loser_name)
 ```
 
-## `select()` with selection helpers
+## Selection helpers 
 
--   Pick the columns **whose names fulfil a condition**, e.g. `starts_with()`
+::: {.content-box-marine}
+Instead of writing all the names, we pick the columns **whose names fulfil a condition**.
+:::
+
+![](images/advanced-usage-of-select-v2-figure-3791.png){fig-alt="The smart select() card: on a table with columns room-id, capacity and smoking-room, contains(\"room\") keeps room-id and smoking-room, starts_with(\"room\") keeps room-id, and ends_with(\"room\") keeps smoking-room." fig-align="center" width="80%"}
+
+## Selection helpers
+
+👉 `starts_with("winner")` or `starts_with("loser")` to get all the player info
 
 ```{r}
 #| label: select-helpers
-#| output-location: column
-#| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and tourney_ columns, all of type character."
+#| output-location: column-fragment
+#| fig-alt: "vis_dat() plot of the selected columns: year, then the winner_ and loser_ columns, all of type character."
+
 wta_data %>%
-  select(year, starts_with("winner"), starts_with("tourney")) %>%
+  select(year, 
+    starts_with("winner"), 
+    starts_with("loser")) %>%
   vis_dat(warn_large_data = FALSE)
 ```
 
-## Other selection helpers
+## Creating/Transforming columns with `mutate()`
 
-::: {.callout-tip collapse="true"}
-## Other Selection Helpers
-
-Most of the other selection helpers have almost self-explanatory names, e.g.
-
-| Selection Helper | Use case                                                                                                                       |
-|:----------------:|:-----------------------------------------------------|
-|  `ends_with()`   | selects according to a suffix                                                                                                  |
-|   `contains()`   | when we are looking for columns that contain a literal word or string                                                          |
-|   `matches()`    | selects according to **patterns known as regular expressions** (see [R's documentation on regular expressions](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)) |
-|  `num_range()`   | selects columns numbered in a range, e.g. `x10`, `x11`, ..., `x15` with `num_range("x", 10:15)`                                 |
-
-Other selection helpers apply to vectors of column names, such as `all_of()` and `any_of()`, and finally `where()`, which selects according to a function.
+::: {.content-box-marine}
+`dplyr::mutate()` to **create** or **transform** columns
 :::
 
-## Transforming columns with `mutate()`
+![](images/creating-and-modifying-columns-v2-figure-3870.png){fig-alt="The mutate() card: mutate(C3 = C1 * 2) adds a highlighted column C3 holding twice the values of C1." fig-align="center" width="80%"}
 
--   **Create** new columns or **transform** existing ones
--   Here: `year` → **number**, `tourney_date` → **date** (`ymd()` from `{lubridate}`)
+## Creating/Transforming columns with `mutate()` {auto-animate="true"}
+
+👉 Let's transform `year` → **number**, `tourney_date` → **date** (`ymd()` from `{lubridate}`)
+
+```{r}
+#| label: slides-mutate-before
+#| output-location: column
+#| fig-alt: "vis_dat() plot of the selected columns before mutate(): year, the winner_ columns and the tourney_ columns are all of type character."
+wta_data %>%
+  select(
+    year, 
+    starts_with("winner"), starts_with("tourney")
+    ) %>% 
+  vis_dat(warn_large_data = FALSE)
+```
+
+
+## Creating/Transforming columns with `mutate()` {auto-animate="true"}
+
+👉 Let's transform `year` → **number**, `tourney_date` → **date** (`ymd()` from `{lubridate}`)
+
+```{r}
+#| label: slides-mutate-after
+#| output-location: column
+#| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
+# 1. attach lubridate
+library(lubridate)
+
+wta_data %>%
+  select(
+    year, 
+    starts_with("winner"), starts_with("tourney")
+    ) %>% 
+  
+# 2. make the changes
+  mutate(
+    year = as.numeric(year),
+    tourney_date = ymd(tourney_date)
+    ) %>% 
+
+  vis_dat(warn_large_data = FALSE)
+```
+
+## ⚠️ Making the changes permanent
+
+::: {.content-box-marine}
+Applying `mutate()` by itself **does not change the dataset**.
+:::
+
+👉 The following pipe **does not modify** the contents of `data` **permanently**.
+
+``` r
+data %>% 
+  mutate(...)
+```
+. . . 
+
+::: {.content-box-marine}
+In R you need to **(re-)assign** to make your changes perennial
+:::
+
+👉  The following pipe **does**
+
+``` r
+data <- 
+  data %>% 
+  mutate(...)
+```
+
+## ⚠️ Making the changes permanent
+
+👉 Let's keep the new column types: we **re-assign** the result to `wta_data`
 
 ```{r}
 #| label: mutate-types
-#| output-location: column
-#| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
-library(lubridate)
-
 wta_data <-
   wta_data %>%
   mutate(
     year = as.numeric(year),
     tourney_date = ymd(tourney_date))
+```
 
+. . .
+
+Now the changes are there for the rest of the unit:
+
+```{r}
+#| label: slides-mutate-check
 wta_data %>%
-  select(year, starts_with("winner"), starts_with("tourney")) %>%
-  vis_dat(warn_large_data = FALSE)
+  select(year, tourney_date) %>%
+  slice_head(n = 3)
 ```
 
-## Making the changes permanent
+## Sub-setting rows with `filter()`
 
-::: callout-important
-## Making permanent changes to a table
-
-We **assigned** the result back to `wta_data`: the original table is **rewritten**.
-
-The following pipe **does not modify** the contents of `data` **permanently**:
-
-``` r
-data %>% mutate(...)
-```
-
-The following pipe **does modify** the contents of `data` **permanently**:
-
-``` r
-data <- data %>% mutate(...)
-```
+::: {.content-box-marine}
+`dplyr::filter()` to keep the rows that **fulfil a logical condition**
 :::
 
-## Sub-setting rows with `filter()` {.smaller}
+![](images/filtering-rows-of-data-v2-figure-3881.png){fig-alt="The filter() card: filter(tib, C1 == \"DOG\") keeps rows 1 and 4 of a table whose C1 values are DOG, CAT, BIRD and DOG." fig-align="center" width="80%"}
 
--   Keep the rows that **fulfil a logical condition**
--   E.g. the matches won by Serena Williams:
+## Sub-setting rows with `filter()`
+
+👉 Keep only the matches won by Serena Williams
 
 ```{r}
 #| label: filter-serena
+#| output-location: column-fragment
 wta_data %>%
-  select(year, starts_with("winner"), starts_with("tourney")) %>%
+  select(year, tourney_name, winner_name) %>%
   filter(winner_name == "Serena Williams")
 ```
 
-::: callout-important
-## Assignment (`=`) vs Comparison (`==`)
-
-Comparison uses the **double** equal sign `==`. The single `=` assigns, e.g. in `mutate()`.
-
+::: fragment
+::: {.content-box-marine}
+⚠️ Comparison uses the **double** equal sign `==`. The single `=` assigns, e.g. in `mutate()`.
+:::
 :::
 
-## `filter()` with several conditions {.smaller}
+## `filter()` with several conditions
 
--   Rows must fulfil **all** the conditions
--   `str_detect()` (`{stringr}`): `TRUE` when the text **contains a pattern**
+👉 Serena's wins at the Australian tournaments: **all** conditions must hold
 
 ```{r}
 #| label: filter-serena-australian
+#| output-location: column-fragment
+# 1. attach stringr
 library(stringr)
+
 wta_data %>%
   filter(
+    # 2. first condition: the winner
     winner_name == "Serena Williams",
-    str_detect(tourney_name, pattern = "Australian"))
+    # 3. second condition: the tournament
+    str_detect(
+      tourney_name,
+      pattern = "Australian")) %>%
+
+# 4. keep a few columns
+  select(year, tourney_name, winner_name)
 ```
 
-## How to write logical conditions {.smaller}
-
-::: {.callout-tip collapse="true"}
-## How to write logical conditions
-
-Here's a quick rundown on how to write logical conditions in R:
-
-|       Logical Condition        |  Symbol  |
-|:------------------------------:|:--------:|
-|         *A equal to B*         | `A == B` |
-|        *A less than B*         | `A < B`  |
-|   *A less than or equal to B*  | `A <= B` |
-|       *A greater than B*       | `A > B`  |
-|   *A greater or equal to B*    | `A >= B` |
-
-One can also combine conditions into longer statements with "and" and "or":
-
-|       Logical Condition       |          Syntax           |
-|:-----------------------------:|:-------------------------:|
-| *Condition 1 AND Condition 2* | `ConditionA & ConditionB` |
-| *Condition 1 OR Condition 2*  | `ConditionA | ConditionB` |
-
-Finally, a very handy shortcut for multiple `OR` conditions is the `%in%` operator, which compares a value to the contents of a vector. For instance:
-
-    A == B | A == C | A == D
-
-is equivalent to:
-
-    A %in% c(B, C, D)
+::: fragment
+Other conditions: `<`, `>=`, `&`, `|`, `%in%`. The handout has the full list.
 :::
 
-## Sort observations with `arrange()` {.smaller}
+::: {.notes}
+3) `str_detect()` from `{stringr}` returns `TRUE` when the text **contains the pattern**. It catches "Australian Open" and "Australian Championships".
 
--   **Numbers**: increasing order · **Text**: alphabetical order
+The `<` will be needed in Exercise 2.
+:::
+
+## Sort observations with `arrange()`
+
+::: {.content-box-marine}
+`dplyr::arrange()` to **order the rows** by the values of some columns
+:::
+
+![](images/ordering-rows-of-data-v2-figure-3880.png){fig-alt="The arrange() card: arranging a table by C3 reorders its rows so that the values of C3 increase." fig-align="center" width="80%"}
+
+## Sort observations with `arrange()`
+
+👉 Which matches are the oldest in the dataset?
 
 ```{r}
 #| label: arrange-year
-#| output-location: column
+#| output-location: column-fragment
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year)
 ```
 
-```{r}
-#| label: arrange-winner-name
-#| output-location: column
-wta_data %>%
-  select(year, winner_name, tourney_name) %>%
-  arrange(winner_name)
-```
+::: {.notes}
+Numbers are sorted in increasing order, text in alphabetical order. `year` is a number because we re-assigned `wta_data`.
+:::
 
-## `arrange()`: several columns, descending order {.smaller}
+## `arrange()`: several columns {auto-animate="true"}
 
--   Sorts by the **first** column, then by the **second**...
--   `desc()` reverses the order
+👉 Sort by **year**, then by **winner** within each year
 
 ```{r}
 #| label: arrange-two-columns
@@ -416,6 +551,10 @@ wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, winner_name)
 ```
+
+## `arrange()`: several columns {auto-animate="true"}
+
+👉 `desc()` reverses the order: winners from Z to A within each year
 
 ```{r}
 #| label: arrange-desc
@@ -435,15 +574,29 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 
 ## Producing summary statistics with `summarise()`
 
--   Creates a **new table** with **summaries** of the columns
--   `n()` **counts the rows**: how many Australian matches did Serena win?
+::: {.content-box-marine}
+`dplyr::summarise()` creates a **new table** with **summaries** of the columns
+:::
+
+![](images/summarising-data-v2-figure-3916.png){fig-alt="The summarise() card: summarise(total_sales = sum(sales)) turns three rows of daily sales (23, 45, 12) into a single row with total_sales 80." fig-align="center" width="80%"}
+
+## Producing summary statistics with `summarise()`
+
+👉 How many Australian matches did Serena win? `n()` **counts the rows**
 
 ```{r}
 #| label: summarise-serena-australian
+#| output-location: column-fragment
 wta_data %>%
+
+# 1. keep Serena's Australian wins
   filter(
     winner_name == "Serena Williams",
-    str_detect(tourney_name, pattern = "Australian")) %>%
+    str_detect(
+      tourney_name,
+      pattern = "Australian")) %>%
+
+# 2. count the rows
   summarise(number_of_wins = n())
 ```
 
@@ -454,72 +607,92 @@ wta_data %>%
 |      Center       | `mean()`, `median()`           |
 |      Spread       | `sd()`, `IQR()`, `mad()`       |
 |       Range       | `min()`, `max()`, `quantile()` |
+|       Total       | `sum()`                        |
 |     Position      | `first()`, `last()`, `nth()`   |
 |       Count       | `n()`, `n_distinct()`          |
 |      Logical      | `any()`, `all()`               |
 
-## Creating groups with `group_by()` {.smaller}
+## Creating groups with `group_by()`
 
--   **Groups** the rows by the values of one or more columns
--   The printout shows the **groups**: later computations happen **within** them
+::: {.content-box-marine}
+`dplyr::group_by()` **groups** the rows by the values of one or more columns
+:::
+
+![](images/grouping-data-v2-figure-3915.png){fig-alt="The group_by() card: group_by(client) leaves the table unchanged but makes it group-aware, with one group each for clients Bob, Alice and Jean." fig-align="center" width="80%"}
+
+## Creating groups with `group_by()`
+
+👉 Group the matches by winner, and look for the `# Groups:` line in the printout
 
 ```{r}
 #| label: group-by-winner
+#| render: !expr print
 wta_data %>%
   group_by(winner_name)
 ```
 
-## Removing the groups with `ungroup()` {.smaller}
+::: {.notes}
+The data looks the same, but later computations happen **within** the groups.
 
-```{r}
-#| label: ungroup-winner
-wta_data %>%
-  group_by(winner_name) %>%
-  ungroup()
-```
+`ungroup()` removes the groups: see the handout.
+:::
 
-## Computing summaries within groups with `group_by()` `%>%` `summarise()` {.smaller}
+## `group_by()` `%>%` `summarise()`
 
--   `summarise()` after `group_by()`: **one row per group**
--   The number of wins of **every** player:
+::: {.content-box-marine}
+`summarise()` after `group_by()` gives **one row per group**
+:::
+
+![](images/summarise-and-grouped-data-v1-figure-4189.png){fig-alt="The card for group_by() with summarise(): five sales rows for clients Bob, Alice and Jean become one row per client, with total sales of 66, 14 and 76." fig-align="center" width="80%"}
+
+::: {.notes}
+The figure keeps the input order and labels the result rows 1, 3 and 5. In R the result has rows 1 to 3, sorted by client: Alice, Bob, Jean.
+:::
+
+## `group_by()` `%>%` `summarise()`
+
+👉 The number of wins of **every** player
 
 ```{r}
 #| label: wins-per-player
+#| output-location: column-fragment
 wta_data %>%
   group_by(winner_name) %>%
-  summarise(number_of_wins = n(), .groups = "drop")
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop")
 ```
 
-::: callout-note
-## What does `.groups = "drop"` do?
-
-It returns a table **without groups**, as if we had added `ungroup()`. A forgotten grouping is a common source of surprises!
-
+::: {.notes}
+`.groups = "drop"` returns a table **without groups**, as if we had added `ungroup()`. A forgotten grouping is a common source of surprises!
 :::
 
-## A shortcut for counting: `count()` {.smaller}
+## `group_by()` `%>%` `summarise()`
 
-::: {.callout-tip collapse="true"}
-## A shortcut for counting: `count()`
-
-Counting the rows within groups is so common that `{dplyr}` has a shortcut for it. `count()` groups, counts and ungroups in one step:
+👉 So, **who won the most**? Sort the result with `arrange()` and `desc()`
 
 ```{r}
-#| label: count-wins-per-player
+#| label: wins-ranking
+#| output-location: column-fragment
 wta_data %>%
-  count(winner_name, name = "number_of_wins")
+  group_by(winner_name) %>%
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop") %>%
+  arrange(desc(number_of_wins))
 ```
-:::
 
-## Grouping by several columns {.smaller}
+## Grouping by several columns
 
-The wins of **each player** in **each tournament**:
+👉 The wins of **each player** in **each tournament**
 
 ```{r}
 #| label: wins-per-player-tourney
 wta_data %>%
   group_by(winner_name, tourney_name) %>%
-  summarise(number_of_wins = n(), .groups = "drop")
+  summarise(
+    number_of_wins = n(),
+    .groups = "drop")
 ```
 
 ## Exercise Time!
@@ -534,15 +707,16 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 
 ## Binding and joining
 
--   Real data is often split into **several linked tables**
--   To get the information we need, we **merge** them
+::: {.content-box-marine}
+Real data is often split into **several linked tables**: we **merge** them to get the information we need
+:::
 
-|     Verb      | Use                                                                          |
-|:-----------------:|-----------------------------------------------------|
-| `bind_rows()` | merges two tibbles by **stacking them up** (one on top of the other)         |
-|  `*_join()`   | **attaches** tibbles by **the columns they have in common** (joining *keys*) |
+::: {.incremental}
+- **Stack** tables with the same columns: `bind_rows()`
+- **Attach** tables that share a column: the `*_join()` verbs
+:::
 
-## Three toy datasets {.smaller}
+## Three toy datasets
 
 ```{r}
 #| label: toy-datasets
@@ -576,119 +750,92 @@ data_3
 
 ## *Stacking* data sets with `bind_rows()`
 
--   **Same columns**, **different rows**: stack them up
--   The left-hand side of the pipe goes **on top**
+👉 `data_1` and `data_2`: **same columns**, **different rows**
 
 ```{r}
 #| label: bind-rows-data
+#| output-location: column-fragment
 data_1 %>%
   bind_rows(data_2)
 ```
 
+::: fragment
+::: {.content-box-marine}
+The left-hand side of the pipe goes **on top**
+:::
+:::
+
 ## *Joining* data sets with `left_join()`
 
--   **Same rows**, **different columns**: attach the columns
--   The `*_join()` verbs: `left_join()`, `right_join()`, `full_join()`...
--   They match the rows by a **common column**: the **joining key**
-
-## Wait! Isn't there a `bind_cols()`? {.smaller .scrollable}
-
-::: {.callout-warning collapse="true"}
-## Wait! Isn't there a `bind_cols()`?
-
-Yes there is! But it's a function that does not ensure **row consistency**. We can illustrate some of the problems with an example.
-
--   For example, `data_3` contains the same ids as `data_1`, hence we can attach the values of the columns `var_2` and `var_3` to have a more complete dataset.
-
-```{r}
-#| label: bind-cols-data
-data_1 %>%
-  bind_cols(select(data_3, starts_with("var")))
-```
-
-Success! ... or is it?
-
-There are a couple of drawbacks when using `bind_cols()`:
-
-1.  **It does not verify the conformity of the rows**.
-
-    For instance, a simple permutation in one of the datasets, or a lack of conformity in terms of rows, entails problems.
-
-    -   Let's see what happens when the data in `data_3` is permuted, e.g. in the descending order of `id`.
-    -   Carrying out the merge with `bind_cols()` yields an inconsistent result!
-
-```{r}
-#| label: permute-data-3
-data_3 <- data_3 %>% arrange(desc(id))
-```
-
-```{r}
-#| label: bind-cols-permuted
-data_1 %>%
-  bind_cols(select(data_3, starts_with("var")))
-```
-
-2.  The tibbles you want to merge **must have the same number of rows**.
-    -   Suppose we want to merge our three datasets to have all the information in one tibble.
-    -   The first two can be merged using `bind_rows()`.
-    -   Yet, when we attempt (wrongly!) to merge (the permuted!) `data_3`, we get an error message.
-    -   This is because we have 5 rows in the first dataset and 3 in the second!
-
-```{r, error=TRUE}
-#| label: bind-cols-error
-data_1 %>%
-  bind_rows(data_2) %>%
-  bind_cols(data_3)
-```
-
-Using the `*_join` verbs of `{dplyr}`, we ensure the consistency of the rows.
+::: {.content-box-marine}
+`dplyr::left_join()` attaches columns, matching the rows by a **joining key**
 :::
+
+![](images/most-common-join-left-join-v1-figure-4198.png){fig-alt="The left_join() card: joining tables t1 and t2 by column X keeps all the rows of t1 and adds column A from t2. Row 4 of t2 has no match and is dropped, and row 3 of t1 has no match in t2, so it gets NA in column A." fig-align="center" width="80%"}
 
 ## How `left_join()` works
 
-![](images/left-join.gif){fig-alt="Animation of left_join(x, y): the rows of y are matched to the rows of x by their shared key column, the columns of y are attached to x, and the rows of x without a match get missing values." width="45%" fig-align="center"}
+![](images/left-join.gif){fig-alt="Animation of left_join(x, y): the rows of y are matched to the rows of x by their shared key column, the columns of y are attached to x, and the rows of x without a match get missing values." width="40%" fig-align="center"}
 
 **Source:** [Garrick Aden-Buie's](https://github.com/gadenbuie/tidyexplain) Tidy Animated Verbs
 
-::: callout-important
-## Why the "left" in `left_join()`?
-
-It also **keeps the rows of the first** (*left-hand side*) **tibble** that have no match.
-
+::: fragment
+::: {.content-box-marine}
+Why "left"? It **keeps all the rows of the first** (*left-hand side*) **tibble**
+:::
 :::
 
-## `left_join()` with a joining key {.smaller}
+## `left_join()` with a joining key
 
--   Default: joins on **all** the shared columns
--   `by` picks the key: `by = "id"` (or `by = join_by(id)` in recent `{dplyr}`)
+👉 Stack `data_1` and `data_2`, then attach the columns of `data_3`
 
 ```{r}
 #| label: left-join-id
+#| output-location: column-fragment
 data_1 %>%
+
+# 1. stack the first two tables
   bind_rows(data_2) %>%
+
+# 2. attach data_3, matching on id
   left_join(data_3, by = "id")
 ```
 
-## Rows without a match {.smaller}
+::: fragment
+`data_3` has no `id` 4 or 5: their new columns are `NA`.
+:::
 
-`data_4`: `data_3` plus a row with `id = 8`, which isn't in `data_1`
+::: {.notes}
+By default, the join uses **all** the shared columns. `by` picks the key. Recent versions of `{dplyr}` also accept `by = join_by(id)`.
+
+There is also a `bind_cols()`, which doesn't check that the rows match: see the handout.
+:::
+
+## Rows of the second table without a match
+
+👉 `data_4`: `data_3` plus a row with `id = 8`, which isn't in `data_1`
 
 :::: {.columns}
 ::: {.column width="50%"}
 ```{r}
 #| label: data-4
-data_4 <- bind_rows(data_3, tibble(id = 8, var_2 = 3, var_3 = 12))
+data_4 <-
+  bind_rows(
+    data_3,
+    tibble(id = 8, var_2 = 3, var_3 = 12))
 data_4
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="50%" .fragment}
 
 ```{r}
 #| label: left-join-unmatched
 data_1 %>%
   left_join(data_4, by = "id")
 ```
+
+`id` 8 is gone: only the rows of the **first** table are kept.
 :::
 ::::
 
@@ -696,8 +843,10 @@ data_1 %>%
 
 ## Long vs wide tables
 
+::: {.incremental}
 -   **Long**: every column is a *variable* → for **analysis** (computations, plots)
 -   **Wide**: some columns are named after *values* of a variable → for **display** in reports
+:::
 
 ```{r, echo = FALSE, fig.cap='Wide-format vs. long-format data', fig.align='center', out.width = "70%", fig.alt="The same data as a wide table, with an id column and one column each for x, y and z, and as a long table with three columns: id, key (holding x, y or z) and val."}
 #| label: img-wide-long
@@ -723,22 +872,39 @@ Source: [Garrick Aden-Buie's](https://github.com/gadenbuie/tidyexplain) Tidy Ani
 
 ## Pivoting into long-form with `pivot_longer()`
 
-|  Argument   | Use                                                                                    |
-|:----------------:|:-----------------------------------------------------|
-|   `cols`    | the **columns to convert** into a single column                                        |
-| `names_to`  | the **name of a new column**, where the **names of the selected columns** are stored   |
-| `values_to` | the **name of the column** where we store **the values**                               |
+::: {.content-box-marine}
+`tidyr::pivot_longer()` converts **columns to rows**
+:::
 
-Typical case: **measurements repeated over time**, one column per timepoint.
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-3992.png){fig-alt="The pivot_longer() card: a budget table with one row per person and columns home, food and fun becomes a table with one row per person and budget type, and columns name, budget_type and budget." fig-align="center" width="80%"}
 
-## From wide to long {.smaller}
+## How to write `pivot_longer()`
 
-Prototypes measured at 3 timepoints → one `timepoint` column, one `performance` column
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-4393.png){fig-alt="The code for the budget example: pivot_longer(cols = c(home, food, fun), names_to = \"budget_type\", values_to = \"budget\"), next to the wide table and the resulting long table." fig-align="center" width="85%"}
 
-:::: {.columns}
-::: {.column width="45%"}
+## `pivot_longer()`: `cols`
+
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-4397.png){fig-alt="The cols argument names the existing columns to pivot: home, food and fun are highlighted in the wide table, and the budget_type and budget columns they become are highlighted in the long table." fig-align="center" width="85%"}
+
+## `pivot_longer()`: `names_to`
+
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-4398.png){fig-alt="The names_to argument is the header of the new column that holds the old column names, and can be any word: budget_type is highlighted in the long table." fig-align="center" width="85%"}
+
+## `pivot_longer()`: `values_to`
+
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-4399.png){fig-alt="The values_to argument is the header of the new column that holds the old values, and can be any word: budget is highlighted in the long table." fig-align="center" width="85%"}
+
+## `pivot_longer()`: recap
+
+![](images/go-longer-reshaping-columns-to-rows-v1-figure-4396.png){fig-alt="Recap of pivot_longer(): arrows link cols to the existing columns home, food and fun, names_to to the new budget_type column, and values_to to the new budget column." fig-align="center" width="85%"}
+
+## From wide to long
+
+👉 Prototypes measured at 3 timepoints: one column per timepoint
+
 ```{r}
 #| label: data-5-wide
+#| output-location: column-fragment
 data_5_wide <-
   tibble(
     prototype = 1:5 ,
@@ -747,72 +913,85 @@ data_5_wide <-
     t_3 = c(14,-1,3,8,1))
 data_5_wide
 ```
-:::
 
-::: {.column width="55%"}
+## From wide to long
+
+👉 One `timepoint` column and one `performance` column
 
 ```{r}
 #| label: pivot-longer
+#| output-location: column-fragment
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
-    cols = -c(prototype), # means: selecting all but the prototype column
+    # 1. all the columns but prototype
+    cols = -c(prototype),
+    # 2. where the old names go
     names_to = "timepoint",
+    # 3. where the values go
     values_to = "performance"
   )
 
 data_5_long
 ```
-:::
-::::
 
-## Optional: cleaner timepoints {.smaller}
+## Cleaner timepoints
 
--   `names_prefix` drops the `t_` prefix, `names_transform` makes the timepoint a **number**
+👉 Remove the `t_` prefix, and make the timepoints **numbers**
 
 ```{r}
 #| label: pivot-longer-clean
-#| output-location: column
+#| output-location: column-fragment
 data_5_long <-
   data_5_wide %>%
   pivot_longer(
     cols = -c(prototype),
     names_to = "timepoint",
     values_to = "performance",
-    names_prefix = "t_", # to remove the `t_` prefix
-    names_transform = list(timepoint = as.integer) # to transform the timepoints into integers
+    # 1. remove the `t_` prefix
+    names_prefix = "t_",
+    # 2. make the timepoints integers
+    names_transform = list(
+      timepoint = as.integer)
   )
 
 data_5_long
 ```
 
+::: {.notes}
+Participants need these two arguments in Exercise 5.
+:::
+
 ## Long tables are made for computing
 
-The average performance of every prototype:
+👉 The average performance of every prototype
 
 ```{r}
 #| label: average-performance
+#| output-location: column-fragment
 data_5_long %>%
   group_by(prototype) %>%
-  summarise(average_performance = mean(performance), .groups = "drop")
+  summarise(
+    average_performance = mean(performance),
+    .groups = "drop")
 ```
 
 ## Pivoting into wide-form with `pivot_wider()`
 
--   The opposite of `pivot_longer()`: **spreads** the values of a column into **new columns**
--   Wide tables are good for **presentation**, e.g. in reports
+::: {.content-box-marine}
+`tidyr::pivot_wider()` does the opposite: it converts **rows to columns**
+:::
 
-|   Argument    | Use                                                                            |
-|:-----------------:|:----------------------------------------------------|
-| `names_from`  | the column whose contents become the names of the new columns                  |
-| `values_from` | the column from which the function *fetches* the values for the new columns    |
+![](images/go-wider-reshaping-rows-to-columns-v1-figure-4311.png){fig-alt="The pivot_wider() card: a budget table with one row per person and budget type becomes a table with one row per person and columns home, food and fun." fig-align="center" width="80%"}
 
-## From long to wide {.smaller}
+## How to write `pivot_wider()`
 
-**Average yields** of **crops** by **agricultural practice**: the repeated values make it hard to read
+![](images/go-wider-reshaping-rows-to-columns-v1-figure-4400.png){fig-alt="The code for the budget example: pivot_wider(names_from = \"budget_type\", values_from = \"budget\"), next to the long table and the resulting wide table." fig-align="center" width="85%"}
 
-:::: {.columns}
-::: {.column width="50%"}
+## From long to wide
+
+👉 **Yields** of **crops** by **practice**: the repeated values are hard to read
+
 ```{r}
 #| label: data-6-long
 data_6_long <-
@@ -823,28 +1002,25 @@ data_6_long <-
     )
 data_6_long
 ```
-:::
 
-::: {.column width="50%"}
+## From long to wide
+
+👉 One column per practice: ready for a report
 
 ```{r}
 #| label: pivot-wider
+#| output-location: column-fragment
 data_6_long %>%
-  pivot_wider(names_from = practice, values_from = yield)
+  pivot_wider(
+    # 1. the names of the new columns
+    names_from = practice,
+    # 2. the values of the new columns
+    values_from = yield)
 ```
+
+::: {.notes}
+The handout shows how to style this table with `{kableExtra}`.
 :::
-::::
-
-## Presentation-ready with `{kableExtra}`
-
-```{r}
-#| label: pivot-wider-kable
-library(kableExtra)
-data_6_long %>%
-  pivot_wider(names_from = practice, values_from = yield) %>%
-  kbl(caption = "Table 1: Yields of crops according to agricultural practices") %>%
-  kable_classic(full_width = F, html_font = "Cambria")
-```
 
 ## Exercise Time!
 
