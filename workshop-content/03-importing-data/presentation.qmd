@@ -803,6 +803,39 @@ mtcars_data
 
 More arguments? See the documentation: `?read_sas`
 
+# 🧹 Cleaning column names {.subsection background-color="#425556"}
+
+## Cleaning column names with `{janitor}` {.smaller}
+
+-   Files prepared by people: spaces, capitals, units in brackets...
+-   `clean_names()` rewrites **all** names in lower-case `snake_case`
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Why bother?
+
+Quicker to type, **no backticks**, RStudio **autocompletes** them. Call `clean_names()` once, right after importing.
+
+:::
+
 # Exercise {.subsection background-color="#425556"}
 
 ## Exercise Time!

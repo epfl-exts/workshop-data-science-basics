@@ -2,7 +2,7 @@
 title: "Importer des données"
 subtitle: "Charger des données dans R avec `{readr}`, `{readxl}` et `{haven}`"
 lang: fr
-translated-from: "f70e2576ab42b9e84f23acdc3d137546b736dc2c"
+translated-from: "ac4102570ee6a6d8e169c9e35ca206c2cc6cc3b4"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -449,6 +449,37 @@ mtcars_data
 ```
 
 Comme ces types de fichiers sont très spécifiques, nous ne passerons pas en revue chacun de leurs arguments. Vous pouvez cependant toujours consulter la documentation, p. ex. `?read_sas` !
+
+# 🧹 Nettoyer les noms de colonnes
+
+Les fichiers préparés par des personnes ont souvent des noms de colonnes peu pratiques : espaces, majuscules, unités entre parenthèses... Importons un petit exemple, `team_bad_names.csv`. Pour utiliser un nom comme `First Name` dans notre code, il faudrait à chaque fois l'entourer de backticks : `` team$`First Name` ``.
+
+La fonction `clean_names()` du package `{janitor}` **réécrit tous les noms de colonnes** en minuscules, en `snake_case` :
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Pourquoi s'en soucier ?
+
+Les noms nettoyés sont **plus rapides à taper** et **fonctionnent sans backticks**, et RStudio peut les **compléter automatiquement**. Appelez `clean_names()` une seule fois, juste après l'import, et le reste de votre code reste simple.
+:::
 
 # Exercice
 

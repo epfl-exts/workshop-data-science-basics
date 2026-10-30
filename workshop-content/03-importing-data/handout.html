@@ -3567,7 +3567,8 @@ background-origin: content-box;
   <li><a href="#haven-reads-sas-spss-and-stata-files" id="toc-haven-reads-sas-spss-and-stata-files" class="nav-link" data-scroll-target="#haven-reads-sas-spss-and-stata-files"><code>{haven}</code> reads SAS, SPSS and Stata files</a></li>
   <li><a href="#example-reading-a-sas-file" id="toc-example-reading-a-sas-file" class="nav-link" data-scroll-target="#example-reading-a-sas-file">Example: reading a SAS file</a></li>
   </ul></li>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">6</span> Exercise</a>
+  <li><a href="#cleaning-column-names" id="toc-cleaning-column-names" class="nav-link" data-scroll-target="#cleaning-column-names"><span class="header-section-number">6</span> 🧹 Cleaning column names</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">7</span> Exercise</a>
   <ul class="collapse">
   <li><a href="#exercise-time" id="toc-exercise-time" class="nav-link" data-scroll-target="#exercise-time">Exercise Time!</a></li>
   </ul></li>
@@ -4265,8 +4266,60 @@ Tip
 <p>Since these file types are very specific, we won’t cover each and every argument. However, you can always read the documentation, e.g. <code>?read_sas</code>!</p>
 </section>
 </section>
-<section id="exercise" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Exercise</h1>
+<section id="cleaning-column-names" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 🧹 Cleaning column names</h1>
+<p>Files prepared by people often have unfriendly column names: spaces, capital letters, units in brackets… Let’s import a small example, <code>team_bad_names.csv</code>. To use a name like <code>First Name</code> in our code, we would have to wrap it in backticks every time: <code>team$`First Name`</code>.</p>
+<p>The function <code>clean_names()</code> from the package <code>{janitor}</code> <strong>rewrites all the column names</strong> in lower-case <code>snake_case</code>:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details open class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>team <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/team_bad_names.csv&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>team</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["First Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Passport gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Weight (in kg)"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Height (in cm)"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Body Mass Index"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hilma","2":"Female","3":"67","4":"190","5":"18.56"},{"1":"Olga","2":"Female","3":"71","4":"179","5":"22.16"},{"1":"Freddy","2":"Male","3":"66","4":"169","5":"23.11"},{"1":"Louise","2":"Female","3":"78","4":"153","5":"33.32"},{"1":"Cherly","2":"Female","3":"72","4":"186","5":"20.81"},{"1":"Ranee","2":"Female","3":"66","4":"175","5":"21.55"},{"1":"Laronda","2":"Female","3":"72","4":"175","5":"23.51"},{"1":"Alvina","2":"Female","3":"74","4":"184","5":"21.86"},{"1":"Mack","2":"Male","3":"73","4":"183","5":"21.80"},{"1":"Faye","2":"Female","3":"68","4":"181","5":"20.76"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details open class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>team <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["first_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["passport_gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["weight_in_kg"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height_in_cm"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["body_mass_index"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hilma","2":"Female","3":"67","4":"190","5":"18.56"},{"1":"Olga","2":"Female","3":"71","4":"179","5":"22.16"},{"1":"Freddy","2":"Male","3":"66","4":"169","5":"23.11"},{"1":"Louise","2":"Female","3":"78","4":"153","5":"33.32"},{"1":"Cherly","2":"Female","3":"72","4":"186","5":"20.81"},{"1":"Ranee","2":"Female","3":"66","4":"175","5":"21.55"},{"1":"Laronda","2":"Female","3":"72","4":"175","5":"23.51"},{"1":"Alvina","2":"Female","3":"74","4":"184","5":"21.86"},{"1":"Mack","2":"Male","3":"73","4":"183","5":"21.80"},{"1":"Faye","2":"Female","3":"68","4":"181","5":"20.76"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why bother?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Clean names are <strong>quicker to type</strong> and <strong>work without backticks</strong>, and RStudio can <strong>autocomplete</strong> them. Call <code>clean_names()</code> once, right after importing, and the rest of your code stays simple.</p>
+</div>
+</div>
+</section>
+<section id="exercise" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Exercise</h1>
 <section id="exercise-time" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-time">Exercise Time!</h2>
 <div class="callout callout-style-default callout-important callout-titled">

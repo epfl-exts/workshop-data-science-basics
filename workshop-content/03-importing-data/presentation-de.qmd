@@ -2,7 +2,7 @@
 title: "Datenimport"
 subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
 lang: de
-translated-from: "a6db51dc40948035a6d8c544ef97f3ca75ded359"
+translated-from: "9186e7857deb9cf5792f611be92910820d581b39"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -806,6 +806,39 @@ mtcars_data
 ```
 
 Weitere Argumente? Siehe Dokumentation: `?read_sas`
+
+# 🧹 Spaltennamen bereinigen {.subsection background-color="#425556"}
+
+## Spaltennamen bereinigen mit `{janitor}` {.smaller}
+
+-   Von Menschen erstellte Dateien: Leerzeichen, Grossbuchstaben, Einheiten in Klammern...
+-   `clean_names()` schreibt **alle** Namen in Kleinbuchstaben im `snake_case` um
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Wozu der Aufwand?
+
+Schneller zu tippen, **keine Backticks**, RStudio **vervollständigt** sie automatisch. Rufen Sie `clean_names()` einmal auf, gleich nach dem Import.
+
+:::
 
 # Übung {.subsection background-color="#425556"}
 

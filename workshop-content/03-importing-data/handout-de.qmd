@@ -2,7 +2,7 @@
 title: "Datenimport"
 subtitle: "Daten mit `{readr}`, `{readxl}` und `{haven}` in R einlesen"
 lang: de
-translated-from: "f70e2576ab42b9e84f23acdc3d137546b736dc2c"
+translated-from: "ac4102570ee6a6d8e169c9e35ca206c2cc6cc3b4"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -449,6 +449,37 @@ mtcars_data
 ```
 
 Da diese Dateitypen sehr speziell sind, gehen wir nicht auf jedes einzelne Argument ein. Sie können aber jederzeit die Dokumentation lesen, z. B. `?read_sas`!
+
+# 🧹 Spaltennamen bereinigen
+
+Von Menschen erstellte Dateien haben oft unpraktische Spaltennamen: Leerzeichen, Grossbuchstaben, Einheiten in Klammern... Importieren wir ein kleines Beispiel, `team_bad_names.csv`. Um einen Namen wie `First Name` im Code zu verwenden, müssten wir ihn jedes Mal in Backticks setzen: `` team$`First Name` ``.
+
+Die Funktion `clean_names()` aus dem Paket `{janitor}` **schreibt alle Spaltennamen** in Kleinbuchstaben im `snake_case` um:
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Wozu der Aufwand?
+
+Bereinigte Namen sind **schneller zu tippen** und **funktionieren ohne Backticks**, und RStudio kann sie **automatisch vervollständigen**. Rufen Sie `clean_names()` einmal auf, gleich nach dem Import, und der restliche Code bleibt einfach.
+:::
 
 # Übung
 

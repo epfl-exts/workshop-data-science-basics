@@ -2404,6 +2404,74 @@ display:block!important;
 <p>More arguments? See the documentation: <code>?read_sas</code></p>
 </section></section>
 <section>
+<section id="cleaning-column-names" class="title-slide slide level1 subsection center" data-background-color="#425556">
+<h1>🧹 Cleaning column names</h1>
+
+</section>
+<section id="cleaning-column-names-with-janitor" class="slide level2 smaller">
+<h2>Cleaning column names with <code>{janitor}</code></h2>
+<ul>
+<li>Files prepared by people: spaces, capitals, units in brackets…</li>
+<li><code>clean_names()</code> rewrites <strong>all</strong> names in lower-case <code>snake_case</code></li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href aria-label="1"></a>team <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/team_bad_names.csv&quot;</span>)</span>
+<span id="cb33-2"><a href aria-label="2"></a>team</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   `First Name` `Passport gender` `Weight (in kg)` `Height (in cm)`
+   &lt;chr&gt;        &lt;chr&gt;                        &lt;dbl&gt;            &lt;dbl&gt;
+ 1 Hilma        Female                          67              190
+ 2 Olga         Female                          71              179
+ 3 Freddy       Male                            66              169
+ 4 Louise       Female                          78              153
+ 5 Cherly       Female                          72              186
+ 6 Ranee        Female                          66              175
+ 7 Laronda      Female                          72              175
+ 8 Alvina       Female                          74              184
+ 9 Mack         Male                            73              183
+10 Faye         Female                          68              181</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href aria-label="1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb35-2"><a href aria-label="2"></a>team <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href aria-label="3"></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   first_name passport_gender weight_in_kg height_in_cm body_mass_index
+   &lt;chr&gt;      &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Hilma      Female                    67          190            18.6
+ 2 Olga       Female                    71          179            22.2
+ 3 Freddy     Male                      66          169            23.1
+ 4 Louise     Female                    78          153            33.3
+ 5 Cherly     Female                    72          186            20.8
+ 6 Ranee      Female                    66          175            21.6
+ 7 Laronda    Female                    72          175            23.5
+ 8 Alvina     Female                    74          184            21.9
+ 9 Mack       Male                      73          183            21.8
+10 Faye       Female                    68          181            20.8</code></pre>
+</div>
+</div>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why bother?</strong></p>
+</div>
+<div class="callout-content">
+<p>Quicker to type, <strong>no backticks</strong>, RStudio <strong>autocompletes</strong> them. Call <code>clean_names()</code> once, right after importing.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
 <section id="exercise" class="title-slide slide level1 subsection center" data-background-color="#425556">
 <h1>Exercise</h1>
 

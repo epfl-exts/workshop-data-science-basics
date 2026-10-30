@@ -2,7 +2,7 @@
 title: "Importer des données"
 subtitle: "Charger des données dans R avec `{readr}`, `{readxl}` et `{haven}`"
 lang: fr
-translated-from: "a6db51dc40948035a6d8c544ef97f3ca75ded359"
+translated-from: "9186e7857deb9cf5792f611be92910820d581b39"
 author: "**EPFL Extension School**"
 format:
   revealjs:
@@ -803,6 +803,39 @@ mtcars_data
 ```
 
 Plus d'arguments ? Consultez la documentation : `?read_sas`
+
+# 🧹 Nettoyer les noms de colonnes {.subsection background-color="#425556"}
+
+## Nettoyer les noms de colonnes avec `{janitor}` {.smaller}
+
+-   Fichiers préparés par des personnes : espaces, majuscules, unités entre parenthèses...
+-   `clean_names()` réécrit **tous** les noms en minuscules, en `snake_case`
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Pourquoi s'en soucier ?
+
+Plus rapides à taper, **pas de backticks**, RStudio les **complète automatiquement**. Appelez `clean_names()` une seule fois, juste après l'import.
+
+:::
 
 # Exercice {.subsection background-color="#425556"}
 

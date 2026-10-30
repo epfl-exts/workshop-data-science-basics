@@ -3567,7 +3567,8 @@ background-origin: content-box;
   <li><a href="#haven-liest-sas--spss--und-stata-dateien" id="toc-haven-liest-sas--spss--und-stata-dateien" class="nav-link" data-scroll-target="#haven-liest-sas--spss--und-stata-dateien"><code>{haven}</code> liest SAS-, SPSS- und Stata-Dateien</a></li>
   <li><a href="#beispiel-eine-sas-datei-einlesen" id="toc-beispiel-eine-sas-datei-einlesen" class="nav-link" data-scroll-target="#beispiel-eine-sas-datei-einlesen">Beispiel: eine SAS-Datei einlesen</a></li>
   </ul></li>
-  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung"><span class="header-section-number">6</span> Übung</a>
+  <li><a href="#spaltennamen-bereinigen" id="toc-spaltennamen-bereinigen" class="nav-link" data-scroll-target="#spaltennamen-bereinigen"><span class="header-section-number">6</span> 🧹 Spaltennamen bereinigen</a></li>
+  <li><a href="#übung" id="toc-übung" class="nav-link" data-scroll-target="#übung"><span class="header-section-number">7</span> Übung</a>
   <ul class="collapse">
   <li><a href="#zeit-für-eine-übung" id="toc-zeit-für-eine-übung" class="nav-link" data-scroll-target="#zeit-für-eine-übung">Zeit für eine Übung!</a></li>
   </ul></li>
@@ -4266,8 +4267,60 @@ Tipp
 <p>Da diese Dateitypen sehr speziell sind, gehen wir nicht auf jedes einzelne Argument ein. Sie können aber jederzeit die Dokumentation lesen, z. B. <code>?read_sas</code>!</p>
 </section>
 </section>
-<section id="übung" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Übung</h1>
+<section id="spaltennamen-bereinigen" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 🧹 Spaltennamen bereinigen</h1>
+<p>Von Menschen erstellte Dateien haben oft unpraktische Spaltennamen: Leerzeichen, Grossbuchstaben, Einheiten in Klammern… Importieren wir ein kleines Beispiel, <code>team_bad_names.csv</code>. Um einen Namen wie <code>First Name</code> im Code zu verwenden, müssten wir ihn jedes Mal in Backticks setzen: <code>team$`First Name`</code>.</p>
+<p>Die Funktion <code>clean_names()</code> aus dem Paket <code>{janitor}</code> <strong>schreibt alle Spaltennamen</strong> in Kleinbuchstaben im <code>snake_case</code> um:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details open class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>team <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/team_bad_names.csv&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>team</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["First Name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Passport gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Weight (in kg)"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Height (in cm)"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Body Mass Index"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hilma","2":"Female","3":"67","4":"190","5":"18.56"},{"1":"Olga","2":"Female","3":"71","4":"179","5":"22.16"},{"1":"Freddy","2":"Male","3":"66","4":"169","5":"23.11"},{"1":"Louise","2":"Female","3":"78","4":"153","5":"33.32"},{"1":"Cherly","2":"Female","3":"72","4":"186","5":"20.81"},{"1":"Ranee","2":"Female","3":"66","4":"175","5":"21.55"},{"1":"Laronda","2":"Female","3":"72","4":"175","5":"23.51"},{"1":"Alvina","2":"Female","3":"74","4":"184","5":"21.86"},{"1":"Mack","2":"Male","3":"73","4":"183","5":"21.80"},{"1":"Faye","2":"Female","3":"68","4":"181","5":"20.76"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<details open class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>team <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["first_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["passport_gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["weight_in_kg"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["height_in_cm"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["body_mass_index"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hilma","2":"Female","3":"67","4":"190","5":"18.56"},{"1":"Olga","2":"Female","3":"71","4":"179","5":"22.16"},{"1":"Freddy","2":"Male","3":"66","4":"169","5":"23.11"},{"1":"Louise","2":"Female","3":"78","4":"153","5":"33.32"},{"1":"Cherly","2":"Female","3":"72","4":"186","5":"20.81"},{"1":"Ranee","2":"Female","3":"66","4":"175","5":"21.55"},{"1":"Laronda","2":"Female","3":"72","4":"175","5":"23.51"},{"1":"Alvina","2":"Female","3":"74","4":"184","5":"21.86"},{"1":"Mack","2":"Male","3":"73","4":"183","5":"21.80"},{"1":"Faye","2":"Female","3":"68","4":"181","5":"20.76"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tipp</span>Wozu der Aufwand?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bereinigte Namen sind <strong>schneller zu tippen</strong> und <strong>funktionieren ohne Backticks</strong>, und RStudio kann sie <strong>automatisch vervollständigen</strong>. Rufen Sie <code>clean_names()</code> einmal auf, gleich nach dem Import, und der restliche Code bleibt einfach.</p>
+</div>
+</div>
+</section>
+<section id="übung" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Übung</h1>
 <section id="zeit-für-eine-übung" class="level2">
 <h2 class="anchored" data-anchor-id="zeit-für-eine-übung">Zeit für eine Übung!</h2>
 <div class="callout callout-style-default callout-important callout-titled">

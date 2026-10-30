@@ -446,6 +446,37 @@ mtcars_data
 
 Since these file types are very specific, we won't cover each and every argument. However, you can always read the documentation, e.g. `?read_sas`!
 
+# 🧹 Cleaning column names
+
+Files prepared by people often have unfriendly column names: spaces, capital letters, units in brackets... Let's import a small example, `team_bad_names.csv`. To use a name like `First Name` in our code, we would have to wrap it in backticks every time: `` team$`First Name` ``.
+
+The function `clean_names()` from the package `{janitor}` **rewrites all the column names** in lower-case `snake_case`:
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: read-team-bad-names
+team <- read_csv("data/team_bad_names.csv")
+team
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: clean-names-team
+library(janitor)
+team %>%
+  clean_names()
+```
+:::
+::::
+
+::: callout-tip
+## Why bother?
+
+Clean names are **quicker to type** and **work without backticks**, and RStudio can **autocomplete** them. Call `clean_names()` once, right after importing, and the rest of your code stays simple.
+:::
+
 # Exercise
 
 ## Exercise Time!
