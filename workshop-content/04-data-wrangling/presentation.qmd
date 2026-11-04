@@ -39,7 +39,7 @@ library(janitor)
 library(DT)
 ```
 
-# Tidying and Transforming the data {.subsection background-color="#425556"}
+# Tidying and Transforming the data {.subsection .slides-only background-color="#425556"}
 
 ## Wrangling: essential to tidy and transform the data {auto-animate="true"}
 
@@ -132,8 +132,8 @@ Because we are dealing with **tabular data**, the possible manipulations are a s
 
 | Use                                                                                                 |
 |-----------------------------------------------------| 
-| **pick a set of columns** from a `tibble`                                                           |
-| **transform and add columns** to the `tibble`                                                       |
+| **pick a set of columns** from a table                                                           |
+| **transform and add columns** to the table                                                       |
 | **subsets rows** according to the values of a column                                                |
 | **order the rows** according to the values of a (set of) column(s)                                  |
 | **group** according to the values of a (set of) column(s) to perform calculations within the groups |
@@ -167,12 +167,12 @@ knitr::include_graphics(path = "images/hex-dplyr.png")
 
 |           Verb            | Use                                                                                                 |
 |:-----------------:|-----------------------------------------------------| 
-| `select()`    | **pick a set of columns** from a `tibble`                                                           |
-| `mutate()`    | **transform and add columns** to the `tibble`                                                       |
+| `select()`    | **pick a set of columns** from a table                                                           |
+| `mutate()`    | **transform and add columns** to the table                                                       |
 | `filter()`    | **subsets rows** according to the values of a column                                                |
 | `arrange()`   | **order the rows** according to the values of a (set of) column(s)                                  |
 | `group_by()`  | **group** according to the values of a (set of) column(s) to perform calculations within the groups |
-| `summarise()` | create a new `tibble` containing **summary statistics** for a set of columns                        |
+| `summarise()` | create a new table containing **summary statistics** for a set of columns                        |
 
 :::
 
@@ -202,14 +202,14 @@ dataset %>% select(column_1, column_2)
 # you see that it reads like a sentence!
 ```
 
-# 🎾 Let's practice wrangling in a real dataset {background-image="images/jim-sung-eQuMbR-0mco-unsplash.jpg" background-position="cover" background-opacity="0.4"}
+# 🎾 Let's practice wrangling in a real dataset {.slides-only background-image="images/jim-sung-eQuMbR-0mco-unsplash.jpg" background-position="cover" background-opacity="0.4"}
 
 ## 🎾 The WTA dataset 
 
 - `../data/wta_grand_slam_data.csv` contains the Women's Tennis data.
 - one row per **Grand Slam match**.
 
-Use readr to import it: 
+Use `{readr}` to import it:
 ```{r}
 #| label: read-wta
 #| output-location: column-fragment
@@ -273,9 +273,9 @@ Right after importing, it's always useful to **inspect** your dataset.
 ## Some inspecting tools
 
 ::: {.incremental}
-- check the first rows with `head()` or `dplyr::slice_head()`
-- get a summary of the contents with `dplyr::glimpse()`
-- a visual representation with `visdat::vis_dat()`
+- Check the first rows with `head()` or `dplyr::slice_head()`
+- Get a summary of the contents with `dplyr::glimpse()`
+- Get a visual representation with `visdat::vis_dat()`
 :::
 
 :::
@@ -287,6 +287,7 @@ Right after importing, it's always useful to **inspect** your dataset.
 
 ```{r}
 #| label: glimpse-wta
+#| output-location: fragment
 glimpse(wta_data)
 ```
 
@@ -311,7 +312,7 @@ wta_data %>%
     )
 ```
 
-# The `{dplyr}` verbs in action {.subsection background-color="#425556"}
+# The `{dplyr}` verbs in action {.subsection .slides-only background-color="#425556"}
 
 ## Picking columns with `select()`
 
@@ -328,8 +329,12 @@ wta_data %>%
 
 ```{r}
 #| label: select-columns
+#| output-location: column-fragment
 wta_data %>%
-  select(year, winner_name, loser_name)
+  select(
+    year, 
+    winner_name, 
+    loser_name)
 ```
 
 ## Selection helpers 
@@ -370,12 +375,13 @@ wta_data %>%
 
 ```{r}
 #| label: slides-mutate-before
-#| output-location: column
+#| output-location: column-fragment
 #| fig-alt: "vis_dat() plot of the selected columns before mutate(): year, the winner_ columns and the tourney_ columns are all of type character."
 wta_data %>%
   select(
     year, 
-    starts_with("winner"), starts_with("tourney")
+    starts_with("winner"), 
+    starts_with("tourney")
     ) %>% 
   vis_dat(warn_large_data = FALSE)
 ```
@@ -388,6 +394,7 @@ wta_data %>%
 ```{r}
 #| label: slides-mutate-after
 #| output-location: column
+#| code-line-numbers: "|1,2,10-14"
 #| fig-alt: "vis_dat() plot of the selected columns after mutate(): year is now numeric and tourney_date is a date, the other columns are still character."
 # 1. attach lubridate
 library(lubridate)
@@ -395,15 +402,15 @@ library(lubridate)
 wta_data %>%
   select(
     year, 
-    starts_with("winner"), starts_with("tourney")
+    starts_with("winner"), 
+    starts_with("tourney")
     ) %>% 
-  
 # 2. make the changes
   mutate(
     year = as.numeric(year),
     tourney_date = ymd(tourney_date)
     ) %>% 
-
+# 3. visualise the changes
   vis_dat(warn_large_data = FALSE)
 ```
 
@@ -507,7 +514,12 @@ wta_data %>%
 ```
 
 ::: fragment
-Other conditions: `<`, `>=`, `&`, `|`, `%in%`. The handout has the full list.
+::: {.callout-tip}
+## Other conditions 
+
+- `<`, `>=`, `&`, `|`, `%in%`
+- Check the handout for a more comprehensive list.
+:::
 :::
 
 ::: {.notes}
@@ -546,7 +558,7 @@ Numbers are sorted in increasing order, text in alphabetical order. `year` is a 
 
 ```{r}
 #| label: arrange-two-columns
-#| output-location: column
+#| output-location: column-fragment
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, winner_name)
@@ -558,7 +570,7 @@ wta_data %>%
 
 ```{r}
 #| label: arrange-desc
-#| output-location: column
+#| output-location: column-fragment
 wta_data %>%
   select(year, winner_name, tourney_name) %>%
   arrange(year, desc(winner_name))
@@ -579,6 +591,8 @@ Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise
 :::
 
 ![](images/summarising-data-v2-figure-3916.png){fig-alt="The summarise() card: summarise(total_sales = sum(sales)) turns three rows of daily sales (23, 45, 12) into a single row with total_sales 80." fig-align="center" width="80%"}
+
+# Summary statistics {.subsection .slides-only background-color="#425556"}
 
 ## Producing summary statistics with `summarise()`
 
@@ -627,9 +641,16 @@ wta_data %>%
 ```{r}
 #| label: group-by-winner
 #| render: !expr print
+#| output-location: fragment
 wta_data %>%
   group_by(winner_name)
 ```
+
+. . . 
+
+::: {.callout-important}
+The data looks the same, but later computations happen **within** the groups.
+:::
 
 ::: {.notes}
 The data looks the same, but later computations happen **within** the groups.
@@ -781,7 +802,7 @@ The left-hand side of the pipe goes **on top**
 
 ::: fragment
 ::: {.content-box-marine}
-Why "left"? It **keeps all the rows of the first** (*left-hand side*) **tibble**
+Why "left"? It **keeps all the rows of the first** (*left-hand side*) **table**
 :::
 :::
 
@@ -802,7 +823,11 @@ data_1 %>%
 ```
 
 ::: fragment
+
+::: {.content-box-marine}
 `data_3` has no `id` 4 or 5: their new columns are `NA`.
+::: 
+
 :::
 
 ::: {.notes}
@@ -835,9 +860,14 @@ data_1 %>%
   left_join(data_4, by = "id")
 ```
 
-`id` 8 is gone: only the rows of the **first** table are kept.
 :::
 ::::
+
+:::{.fragment}
+::: {.content-box-marine}
+`id` 8 is gone: only the rows of the **first** table are kept.
+:::
+:::
 
 # Pivoting Data {.subsection background-color="#425556"}
 

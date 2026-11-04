@@ -374,7 +374,7 @@ Die nächsten Themen folgen der Daten-Pipeline:
 
 -   [Arbeiten mit **R-Notebooks**](../02-working-with-r-markdown/handout-de.html)
 -   [Daten **importieren**](../03-importing-data/handout-de.html)
--   [Daten **aufbereiten**](../04-data-wrangling/handout.html)
+-   [Daten **aufbereiten**](../04-data-wrangling/handout-de.html)
 -   [Daten **visualisieren**](../05-data-visualisation/handout.html)
 
 # 💾 Zusatzinfo: Die Arbeit von heute speichern

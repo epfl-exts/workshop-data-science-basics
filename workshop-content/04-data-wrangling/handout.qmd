@@ -240,7 +240,10 @@ To select more than one column, we pass their names to `select()`. Say we want t
 ```{r, eval = FALSE}
 #| label: select-columns
 wta_data %>%
-  select(year, winner_name, loser_name)
+  select(
+    year, 
+    winner_name, 
+    loser_name)
 ```
 
 We can also pick the columns **whose names fulfil a condition**. This is done by means of so-called **selection helpers**.
