@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ihr Name">
+
+<title>Übungsnotebook</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="exercise-notebook-de_files/libs/clipboard/clipboard.min.js"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/popper.min.js"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="exercise-notebook-de_files/libs/quarto-html/anchor.min.js"></script>
+<link href="exercise-notebook-de_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="exercise-notebook-de_files/libs/quarto-html/quarto-syntax-highlighting-5de16f5e46225c21e2daa90d340bf64f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="exercise-notebook-de_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="exercise-notebook-de_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="exercise-notebook-de_files/libs/bootstrap/bootstrap-a2b4d82d088a1ce094d3e15b7a8ae40e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: White;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: White;
+background: #35D48D;
+      }
+</style>
+<link href="exercise-notebook-de_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="exercise-notebook-de_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Zum Hauptinhalt springen</a>
+
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Übungsnotebook</h1>
+            <p class="subtitle lead">Workshop Grundlagen der Data Science</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor:in</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ihr Name </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">4. November 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#übung-1" id="toc-übung-1" class="nav-link active" data-scroll-target="#übung-1"><span class="header-section-number">1</span> Übung 1</a>
+  <ul class="collapse">
+  <li><a href="#die-pakete-laden" id="toc-die-pakete-laden" class="nav-link" data-scroll-target="#die-pakete-laden"><span class="header-section-number">1.1</span> Die Pakete laden</a></li>
+  <li><a href="#die-daten-importieren" id="toc-die-daten-importieren" class="nav-link" data-scroll-target="#die-daten-importieren"><span class="header-section-number">1.2</span> Die Daten importieren</a></li>
+  </ul></li>
+  <li><a href="#übung-2" id="toc-übung-2" class="nav-link" data-scroll-target="#übung-2"><span class="header-section-number">2</span> Übung 2</a>
+  <ul class="collapse">
+  <li><a href="#die-daten-erkunden" id="toc-die-daten-erkunden" class="nav-link" data-scroll-target="#die-daten-erkunden"><span class="header-section-number">2.1</span> Die Daten erkunden</a></li>
+  <li><a href="#wie-viele-gemeinden-enthält-der-datensatz" id="toc-wie-viele-gemeinden-enthält-der-datensatz" class="nav-link" data-scroll-target="#wie-viele-gemeinden-enthält-der-datensatz"><span class="header-section-number">2.2</span> Wie viele Gemeinden enthält der Datensatz?</a></li>
+  <li><a href="#wie-viele-personen-lebten-2013-in-der-gemeinde-1123-altishofen-in-einem-4-personen-haushalt-finden-sie-es-mit-code-heraus." id="toc-wie-viele-personen-lebten-2013-in-der-gemeinde-1123-altishofen-in-einem-4-personen-haushalt-finden-sie-es-mit-code-heraus." class="nav-link" data-scroll-target="#wie-viele-personen-lebten-2013-in-der-gemeinde-1123-altishofen-in-einem-4-personen-haushalt-finden-sie-es-mit-code-heraus."><span class="header-section-number">2.3</span> Wie viele Personen lebten 2013 in der Gemeinde «1123 Altishofen» in einem 4-Personen-Haushalt? Finden Sie es mit Code heraus.</a></li>
+  <li><a href="#in-wie-vielen-gemeinden-hat-die-bevölkerung-in-1-personen-haushalten-zwischen-2012-und-2021-abgenommen" id="toc-in-wie-vielen-gemeinden-hat-die-bevölkerung-in-1-personen-haushalten-zwischen-2012-und-2021-abgenommen" class="nav-link" data-scroll-target="#in-wie-vielen-gemeinden-hat-die-bevölkerung-in-1-personen-haushalten-zwischen-2012-und-2021-abgenommen"><span class="header-section-number">2.4</span> In wie vielen Gemeinden hat die Bevölkerung in 1-Personen-Haushalten zwischen 2012 und 2021 abgenommen?</a></li>
+  </ul></li>
+  <li><a href="#übung-3" id="toc-übung-3" class="nav-link" data-scroll-target="#übung-3"><span class="header-section-number">3</span> Übung 3</a>
+  <ul class="collapse">
+  <li><a href="#welcher-kanton-hat-die-meisten-bezirke" id="toc-welcher-kanton-hat-die-meisten-bezirke" class="nav-link" data-scroll-target="#welcher-kanton-hat-die-meisten-bezirke"><span class="header-section-number">3.1</span> Welcher Kanton hat die meisten Bezirke?</a></li>
+  </ul></li>
+  <li><a href="#übung-4" id="toc-übung-4" class="nav-link" data-scroll-target="#übung-4"><span class="header-section-number">4</span> Übung 4</a>
+  <ul class="collapse">
+  <li><a href="#berechnen-sie-die-gesamtbevölkerung-2021-pro-bezirk." id="toc-berechnen-sie-die-gesamtbevölkerung-2021-pro-bezirk." class="nav-link" data-scroll-target="#berechnen-sie-die-gesamtbevölkerung-2021-pro-bezirk."><span class="header-section-number">4.1</span> Berechnen Sie die Gesamtbevölkerung 2021 pro Bezirk.</a></li>
+  </ul></li>
+  <li><a href="#übung-5" id="toc-übung-5" class="nav-link" data-scroll-target="#übung-5"><span class="header-section-number">5</span> Übung 5</a>
+  <ul class="collapse">
+  <li><a href="#communes_population-ins-lange-format-umwandeln" id="toc-communes_population-ins-lange-format-umwandeln" class="nav-link" data-scroll-target="#communes_population-ins-lange-format-umwandeln"><span class="header-section-number">5.1</span> <code>communes_population</code> ins lange Format umwandeln</a></li>
+  <li><a href="#die-daten-nach-kanton-und-jahr-zusammenfassen" id="toc-die-daten-nach-kanton-und-jahr-zusammenfassen" class="nav-link" data-scroll-target="#die-daten-nach-kanton-und-jahr-zusammenfassen"><span class="header-section-number">5.2</span> Die Daten nach Kanton und Jahr zusammenfassen</a></li>
+  </ul></li>
+  <li><a href="#übung-6" id="toc-übung-6" class="nav-link" data-scroll-target="#übung-6"><span class="header-section-number">6</span> Übung 6</a>
+  <ul class="collapse">
+  <li><a href="#zeigen-sie-die-entwicklung-der-bevölkerung-pro-kanton." id="toc-zeigen-sie-die-entwicklung-der-bevölkerung-pro-kanton." class="nav-link" data-scroll-target="#zeigen-sie-die-entwicklung-der-bevölkerung-pro-kanton."><span class="header-section-number">6.1</span> Zeigen Sie die Entwicklung der Bevölkerung pro Kanton.</a></li>
+  <li><a href="#vergleichen-sie-die-bevölkerung-der-kantone-in-den-jahren-2012-und-2021." id="toc-vergleichen-sie-die-bevölkerung-der-kantone-in-den-jahren-2012-und-2021." class="nav-link" data-scroll-target="#vergleichen-sie-die-bevölkerung-der-kantone-in-den-jahren-2012-und-2021."><span class="header-section-number">6.2</span> Vergleichen Sie die Bevölkerung der Kantone in den Jahren 2012 und 2021.</a></li>
+  <li><a href="#erstellen-sie-eine-grafik-pro-kanton" id="toc-erstellen-sie-eine-grafik-pro-kanton" class="nav-link" data-scroll-target="#erstellen-sie-eine-grafik-pro-kanton"><span class="header-section-number">6.3</span> Erstellen Sie eine Grafik pro Kanton</a></li>
+  <li><a href="#optional-ein-anderes-theme-verwenden" id="toc-optional-ein-anderes-theme-verwenden" class="nav-link" data-scroll-target="#optional-ein-anderes-theme-verwenden"><span class="header-section-number">6.4</span> Optional: Ein anderes Theme verwenden</a></li>
+  <li><a href="#optional-die-grafiken-exportieren" id="toc-optional-die-grafiken-exportieren" class="nav-link" data-scroll-target="#optional-die-grafiken-exportieren"><span class="header-section-number">6.5</span> Optional: Die Grafiken exportieren</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content" tabindex="-1">
+
+
+
+
+
+<p>In diesem Notebook führen Sie eine erste Analyse der Schweizer Bevölkerung durch, mit der Sie anschliessend die folgenden Fragen beantworten können:</p>
+<blockquote class="blockquote">
+<p>«Wie hat sich die Bevölkerung in den Schweizer Kantonen in den letzten 10 Jahren verändert?»</p>
+<p>«Leben die Einwohnerinnen und Einwohner der Schweiz in grossen oder kleinen Haushalten?»</p>
+</blockquote>
+<p>Um diese Fragen bestmöglich zu beantworten, haben wir Daten des <a href="https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung.html">BFS</a> heruntergeladen und so umgeformt, dass Sie im Workshop damit arbeiten können.</p>
+<p>Die Daten finden Sie im Ordner <code>data</code> von <code>workshop-content</code>. Von diesem Notebook aus lautet ihr Pfad <code>../data/</code>.</p>
+<p>Die folgenden Übungen sollen Ihnen helfen, das im Workshop Gelernte auf einen echten Datensatz anzuwenden.</p>
+<section id="übung-1" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="übung-1"><span class="header-section-number">1</span> Übung 1</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf das erste Thema: <strong>Datenimport</strong></p>
+</div>
+</div>
+<section id="die-pakete-laden" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="die-pakete-laden"><span class="header-section-number">1.1</span> Die Pakete laden</h3>
+<p>Laden Sie die Pakete, die Sie bisher kennengelernt haben.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Schauen Sie sich zuerst das Format der Daten an, damit Sie entscheiden können, welche Pakete Sie laden müssen.</p>
+</div>
+</div>
+</section>
+<section id="die-daten-importieren" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="die-daten-importieren"><span class="header-section-number">1.2</span> Die Daten importieren</h3>
+<p>Laden Sie nun alle Datensätze:</p>
+<ul>
+<li><code>communes_population.csv</code></li>
+<li><code>communes_ids.xlsx</code></li>
+<li><code>district_ids.csv</code></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Weisen Sie den Inhalt den Tabellen <code>communes_population</code>, <code>communes_ids</code> bzw. <code>district_ids</code> zu.</p>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## communes_population laden</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## die Gemeinde-IDs laden</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## die Bezirks-IDs laden</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="übung-2" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="übung-2"><span class="header-section-number">2</span> Übung 2</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf <strong>Abschnitt 1 (Unterabschnitte 1.1–1.5)</strong> des zweiten Themas: <strong>Datenaufbereitung</strong></p>
+</div>
+</div>
+<section id="die-daten-erkunden" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="die-daten-erkunden"><span class="header-section-number">2.1</span> Die Daten erkunden</h3>
+<p>Schauen Sie sich nun die importierten Daten an und prüfen Sie, ob alle numerischen und nicht numerischen Spalten korrekt importiert wurden.</p>
+<p>Dazu können Sie verschiedene Funktionen verwenden: <code>slice_head()</code>, <code>glimpse()</code>, <code>vis_dat()</code>. Sie können auch auf den blauen Pfeil im Tab <code>Environment</code> klicken.</p>
+</section>
+<section id="wie-viele-gemeinden-enthält-der-datensatz" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="wie-viele-gemeinden-enthält-der-datensatz"><span class="header-section-number">2.2</span> Wie viele Gemeinden enthält der Datensatz?</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sie können die Zeilen des Datensatzes <code>communes_ids</code> zählen.</p>
+</div>
+</div>
+</section>
+<section id="wie-viele-personen-lebten-2013-in-der-gemeinde-1123-altishofen-in-einem-4-personen-haushalt-finden-sie-es-mit-code-heraus." class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="wie-viele-personen-lebten-2013-in-der-gemeinde-1123-altishofen-in-einem-4-personen-haushalt-finden-sie-es-mit-code-heraus."><span class="header-section-number">2.3</span> Wie viele Personen lebten 2013 in der Gemeinde «1123 Altishofen» in einem 4-Personen-Haushalt? Finden Sie es mit Code heraus.</h3>
+</section>
+<section id="in-wie-vielen-gemeinden-hat-die-bevölkerung-in-1-personen-haushalten-zwischen-2012-und-2021-abgenommen" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="in-wie-vielen-gemeinden-hat-die-bevölkerung-in-1-personen-haushalten-zwischen-2012-und-2021-abgenommen"><span class="header-section-number">2.4</span> In wie vielen Gemeinden hat die Bevölkerung in 1-Personen-Haushalten zwischen 2012 und 2021 abgenommen?</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>1- Behalten Sie nur die Haushaltsgrösse «1 Person»</p>
+<p>2- Berechnen Sie die Differenz zwischen der 2021 und der 2012 erfassten Bevölkerung</p>
+<p>3- Behalten Sie nur die Zeilen, in denen die berechnete Differenz kleiner als 0 ist</p>
+<p>4- Zählen Sie die Zeilen: Das ist Ihre Antwort</p>
+<p>5- Optional: Behalten Sie nur die relevanten Spalten</p>
+<p>6- Optional: Sortieren Sie nach der berechneten Differenz</p>
+</div>
+</div>
+</section>
+</section>
+<section id="übung-3" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="übung-3"><span class="header-section-number">3</span> Übung 3</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf <strong>Abschnitt 1 (Unterabschnitte 1.7–1.9)</strong> des zweiten Themas: <strong>Datenaufbereitung</strong></p>
+</div>
+</div>
+<section id="welcher-kanton-hat-die-meisten-bezirke" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="welcher-kanton-hat-die-meisten-bezirke"><span class="header-section-number">3.1</span> Welcher Kanton hat die meisten Bezirke?</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Verwenden Sie <code>group_by()</code> und <code>summarise()</code>. Gruppieren Sie die Daten nach Kanton und berechnen Sie dann die Anzahl Bezirke. Geben Sie nur den Kanton mit den meisten Bezirken aus.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="übung-4" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="übung-4"><span class="header-section-number">4</span> Übung 4</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf <strong>Abschnitt 2</strong> des zweiten Themas: <strong>Datenaufbereitung</strong></p>
+</div>
+</div>
+<section id="berechnen-sie-die-gesamtbevölkerung-2021-pro-bezirk." class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="berechnen-sie-die-gesamtbevölkerung-2021-pro-bezirk."><span class="header-section-number">4.1</span> Berechnen Sie die Gesamtbevölkerung 2021 pro Bezirk.</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hinweis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Finden Sie zuerst einen Weg, die Datensätze <code>communes_ids</code> und <code>communes_population</code> zusammenzuführen. Verwenden Sie dann <code>group_by()</code> und <code>summarise()</code>, um die Bevölkerung jedes Bezirks im Jahr 2021 zu berechnen (summieren Sie die Bevölkerung aller Gemeinden jedes Bezirks).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="übung-5" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="übung-5"><span class="header-section-number">5</span> Übung 5</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf <strong>Abschnitt 3</strong> des zweiten Themas: <strong>Datenaufbereitung</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hier verwenden Sie das Paket <code>{tidyr}</code>. Denken Sie daran, es zu laden!</p>
+</div>
+</div>
+<section id="communes_population-ins-lange-format-umwandeln" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="communes_population-ins-lange-format-umwandeln"><span class="header-section-number">5.1</span> <code>communes_population</code> ins lange Format umwandeln</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Erstellen Sie <code>communes_long</code>, indem Sie <code>communes_population</code> ins längere Format umwandeln (verwenden Sie <code>pivot_longer()</code>).</p>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># communes_long &lt;-</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="die-daten-nach-kanton-und-jahr-zusammenfassen" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="die-daten-nach-kanton-und-jahr-zusammenfassen"><span class="header-section-number">5.2</span> Die Daten nach Kanton und Jahr zusammenfassen</h3>
+<p>Erstellen Sie ein neues Tibble namens <code>canton_population</code>, die zusammengefasste Version von <code>communes_long</code>.</p>
+<p>1- Wie Sie sehen, fehlt in <code>communes_long</code> die Information zum Kanton. Finden Sie einen Weg, <code>district_ids</code> und <code>communes_ids</code> mit <code>communes_long</code> zusammenzuführen.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#communes_long &lt;- communes_long %&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  left_join() %&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  left_join()</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>2- Erstellen Sie nun das Tibble <code>canton_population</code>, indem Sie nach <code>canton</code> und <code>year</code> gruppieren und die Daten pro Kanton zusammenfassen. (Die Bevölkerung eines Kantons ist die Summe der Bevölkerung aller seiner Gemeinden.)</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#canton_population &lt;- communes_long %&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ... %&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ...</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="übung-6" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="übung-6"><span class="header-section-number">6</span> Übung 6</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wichtig
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diese Übung folgt auf das letzte Thema: <strong>Datenvisualisierung</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warnung
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Hier verwenden Sie die Pakete <code>{ggplot2}</code> und <code>{stringr}</code>. Denken Sie daran, sie zu laden!</p>
+</div>
+</div>
+<p>Bereinigen Sie die Spalte <code>year</code> im zuvor erstellten Tibble <code>canton_population</code>, indem Sie das <code>x</code> entfernen.</p>
+<ul>
+<li><p>Dazu können Sie die Funktion <code>str_remove()</code> verwenden, die das «x» entfernt.</p></li>
+<li><p>Die resultierende Variable ist vom Typ «character»: Wandeln Sie sie in einen numerischen Typ um.</p></li>
+</ul>
+<p>Siehe das Beispiel unten:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_cleaned =</span> <span class="fu">str_remove</span>(var_to_clean, <span class="st">"x"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_cleaned =</span> <span class="fu">as.numeric</span>(var_cleaned))</span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># canton_population verwenden</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="zeigen-sie-die-entwicklung-der-bevölkerung-pro-kanton." class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="zeigen-sie-die-entwicklung-der-bevölkerung-pro-kanton."><span class="header-section-number">6.1</span> Zeigen Sie die Entwicklung der Bevölkerung pro Kanton.</h3>
+<p>Zeichnen Sie dazu eine Linie pro Kanton, indem Sie die Farbe (<code>color</code>) dem Kanton zuordnen.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ordnen Sie <code>year</code> der <code>x</code>-Achse und <code>population</code> der <code>y</code>-Achse zu. Und verwenden Sie <code>geom_line()</code>.</p>
+</div>
+</div>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># canton_population verwenden</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="vergleichen-sie-die-bevölkerung-der-kantone-in-den-jahren-2012-und-2021." class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="vergleichen-sie-die-bevölkerung-der-kantone-in-den-jahren-2012-und-2021."><span class="header-section-number">6.2</span> Vergleichen Sie die Bevölkerung der Kantone in den Jahren 2012 und 2021.</h3>
+<p>Erstellen Sie ein horizontales Balkendiagramm und ordnen Sie die Füllfarbe (<code>fill</code>) dem Jahr zu, sodass Sie zwei getrennte Balken erhalten, einen pro Jahr. Damit die Balken nicht übereinandergestapelt werden (die Voreinstellung in <code>{ggplot2}</code>), können Sie <code>geom_col()</code> das Argument <code>position = "dodge"</code> hinzufügen.</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># canton_population verwenden</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># zuerst die Daten filtern</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sicherstellen, dass year ein character-Vektor ist</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="erstellen-sie-eine-grafik-pro-kanton" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="erstellen-sie-eine-grafik-pro-kanton"><span class="header-section-number">6.3</span> Erstellen Sie eine Grafik pro Kanton</h3>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># facet_wrap() auf Ihren vorherigen Code anwenden</span></span></code></pre></div><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="optional-ein-anderes-theme-verwenden" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="optional-ein-anderes-theme-verwenden"><span class="header-section-number">6.4</span> Optional: Ein anderes Theme verwenden</h3>
+<p>Wenden Sie ein anderes Theme auf die vorherigen Grafiken an.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tipp
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Wenn Sie <code>theme_</code> in die Console tippen, erscheinen alle vordefinierten Themes in einem Dropdown-Menü. Eine gute Wahl für einen schlichteren Look ist meist <code>theme_minimal()</code>.</p>
+</div>
+</div>
+</section>
+<section id="optional-die-grafiken-exportieren" class="level3" data-number="6.5">
+<h3 data-number="6.5" class="anchored" data-anchor-id="optional-die-grafiken-exportieren"><span class="header-section-number">6.5</span> Optional: Die Grafiken exportieren</h3>
+<p>Legen Sie Höhe (<code>height</code>) und Breite (<code>width</code>) so fest, dass die Grafik gut lesbar ist.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopiert");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopiert");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollbarer Code","output":"Scrollbare Ausgabe"};
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
