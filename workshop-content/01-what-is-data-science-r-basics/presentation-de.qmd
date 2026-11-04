@@ -52,7 +52,7 @@ Data Science lässt sich über das definieren, was sie **_tut_**[^1]:
 
 > Dazu nutzen Data Scientists eine **Kombination aus technischen Werkzeugen und Methoden** [...]
 
-[^1]: Heinrich, Ally. "What's the Difference between Data Analytics & Data Science?" Harvard Business School, 18. Juni 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Abgerufen am 15. Okt. 2026. Zitate übersetzt.
+[^1]: Heinrich, Ally. "What's the Difference between Data Analytics & Data Science?" Harvard Business School, 18. Juni 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](https://online.hbs.edu/blog/post/data-analytics-vs-data-science). Abgerufen am 15. Okt. 2026. Zitate übersetzt.
 
 ## In der Theorie
 

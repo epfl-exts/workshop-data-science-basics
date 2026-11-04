@@ -48,7 +48,7 @@ Data Science can be defined by what it **_does_**[^1]:
 
 > To achieve this, data scientists leverage a **combination of technical tools and methodologies** [...]
 
-[^1]: Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
+[^1]: Heinrich, Ally. “What’s the Difference between Data Analytics & Data Science?” Harvard Business School, 18 June 2026, [online.hbs.edu/blog/post/data-analytics-vs-data-science](https://online.hbs.edu/blog/post/data-analytics-vs-data-science). Accessed 15 Oct. 2026. 
 
 ## In Theory
 
