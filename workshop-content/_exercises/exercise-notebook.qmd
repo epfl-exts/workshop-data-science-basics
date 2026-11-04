@@ -27,7 +27,7 @@ In this notebook, you are going to do a preliminary analysis on the Swiss popula
 
 To best answer these questions, we have downloaded data made available by [FSO](https://www.bfs.admin.ch/bfs/en/home/statistics/population.html) and have reshaped them for you to work with during this workshop.
 
-You can find the data in the `data` folder of `workshop-content`. From this notebook, its path is `../data/`.
+You can find the data in the `data` folder of `_exercises/`. From this notebook, its path is `data/`.
 
 The following exercises have been designed to allow you to apply what you learn in the workshop to a real-world dataset.
 

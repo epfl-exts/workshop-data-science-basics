@@ -29,7 +29,7 @@ In diesem Notebook führen Sie eine erste Analyse der Schweizer Bevölkerung dur
 
 Um diese Fragen bestmöglich zu beantworten, haben wir Daten des [BFS](https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung.html) heruntergeladen und so umgeformt, dass Sie im Workshop damit arbeiten können.
 
-Die Daten finden Sie im Ordner `data` von `workshop-content`. Von diesem Notebook aus lautet ihr Pfad `../data/`.
+Die Daten finden Sie im Ordner `data` von `_exercises/`. Von diesem Notebook aus lautet ihr Pfad `data/`.
 
 Die folgenden Übungen sollen Ihnen helfen, das im Workshop Gelernte auf einen echten Datensatz anzuwenden.
 

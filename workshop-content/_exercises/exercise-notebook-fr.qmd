@@ -29,7 +29,7 @@ Dans ce notebook, vous allez faire une analyse préliminaire de la population su
 
 Pour répondre au mieux à ces questions, nous avons téléchargé des données mises à disposition par l'[OFS](https://www.bfs.admin.ch/bfs/fr/home/statistiques/population.html) et les avons remaniées pour que vous puissiez travailler avec pendant ce workshop.
 
-Vous trouverez les données dans le dossier `data` de `workshop-content`. Depuis ce notebook, leur chemin d'accès est `../data/`.
+Vous trouverez les données dans le dossier `data` de `_exercises`. Depuis ce notebook, leur chemin d'accès est `data/`.
 
 Les exercices suivants ont été conçus pour vous permettre d'appliquer ce que vous apprenez pendant le workshop à un jeu de données réel.
 
