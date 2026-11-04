@@ -40,6 +40,7 @@ library(knitr)
 ::: {.callout-important icon="false"}
 ## À la fin du workshop, les participant·e·s seront capables de :
 
+::: {.incremental}
 -   **Comprendre** le **pipeline de la science des données.**
 
 -   Acquérir une **expérience pratique** de R, RStudio, du `{tidyverse}` et de R Markdown pour réaliser les tâches d'un·e data scientist :
@@ -47,11 +48,14 @@ library(knitr)
     -   Importer, manipuler et visualiser des données
 
     -   Produire des rapports automatisés et reproductibles avec des fichiers R Markdown
+
+:::
+
 :::
 
 # PROGRAMME
 
-## Jeudi
+## Jeudi {.scrollable}
 
 ```{r}
 #| label: agenda-thursday
@@ -73,7 +77,7 @@ agenda_thursday %>%
 
 ```
 
-## Vendredi 
+## Vendredi {.scrollable}
 
 ```{r}
 #| label: agenda-friday

@@ -40,6 +40,8 @@ library(knitr)
 ::: {.callout-important icon="false"}
 ## Am Ende des Workshops können die Teilnehmenden:
 
+::: {.incremental}
+
 -   die **Data-Science-Pipeline verstehen.**
 
 -   mit R, RStudio, dem `{tidyverse}` und R Markdown **praktische Erfahrung** in den Aufgaben einer Data Scientist sammeln:
@@ -47,11 +49,13 @@ library(knitr)
     -   Daten importieren, bearbeiten und visualisieren
 
     -   automatisierte und reproduzierbare Berichte mit R-Markdown-Dateien erstellen
+
+:::
 :::
 
 # AGENDA
 
-## Donnerstag
+## Donnerstag {.scrollable}
 
 ```{r}
 #| label: agenda-thursday
@@ -73,7 +77,7 @@ agenda_thursday %>%
 
 ```
 
-## Freitag 
+## Freitag {.scrollable}
 
 ```{r}
 #| label: agenda-friday
