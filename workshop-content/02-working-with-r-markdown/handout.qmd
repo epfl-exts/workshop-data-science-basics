@@ -43,9 +43,11 @@ A markup language allows you to format a document with **commands** instead of m
 
 For instance, you can:
 
--   Enclose a word between two sets of \*\*two asterisks\*\* to obtain **bold text**.
+-   Enclose a word between:
 
--   Enclose a word between \_underscores\_ to produce *italic text*.
+    -   two sets of \*\*two asterisks\*\* to obtain **bold text**.
+
+    -   \_underscores\_ to produce *italic text*.
 
 -   Create headers and subheaders at various levels with `#`, `##` and `###`.
 
@@ -86,22 +88,22 @@ This is useful in two ways:
 ## Quarto
 
 ::: {.content-box-marine}
-Quarto is the **next-generation version of R Markdown**.
+Quarto is the **evolution of R Markdown**, designed to work with **multiple languages** and in **multiple IDEs**.
 :::
 
--   It is designed to work with **multiple languages**, across **multiple platforms** and **IDEs**.
+-   Languages supported: **R, Python, Julia, Observable**.
 
-    -   Languages supported: **R, Python, Julia, Observable**.
-
-    -   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+-   IDEs: **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
 
 -   It **works seamlessly with R**, since it is developed by Posit PBC (formerly RStudio Inc., the company behind the RStudio IDE).
 
--   Recent versions of the RStudio IDE provide a **Visual Quarto Editor**.
+-   Recent versions of the RStudio IDE even provide a **Visual Quarto Editor**.
 
     -   This makes things easier, as **there's no need to know all the Markdown commands!**
 
 ::: callout-note
+## Case in point
+
 For instance, the materials in this workshop are written in **Quarto**.
 :::
 

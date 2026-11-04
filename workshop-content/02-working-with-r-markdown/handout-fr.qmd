@@ -2,7 +2,7 @@
 title: "Travailler avec des notebooks R"
 subtitle: "R Markdown et Quarto"
 lang: fr
-translated-from: "2ee6ff88e47fe512748fe9b336a52a1b78b8320a"
+translated-from: "16eac2aacce6d7c3e0930a0ae6c9dae47a28ba89"
 author: "**EPFL Extension School**"
 format:
   html:
@@ -47,9 +47,11 @@ Un langage de balisage (markup language) permet de mettre en forme un document a
 
 Vous pouvez par exemple :
 
--   Entourer un mot de deux paires de \*\*deux astérisques\*\* pour obtenir du **texte en gras**.
+-   Entourer un mot de :
 
--   Entourer un mot de \_tirets bas\_ pour produire du *texte en italique*.
+    -   deux paires de \*\*deux astérisques\*\* pour obtenir du **texte en gras**.
+
+    -   \_tirets bas\_ pour produire du *texte en italique*.
 
 -   Créer des titres et sous-titres de différents niveaux avec `#`, `##` et `###`.
 
@@ -71,7 +73,7 @@ Vous pouvez par exemple :
 R Markdown combine du **texte écrit en Markdown** et du **code écrit en R**.
 :::
 
-C'est utile de deux manières :
+Ceci est utile de deux manières :
 
 -   **Comme outil d'analyse** :
 
@@ -90,22 +92,22 @@ C'est utile de deux manières :
 ## Quarto
 
 ::: {.content-box-marine}
-Quarto est la **nouvelle génération de R Markdown**.
+Quarto est **l'évolution de R Markdown**. Il est conçu pour fonctionner avec **plusieurs langages** et dans **plusieurs IDE**.
 :::
 
--   Il est conçu pour fonctionner avec **plusieurs langages**, sur **plusieurs plateformes** et dans **plusieurs IDE**.
+-   Langages pris en charge : **R, Python, Julia, Observable**.
 
-    -   Langages pris en charge : **R, Python, Julia, Observable**.
-
-    -   IDE : **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
+-   IDE : **RStudio, Jupyter Notebooks, VS Code, NeoVim, Positron**.
 
 -   Il **fonctionne parfaitement avec R**, puisqu'il est développé par Posit PBC (anciennement RStudio Inc., l'entreprise derrière l'IDE RStudio).
 
--   Les versions récentes de l'IDE RStudio proposent un **éditeur Quarto visuel**.
+-   Les versions récentes de l'IDE RStudio proposent même un **éditeur Quarto visuel**.
 
     -   Cela simplifie les choses, car **il n'est pas nécessaire de connaître toutes les commandes Markdown !**
 
 ::: callout-note
+## Regardez-moi ce matériel
+
 Par exemple, les supports de ce workshop sont écrits en **Quarto**.
 :::
 

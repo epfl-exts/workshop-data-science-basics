@@ -152,7 +152,7 @@ A data science project involves **mastering** the **data pipeline**
 
 :::{.fragment}
 ::: {.content-box-oil}
-**Packages**: the **toolboxes** that contain a bunch of useful tools.
+**Packages**: the **toolboxes** that hold your tools.
 :::
 :::
 
@@ -176,11 +176,17 @@ Illustrations from the [Openscapes](https://www.openscapes.org) blog [Tidy Data 
 
 ## `{tidyverse}`: Another flavour of R. {background-image="images/tidyverse-logo.png" background-size="150px" background-position="90% 90%"}
 
-Enter the **`{tidyverse}`**, "an *opinionated* collection of packages"
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^2].
+
+. . . 
+
+The **`{tidyverse}`** is an "*opinionated*" collection of packages, notably when it comes to how data is organised.
 
 ::: {.content-box-marine}
-The Data is **organised in single, consistent way**: **"tidy" data**.
+The data is **organised in a single, consistent way**: **"tidy" data**.
 :::
+
+[^2]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)
 
 ## {.center}
 
@@ -325,7 +331,7 @@ R suppports many **different data structures** through dedicated **packages**:
 ## 🧰 Packages {background-image="images/dplyr-logo.png" background-size="200px" background-position="90% 90%"}
 
 ::: {.content-box-marine}
-We said that **R** is highly extensible through *packages*.
+As mentioned before, **R** is highly extensible through *packages*.
 :::
 
 -   In a project we only use the tools we need.
@@ -378,6 +384,14 @@ library(dplyr)
 :::
 ::::
 
+. . .
+
+::: {.callout-important}
+
+## No need to install packages during this workshop
+
+In this workshop, all the packages you need **are already installed**!
+:::
 
 ## 🧰 Example: using `dplyr::slice_head()` {auto-animate=true}
 

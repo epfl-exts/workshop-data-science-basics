@@ -96,7 +96,7 @@ You can think of R as your workbench, where:
 
 -   **Data** is the **material** you're working with (metal, or wood),
 -   **Functions** are the **tools** you use to transform the material (saws, hammers, pliers),
--   **Packages** are the **toolboxes** that contain a bunch of useful tools.
+-   **Packages** are the **toolboxes** that hold your tools.
 
 ## `{tidyverse}`: Another flavour of R
 
@@ -109,7 +109,11 @@ At the core of the last problem is the fact that `lists` are the preferred data 
 
 ![](images/tidydata_2-1-mod.png){fig-alt="Cartoon of four messy tables, each messy in its own way: one has values in its columns and variables in its rows, one has variables in both columns and rows, one has several variables in a single column, and the last one doesn't even know what its deal is." fig-align="center" width="80%"}
 
-Enter the **`{tidyverse}`**, "an *opinionated* collection of packages". By *opinionated*, we mean that it establishes rules for developing R code and data science tasks. One of these rules is that the data has to be **organised in a single, consistent way**, called **"tidy" data**:
+Enter the **`{tidyverse}`**. Its website describes it as follows:
+
+> The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures[^1].
+
+By *opinionated*, we mean that it establishes rules for developing R code and data science tasks, notably when it comes to how data is organised. One of these rules is that the data has to be **organised in a single, consistent way**, called **"tidy" data**:
 
 -   each **variable** forms a **column**,
 -   each **observation** forms a **row**,
@@ -240,7 +244,7 @@ In short: we are not limited by a particular data format when using **R**.
 
 ## 🧰 Packages
 
-We said that **R** is highly extensible through *packages*. They work like the *plugins* of Excel, Photoshop or your web browser: whatever you need to do, chances are "there's a package for that".
+As mentioned before, **R** is highly extensible through *packages*. They work like the *plugins* of Excel, Photoshop or your web browser: whatever you need to do, chances are "there's a package for that".
 
 In a project, we only use the tools we need. Thus, we **only attach** the packages **we need**. (After all, nobody likes a messy workbench!)
 
@@ -404,3 +408,5 @@ Then download `my-work.tar.gz` as described above. On your computer, **double-cl
 ::: callout-important
 Rendered pages and their support files can be recreated by rendering again.
 :::
+
+[^1]: Tidyverse. (n.d.). [https://tidyverse.org/](https://tidyverse.org/)
