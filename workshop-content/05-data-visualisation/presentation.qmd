@@ -145,7 +145,7 @@ example_data %>%
 ## Aesthetic mappings
 
 ::: content-box-marine
-**Aesthetic mapping** indicate which **variable** goes to which **aesthetic** element of the chart
+**Aesthetic mappings** indicate which **variable** goes to which **aesthetic** element of the chart
 :::
 
 . . .
@@ -256,7 +256,7 @@ head(finals)
 ```
 
 
-## A layered constructions
+## A layered construction
 
 ::: {.callout-tip}
 
@@ -340,7 +340,7 @@ In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
 
 . . . 
 
-> **No clear trend**, but **clusters** of aligned points. Could there be **trends within groups?*** 
+> **No clear trend**, but **clusters** of aligned points. Could there be **trends within groups?**
 
 
 
@@ -529,7 +529,7 @@ The argument `width` sets how far the points spread
 #| label: boxplot-jitter-width
 #| output-location: column-fragment
 #| code-line-numbers: "5"
-#| fig-alt: "The same plot with a narrowe` kr jitter: the points stay close to their box."
+#| fig-alt: "The same plot with a narrower jitter: the points stay close to their box."
 ggplot(data = finals,
        mapping = aes(x = surface,
                      y = winner_age)) +
