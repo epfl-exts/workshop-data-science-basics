@@ -48,8 +48,8 @@ library(knitr)
 
 Nous allons maintenant découvrir une autre étape du pipeline de données : la visualisation.
 
--   La visualisation de données est une partie importante de la boucle d'exploration,
--   mais c'est aussi un **outil** très important **pour communiquer des résultats** de manière claire et parlante.
+- La visualisation de données est une partie importante de la boucle d'exploration,
+- mais c'est aussi un **outil** très important **pour communiquer des résultats** de manière claire et parlante.
 
 Il existe de nombreuses façons de créer un graphique à partir de données. Aujourd'hui, nous nous concentrons sur l'**approche de visualisation** qui repose sur la **grammaire de la visualisation de données**, mise en œuvre dans R par le package `{ggplot2}`.
 
@@ -59,10 +59,10 @@ La grammaire des graphiques (voir [Wilkinson, 2005](https://link.springer.com/bo
 
 Tout comme une langue naturelle utilise des éléments syntaxiques tels que les **noms**, les **adjectifs**, les **verbes** et les **adverbes** pour construire des **énoncés**, la grammaire des graphiques s'appuie sur des éléments, à savoir :
 
--   les **données**
--   les **esthétiques**
--   les **géométries**
--   les **thèmes**
+- les **données**
+- les **esthétiques**
+- les **géométries**
+- les **thèmes**
 
 Examinons ces éléments en détail.
 
@@ -101,23 +101,23 @@ example_data %>%
 
 Les **caractéristiques du graphique**, c.-à-d. les éléments du graphique que nous voulons faire dépendre des données. Par exemple :
 
--   les axes `x` ou `y`,
--   la couleur (`color`) ou le remplissage (`fill`) des surfaces ou des lignes que nous dessinons,
--   la taille (`size`) des surfaces.
+- les axes `x` ou `y`,
+- la couleur (`color`) ou le remplissage (`fill`) des surfaces ou des lignes que nous dessinons,
+- la taille (`size`) des surfaces.
 
 Un **mapping esthétique** est la façon dont nous **relions** les **variables** de nos données **au graphique**.
 
--   Dans notre illustration, nous avons deux variables numériques et une variable catégorielle.
--   Il est logique d'**associer les variables numériques** aux axes `x` et `y`, et d'**associer** la variable catégorielle à la couleur (`color`).
--   Le mapping esthétique serait donc `x = Variable 1`, `y = Variable 2` et `color = Group`.
+- Dans notre illustration, nous avons deux variables numériques et une variable catégorielle.
+- Il est logique d'**associer les variables numériques** aux axes `x` et `y`, et d'**associer** la variable catégorielle à la couleur (`color`).
+- Le mapping esthétique serait donc `x = Variable 1`, `y = Variable 2` et `color = Group`.
 
 #### **Géométries** {.unnumbered}
 
 Le **type de graphique** que nous voulons afficher.
 
--   Ici, nous aimerions un nuage de points, nous choisissons donc une géométrie `point` avec `geom_point()`.
--   Il existe d'autres options : des lignes (`line`), des aires (`area`), des colonnes (`col`umn), des barres (`bar`)…
--   Le choix dépend de la **question de recherche** et de la **nature des variables**.
+- Ici, nous aimerions un nuage de points, nous choisissons donc une géométrie `point` avec `geom_point()`.
+- Il existe d'autres options : des lignes (`line`), des aires (`area`), des colonnes (`col`umn), des barres (`bar`)…
+- Le choix dépend de la **question de recherche** et de la **nature des variables**.
 
 #### **Thèmes** {.unnumbered}
 
@@ -180,14 +180,13 @@ head(finals)
 ```
 
 ::: callout-important
-
 Une chose importante à comprendre : `{ggplot2}` fonctionne avec des **couches d'information** (*layers*).
 
--   D'abord, nous créons un **graphique de base**, composé
-    -   des **données** et…
-    -   du **mapping esthétique**…
--   …auquel nous ajoutons ensuite les **géométries**…
--   …puis tous les éléments cosmétiques et les autres couches.
+- D'abord, nous créons un **graphique de base**, composé
+  - des **données** et…
+  - du **mapping esthétique**…
+- …auquel nous ajoutons ensuite les **géométries**…
+- …puis tous les éléments cosmétiques et les autres couches.
 :::
 
 # Nuages de points avec `geom_point()`
@@ -196,8 +195,8 @@ Une chose importante à comprendre : `{ggplot2}` fonctionne avec des **couches d
 
 Nous chargeons le package comme d'habitude, avec `library()`. Ensuite, pour construire la couche de base, nous appelons la fonction `ggplot()` :
 
--   Nous définissons les données avec `data = finals`.
--   Nous associons aussi l'axe `x` à `year` et l'axe `y` à `winner_age`.
+- Nous définissons les données avec `data = finals`.
+- Nous associons aussi l'axe `x` à `year` et l'axe `y` à `winner_age`.
 
 ::: callout-important
 Pour définir le **mapping esthétique**, nous utilisons la fonction `aes(...)`.
@@ -220,9 +219,9 @@ ggplot(data = finals, # les données
 
 > Rien encore ! Il manque la géométrie ! Mais quelle géométrie ajouter ?
 
--   Commençons par ajouter des **points** : nous voulons un point par observation.
--   Nous définissons la **géométrie** avec `geom_point()`…
-    -   …qu'il faut **ajouter à notre couche de base** avec le signe `+`.
+- Commençons par ajouter des **points** : nous voulons un point par observation.
+- Nous définissons la **géométrie** avec `geom_point()`…
+  - …qu'il faut **ajouter à notre couche de base** avec le signe `+`.
 
 ::: callout-warning
 Dans `{ggplot2}`, on ajoute les couches avec `+` et non avec `%>%` !
@@ -244,13 +243,13 @@ ggplot(data = finals, # les données
 
 > Malheureusement, pas très parlant.
 
--   Il n'y a **pas de tendance uniforme** dans l'âge des gagnantes WTA au fil du temps.
--   Mais nous voyons des **groupes** (*clusters*), c.-à-d. des zones où les points s'alignent.
+- Il n'y a **pas de tendance uniforme** dans l'âge des gagnantes WTA au fil du temps.
+- Mais nous voyons des **groupes** (*clusters*), c.-à-d. des zones où les points s'alignent.
 
 > Pourrait-il y avoir des tendances au sein d'un groupe ?
 
--   Pour le vérifier, nous pourrions associer une variable catégorielle à l'esthétique `color`.
--   Essayons avec `surface`, c.-à-d. si le match se joue sur terre battue (Clay), sur gazon (Grass) ou sur surface dure (Hard).
+- Pour le vérifier, nous pourrions associer une variable catégorielle à l'esthétique `color`.
+- Essayons avec `surface`, c.-à-d. si le match se joue sur terre battue (Clay), sur gazon (Grass) ou sur surface dure (Hard).
 
 ```{r}
 #| label: color-surface
@@ -271,7 +270,7 @@ ggplot(data = finals,
 >
 > Faut-il essayer une autre variable ? Ces groupes viennent peut-être de la **même joueuse qui gagne pendant plusieurs années** tout en **prenant de l'âge**.
 
--   Testons cette hypothèse en associant `winner_name` à l'esthétique `color`…
+- Testons cette hypothèse en associant `winner_name` à l'esthétique `color`…
 
 ```{r fig.width=10, fig.height= 5}
 #| label: color-winner
@@ -351,8 +350,8 @@ Représenter les données de cette façon donne une bonne indication sur l'exist
 
 Cependant, pour **confirmer** ces liens, **il faut plus de travail**.
 
--   Par exemple, un **test statistique** peut confirmer que les différences observées ne sont pas dues au hasard.
--   (Il faudrait alors tenir compte du fait que les observations ne sont pas entièrement indépendantes !)
+- Par exemple, un **test statistique** peut confirmer que les différences observées ne sont pas dues au hasard.
+- (Il faudrait alors tenir compte du fait que les observations ne sont pas entièrement indépendantes !)
 :::
 
 # Ajouter d'autres géométries `geoms_*`
@@ -361,8 +360,8 @@ Comme nous l'avons dit, `{ggplot2}` fonctionne avec des **couches d'information*
 
 Concentrons-nous sur la comparaison de l'âge des gagnantes selon la surface. Et si nous voulions donner plus d'information ? Par exemple :
 
-> -   Le nombre d'observations diffère-t-il d'une catégorie à l'autre ?
-> -   Y a-t-il des valeurs extrêmes ?
+> - Le nombre d'observations diffère-t-il d'une catégorie à l'autre ?
+> - Y a-t-il des valeurs extrêmes ?
 
 Ajoutons des ***points*** **par-dessus la boîte à moustaches**, avec la géométrie `geom_point()` :
 
@@ -381,8 +380,8 @@ ggplot(data = finals,
 
 Nous voilà face à un petit défi de visualisation : la **surimpression** (*overplotting*) !
 
--   La surimpression se produit quand **beaucoup de points sont dessinés les uns sur les autres, si bien qu'il est difficile de distinguer chaque point.**
--   Cela arrive souvent quand on dessine des points sur des variables catégorielles.
+- La surimpression se produit quand **beaucoup de points sont dessinés les uns sur les autres, si bien qu'il est difficile de distinguer chaque point.**
+- Cela arrive souvent quand on dessine des points sur des variables catégorielles.
 :::
 
 Pour éviter le piège de la surimpression, nous « secouons » les points au hasard le long de l'axe x. Pour cela, nous remplaçons la géométrie par `geom_jitter()` :
@@ -405,8 +404,8 @@ Nous pouvons ajuster un peu la dispersion en définissant sa largeur (`width`) :
 ggplot(data = finals,
        mapping = aes(x = surface,
                      y = winner_age)) +
-  geom_boxplot() +
-  geom_jitter(width = 0.2) # disperser un peu moins les points
+  geom_violin() +
+  geom_boxplot(width=0.3)
 ```
 
 ::: callout-note
@@ -454,11 +453,10 @@ Il est temps de lui donner un peu plus d'allure avec les outils de `{ggplot2}` !
 
 Pour l'instant, les barres suivent l'ordre alphabétique de `winner_name` :
 
--   C'est parce que `winner_name` est encore de type `character`,
--   et que `ggplot()` ne tient pas compte de notre appel à `arrange()` !
+- C'est parce que `winner_name` est encore de type `character`,
+- et que `ggplot()` ne tient pas compte de notre appel à `arrange()` !
 
 ::: callout-important
-
 Pour ordonner les barres, nous devons **créer un nouvel ordre** pour la variable `winner_name`. Pour cela, nous la transformons en `factor` : un type de variable **doté d'un ordre**. Dans le `{tidyverse}`, nous utilisons le package `{forcats}`.
 :::
 
@@ -497,9 +495,9 @@ ggplot(data = total_wins,
 
 Nous pouvons par exemple décider de **nous concentrer sur le top 20** :
 
--   Pour cela, nous utilisons `slice_max()`…
--   …et transmettons son résultat directement à `ggplot()`,
--   ce qui évite de modifier le tibble d'origine.
+- Pour cela, nous utilisons `slice_max()`…
+- …et transmettons son résultat directement à `ggplot()`,
+- ce qui évite de modifier le tibble d'origine.
 
 ```{r}
 #| label: top20-bars
@@ -542,10 +540,10 @@ total_wins %>%
 ::: callout-note
 `{ggplot2}` propose plusieurs thèmes prêts à l'emploi. Vous en trouverez une liste [ici](https://ggplot2.tidyverse.org/reference/ggtheme.html). En voici quelques-uns :
 
--   `theme_minimal()` : un bon point de départ
--   `theme_dark()` : si [vous le voulez plus sombre](https://youtu.be/v0nmHymgM7Y)
--   `theme_bw()` : pour tout voir en noir et blanc
--   `theme_classic()`
+- `theme_minimal()` : un bon point de départ
+- `theme_dark()` : si [vous le voulez plus sombre](https://youtu.be/v0nmHymgM7Y)
+- `theme_bw()` : pour tout voir en noir et blanc
+- `theme_classic()`
 
 Vous verrez les propositions en tapant `theme_` dans la console.
 :::
@@ -595,11 +593,11 @@ total_wins %>%
 ::: {.callout-warning collapse="true"}
 ## Que se passe-t-il ?
 
--   En plaçant `fill = "lightblue"` dans l'appel à `aes()`, nous **associons une variable** à la **valeur unique** `"lightblue"` au remplissage (`fill`) des barres…
--   …au lieu de le fixer comme **paramètre** !
--   `ggplot()` ne comprend pas que `"lightblue"` est en fait une couleur que nous voulons fixer.
--   Un mapping aurait du sens si nous voulions que la couleur des barres dépende du nombre de `total_wins`.
--   Cela crée une échelle de couleurs continue, appliquée à la couleur des barres.
+- En plaçant `fill = "lightblue"` dans l'appel à `aes()`, nous **associons une variable** à la **valeur unique** `"lightblue"` au remplissage (`fill`) des barres…
+- …au lieu de le fixer comme **paramètre** !
+- `ggplot()` ne comprend pas que `"lightblue"` est en fait une couleur que nous voulons fixer.
+- Un mapping aurait du sens si nous voulions que la couleur des barres dépende du nombre de `total_wins`.
+- Cela crée une échelle de couleurs continue, appliquée à la couleur des barres.
 
 ```{r}
 #| label: fill-total-wins
@@ -645,15 +643,15 @@ Nous pouvons nous demander :
 
 Comment le voir visuellement ?
 
--   D'abord, il nous faut un jeu de données qui **compte les finales gagnées par joueuse** et **par surface**…
--   …puis nous essayons d'associer `surface` à `fill`…
--   …mais attention ! Nous devons d'abord **réordonner les données**, pour que les barres soient de nouveau ordonnées.
+- D'abord, il nous faut un jeu de données qui **compte les finales gagnées par joueuse** et **par surface**…
+- …puis nous essayons d'associer `surface` à `fill`…
+- …mais attention ! Nous devons d'abord **réordonner les données**, pour que les barres soient de nouveau ordonnées.
 
 ::: callout-note
 ## D'autres astuces pratiques de `{forcats}`
 
--   `fct_infreq()` ordonne les facteurs par fréquence : appliqué à `winner_name`, il ordonne les joueuses sans qu'il soit besoin de compter !
--   `fct_rev()` inverse l'ordre, pour le rendre **décroissant**.
+- `fct_infreq()` ordonne les facteurs par fréquence : appliqué à `winner_name`, il ordonne les joueuses sans qu'il soit besoin de compter !
+- `fct_rev()` inverse l'ordre, pour le rendre **décroissant**.
 
 ```{r}
 #| label: wins-by-surface
@@ -699,8 +697,8 @@ total_wins_surface %>%
 
 > Nous voyons que :
 >
-> -   Steffi Graf a gagné plus que Serena Williams sur terre battue,
-> -   et Serena a gagné plus sur surface dure.
+> - Steffi Graf a gagné plus que Serena Williams sur terre battue,
+> - et Serena a gagné plus sur surface dure.
 >
 > Mais sur gazon, la comparaison est très difficile ! Il y a clairement mieux à faire.
 
@@ -785,16 +783,16 @@ ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 
 # Plus de ressources
 
--   [Le livre `{ggplot2}`](https://ggplot2-book.org)
--   [L'aide-mémoire `{ggplot2}`](https://ggplot2.tidyverse.org)
--   [Les extensions de `{ggplot2}`](https://exts.ggplot2.tidyverse.org)
--   [R for data science](https://r4ds.had.co.nz)
--   [Les solutions des exercices de R for data science](https://jrnold.github.io/r4ds-exercise-solutions/)
+- [Le livre `{ggplot2}`](https://ggplot2-book.org)
+- [L'aide-mémoire `{ggplot2}`](https://ggplot2.tidyverse.org)
+- [Les extensions de `{ggplot2}`](https://exts.ggplot2.tidyverse.org)
+- [R for data science](https://r4ds.had.co.nz)
+- [Les solutions des exercices de R for data science](https://jrnold.github.io/r4ds-exercise-solutions/)
 
 # C'est l'heure de l'exercice ! {.unnumbered}
 
 ::: {.callout-important icon="false"}
 ## Au travail !
 
-Ouvrez le notebook d'exercices `_exercises/exercise-notebook.qmd` et faites l'**[exercice 6](../_exercises/exercise-notebook.html#exercise-6)**. À tout de suite !
+Ouvrez le notebook d'exercices `_exercises/exercise-notebook.qmd` et faites l'[**exercice 6**](../_exercises/exercise-notebook.html#exercise-6). À tout de suite !
 :::
