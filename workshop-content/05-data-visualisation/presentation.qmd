@@ -40,8 +40,8 @@ options(pillar.max_extra_cols = 0)
 
 ![](images/fig-data-viz.png){fig-alt="The data science pipeline: import, then tidy, then a loop of transform, visualise and model, then communicate. The visualise step is highlighted: data visualisation helps to understand and communicate your insights." width="80%" fig-align="center"}
 
--   Part of the **exploration** loop
--   A **tool to communicate** results clearly
+- Part of the **exploration** loop
+- A **tool to communicate** results clearly
 
 . . .
 
@@ -51,24 +51,57 @@ Today: the **grammar of graphics**, with `{ggplot2}`.
 
 ## The grammar of graphics
 
--   **Rules** to build graphics, like the grammar of a language ([Wilkinson, 2005](https://link.springer.com/book/10.1007/0-387-28695-0 "The Grammar of Graphics, Wilkinson 2005"))
+::: content-box-marine
+The grammar of graphics is a series of **rules** used to build graphics, akin to the grammar of a language ([Wilkinson, 2005](https://link.springer.com/book/10.1007/0-387-28695-0 "The Grammar of Graphics, Wilkinson 2005"))
+:::
 
 . . .
 
-| Language   | Graphics       |
-|:-----------|:---------------|
-| nouns      | **data**       |
-| adjectives | **aesthetics** |
-| verbs      | **geometries** |
-| adverbs    | **themes**     |
+> "rules that create meaning"
+
+. . .
+
+::::: columns
+::: {.column width="50%"}
+| Word    | Part of speech       |
+|---------|----------------------|
+| rules   | **Noun**             |
+| that    | **Relative pronoun** |
+| create  | **Verb**             |
+| meaning | **Direct object**    |
+:::
+
+::: {.column .fragment width="50%"}
+
+
+| Graphics       |
+|:---------------|
+| **data**       |
+| **aesthetics** |
+| **geometries** |
+| **themes**     |
+
+:::
+:::::
 
 ## Data
 
-The **dataset** with the **variables to plot**. Our example: **Variable 1**, **Variable 2** and **Group** (A, B or C).
+::: content-box-marine
+The **dataset** with the **variables to plot**.
+:::
+
+**For example**: a dataset containing three columns
+
+- `Variable 1` (Numeric)
+- `Variable 2` (Numeric)
+- `Group` (Categorical:`"A"`, `"B"` or `"C"`).
+
+## Data
 
 ```{r}
 #| label: example-data
 #| include: false
+
 set.seed(123)
 example_data <-
   tibble(x = runif(100, 0, 10) %>% round(digits = 2)) %>%
@@ -85,6 +118,7 @@ example_data <-
   relocate(Group, `Variable 1`, `Variable 2`)
 ```
 
+
 ```{r}
 #| label: example-data-table
 #| echo: false
@@ -93,57 +127,121 @@ example_data %>%
   kable()
 ```
 
-## Aesthetics and aesthetic mappings
+## Aesthetics
 
--   **Aesthetics**: the features of the graphic that can depend on the data: `x`, `y`, `color`, `fill`, `size`...
--   **Aesthetic mapping**: which **variable** goes to which **aesthetic**
-
-. . .
-
-Here: two numeric variables on the axes, the categorical one on the colour:
-
--   `x = Variable 1`
--   `y = Variable 2`
--   `color = Group`
-
-## Geometries and themes
-
--   **Geometry**: the **type of plot**: `point`, `line`, `area`, `col`umn, `bar`...
-    -   Here, a scatterplot: `geom_point()`
-    -   It depends on the **question** and on the **nature of the variables**
+::: content-box-marine
+**Aesthetics** are the features of the graphic that can depend on the data
+:::
 
 . . .
 
--   **Theme**: all the purely cosmetic "ink": titles, axes...
+- `x`, `y` axes,
+- the `color` or the `size` of an element in the chart
+
+. . .
+
+![](images/anatomy-of-a-chart-v2-figure-3694.png){fig-align="center" width="70%"}
+
+## Aesthetic mappings
+
+::: content-box-marine
+**Aesthetic mappings** indicate which **variable** goes to which **aesthetic** element of the chart
+:::
+
+. . .
+
+**For example**:
+
+::: {.fragment}
+- Two numeric variables can be mapped to the axes
+  - `Variable 1` $\rightarrow$ `x`
+  - `Variable 2` $\rightarrow$ `y`
+:::
+::: {.fragment}
+- the categorical variable changes the colour
+  - `Group` $\rightarrow$ `color`
+:::
+
+## Geometries
+
+::: content-box-marine
+**Geometries** are the **type of plot** to use
+:::
+
+. . .
+
+| Geometry        | Type of plot |
+|-----------------|--------------|
+| `point`         | scatterplots |
+| `line`          | lineplot     |
+| `col`umn, `bar` | barplots     |
+| `area`          | area charts  |
+
+. . .
+
+
+**For example**: use a `point` geometry to build a **scatterplot**.
+
+. . .
+
+::: callout-tip
+The choice of the geometry depends on the **question** and on the **nature of the variables**
+:::
+
+## Themes
+
+::: content-box-marine
+all the purely cosmetic "ink" (titles, axes, captions, axes names etc) are the **Theme** of the chart
+:::
+
+. . .
+
+![](images/anatomy-of-a-chart-v3-figure-4051.png){fig-align="center" width="70%"}
 
 ## Putting it together
 
 ```{r}
 #| label: example-plot
-#| echo: false
+#| output-location: column-fragment
 #| fig-alt: "Scatter plot of Variable 2 against Variable 1, coloured by Group: in each of the groups A, B and C the points follow a straight line, but the lines differ between groups."
-example_data %>%
-  ggplot(aes(x = `Variable 1`, y = `Variable 2`, color = Group)) +
-  geom_point() +
-  theme_minimal()
+# Data
+example_data %>%     
+  ggplot() +
+  
+# Aesthetic mapping
+  aes(
+    x = `Variable 1`,
+    y = `Variable 2`, 
+    color = Group) + 
+
+# Geometry
+  geom_point() + 
+
+# Theme
+  theme_minimal() #<4>
 ```
 
--   A clear **linear link** between Variable 1 and Variable 2...
--   ...but it **differs across the groups**
+. . .
+
+> A clear **linear link** between Variable 1 and Variable 2, but it **differs across the groups**
 
 # `{ggplot2}` syntax {.subsection background-color="#425556"}
 
-## `{ggplot2}`: the grammar of graphics in R {.smaller}
+## `{ggplot2}`: the grammar of graphics in R {.center}
 
-::: callout-note
-It's even in the name! The 'gg' stands for... **g**rammar of **g**raphics.
+::: {.content-box-marine}
+`{ggplot2}` implements the grammar of graphics in R. 
+
+The 'gg' stands for... **g**rammar of **g**raphics. It's even in the name!
 :::
 
-Our data: women's Grand Slam singles matches, 1968–2021. We keep the **finals**.
+## 🎾 WTA Data (for the examples)
+
+👉 Our data: women's Grand Slam singles matches, 1968–2021. We keep the **finals**.
 
 ```{r}
 #| label: read-finals
-#| code-fold: true
+#| output-location: column-fragment
 library(readr)
 library(dplyr)
 
@@ -157,100 +255,149 @@ finals <- wta %>%
 head(finals)
 ```
 
-```{r}
-#| label: attach-ggplot2
-library(ggplot2)
-```
 
-## Plots are built in layers
+## A layered construction
 
-::: callout-important
-1.  A **base plot**: the **data** and the **aesthetic mappings**
+::: {.callout-tip}
+
+## `{ggplot2}` plots are built in layers
+
+::: {.incremental}
+
+1.  A **base plot**:  the **data** and the **aesthetic mappings**
+
 2.  **+** the **geometries**
-3.  **+** the cosmetic elements and other layers
+
+3.  **+** the **cosmetic elements** and other layers
 
 :::
 
-## Scatterplots with `geom_point()` {.smaller}
+:::
+
+![](images/basics-of-ggplot2-syntax-v2-figure-3688.png){width="70%" fig-align="center"}
+
+# Scatterplots with `geom_point()` {.subsection background-color="#425556"}
+
+## Scatterplots with `geom_point()` {.smaller auto-animate="true"}
 
 > *Is there a **trend in the age** of the tournament winners over the **years**?*
 
--   The base layer: `ggplot()`, with the `data` and the mapping `aes(x = year, y = winner_age)`
+- The base layer: `ggplot()`, with the `data` and the mapping `aes(x = year, y = winner_age)`
 
-::: callout-important
-To define the **aesthetic mapping**, we rely on the function `aes(...)`.
-:::
+. . .
+
 
 ```{r}
 #| label: base-plot-year-age
-#| output-location: column
+#| output-location: column-fragment
 #| fig-alt: "An empty plot: the axes year and winner_age are drawn, but there are no data points."
-# create a base plot
 
+# attach ggplot2
+library(ggplot2)
+
+# create a base plot
 ggplot(data = finals, # the data
-       mapping = aes(x = year, # mapping the x-axis to year
-                     y = winner_age) # mapping the y-axis to winner age
+       mapping = aes(
+        x = year, # mapping the x-axis to year
+        y = winner_age) # mapping the y-axis to winner age
        )
 ```
 
+
+::: callout-tip
+To define the **aesthetic mapping**, we rely on the function `aes(...)`.
+:::
+
+. . . 
+
 > Nothing yet! The geometry is missing! But what geometry should we add?
 
-## Adding a geometry with `+` {.smaller}
+## Adding a geometry with `+` {.smaller auto-animate="true"}
 
--   One **point** per observation: `geom_point()`, **added** to the base layer with `+`
+> *Is there a **trend in the age** of the tournament winners over the **years**?*
 
-::: callout-warning
-In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
-:::
+- One **point** per observation: `geom_point()`, **added** to the base layer with `+`
 
 ```{r}
 #| label: geom-point-year-age
-#| output-location: column
+#| output-location: column-fragment
+#| code-line-numbers: "7,8"
 #| fig-alt: "Scatter plot of winner age against year for the Grand Slam finals: no overall trend, but some points line up in short clusters."
-ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age)) +
+
+library(ggplot2)
+
+ggplot(data = finals, # the data
+       mapping = aes(
+        x = year, # mapping the x-axis to year
+        y = winner_age) # mapping the y-axis to winner age
+       ) + 
   geom_point() # our geometry of choice: points
 ```
 
--   **No uniform trend**, but **clusters** of aligned points
+::: callout-tip
+In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
+:::
 
-## Mapping a third variable to `color` {.smaller}
+. . . 
 
-> *Could there be trends within groups?* Let's colour by `surface`: Clay, Grass or Hard.
+> **No clear trend**, but **clusters** of aligned points. Could there be **trends within groups?**
+
+
+
+## Mapping a third variable to `color` {.smaller auto-animate="true"}
+
+> Could there be **trends within groups?**
+
+- Let's colour by `surface`: Clay, Grass or Hard.
 
 ```{r}
 #| label: color-surface
-#| output-location: column
+#| code-line-numbers: "7" 
+#| output-location: column-fragment
 #| fig-alt: "The same scatter plot of winner age against year, with the points coloured by surface (Clay, Grass, Hard): still no uniform trend."
+
+library(ggplot2)
+
 ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age,
-                     color = surface)) + # mapping surface to color
+       mapping = aes(
+        x = year,
+        y = winner_age,
+        color = surface)
+       ) + # mapping surface to color
   geom_point()
 ```
 
-Colours... but **still no uniform trend**.
+. . . 
 
-## One colour per player {.smaller}
+> Colours... but **still no clear trend**.
+
+## One colour per player {.smaller auto-animate="true"}
 
 > Are the clusters the **same player** winning over the years, and **getting older**?
 
 ```{r fig.width=10, fig.height= 5}
 #| label: color-winner
-#| output-location: column
+#| code-line-numbers: "7" 
+#| output-location: column-fragment
 #| fig-alt: "Scatter plot of winner age against year, with one colour per winner and no legend: points of the same colour line up, rising with the years."
+
+library(ggplot2)
+
 ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age,
-                     color = winner_name)) + #mapping winner name to color
+       mapping = aes(
+        x = year,
+        y = winner_age,
+        color = winner_name) # mapping winner name to color
+        ) + 
   geom_point() +
   theme(legend.position = "none") # 54 players: too many for a readable legend
 ```
 
+. . . 
+
 > Voilà! Most **points with the same color align**, indicating the source of the clusters.
 
-## What we learnt from the colours {.smaller}
+<!-- ## What we learnt from the colours {.smaller}
 
 ::: callout-note
 Often, mapping a third variable to an aesthetic such as color can help us discover trends within **groups**.
@@ -268,14 +415,26 @@ We have also **hidden the legend**: with 54 different players, nobody could matc
 ## The surface plot wasn't useless
 
 You can see that **before 1977** there are fewer blue points: tournaments were played only on *grass* or *clay*, and *hard* surfaces arrived only after that year.
+
+THIS SECTION IS BETTER IN THE HANDOUT 
+::: -->
+
+
+# Boxplots with `geom_boxplot()` {.subsection background-color="#425556"}
+
+## Boxplots with `geom_boxplot()` {.smaller auto-animate="true"}
+
+> *Is there a relationship between the `age` of a tournament winner and the `surface`?*
+
+- A new question, a new geometry: 
+
+::: {.content-box-marine}
+**Boxplots** summarise **distributions** from their quartiles
 :::
 
-## Boxplots with `geom_boxplot()` {.smaller}
+. . . 
 
-> *Is there a difference in the distribution of the tournament winners' age across the different surfaces?*
-
--   A new question, a new geometry: **boxplots** summarise **distributions**
--   First, the base plot, with `surface` on the `x` axis
+- First, the base plot, with `surface` on the `x` axis
 
 ```{r}
 #| label: base-plot-surface
@@ -286,11 +445,11 @@ ggplot(data = finals,
                      y = winner_age))
 ```
 
-## Adding `geom_boxplot()` {.smaller}
+## Adding `geom_boxplot()` {.smaller auto-animate="true"}
 
 ```{r}
 #| label: geom-boxplot
-#| output-location: column
+#| output-location: column-fragment
 #| fig-alt: "Boxplots of winner age by surface: the winners on grass tend to be older, the winners on hard courts younger."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -298,53 +457,62 @@ ggplot(data = finals,
   geom_boxplot() # adding the geometry to create the boxplot
 ```
 
-::: {.callout-note collapse="true"}
-## Where do the boxes come from?
+<!-- ::: {.callout-tip collapse="true"} -->
+<!-- ## Where do the boxes come from? -->
+<!--  -->
+<!-- The summary statistics needed to draw the boxplots (i.e. the median, the upper and lower quartiles) are computed from the "raw" data when drawing the plot. -->
+<!-- ::: -->
 
-The summary statistics needed to draw the boxplots (i.e. the median, the upper and lower quartiles) are computed from the "raw" data when drawing the plot.
-:::
+. . . 
 
-**Grass** favours **older** winners, **hard** surfaces **younger** ones.
+> **Grass** favours **older** winners, **hard** surfaces **younger** ones.
 
-## Exploring is not confirming
-
-::: callout-warning
-## Exploratory Data Analysis
-
--   Plots like these **explore** the links between variables
--   To **confirm** them, more work is needed, e.g. a **statistical test**
-
-:::
+<!-- ## ⚠️ Exploring is not confirming -->
+<!--  -->
+<!-- ::: callout-warning -->
+<!-- ## Exploratory Data Analysis -->
+<!--  -->
+<!-- - Plots like these **explore** the links between variables -->
+<!-- - To **confirm** them, more work is needed, e.g. a **statistical test** -->
+<!-- ::: -->
+ <!-- this is better in the handout -->
 
 # Adding more geometries `geoms_*` {.subsection background-color="#425556"}
 
 ## Layers on layers {.smaller}
 
-> *How many observations per surface? Any extreme values?* Let's add **points** on top of the boxplots.
+> *How many observations per surface? Any extreme values?* 
+
+. . . 
+
+👉 Let's add **points** on top of the boxplots.
 
 ```{r}
 #| label: boxplot-points
-#| output-location: column
+#| output-location: column-fragment
 #| fig-alt: "Boxplots of winner age by surface with the points drawn on top: the points pile up on a single vertical line per surface."
 ggplot(data = finals,
        mapping = aes(x = surface,
                      y = winner_age)) +
   geom_boxplot() +
-  geom_point() # added a new geometry representation for the same mappings
+  geom_point() # adding a new geometry for the same mappings
 ```
+
+. . .
 
 ::: callout-warning
 ## Careful with Overplotting!
 
 **Overplotting**: many points drawn **on top of each other**. Common with points over a categorical variable.
-
 :::
 
-## `geom_jitter()`: shake the points {.smaller}
+## `geom_jitter()`: shake the points {.smaller auto-animate="true"}
+
+👉 Let's shake things up a bit!
 
 ```{r}
 #| label: boxplot-jitter
-#| output-location: column
+#| output-location: column-fragment
 #| fig-alt: "Boxplots of winner age by surface with jittered points: the points are spread randomly sideways, so the individual observations are visible."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -353,13 +521,14 @@ ggplot(data = finals,
   geom_jitter() # added a jitter on top
 ```
 
-## Every layer has arguments {.smaller}
+## 💡 Every layer has arguments {.smaller auto-animate="true"}
 
-`width` sets how far the points spread
+The argument `width` sets how far the points spread
 
 ```{r}
 #| label: boxplot-jitter-width
-#| output-location: column
+#| output-location: column-fragment
+#| code-line-numbers: "5"
 #| fig-alt: "The same plot with a narrower jitter: the points stay close to their box."
 ggplot(data = finals,
        mapping = aes(x = surface,
@@ -368,20 +537,21 @@ ggplot(data = finals,
   geom_jitter(width = 0.2) # spreading the points a little less
 ```
 
-::: callout-note
+. . . 
+
+::: callout-tip
 ## Every layer has Arguments
 
-Every layer is a function, hence it has arguments!
-
+Every layer is a function, hence it has arguments
 :::
 
 # Case study: Customising a bar chart {.subsection background-color="#425556"}
 
 ## Who won the most Grand Slam titles? {.smaller}
 
-::: callout-note
-Let's use our **Data Wrangling** skills!
-:::
+Let's use our **Data Wrangling** skills to count the wins!
+
+. . .
 
 ```{r}
 #| label: count-total-wins
@@ -389,10 +559,7 @@ total_wins <- finals %>%
   group_by(winner_name) %>%
   summarise(total_wins = n(), .groups = "drop") %>%
   arrange(desc(total_wins))
-```
 
-```{r}
-#| label: total-wins-head
 slice_head(total_wins, n = 6)
 ```
 
@@ -412,12 +579,11 @@ Time to give it a bit more flair!
 
 ## Ordering the bars {.smaller}
 
--   Bars are in **alphabetical** order: `winner_name` is still `character`
--   `ggplot()` ignores our `arrange()`!
+- Bars are in **alphabetical** order: `winner_name` is still `character`
+- `ggplot()` ignores our `arrange()`!
 
-::: callout-important
+::: {.content-box-marine}
 Turn `winner_name` into a `factor`: a type **with an order**. In the `{tidyverse}`: the package `{forcats}`.
-
 :::
 
 ```{r}
@@ -433,7 +599,7 @@ total_wins <- total_wins %>%
 
 ```{r}
 #| label: total-wins-head-reordered
-slice_head(total_wins, n = 6)
+glimpse(total_wins)
 ```
 
 ## Ordered bars {.smaller}
@@ -452,8 +618,8 @@ ggplot(data = total_wins,
 
 ## Focusing our message {.smaller}
 
--   Keep the **top 20** with `slice_max()`, fed directly to `ggplot()`
--   The original tibble stays unchanged
+- Keep the **top 20** with `slice_max()`, fed directly to `ggplot()`
+- The original table stays unchanged
 
 ```{r}
 #| label: top20-bars
@@ -470,7 +636,7 @@ total_wins %>%
 
 ## Cosmetic time! {.smaller}
 
--   A title and axis names, with a `labs()` layer
+- A title and axis names, with a `labs()` layer
 
 ::: callout-note
 The `labs()` layer is part of the layers that help with the *cosmetic* aspects of the plot.
@@ -498,10 +664,10 @@ total_wins %>%
 ::: callout-note
 `{ggplot2}` has multiple ready-to-use themes. You can see a list of them [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Some of them are:
 
--   `theme_minimal()`: a good starting point
--   `theme_dark()`: if [you want it darker](https://youtu.be/v0nmHymgM7Y)
--   `theme_bw()`: to see things in black and white
--   `theme_classic()`
+- `theme_minimal()`: a good starting point
+- `theme_dark()`: if [you want it darker](https://youtu.be/v0nmHymgM7Y)
+- `theme_bw()`: to see things in black and white
+- `theme_classic()`
 
 You can see the proposals if you type `theme_` in your console.
 :::
@@ -555,11 +721,11 @@ total_wins %>%
 ::: {.callout-warning collapse="true"}
 ## What's going on?
 
--   When we place `fill = "lightblue"` in the call to `aes()`, we are **mapping a variable** with the **single value** `"lightblue"` to the `fill` of the bars...
--   ...and not setting it as a **parameter!**
--   `ggplot()` does not understand that `"lightblue"` is actually a color we want to set.
--   A mapping would make sense if we wanted the color of the bars to depend on the number of `total_wins`.
--   This creates a continuous color scale, applied to the color of the bars.
+- When we place `fill = "lightblue"` in the call to `aes()`, we are **mapping a variable** with the **single value** `"lightblue"` to the `fill` of the bars...
+- ...and not setting it as a **parameter!**
+- `ggplot()` does not understand that `"lightblue"` is actually a color we want to set.
+- A mapping would make sense if we wanted the color of the bars to depend on the number of `total_wins`.
+- This creates a continuous color scale, applied to the color of the bars.
 
 ```{r}
 #| label: fill-total-wins
@@ -582,7 +748,7 @@ total_wins %>%
 
 ## Setting a colour: outside `aes()` {.smaller}
 
--   To give **all** the bars one colour, set it **inside the `geom_*()`**, outside `aes()`
+- To give **all** the bars one colour, set it **inside the `geom_*()`**, outside `aes()`
 
 ```{r}
 #| label: fill-outside-aes
@@ -605,14 +771,14 @@ total_wins %>%
 
 ## Did Serena win more than Steffi on all surfaces? {.smaller}
 
--   Count the finals won **by player** and **by surface**, then map `surface` to `fill`
--   But first, **reorder** the players again
+- Count the finals won **by player** and **by surface**, then map `surface` to `fill`
+- But first, **reorder** the players again
 
 ::: callout-note
 ## Other nifty `{forcats}` tricks
 
--   `fct_infreq()` orders factors by frequency: applied to `winner_name`, it orders the players without the need to count!
--   `fct_rev()` reverses the order, to make it **descending**.
+- `fct_infreq()` orders factors by frequency: applied to `winner_name`, it orders the players without the need to count!
+- `fct_rev()` reverses the order, to make it **descending**.
 
 ```{r}
 #| label: wins-by-surface
@@ -659,18 +825,17 @@ total_wins_surface %>%
   theme_minimal()
 ```
 
--   Steffi Graf won more on **clay**, Serena more on **hard** surfaces
--   But **grass** is very hard to compare!
+- Steffi Graf won more on **clay**, Serena more on **hard** surfaces
+- But **grass** is very hard to compare!
 
 # Creating multiple mini-plots {.subsection background-color="#425556"}
 
 ## One mini-plot per surface: `facet_wrap()` {.smaller}
 
--   Compare the players **surface by surface**
--   Mini-plots are called **facets**: the faceting variable goes into `vars()`
+- Compare the players **surface by surface**
+- Mini-plots are called **facets**: the faceting variable goes into `vars()`
 
 ::: callout-important
-
 ```{r}
 #| label: facets-by-surface
 #| output-location: column
@@ -727,7 +892,7 @@ total_wins_surface %>%
 
 ## `ggsave()` saves the last plot
 
--   Just give it a **file name**:
+- Just give it a **file name**:
 
 ```{r}
 #| label: ggsave-default
@@ -735,7 +900,7 @@ total_wins_surface %>%
 ggsave("wta_wins_by_surface.png")
 ```
 
--   The size follows your **Plots pane**, so it changes between computers. Fix it with `width` and `height` (in inches):
+- The size follows your **Plots pane**, so it changes between computers. Fix it with `width` and `height` (in inches):
 
 ```{r}
 #| label: ggsave-7x5
@@ -747,11 +912,11 @@ ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 
 ## To go further
 
--   [`{ggplot2}` book](https://ggplot2-book.org)
--   [`{ggplot2}` cheatsheet](https://ggplot2.tidyverse.org)
--   [`{ggplot2}` extensions](https://exts.ggplot2.tidyverse.org)
--   [R for data science](https://r4ds.had.co.nz)
--   [R for data science exercise solutions](https://jrnold.github.io/r4ds-exercise-solutions/)
+- [`{ggplot2}` book](https://ggplot2-book.org)
+- [`{ggplot2}` cheatsheet](https://ggplot2.tidyverse.org)
+- [`{ggplot2}` extensions](https://exts.ggplot2.tidyverse.org)
+- [R for data science](https://r4ds.had.co.nz)
+- [R for data science exercise solutions](https://jrnold.github.io/r4ds-exercise-solutions/)
 
 # Exercise Time! {.unnumbered .subsection background-color="#425556"}
 
@@ -760,5 +925,5 @@ ggsave("wta_wins_by_surface_7x5.png", width = 7, height = 5)
 ::: {.callout-important icon="false"}
 ## Time to work!
 
-Open the exercise notebook `_exercises/exercise-notebook.qmd` and do **[Exercise 6](../_exercises/exercise-notebook.html#exercise-6)**. See you there!
+Open the exercise notebook `_exercises/exercise-notebook.qmd` and do [**Exercise 6**](../_exercises/exercise-notebook.html#exercise-6). See you there!
 :::

@@ -125,10 +125,21 @@ With these elements, let's make a plot.
 #| label: example-plot
 #| echo: false
 #| fig-alt: "Scatter plot of Variable 2 against Variable 1, coloured by Group: in each of the groups A, B and C the points follow a straight line, but the lines differ between groups."
+# Data
 example_data %>%
-  ggplot(aes(x = `Variable 1`, y = `Variable 2`, color = Group)) +
+  ggplot() +
+
+# Aesthetic mapping
+  aes(
+    x = `Variable 1`,
+    y = `Variable 2`,
+    color = Group) +
+
+# Geometry
   geom_point() +
-  theme_minimal()
+
+# Theme
+  theme_minimal() #<4>
 ```
 
 From this plot, we can see that:
@@ -164,13 +175,6 @@ finals <- wta %>%
 head(finals)
 ```
 
-We attach the package as usual, using `library()`:
-
-```{r}
-#| label: attach-ggplot2
-library(ggplot2)
-```
-
 ::: callout-important
 
 One important thing to understand is that `{ggplot2}` works with **layers of information**.
@@ -182,11 +186,11 @@ One important thing to understand is that `{ggplot2}` works with **layers of inf
 -   ...and then all the cosmetic elements and other layers.
 :::
 
-## Scatterplots with `geom_point()`
+# Scatterplots with `geom_point()`
 
 > *Is there a **trend in the age** of the tournament winners over the **years**?*
 
-To construct the base layer, we make a call to the `ggplot()` function:
+We attach the package as usual, using `library()`. Then, to construct the base layer, we make a call to the `ggplot()` function:
 
 -   We define the `data` using `data = finals`.
 -   We also map the `x` axis to `year` and the `y` axis to `winner_age`.
@@ -198,11 +202,15 @@ To define the **aesthetic mapping**, we rely on the function `aes(...)`.
 ```{r}
 #| label: base-plot-year-age
 #| fig-alt: "An empty plot: the axes year and winner_age are drawn, but there are no data points."
-# create a base plot
 
+# attach ggplot2
+library(ggplot2)
+
+# create a base plot
 ggplot(data = finals, # the data
-       mapping = aes(x = year, # mapping the x-axis to year
-                     y = winner_age) # mapping the y-axis to winner age
+       mapping = aes(
+        x = year, # mapping the x-axis to year
+        y = winner_age) # mapping the y-axis to winner age
        )
 ```
 
@@ -219,9 +227,14 @@ In `{ggplot2}` we use the `+` instead of the `%>%` sign to add layers!
 ```{r}
 #| label: geom-point-year-age
 #| fig-alt: "Scatter plot of winner age against year for the Grand Slam finals: no overall trend, but some points line up in short clusters."
-ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age)) +
+
+library(ggplot2)
+
+ggplot(data = finals, # the data
+       mapping = aes(
+        x = year, # mapping the x-axis to year
+        y = winner_age) # mapping the y-axis to winner age
+       ) +
   geom_point() # our geometry of choice: points
 ```
 
@@ -238,10 +251,15 @@ ggplot(data = finals,
 ```{r}
 #| label: color-surface
 #| fig-alt: "The same scatter plot of winner age against year, with the points coloured by surface (Clay, Grass, Hard): still no uniform trend."
+
+library(ggplot2)
+
 ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age,
-                     color = surface)) + # mapping surface to color
+       mapping = aes(
+        x = year,
+        y = winner_age,
+        color = surface)
+       ) + # mapping surface to color
   geom_point()
 ```
 
@@ -254,10 +272,15 @@ ggplot(data = finals,
 ```{r fig.width=10, fig.height= 5}
 #| label: color-winner
 #| fig-alt: "Scatter plot of winner age against year, with one colour per winner and no legend: points of the same colour line up, rising with the years."
+
+library(ggplot2)
+
 ggplot(data = finals,
-       mapping = aes(x = year,
-                     y = winner_age,
-                     color = winner_name)) + #mapping winner name to color
+       mapping = aes(
+        x = year,
+        y = winner_age,
+        color = winner_name) # mapping winner name to color
+        ) +
   geom_point() +
   theme(legend.position = "none") # 54 players: too many for a readable legend
 ```
@@ -282,7 +305,7 @@ We have also **hidden the legend**: with 54 different players, nobody could matc
 You can see that **before 1977** there are fewer blue points: tournaments were played only on *grass* or *clay*, and *hard* surfaces arrived only after that year.
 :::
 
-## Boxplots with `geom_boxplot()`
+# Boxplots with `geom_boxplot()`
 
 > *Is there a difference in the distribution of the tournament winners' age across the different surfaces?*
 
@@ -346,7 +369,7 @@ ggplot(data = finals,
        mapping = aes(x = surface,
                      y = winner_age)) +
   geom_boxplot() +
-  geom_point() # added a new geometry representation for the same mappings
+  geom_point() # adding a new geometry for the same mappings
 ```
 
 ::: callout-warning
@@ -394,7 +417,7 @@ Let's ask a different question:
 
 > *Who won the most Grand Slam titles*?
 
-Let's start by creating the dataset where we count the finals won by each player.
+Let's start by creating the dataset where we count the finals won by each player, and look at its first rows.
 
 ::: callout-note
 Let's use our **Data Wrangling** skills!
@@ -406,12 +429,7 @@ total_wins <- finals %>%
   group_by(winner_name) %>%
   summarise(total_wins = n(), .groups = "drop") %>%
   arrange(desc(total_wins))
-```
 
-Our dataset looks like this:
-
-```{r}
-#| label: total-wins-head
 slice_head(total_wins, n = 6)
 ```
 
@@ -451,11 +469,11 @@ total_wins <- total_wins %>%
   mutate(winner_name = fct_reorder(winner_name, total_wins))
 ```
 
-See that `winner_name` is now stored as a factor (`fct`)!
+With `glimpse()`, see that `winner_name` is now stored as a factor (`fct`)!
 
 ```{r}
 #| label: total-wins-head-reordered
-slice_head(total_wins, n = 6)
+glimpse(total_wins)
 ```
 
 Let's plot again...

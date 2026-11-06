@@ -77,6 +77,9 @@ read_skeleton <- function(path) {
         code <- gsub("\"[^\"]*\"", "\"\"", code)
         code <- gsub("'[^']*'", "''", code)
         code <- gsub("`[^`]*`", "``", code)
+        # trailing comments that contain words (`geom_point() # points`); strings
+        # are already blanked, so a `#` left here starts a comment
+        code <- sub("\\s*#[^#]*[[:alpha:]][^#]*$", "", code)
         code <- trimws(code)
         code <- code[nzchar(code)]
         add(start, paste0("chunk `", label, "`: ", paste(code, collapse = " | ")))
